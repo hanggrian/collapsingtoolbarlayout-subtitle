@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
     tools:context="io.github.hendraanggrian.subtitlecollapsingtoolbarlayoutexample.MainActivity">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Send extraField"/>
-</LinearLayout>
+    <io.github.hendraanggrian.subtitlecollapsingtoolbarlayout.SubtitleCollapsingToolbarLayout
+        android:layout_width="match_parent"
+        android:layout_height="256dp">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.design.widget.AppBarLayout>
+    </io.github.hendraanggrian.subtitlecollapsingtoolbarlayout.SubtitleCollapsingToolbarLayout>
+</android.support.design.widget.CoordinatorLayout>

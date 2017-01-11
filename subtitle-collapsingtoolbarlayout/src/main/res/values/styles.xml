@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SubtitleCollapsingToolbarLayout"
+           parent="@style/Widget.Design.CollapsingToolbar">
+    </style>
+
+    <style name="CollapsedSubtitleAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="ExpandedSubtitleAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">20sp</item>
+    </style>
+</resources>

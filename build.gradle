@@ -20,7 +20,7 @@ task clean(type: Delete) {
 
 ext.android = [
         sdk        : [
-                'min'   : 9,
+                'min'   : 11,
                 'target': 25
         ],
         buildTools: '25.0.2',
@@ -36,7 +36,8 @@ ext.deps = [
                 'com.android.support.test.espresso:espresso-core:2.2.2'
         ],
         main       : [
-                'com.android.support:support-v4:25.1.0'
+                'com.android.support:appcompat-v7:25.1.0',
+                'com.android.support:design:25.1.0'
         ]
 ]
 
