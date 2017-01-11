@@ -1,2 +1,4 @@
-# subtitle-collapsingtoolbarlayout
+SubtitleCollapsingToolbarLayout
+-------------------------------
+
 Stock CollapsingToolbarLayout with subtitle.

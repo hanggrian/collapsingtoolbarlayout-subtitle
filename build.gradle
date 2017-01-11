@@ -1,0 +1,52 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.novoda:bintray-release:0.3.4'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext.android = [
+        sdk        : [
+                'min'   : 9,
+                'target': 25
+        ],
+        buildTools: '25.0.2',
+        testRunner: 'android.support.test.runner.AndroidJUnitRunner'
+]
+
+ext.deps = [
+        test       : [
+                'junit:junit:4.12'
+        ],
+        androidTest: [
+                'com.android.support.test:runner:0.5',
+                'com.android.support.test.espresso:espresso-core:2.2.2'
+        ],
+        main       : [
+                'com.android.support:support-v4:25.1.0'
+        ]
+]
+
+ext.bintray = [
+        user    : 'hendraanggrian',
+        group   : 'io.github.hendraanggrian',
+        artifact: 'subtitle-collapsingtoolbarlayout',
+        version : '0.1.0',
+        desc    : 'Stock CollapsingToolbarLayout with subtitle support.',
+        website : 'https://github.com/hendraanggrian/subtitle-collapsingtoolbarlayout'
+]
+
+//$ ./gradlew bintrayUpload -PbintrayUser=hendraanggrian -PbintrayKey= -PdryRun=false

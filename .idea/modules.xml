@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/subtitle-collapsingtoolbarlayout.iml" filepath="$PROJECT_DIR$/subtitle-collapsingtoolbarlayout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/subtitle-collapsingtoolbarlayout-example/subtitle-collapsingtoolbarlayout-example.iml" filepath="$PROJECT_DIR$/subtitle-collapsingtoolbarlayout-example/subtitle-collapsingtoolbarlayout-example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/subtitle-collapsingtoolbarlayout/subtitle-collapsingtoolbarlayout-subtitle-collapsingtoolbarlayout.iml" filepath="$PROJECT_DIR$/subtitle-collapsingtoolbarlayout/subtitle-collapsingtoolbarlayout-subtitle-collapsingtoolbarlayout.iml" />
+    </modules>
+  </component>
+</project>
