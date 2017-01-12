@@ -22,9 +22,7 @@ import android.os.SystemClock;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 
-/**
- * A 'fake' ValueAnimator implementation which uses a Runnable.
- */
+
 class ValueAnimatorCompatImplEclairMr1 extends ValueAnimatorCompat.Impl {
 
     private static final int HANDLER_DELAY = 10;
@@ -46,7 +44,7 @@ class ValueAnimatorCompatImplEclairMr1 extends ValueAnimatorCompat.Impl {
     @Override
     public void start() {
         if (mIsRunning) {
-            // If we're already running, ignore
+
             return;
         }
 
@@ -108,7 +106,7 @@ class ValueAnimatorCompatImplEclairMr1 extends ValueAnimatorCompat.Impl {
             mIsRunning = false;
             sHandler.removeCallbacks(mRunnable);
 
-            // Set our animated fraction to 1
+
             mAnimatedFraction = 1f;
 
             if (mUpdateListener != null) {
@@ -124,26 +122,26 @@ class ValueAnimatorCompatImplEclairMr1 extends ValueAnimatorCompat.Impl {
 
     private void update() {
         if (mIsRunning) {
-            // Update the animated fraction
+
             final long elapsed = SystemClock.uptimeMillis() - mStartTime;
             final float linearFraction = elapsed / (float) mDuration;
             mAnimatedFraction = mInterpolator != null
                     ? mInterpolator.getInterpolation(linearFraction)
                     : linearFraction;
 
-            // If we're running, dispatch tp the listener
+
             if (mUpdateListener != null) {
                 mUpdateListener.onAnimationUpdate();
             }
 
-            // Check to see if we've passed the animation duration
+
             if (SystemClock.uptimeMillis() >= (mStartTime + mDuration)) {
                 mIsRunning = false;
             }
         }
 
         if (mIsRunning) {
-            // If we're still running, post another delayed runnable
+
             sHandler.postDelayed(mRunnable, HANDLER_DELAY);
         }
     }

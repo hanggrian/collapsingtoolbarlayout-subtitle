@@ -27,9 +27,6 @@ public class AnimationUtils {
     public static final Interpolator LINEAR_OUT_SLOW_IN_INTERPOLATOR = new LinearOutSlowInInterpolator();
     public static final Interpolator DECELERATE_INTERPOLATOR = new DecelerateInterpolator();
 
-    /**
-     * Linear interpolation between {@code startValue} and {@code endValue} by {@code fraction}.
-     */
     public static float lerp(float startValue, float endValue, float fraction) {
         return startValue + (fraction * (endValue - startValue));
     }

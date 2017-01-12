@@ -18,19 +18,11 @@ package io.github.hendraanggrian.subtitlecollapsingtoolbarlayout.internal;
 
 import android.view.animation.Interpolator;
 
-/**
- * This class offers a very small subset of {@code ValueAnimator}'s API, but works pre-v11 too.
- * <p>
- * You shouldn't not instantiate this directly. Instead use {@code ViewUtils.createAnimator()}.
- */
+
 public class ValueAnimatorCompat {
 
     public interface AnimatorUpdateListener {
-        /**
-         * <p>Notifies the occurrence of another frame of the animation.</p>
-         *
-         * @param animator The animation which was repeated.
-         */
+        
         void onAnimationUpdate(ValueAnimatorCompat animator);
     }
 

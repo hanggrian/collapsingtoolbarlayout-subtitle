@@ -19,14 +19,6 @@ package io.github.hendraanggrian.subtitlecollapsingtoolbarlayout.internal;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
 
-/**
- * Utility helper for moving a {@link View} around using
- * {@link View#offsetLeftAndRight(int)} and
- * {@link View#offsetTopAndBottom(int)}.
- * <p>
- * Also the setting of absolute offsets (similar to translationX/Y), rather than additive
- * offsets.
- */
 public class ViewOffsetHelper {
 
     private final View mView;
@@ -39,10 +31,7 @@ public class ViewOffsetHelper {
     }
 
     public void onViewLayout() {
-        // Now grab the intended top
         mLayoutTop = mView.getTop();
-
-        // And offset it as needed
         updateOffsets();
     }
 
@@ -50,12 +39,6 @@ public class ViewOffsetHelper {
         ViewCompat.offsetTopAndBottom(mView, mOffsetTop - (mView.getTop() - mLayoutTop));
     }
 
-    /**
-     * Set the top and bottom offset for this {@link ViewOffsetHelper}'s view.
-     *
-     * @param offset the offset in px.
-     * @return true if the offset has changed
-     */
     public boolean setTopAndBottomOffset(int offset) {
         if (mOffsetTop != offset) {
             mOffsetTop = offset;

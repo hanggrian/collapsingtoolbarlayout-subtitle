@@ -17,8 +17,11 @@
 package io.github.hendraanggrian.subtitlecollapsingtoolbarlayout.internal;
 
 import android.animation.ValueAnimator;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.view.animation.Interpolator;
 
+@RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
 class ValueAnimatorCompatImplHoneycombMr1 extends ValueAnimatorCompat.Impl {
 
     final ValueAnimator mValueAnimator;
@@ -72,6 +75,7 @@ class ValueAnimatorCompatImplHoneycombMr1 extends ValueAnimatorCompat.Impl {
         mValueAnimator.cancel();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB_MR1)
     @Override
     public float getAnimatedFraction() {
         return mValueAnimator.getAnimatedFraction();

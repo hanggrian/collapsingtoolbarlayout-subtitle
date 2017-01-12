@@ -275,7 +275,7 @@ final class SubtitleCollapsingTextHelper {
         recalculate();
     }
 
-    // begin modification
+    //region subtitle appearance setters
     void setCollapsedSubtitleAppearance(int resId) {
         TypedArray a = mView.getContext().obtainStyledAttributes(resId, R.styleable.TextAppearance);
         if (a.hasValue(R.styleable.TextAppearance_android_textColor)) {
@@ -284,6 +284,7 @@ final class SubtitleCollapsingTextHelper {
         if (a.hasValue(R.styleable.TextAppearance_android_textSize)) {
             mCollapsedSubSize = a.getDimensionPixelSize(R.styleable.TextAppearance_android_textSize, (int) mCollapsedSubSize);
         }
+        a.recycle();
     }
 
     void setExpandedSubtitleAppearance(int resId) {
@@ -294,9 +295,9 @@ final class SubtitleCollapsingTextHelper {
         if (a.hasValue(R.styleable.TextAppearance_android_textSize)) {
             mExpandedSubSize = a.getDimensionPixelSize(R.styleable.TextAppearance_android_textSize, (int) mExpandedSubSize);
         }
-
+        a.recycle();
     }
-// end modification
+    //endregion
 
     private Typeface readFontFamilyTypeface(int resId) {
         final TypedArray a = mView.getContext().obtainStyledAttributes(resId, new int[]{android.R.attr.fontFamily});
