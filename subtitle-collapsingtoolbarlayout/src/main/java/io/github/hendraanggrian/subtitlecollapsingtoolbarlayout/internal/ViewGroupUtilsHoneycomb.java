@@ -19,6 +19,8 @@ package io.github.hendraanggrian.subtitlecollapsingtoolbarlayout.internal;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -28,6 +30,7 @@ class ViewGroupUtilsHoneycomb {
     private static final ThreadLocal<RectF> sRectF = new ThreadLocal<>();
     private static final Matrix IDENTITY = new Matrix();
 
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public static void offsetDescendantRect(ViewGroup group, View child, Rect rect) {
         Matrix m = sMatrix.get();
         if (m == null) {
@@ -49,6 +52,7 @@ class ViewGroupUtilsHoneycomb {
                 (int) (rectF.right + 0.5f), (int) (rectF.bottom + 0.5f));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     static void offsetDescendantMatrix(ViewParent target, View view, Matrix m) {
         final ViewParent parent = view.getParent();
         if (parent instanceof View && parent != target) {

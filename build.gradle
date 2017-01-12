@@ -20,11 +20,11 @@ task clean(type: Delete) {
 
 ext.android = [
         sdk        : [
-                'min'   : 11,
+                'min'   : 9,
                 'target': 25
         ],
-        buildTools: '25.0.2',
-        testRunner: 'android.support.test.runner.AndroidJUnitRunner'
+        buildTools : '25.0.2',
+        testRunner : 'android.support.test.runner.AndroidJUnitRunner'
 ]
 
 ext.deps = [
@@ -46,7 +46,7 @@ ext.bintray = [
         group   : 'io.github.hendraanggrian',
         artifact: 'subtitle-collapsingtoolbarlayout',
         version : '0.1.0',
-        desc    : 'Stock CollapsingToolbarLayout with subtitle support.',
+        desc    : 'Standard CollapsingToolbarLayout with subtitle support.',
         website : 'https://github.com/hendraanggrian/subtitle-collapsingtoolbarlayout'
 ]
 

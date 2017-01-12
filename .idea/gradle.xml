@@ -9,7 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/subtitle-collapsingtoolbarlayout" />
-            <option value="$PROJECT_DIR$/subtitle-collapsingtoolbarlayout-example" />
+            <option value="$PROJECT_DIR$/subtitle-collapsingtoolbarlayout-demo" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

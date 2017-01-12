@@ -18,6 +18,7 @@ package io.github.hendraanggrian.subtitlecollapsingtoolbarlayout.internal;
 
 import android.graphics.Rect;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -39,6 +40,7 @@ public class ViewGroupUtils {
     }
 
     private static class ViewGroupUtilsImplHoneycomb implements ViewGroupUtilsImpl {
+        @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
         @Override
         public void offsetDescendantRect(ViewGroup parent, View child, Rect rect) {
             ViewGroupUtilsHoneycomb.offsetDescendantRect(parent, child, rect);

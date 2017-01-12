@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">SubtitleCollapsingToolbarLayout Demo</string>
+
+    <string name="q1">What is it?</string>
+    <string name="a1">Just another CollapsingToolbarLayout.</string>
+
+    <string name="q2">Does it cure cancer?</string>
+    <string name="a2">No, but it supports subtitle in a CollapsingToolbarLayout so we\'re making progress here.</string>
+
+    <string name="q3">Does it work on my mom\'s HTC Dream?</string>
+    <string name="a3">No, the minimum SDK is the same as Android Support Design Library (API level 9 Gingerbread) so your uncle\'s Nexus S can use it.</string>
+
+    <string name="q4">I don\'t like the name, it is too long for such a simple thing.</string>
+    <string name="a4">Me too.</string>
+</resources>

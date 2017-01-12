@@ -2,7 +2,7 @@
 <resources>
     <declare-styleable name="SubtitleCollapsingToolbarLayout">
         <attr name="subtitle"/>
-        <attr name="collapsedSubtitleAppearance" format="reference"/>
-        <attr name="expandedSubtitleAppearance" format="reference"/>
+        <attr name="collapsedSubtitleTextAppearance" format="reference"/>
+        <attr name="expandedSubtitleTextAppearance" format="reference"/>
     </declare-styleable>
 </resources>

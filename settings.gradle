@@ -1,1 +1,1 @@
-include ':subtitle-collapsingtoolbarlayout', ':subtitle-collapsingtoolbarlayout-example'
+include ':subtitle-collapsingtoolbarlayout', ':subtitle-collapsingtoolbarlayout-demo'
