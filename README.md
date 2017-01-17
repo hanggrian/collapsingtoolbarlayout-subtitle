@@ -1,5 +1,5 @@
 ![logo](/art/logo.png) SubtitleCollapsingToolbarLayout
-------------------------------------------------------
+======================================================
 
 Standard CollapsingToolbarLayout with subtitle support.
 
