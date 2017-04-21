@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:2.3.1'
         classpath 'com.novoda:bintray-release:0.3.4'
     }
 }
@@ -18,27 +18,29 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-ext.android = [
-        sdk        : [
+ext.config = [
+        sdk       : [
                 'min'   : 9,
                 'target': 25
         ],
-        buildTools : '25.0.2',
-        testRunner : 'android.support.test.runner.AndroidJUnitRunner'
+        buildTools: '25.0.2',
+        testRunner: 'android.support.test.runner.AndroidJUnitRunner',
 ]
 
+def versionJunit = '4.12'
+def versionTestRunner = '0.5'
+def versionTestEspresso = '2.2.2'
+def versionSupport = '25.3.1'
+
 ext.deps = [
-        test       : [
-                'junit:junit:4.12'
-        ],
-        androidTest: [
-                'com.android.support.test:runner:0.5',
-                'com.android.support.test.espresso:espresso-core:2.2.2'
-        ],
-        main       : [
-                'com.android.support:appcompat-v7:25.1.0',
-                'com.android.support:design:25.1.0'
-        ]
+        // test
+        junit           : "junit:junit:$versionJunit",
+        // android test
+        testRunner      : "com.android.support.test:runner:$versionTestRunner",
+        testEspresso    : "com.android.support.test.espresso:espresso-core:$versionTestEspresso",
+        // android
+        supportAppcompat: "com.android.support:appcompat-v7:$versionSupport",
+        supportDesign   : "com.android.support:design:$versionSupport"
 ]
 
 ext.bintray = [

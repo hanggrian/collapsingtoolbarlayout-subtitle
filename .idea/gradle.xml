@@ -8,8 +8,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/subtitle-collapsingtoolbarlayout" />
-            <option value="$PROJECT_DIR$/subtitle-collapsingtoolbarlayout-demo" />
+            <option value="$PROJECT_DIR$/collapsingtoolbarlayout-subtitle" />
+            <option value="$PROJECT_DIR$/example" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

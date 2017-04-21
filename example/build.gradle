@@ -1,0 +1,35 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion config.sdk.target
+    buildToolsVersion config.buildTools
+    defaultConfig {
+        applicationId 'com.example.collapsingtoolbarlayoutsubtitle'
+        versionCode 1
+        versionName '1.0'
+        minSdkVersion config.sdk.min
+        targetSdkVersion config.sdk.target
+        testInstrumentationRunner config.testRunner
+    }
+    buildTypes {
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    testCompile deps.junit
+    androidTestCompile(deps.testRunner) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestCompile(deps.testEspresso) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+
+    compile project(':collapsingtoolbarlayout-subtitle')
+}

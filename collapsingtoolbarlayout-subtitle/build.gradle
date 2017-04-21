@@ -1,0 +1,34 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+android {
+    compileSdkVersion config.sdk.target
+    buildToolsVersion config.buildTools
+    defaultConfig {
+        minSdkVersion config.sdk.min
+        targetSdkVersion config.sdk.target
+        testInstrumentationRunner config.testRunner
+    }
+}
+
+dependencies {
+    testCompile deps.junit
+    androidTestCompile(deps.testRunner) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestCompile(deps.testEspresso) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+
+    compile deps.supportAppcompat
+    compile deps.supportDesign
+}
+
+publish {
+    userOrg = bintray.user
+    groupId = bintray.group
+    artifactId = bintray.artifact
+    publishVersion = bintray.version
+    desc = bintray.desc
+    website = bintray.website
+}
