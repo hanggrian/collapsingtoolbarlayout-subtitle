@@ -20,7 +20,7 @@ task clean(type: Delete) {
 
 ext.config = [
         sdk       : [
-                'min'   : 9,
+                'min'   : 16,
                 'target': 25
         ],
         buildTools: '25.0.2',
@@ -45,11 +45,11 @@ ext.deps = [
 
 ext.bintray = [
         user    : 'hendraanggrian',
-        group   : 'io.github.hendraanggrian',
-        artifact: 'subtitle-collapsingtoolbarlayout',
-        version : '0.1.0',
+        group   : 'com.hendraanggrian',
+        artifact: 'collapsingtoolbarlayout-subtitle',
+        version : '0.2.0',
         desc    : 'Standard CollapsingToolbarLayout with subtitle support.',
-        website : 'https://github.com/hendraanggrian/subtitle-collapsingtoolbarlayout'
+        website : 'https://github.com/hendraanggrian/collapsingtoolbarlayout-subtitle'
 ]
 
 //$ ./gradlew bintrayUpload -PbintrayUser=hendraanggrian -PbintrayKey= -PdryRun=false

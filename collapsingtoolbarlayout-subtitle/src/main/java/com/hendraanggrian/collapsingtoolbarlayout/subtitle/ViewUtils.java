@@ -16,22 +16,16 @@
 
 package com.hendraanggrian.collapsingtoolbarlayout.subtitle;
 
-import android.os.Build;
-
 public class ViewUtils {
 
     static final ValueAnimatorCompat.Creator DEFAULT_ANIMATOR_CREATOR = new ValueAnimatorCompat.Creator() {
         @Override
         public ValueAnimatorCompat createAnimator() {
-            if (Build.VERSION.SDK_INT >= 12)
-                return new ValueAnimatorCompat(new ValueAnimatorCompatImplHoneycombMr1());
-            else
-                return new ValueAnimatorCompat(new ValueAnimatorCompatImplEclairMr1());
+            return new ValueAnimatorCompat(new ValueAnimatorCompatImplHoneycombMr1());
         }
     };
 
     public static ValueAnimatorCompat createAnimator() {
         return DEFAULT_ANIMATOR_CREATOR.createAnimator();
     }
-
 }

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <style name="SubtitleCollapsingToolbarLayout" parent="@style/Widget.Design.CollapsingToolbar"/>
-
     <style name="CollapsedSubtitleAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Subtitle"/>
-
     <style name="ExpandedSubtitleAppearance" parent="TextAppearance.AppCompat.Headline"/>
 </resources>

@@ -1,22 +1,20 @@
 ![logo](/art/logo.png) SubtitleCollapsingToolbarLayout
 ======================================================
-
 Standard CollapsingToolbarLayout with subtitle support.
 
 ![demo](/art/demo.gif)
 
 Download
 --------
-
 ```gradle
-compile 'io.github.hendraanggrian:subtitle-collapsingtoolbarlayout:0.1.0'
+dependencies {
+    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:0.2.0'
+}
 ```
 
 Usage
 -----
-
 Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLayout`:
-
 ```xml
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -28,7 +26,7 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <io.github.hendraanggrian.subtitlecollapsingtoolbarlayout.SubtitleCollapsingToolbarLayout
+        <com.hendraanggrian.widget.SubtitleCollapsingToolbarLayout
             android:id="@+id/subtitlecollapsingtoolbarlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,7 +41,7 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:layout_collapseMode="pin"/>
-        </io.github.hendraanggrian.subtitlecollapsingtoolbarlayout.SubtitleCollapsingToolbarLayout>
+        </com.hendraanggrian.widget.SubtitleCollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
     <!-- content goes here -->
@@ -52,7 +50,6 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
 ```
 
 Extra attributes on xml:
-
  * `app:subtitle` - sets subtitle text
  * `app:collapsedSubtitleTextAppearance` - sets text appearance of subtitle when collapsed, default is `TextAppearance.AppCompat.Widget.ActionBar.Subtitle`
  * `app:expandedSubtitleTextAppearance` - sets text appearance of subtitle when expanded, default is `TextAppearance.AppCompat.Headline`

@@ -113,8 +113,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
             mExpandedMarginBottom = a.getDimensionPixelSize(R.styleable.CollapsingToolbarLayout_expandedTitleMarginBottom, 0);
         }
 
-        mCollapsingTitleEnabled = a.getBoolean(
-                R.styleable.CollapsingToolbarLayout_titleEnabled, true);
+        mCollapsingTitleEnabled = a.getBoolean(R.styleable.CollapsingToolbarLayout_titleEnabled, true);
         setTitle(a.getText(R.styleable.CollapsingToolbarLayout_title));
 
         // begin modification
