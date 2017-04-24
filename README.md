@@ -1,14 +1,14 @@
-![logo](/art/logo.png) SubtitleCollapsingToolbarLayout
-======================================================
+SubtitleCollapsingToolbarLayout
+===============================
 Standard CollapsingToolbarLayout with subtitle support.
 
-![demo](/art/demo.gif)
+![demo](/art/demo_collapsingtoolbarlayout-subtitle.gif)
 
 Download
 --------
 ```gradle
 dependencies {
-    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:0.2.0'
+    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:0.3.0'
 }
 ```
 

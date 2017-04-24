@@ -12,6 +12,10 @@ allprojects {
     repositories {
         jcenter()
     }
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
+    }
 }
 
 task clean(type: Delete) {
@@ -20,7 +24,7 @@ task clean(type: Delete) {
 
 ext.config = [
         sdk       : [
-                'min'   : 16,
+                'min'   : 9,
                 'target': 25
         ],
         buildTools: '25.0.2',
@@ -34,20 +38,19 @@ def versionSupport = '25.3.1'
 
 ext.deps = [
         // test
-        junit           : "junit:junit:$versionJunit",
+        junit             : "junit:junit:$versionJunit",
         // android test
-        testRunner      : "com.android.support.test:runner:$versionTestRunner",
-        testEspresso    : "com.android.support.test.espresso:espresso-core:$versionTestEspresso",
+        testRunner        : "com.android.support.test:runner:$versionTestRunner",
+        testEspresso      : "com.android.support.test.espresso:espresso-core:$versionTestEspresso",
         // android
-        supportAppcompat: "com.android.support:appcompat-v7:$versionSupport",
-        supportDesign   : "com.android.support:design:$versionSupport"
+        supportDesign     : "com.android.support:design:$versionSupport"
 ]
 
 ext.bintray = [
         user    : 'hendraanggrian',
         group   : 'com.hendraanggrian',
         artifact: 'collapsingtoolbarlayout-subtitle',
-        version : '0.2.0',
+        version : '0.3.0',
         desc    : 'Standard CollapsingToolbarLayout with subtitle support.',
         website : 'https://github.com/hendraanggrian/collapsingtoolbarlayout-subtitle'
 ]

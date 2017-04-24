@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.example.collapsingtoolbarlayoutsubtitle"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.collapsingtoolbarlayoutsubtitle">
 
     <application
         android:allowBackup="true"
@@ -15,6 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".DefaultActivity"
+            android:theme="@style/ArticleTheme"/>
+        <activity
+            android:name=".SubtitleActivity"
+            android:theme="@style/ArticleTheme"/>
     </application>
 
 </manifest>

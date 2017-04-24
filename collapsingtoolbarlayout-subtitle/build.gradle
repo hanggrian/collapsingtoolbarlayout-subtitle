@@ -5,22 +5,28 @@ android {
     compileSdkVersion config.sdk.target
     buildToolsVersion config.buildTools
     defaultConfig {
-        minSdkVersion config.sdk.min
+        minSdkVersion 9
         targetSdkVersion config.sdk.target
         testInstrumentationRunner config.testRunner
+    }
+    sourceSets {
+        main.manifest.srcFile 'AndroidManifest.xml'
+        main.java.srcDirs = [
+                'base',
+                'gingerbread',
+                'honeycomb',
+                'honeycomb-mr1',
+                'src'
+        ]
+        main.res.srcDirs = [
+                'res',
+                'res-public'
+        ]
+        main.resources.srcDir 'src'
     }
 }
 
 dependencies {
-    testCompile deps.junit
-    androidTestCompile(deps.testRunner) {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
-    androidTestCompile(deps.testEspresso) {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
-
-    compile deps.supportAppcompat
     compile deps.supportDesign
 }
 
