@@ -1,4 +1,4 @@
-package com.hendraanggrian.widget;
+package android.support.design.widget;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -16,8 +16,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.StyleRes;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.GravityCompat;
@@ -32,21 +30,12 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
 
-import com.hendraanggrian.collapsingtoolbarlayout.subtitle.AnimationUtils;
 import com.hendraanggrian.collapsingtoolbarlayout.subtitle.R;
-import com.hendraanggrian.collapsingtoolbarlayout.subtitle.SubtitleCollapsingTextHelper;
-import com.hendraanggrian.collapsingtoolbarlayout.subtitle.ThemeUtils;
-import com.hendraanggrian.collapsingtoolbarlayout.subtitle.ValueAnimatorCompat;
-import com.hendraanggrian.collapsingtoolbarlayout.subtitle.ViewGroupUtils;
-import com.hendraanggrian.collapsingtoolbarlayout.subtitle.ViewOffsetHelper;
-import com.hendraanggrian.collapsingtoolbarlayout.subtitle.ViewUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-import static com.hendraanggrian.collapsingtoolbarlayout.subtitle.MathUtils.constrain;
-import static com.hendraanggrian.collapsingtoolbarlayout.subtitle.ViewUtils.objectEquals;
 
 /**
  * @author Hendra Anggrian (hendraanggrian@gmail.com)
@@ -265,7 +254,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
         }
 
         // If our insets have changed, keep them and invalidate the scroll ranges...
-        if (!objectEquals(mLastInsets, newInsets)) {
+        if (!ViewUtils.objectEquals(mLastInsets, newInsets)) {
             mLastInsets = newInsets;
             requestLayout();
         }
@@ -1231,7 +1220,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
                 switch (lp.mCollapseMode) {
                     case LayoutParams.COLLAPSE_MODE_PIN:
                         offsetHelper.setTopAndBottomOffset(
-                                constrain(-verticalOffset, 0, getMaxOffsetForPinChild(child)));
+                                MathUtils.constrain(-verticalOffset, 0, getMaxOffsetForPinChild(child)));
                         break;
                     case LayoutParams.COLLAPSE_MODE_PARALLAX:
                         offsetHelper.setTopAndBottomOffset(

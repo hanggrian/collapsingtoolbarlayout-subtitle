@@ -15,7 +15,7 @@
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <com.hendraanggrian.widget.SubtitleCollapsingToolbarLayout
+        <android.support.design.widget.SubtitleCollapsingToolbarLayout
             android:id="@+id/subtitlecollapsingtoolbarlayout"
             android:layout_width="match_parent"
             android:layout_height="256dp"
@@ -38,7 +38,7 @@
                 android:layout_height="?actionBarSize"
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="pin"/>
-        </com.hendraanggrian.widget.SubtitleCollapsingToolbarLayout>
+        </android.support.design.widget.SubtitleCollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView

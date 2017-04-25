@@ -12,10 +12,6 @@ android {
     sourceSets {
         main.manifest.srcFile 'AndroidManifest.xml'
         main.java.srcDirs = [
-                'base',
-                'gingerbread',
-                'honeycomb',
-                'honeycomb-mr1',
                 'src'
         ]
         main.res.srcDirs = [

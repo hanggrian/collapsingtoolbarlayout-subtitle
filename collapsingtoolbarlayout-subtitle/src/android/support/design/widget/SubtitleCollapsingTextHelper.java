@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.hendraanggrian.collapsingtoolbarlayout.subtitle;
+package android.support.design.widget;
 
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
@@ -37,6 +37,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Interpolator;
 
+import com.hendraanggrian.collapsingtoolbarlayout.subtitle.R;
+
+@SuppressWarnings("RestrictedApi")
 public final class SubtitleCollapsingTextHelper {
 
     // Pre-JB-MR2 doesn't support HW accelerated canvas scaled text so we will workaround it
@@ -97,7 +100,7 @@ public final class SubtitleCollapsingTextHelper {
     private float mExpandedShadowRadius, mExpandedShadowDx, mExpandedShadowDy;
     private int mExpandedShadowColor;
 
-    private CharSequence mSub = "Testing";
+    private CharSequence mSub;
     private float mSubScale;
     private float mExpandedSubSize = 50;
     private int mCollapsedSubColor;
