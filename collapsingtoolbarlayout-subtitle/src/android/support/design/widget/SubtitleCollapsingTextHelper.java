@@ -474,7 +474,7 @@ public final class SubtitleCollapsingTextHelper {
 
         float textHeight = mTitlePaint.descent() - mTitlePaint.ascent();
         float textOffset = (textHeight / 2);
-        if (mSub != null) {
+        if (!TextUtils.isEmpty(mSub)) {
             float subHeight = mSubPaint.descent() - mSubPaint.ascent();
             float subOffset = (subHeight / 2) - mSubPaint.descent();
             float offset = ((mCollapsedBounds.height() - (textHeight + subHeight)) / 3);
@@ -491,14 +491,14 @@ public final class SubtitleCollapsingTextHelper {
 
         textHeight = mTitlePaint.descent() - mTitlePaint.ascent();
         textOffset = (textHeight / 2);
-        if (mSub != null) {
+        if (!TextUtils.isEmpty(mSub)) {
             float subHeight = mSubPaint.descent() - mSubPaint.ascent();
             float subOffset = (subHeight / 2);
 
             mExpandedDrawY = mExpandedBounds.bottom + mSubPaint.ascent();
             mExpandedSubY = mExpandedDrawY + subOffset - mSubPaint.ascent();
         } else { // title only
-            mExpandedDrawY = mExpandedBounds.centerY() + textOffset;
+            mExpandedDrawY = mExpandedBounds.bottom;
         }
         mExpandedDrawX = mExpandedBounds.left;
 
