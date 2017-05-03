@@ -5,7 +5,7 @@ android {
     compileSdkVersion config.sdk.target
     buildToolsVersion config.buildTools
     defaultConfig {
-        minSdkVersion 9
+        minSdkVersion config.sdk.min
         targetSdkVersion config.sdk.target
         testInstrumentationRunner config.testRunner
     }

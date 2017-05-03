@@ -39,8 +39,11 @@ import android.view.animation.Interpolator;
 
 import com.hendraanggrian.collapsingtoolbarlayout.subtitle.R;
 
+/**
+ * @author Hendra Anggrian (hendraanggrian@gmail.com)
+ */
 @SuppressWarnings("RestrictedApi")
-public final class SubtitleCollapsingTextHelper {
+final class SubtitleCollapsingTextHelper {
 
     // Pre-JB-MR2 doesn't support HW accelerated canvas scaled text so we will workaround it
     // by using our own texture
@@ -112,7 +115,7 @@ public final class SubtitleCollapsingTextHelper {
     private float mExpandedSubY;
     private float mCurrentSubY;
 
-    public SubtitleCollapsingTextHelper(View view) {
+    SubtitleCollapsingTextHelper(View view) {
         mView = view;
         mTitlePaint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
         mSubPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
@@ -156,7 +159,7 @@ public final class SubtitleCollapsingTextHelper {
         return !(r.left != left || r.top != top || r.right != right || r.bottom != bottom);
     }
 
-    public void setTextSizeInterpolator(Interpolator interpolator) {
+    void setTextSizeInterpolator(Interpolator interpolator) {
         mTextSizeInterpolator = interpolator;
         recalculate();
     }
@@ -166,7 +169,7 @@ public final class SubtitleCollapsingTextHelper {
         recalculate();
     }
 
-    public void setExpandedBounds(int left, int top, int right, int bottom) {
+    void setExpandedBounds(int left, int top, int right, int bottom) {
         if (!rectEquals(mExpandedBounds, left, top, right, bottom)) {
             mExpandedBounds.set(left, top, right, bottom);
             mBoundsChanged = true;
@@ -174,7 +177,7 @@ public final class SubtitleCollapsingTextHelper {
         }
     }
 
-    public void setCollapsedBounds(int left, int top, int right, int bottom) {
+    void setCollapsedBounds(int left, int top, int right, int bottom) {
         if (!rectEquals(mCollapsedBounds, left, top, right, bottom)) {
             mCollapsedBounds.set(left, top, right, bottom);
             mBoundsChanged = true;
@@ -182,34 +185,34 @@ public final class SubtitleCollapsingTextHelper {
         }
     }
 
-    void onBoundsChanged() {
+    private void onBoundsChanged() {
         mDrawTitle = mCollapsedBounds.width() > 0 && mCollapsedBounds.height() > 0
                 && mExpandedBounds.width() > 0 && mExpandedBounds.height() > 0;
     }
 
-    public int getExpandedTextGravity() {
+    int getExpandedTextGravity() {
         return mExpandedTextGravity;
     }
 
-    public void setExpandedTextGravity(int gravity) {
+    void setExpandedTextGravity(int gravity) {
         if (mExpandedTextGravity != gravity) {
             mExpandedTextGravity = gravity;
             recalculate();
         }
     }
 
-    public int getCollapsedTextGravity() {
+    int getCollapsedTextGravity() {
         return mCollapsedTextGravity;
     }
 
-    public void setCollapsedTextGravity(int gravity) {
+    void setCollapsedTextGravity(int gravity) {
         if (mCollapsedTextGravity != gravity) {
             mCollapsedTextGravity = gravity;
             recalculate();
         }
     }
 
-    public void setCollapsedTextAppearance(int resId) {
+    void setCollapsedTextAppearance(int resId) {
         TintTypedArray a = TintTypedArray.obtainStyledAttributes(mView.getContext(), resId,
                 android.support.v7.appcompat.R.styleable.TextAppearance);
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)) {
@@ -238,7 +241,7 @@ public final class SubtitleCollapsingTextHelper {
         recalculate();
     }
 
-    public void setExpandedTextAppearance(int resId) {
+    void setExpandedTextAppearance(int resId) {
         TintTypedArray a = TintTypedArray.obtainStyledAttributes(mView.getContext(), resId,
                 android.support.v7.appcompat.R.styleable.TextAppearance);
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)) {
@@ -267,7 +270,7 @@ public final class SubtitleCollapsingTextHelper {
         recalculate();
     }
 
-    public void setCollapsedSubAppearance(int resId) {
+    void setCollapsedSubAppearance(int resId) {
         TypedArray a = mView.getContext().obtainStyledAttributes(resId, R.styleable.TextAppearance);
         if (a.hasValue(R.styleable.TextAppearance_android_textColor)) {
             mCollapsedSubColor = a.getColor(
@@ -280,7 +283,7 @@ public final class SubtitleCollapsingTextHelper {
         a.recycle();
     }
 
-    public void setExpandedSubAppearance(int resId) {
+    void setExpandedSubAppearance(int resId) {
         TintTypedArray a = TintTypedArray.obtainStyledAttributes(mView.getContext(), resId,
                 android.support.v7.appcompat.R.styleable.TextAppearance);
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)) {
@@ -316,29 +319,29 @@ public final class SubtitleCollapsingTextHelper {
         recalculate();
     }
 
-    public Typeface getCollapsedTypeface() {
+    Typeface getCollapsedTypeface() {
         return mCollapsedTypeface != null ? mCollapsedTypeface : Typeface.DEFAULT;
     }
 
-    public void setCollapsedTypeface(Typeface typeface) {
+    void setCollapsedTypeface(Typeface typeface) {
         if (mCollapsedTypeface != typeface) {
             mCollapsedTypeface = typeface;
             recalculate();
         }
     }
 
-    public Typeface getExpandedTypeface() {
+    Typeface getExpandedTypeface() {
         return mExpandedTypeface != null ? mExpandedTypeface : Typeface.DEFAULT;
     }
 
-    public void setExpandedTypeface(Typeface typeface) {
+    void setExpandedTypeface(Typeface typeface) {
         if (mExpandedTypeface != typeface) {
             mExpandedTypeface = typeface;
             recalculate();
         }
     }
 
-    public final boolean setState(final int[] state) {
+    final boolean setState(final int[] state) {
         mState = state;
 
         if (isStateful()) {
@@ -349,7 +352,7 @@ public final class SubtitleCollapsingTextHelper {
         return false;
     }
 
-    final boolean isStateful() {
+    private boolean isStateful() {
         return (mCollapsedTitleColor != null && mCollapsedTitleColor.isStateful())
                 || (mExpandedTitleColor != null && mExpandedTitleColor.isStateful());
     }
@@ -365,7 +368,7 @@ public final class SubtitleCollapsingTextHelper {
      * A value of {@code 0.0} indicates that the layout is fully expanded.
      * A value of {@code 1.0} indicates that the layout is fully collapsed.
      */
-    public void setExpansionFraction(float fraction) {
+    void setExpansionFraction(float fraction) {
         fraction = MathUtils.constrain(fraction, 0f, 1f);
 
         if (fraction != mExpandedFraction) {
@@ -518,7 +521,7 @@ public final class SubtitleCollapsingTextHelper {
                 fraction, mPositionInterpolator);
     }
 
-    public void draw(Canvas canvas) {
+    void draw(Canvas canvas) {
         final int saveCount = canvas.save();
 
         if (mTextToDraw != null && mDrawTitle) {
@@ -755,7 +758,7 @@ public final class SubtitleCollapsingTextHelper {
         }
     }
 
-    public void recalculate() {
+    void recalculate() {
         if (mView.getHeight() > 0 && mView.getWidth() > 0) {
             // If we've already been laid out, calculate everything now otherwise we'll wait
             // until a layout
@@ -803,7 +806,7 @@ public final class SubtitleCollapsingTextHelper {
         return mExpandedTitleColor;
     }
 
-    public void setExpandedTextColor(ColorStateList textColor) {
+    void setExpandedTextColor(ColorStateList textColor) {
         if (mExpandedTitleColor != textColor) {
             mExpandedTitleColor = textColor;
             recalculate();
@@ -814,7 +817,7 @@ public final class SubtitleCollapsingTextHelper {
         return mCollapsedTitleColor;
     }
 
-    public void setCollapsedTextColor(ColorStateList textColor) {
+    void setCollapsedTextColor(ColorStateList textColor) {
         if (mCollapsedTitleColor != textColor) {
             mCollapsedTitleColor = textColor;
             recalculate();

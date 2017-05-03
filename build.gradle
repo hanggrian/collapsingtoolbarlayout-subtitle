@@ -50,9 +50,9 @@ ext.bintray = [
         user    : 'hendraanggrian',
         group   : 'com.hendraanggrian',
         artifact: 'collapsingtoolbarlayout-subtitle',
-        version : '0.3.1',
+        version : '0.4.0',
         desc    : 'Standard CollapsingToolbarLayout with subtitle support.',
-        website : 'https://github.com/hendraanggrian/collapsingtoolbarlayout-subtitle'
+        website : 'https://github.com/HendraAnggrian/collapsingtoolbarlayout-subtitle'
 ]
 
 //$ ./gradlew bintrayUpload -PbintrayUser=hendraanggrian -PbintrayKey= -PdryRun=false

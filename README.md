@@ -8,7 +8,7 @@ Download
 --------
 ```gradle
 dependencies {
-    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:0.3.1'
+    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:0.4.0'
 }
 ```
 
@@ -26,7 +26,7 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.hendraanggrian.widget.SubtitleCollapsingToolbarLayout
+        <android.support.design.widget.SubtitleCollapsingToolbarLayout
             android:id="@+id/subtitlecollapsingtoolbarlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,7 +41,7 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:layout_collapseMode="pin"/>
-        </com.hendraanggrian.widget.SubtitleCollapsingToolbarLayout>
+        </android.support.design.widget.SubtitleCollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
     <!-- content goes here -->
