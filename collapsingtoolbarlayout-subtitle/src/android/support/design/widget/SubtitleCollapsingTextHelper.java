@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.hendraanggrian.collapsingtoolbarlayout.subtitle;
+package android.support.design.widget;
 
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
@@ -37,6 +37,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Interpolator;
 
+import com.hendraanggrian.collapsingtoolbarlayout.subtitle.R;
+
+@SuppressWarnings("RestrictedApi")
 public final class SubtitleCollapsingTextHelper {
 
     // Pre-JB-MR2 doesn't support HW accelerated canvas scaled text so we will workaround it
@@ -470,7 +473,6 @@ public final class SubtitleCollapsingTextHelper {
         calculateUsingSubSize(mCollapsedSubSize);
 
         float textHeight = mTitlePaint.descent() - mTitlePaint.ascent();
-        float textOffset = (textHeight / 2);
         if (!TextUtils.isEmpty(mSub)) {
             float subHeight = mSubPaint.descent() - mSubPaint.ascent();
             float subOffset = (subHeight / 2) - mSubPaint.descent();
@@ -479,6 +481,8 @@ public final class SubtitleCollapsingTextHelper {
             mCollapsedDrawY = mCollapsedBounds.top + offset - mTitlePaint.ascent();
             mCollapsedSubY = mCollapsedBounds.top + (offset * 2) + textHeight - mSubPaint.ascent();
         } else { // title only
+            textHeight = mTitlePaint.descent() - mTitlePaint.ascent();
+            float textOffset = (textHeight / 2) - mTitlePaint.descent();
             mCollapsedDrawY = mCollapsedBounds.centerY() + textOffset;
         }
         mCollapsedDrawX = mCollapsedBounds.left;
@@ -486,8 +490,6 @@ public final class SubtitleCollapsingTextHelper {
         calculateUsingTextSize(mExpandedTextSize);
         calculateUsingSubSize(mExpandedSubSize);
 
-        textHeight = mTitlePaint.descent() - mTitlePaint.ascent();
-        textOffset = (textHeight / 2);
         if (!TextUtils.isEmpty(mSub)) {
             float subHeight = mSubPaint.descent() - mSubPaint.ascent();
             float subOffset = (subHeight / 2);
