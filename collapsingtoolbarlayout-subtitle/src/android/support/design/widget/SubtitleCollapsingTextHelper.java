@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2015 The Android Open Source Project
- * Modified 2016 by Ahmad Muzakki (modifications are marked with comments)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,8 +41,8 @@ import com.hendraanggrian.collapsingtoolbarlayout.subtitle.R;
 
 /**
  * @author Hendra Anggrian (hendraanggrian@gmail.com)
+ * @see CollapsingTextHelper
  */
-@SuppressWarnings("RestrictedApi")
 final class SubtitleCollapsingTextHelper {
 
     // Pre-JB-MR2 doesn't support HW accelerated canvas scaled text so we will workaround it
@@ -208,6 +207,7 @@ final class SubtitleCollapsingTextHelper {
         return mCollapsedTextGravity;
     }
 
+    @SuppressWarnings("RestrictedApi")
     void setCollapsedTitleAppearance(int resId) {
         TintTypedArray a = TintTypedArray.obtainStyledAttributes(mView.getContext(), resId,
                 android.support.v7.appcompat.R.styleable.TextAppearance);
@@ -237,6 +237,7 @@ final class SubtitleCollapsingTextHelper {
         recalculate();
     }
 
+    @SuppressWarnings("RestrictedApi")
     void setExpandedTitleAppearance(int resId) {
         TintTypedArray a = TintTypedArray.obtainStyledAttributes(mView.getContext(), resId,
                 android.support.v7.appcompat.R.styleable.TextAppearance);
@@ -266,8 +267,9 @@ final class SubtitleCollapsingTextHelper {
         recalculate();
     }
 
+    @SuppressWarnings("RestrictedApi")
     void setCollapsedSubtitleAppearance(int resId) {
-        TypedArray a = mView.getContext().obtainStyledAttributes(resId, R.styleable.TextAppearance);
+        TintTypedArray a = TintTypedArray.obtainStyledAttributes(mView.getContext(), resId, R.styleable.TextAppearance);
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)) {
             mCollapsedSubtitleColor = a.getColorStateList(
                     android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor);
@@ -282,6 +284,7 @@ final class SubtitleCollapsingTextHelper {
         recalculate();
     }
 
+    @SuppressWarnings("RestrictedApi")
     void setExpandedSubtitleAppearance(int resId) {
         TintTypedArray a = TintTypedArray.obtainStyledAttributes(mView.getContext(), resId,
                 android.support.v7.appcompat.R.styleable.TextAppearance);
@@ -463,6 +466,7 @@ final class SubtitleCollapsingTextHelper {
     private void calculateBaseOffsets() {
         final float currentTitleSize = mCurrentTitleSize;
         final float currentSubtitleSize = mCurrentSubtitleSize;
+        final boolean titleOnly = TextUtils.isEmpty(mSubtitle);
 
         // We then calculate the collapsed text size, using the same logic
         calculateUsingTitleSize(mCollapsedTitleSize);
@@ -473,16 +477,24 @@ final class SubtitleCollapsingTextHelper {
                 mIsRtl ? ViewCompat.LAYOUT_DIRECTION_RTL : ViewCompat.LAYOUT_DIRECTION_LTR);
         switch (collapsedAbsGravity & Gravity.VERTICAL_GRAVITY_MASK) {
             /*case Gravity.BOTTOM:
-                mCollapsedDrawY = mCollapsedBounds.bottom;
+                if (titleOnly) {
+                    mCollapsedTitleY = mCollapsedBounds.bottom;
+                } else {
+
+                }
                 break;
             case Gravity.TOP:
-                mCollapsedDrawY = mCollapsedBounds.top - mTitlePaint.ascent();
+                if (titleOnly) {
+                    mCollapsedTitleY = mCollapsedBounds.top - mTitlePaint.ascent();
+                } else {
+
+                }
                 break;
             case Gravity.CENTER_VERTICAL:*/
             default:
                 float textHeight = mTitlePaint.descent() - mTitlePaint.ascent();
                 float textOffset = (textHeight / 2) - mTitlePaint.descent();
-                if (TextUtils.isEmpty(mSubtitle)) {
+                if (titleOnly) {
                     mCollapsedTitleY = mCollapsedBounds.centerY() + textOffset;
                 } else {
                     float subHeight = mSubtitlePaint.descent() - mSubtitlePaint.ascent();
@@ -514,16 +526,24 @@ final class SubtitleCollapsingTextHelper {
                 mIsRtl ? ViewCompat.LAYOUT_DIRECTION_RTL : ViewCompat.LAYOUT_DIRECTION_LTR);
         switch (expandedAbsGravity & Gravity.VERTICAL_GRAVITY_MASK) {
             /*case Gravity.BOTTOM:
-                mExpandedDrawY = mExpandedBounds.bottom;
+                if (titleOnly) {
+                    mExpandedTitleY = mExpandedBounds.bottom;
+                } else {
+
+                }
                 break;
             case Gravity.TOP:
-                mExpandedDrawY = mExpandedBounds.top - mTitlePaint.ascent();
+                if (titleOnly) {
+                    mExpandedTitleY = mExpandedBounds.top - mTitlePaint.ascent();
+                } else {
+
+                }
                 break;
             case Gravity.CENTER_VERTICAL:*/
             default:
                 float textHeight = mTitlePaint.descent() - mTitlePaint.ascent();
                 float textOffset = (textHeight / 2) - mTitlePaint.descent();
-                if (TextUtils.isEmpty(mSubtitle)) {
+                if (titleOnly) {
                     mExpandedTitleY = mExpandedBounds.centerY() + textOffset;
                 } else {
                     float subHeight = mSubtitlePaint.descent() - mSubtitlePaint.ascent();
@@ -565,13 +585,12 @@ final class SubtitleCollapsingTextHelper {
     }
 
     public void draw(Canvas canvas) {
-        final int saveCount = canvas.save();
+        final int saveCountTitle = canvas.save();
 
         if (mTextToDraw != null && mDrawTitle) {
             float titleX = mCurrentTitleX;
             float titleY = mCurrentTitleY;
             float subtitleY = mCurrentSubtitleY;
-
             final boolean drawTexture = mUseTexture && mExpandedTitleTexture != null;
 
             final float ascent;
@@ -594,27 +613,20 @@ final class SubtitleCollapsingTextHelper {
                 titleY += ascent;
             }
 
-            if (mTitleScale != 1f) {
-                canvas.scale(mTitleScale, mTitleScale, titleX, titleY);
-            }
-
             //region modification
-            final int saveCountSub = canvas.save();
-            if (mSubtitle != null) {
+            final int saveCountSubtitle = canvas.save();
+            if (!TextUtils.isEmpty(mSubtitle)) {
                 if (mSubtitleScale != 1f) {
                     canvas.scale(mSubtitleScale, mSubtitleScale, titleX, subtitleY);
                 }
                 canvas.drawText(mSubtitle, 0, mSubtitle.length(), titleX, subtitleY, mSubtitlePaint);
-                canvas.restoreToCount(saveCountSub);
+                canvas.restoreToCount(saveCountSubtitle);
             }
             //endregion
 
-            /*if (!TextUtils.isEmpty(mSubtitle)) {
-                if (mSubtitleScale != 1f) {
-                    canvas.scale(mSubtitleScale, mSubtitleScale, titleX, subtitleY);
-                }
-                canvas.drawText(mSubtitle, 0, mSubtitle.length(), titleX, subtitleY, mSubtitlePaint);
-            }*/
+            if (mTitleScale != 1f) {
+                canvas.scale(mTitleScale, mTitleScale, titleX, titleY);
+            }
 
             if (drawTexture) {
                 // If we should use a texture, draw it instead of text
@@ -624,7 +636,7 @@ final class SubtitleCollapsingTextHelper {
             }
         }
 
-        canvas.restoreToCount(saveCount);
+        canvas.restoreToCount(saveCountTitle);
     }
 
     private boolean calculateIsRtl(CharSequence text) {

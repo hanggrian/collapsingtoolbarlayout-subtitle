@@ -1,6 +1,7 @@
 SubtitleCollapsingToolbarLayout
 ===============================
 Standard CollapsingToolbarLayout with subtitle support.
+
 ![SubtitleCollapsingToolbarLayout][demo]
 
 Usage
@@ -40,10 +41,12 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
 </android.support.design.widget.CoordinatorLayout>
 ```
 
-Extra attributes on xml:
- * `app:subtitle` - sets subtitle text
- * `app:collapsedSubtitleTextAppearance` - sets text appearance of subtitle when collapsed, default is `TextAppearance.AppCompat.Widget.ActionBar.Subtitle`
- * `app:expandedSubtitleTextAppearance` - sets text appearance of subtitle when expanded, default is `TextAppearance.AppCompat.Headline`
+#### Attributes
+| attribute                         | description                                | default                                              |
+|-----------------------------------|--------------------------------------------|------------------------------------------------------|
+| `subtitle`                        | subtitle text                              | disabled                                             |
+| `collapsedSubtitleTextAppearance` | text appearance of subtitle when collapsed | `TextAppearance.AppCompat.Widget.ActionBar.Subtitle` |
+| `expandedSubtitleTextAppearance`  | text appearance of subtitle when expanded  | `TextAppearance.AppCompat.Headline`                  |
 
 Compatibility
 -------------
