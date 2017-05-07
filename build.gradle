@@ -31,19 +31,13 @@ ext.config = [
         testRunner: 'android.support.test.runner.AndroidJUnitRunner',
 ]
 
-def versionJunit = '4.12'
-def versionTestRunner = '0.5'
-def versionTestEspresso = '2.2.2'
-def versionSupport = '25.3.1'
-
 ext.deps = [
         // test
-        junit             : "junit:junit:$versionJunit",
-        // android test
-        testRunner        : "com.android.support.test:runner:$versionTestRunner",
-        testEspresso      : "com.android.support.test.espresso:espresso-core:$versionTestEspresso",
+        junit              : 'junit:junit:4.12',
         // android
-        supportDesign     : "com.android.support:design:$versionSupport"
+        supportDesign      : 'com.android.support:design:25.3.1',
+        supportTestRunner  : 'com.android.support.test:runner:0.5',
+        supportTestEspresso: 'com.android.support.test.espresso:espresso-core:2.2.2',
 ]
 
 ext.bintray = [
