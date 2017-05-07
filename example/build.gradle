@@ -21,7 +21,7 @@ android {
 
 dependencies {
     compile project(':collapsingtoolbarlayout-subtitle')
-    compile 'com.afollestad.material-dialogs:core:0.9.1.0'
+    compile 'com.afollestad.material-dialogs:core:0.9.4.4'
     compile 'com.hendraanggrian:bundler:0.3.0'
     compile 'com.jakewharton:butterknife:8.5.1'
 

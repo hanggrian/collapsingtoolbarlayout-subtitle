@@ -42,7 +42,7 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
 ```
 
 #### Attributes
-| attribute                         | description                                | default                                              |
+| Attribute                         | Description                                | Default value/behavior                               |
 |-----------------------------------|--------------------------------------------|------------------------------------------------------|
 | `subtitle`                        | subtitle text                              | disabled                                             |
 | `collapsedSubtitleTextAppearance` | text appearance of subtitle when collapsed | `TextAppearance.AppCompat.Widget.ActionBar.Subtitle` |
@@ -58,7 +58,7 @@ Download
 --------
 ```gradle
 dependencies {
-    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:0.4.0'
+    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:0.4.1'
 }
 ```
 

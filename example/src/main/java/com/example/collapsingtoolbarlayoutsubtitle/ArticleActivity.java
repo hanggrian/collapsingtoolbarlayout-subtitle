@@ -6,7 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.SubtitleCollapsingToolbarLayout;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -36,6 +38,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
 
     @BindExtra int layoutRes;
     @BindView(R.id.collapsingtoolbarlayout_article) View collapsingToolbarLayout;
+    @BindView(R.id.toolbar_article) Toolbar toolbar;
     @BindView(R.id.floatingactionbutton_article) FloatingActionButton floatingActionButton;
 
     @Override
@@ -46,6 +49,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setSupportActionBar(toolbar);
         floatingActionButton.setOnClickListener(this);
     }
 
@@ -53,41 +57,55 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View v) {
         final BaseToolbarLayout toolbarLayout = getToolbarLayout();
         new MaterialDialog.Builder(this)
-                .items("Set expanded gravity", "Set collapsed gravity")
+                .items("Set expanded gravity", "Set collapsed gravity", "Disable back button")
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
                     public void onSelection(MaterialDialog dialog, View itemView, final int position, CharSequence text) {
-                        new MaterialDialog.Builder(ArticleActivity.this)
-                                .items(OPTIONS_GRAVITY.keySet())
-                                .itemsCallbackMultiChoice(null, new MaterialDialog.ListCallbackMultiChoice() {
-                                    @Override
-                                    public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] texts) {
-                                        Integer flags = null;
-                                        for (CharSequence text : texts) {
-                                            int flag = OPTIONS_GRAVITY.get(text);
-                                            if (flags == null)
-                                                flags = flag;
-                                            else
-                                                flags |= flag;
-                                        }
-                                        if (flags != null) {
-                                            switch (position) {
-                                                case 0:
-                                                    toolbarLayout.setExpandedTitleGravity(flags);
-                                                    break;
-                                                case 1:
-                                                    toolbarLayout.setCollapsedTitleGravity(flags);
-                                                    break;
+                        switch (position) {
+                            case 2:
+                                toolbar.setNavigationIcon(null);
+                                break;
+                            default:
+                                new MaterialDialog.Builder(ArticleActivity.this)
+                                        .items(OPTIONS_GRAVITY.keySet())
+                                        .itemsCallbackMultiChoice(null, new MaterialDialog.ListCallbackMultiChoice() {
+                                            @Override
+                                            public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] texts) {
+                                                Integer flags = null;
+                                                for (CharSequence text : texts) {
+                                                    int flag = OPTIONS_GRAVITY.get(text);
+                                                    if (flags == null)
+                                                        flags = flag;
+                                                    else
+                                                        flags |= flag;
+                                                }
+                                                if (flags != null) {
+                                                    switch (position) {
+                                                        case 0:
+                                                            toolbarLayout.setExpandedTitleGravity(flags);
+                                                            break;
+                                                        case 1:
+                                                            toolbarLayout.setCollapsedTitleGravity(flags);
+                                                            break;
+                                                    }
+                                                }
+                                                return false;
                                             }
-                                        }
-                                        return false;
-                                    }
-                                })
-                                .positiveText(android.R.string.ok)
-                                .show();
+                                        })
+                                        .positiveText(android.R.string.ok)
+                                        .show();
+                                break;
+                        }
                     }
                 })
                 .show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home)
+            finish();
+        return super.onOptionsItemSelected(item);
     }
 
     @NonNull

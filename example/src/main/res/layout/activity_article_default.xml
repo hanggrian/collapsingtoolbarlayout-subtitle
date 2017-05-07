@@ -33,10 +33,11 @@
                 app:layout_collapseMode="parallax"/>
 
             <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_article"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                android:fitsSystemWindows="true"
-                app:layout_collapseMode="pin"/>
+                app:layout_collapseMode="pin"
+                app:navigationIcon="?homeAsUpIndicator"/>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
