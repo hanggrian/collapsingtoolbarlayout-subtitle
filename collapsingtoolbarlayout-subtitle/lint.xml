@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <lint>
-    <!-- private resources in support design -->
     <issue id="PrivateResource" severity="ignore"/>
-    <!-- RestrictTo annotation of TintTypedArray in support appcompat-v7 -->
-    <issue id="RestrictedApi" severity="ignore"/>
 </lint>

@@ -6,17 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".SubtitleActivity">
+    tools:context=".ArticleActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbarlayout_subtitle"
+        android:id="@+id/appbarlayout_article"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.SubtitleCollapsingToolbarLayout
-            android:id="@+id/subtitlecollapsingtoolbarlayout"
+            android:id="@+id/collapsingtoolbarlayout_article"
             android:layout_width="match_parent"
             android:layout_height="256dp"
             android:fitsSystemWindows="true"
@@ -56,11 +56,12 @@
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingactionbutton_article"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:src="@drawable/ic_bookmark_white_24dp"
         app:fabSize="normal"
-        app:layout_anchor="@id/appbarlayout_subtitle"
+        app:layout_anchor="@id/appbarlayout_article"
         app:layout_anchorGravity="bottom|end"/>
 </android.support.design.widget.CoordinatorLayout>

@@ -17,10 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DefaultActivity"
-            android:theme="@style/ArticleTheme"/>
-        <activity
-            android:name=".SubtitleActivity"
+            android:name=".ArticleActivity"
             android:theme="@style/ArticleTheme"/>
     </application>
 

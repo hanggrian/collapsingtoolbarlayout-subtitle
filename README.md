@@ -1,8 +1,7 @@
 SubtitleCollapsingToolbarLayout
 ===============================
 Standard CollapsingToolbarLayout with subtitle support.
-
-![demo](/art/demo_collapsingtoolbarlayout-subtitle.gif)
+![SubtitleCollapsingToolbarLayout][demo]
 
 Usage
 -----
@@ -46,6 +45,12 @@ Extra attributes on xml:
  * `app:collapsedSubtitleTextAppearance` - sets text appearance of subtitle when collapsed, default is `TextAppearance.AppCompat.Widget.ActionBar.Subtitle`
  * `app:expandedSubtitleTextAppearance` - sets text appearance of subtitle when expanded, default is `TextAppearance.AppCompat.Headline`
 
+Compatibility
+-------------
+This library relies heavily on private resources and internal classes from [Android's support design library][design].
+Which is why there's a good chance that it might not work on older support design library versions.
+Check [build.gradle][build] to see current support design version used.
+
 Download
 --------
 ```gradle
@@ -69,3 +74,8 @@ License
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+    
+    
+ [demo]: /art/demo_collapsingtoolbarlayout-subtitle.gif
+ [build]: /build.gradle
+ [design]: https://github.com/android/platform_frameworks_support/tree/master/design

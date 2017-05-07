@@ -2,28 +2,34 @@ package com.example.collapsingtoolbarlayoutsubtitle;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import com.hendraanggrian.bundler.Bundler;
+
+import butterknife.BindViews;
+
+public class MainActivity extends BaseActivity implements View.OnClickListener {
+
+    @BindViews({R.id.button_main_default, R.id.button_main_subtitle}) Button[] buttons;
+
+    @Override
+    int getContentView() {
+        return R.layout.activity_main;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        findViewById(R.id.button_main_default).setOnClickListener(this);
-        findViewById(R.id.button_main_subtitle).setOnClickListener(this);
+        for (Button button : buttons)
+            button.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.button_main_default:
-                startActivity(new Intent(this, DefaultActivity.class));
-                break;
-            case R.id.button_main_subtitle:
-                startActivity(new Intent(this, SubtitleActivity.class));
-                break;
-        }
+        startActivity(new Intent(this, ArticleActivity.class)
+                .putExtras(Bundler.wrap(ArticleActivity.class, v.getId() == R.id.button_main_default
+                        ? R.layout.activity_article_default
+                        : R.layout.activity_article_subtitle)));
     }
 }

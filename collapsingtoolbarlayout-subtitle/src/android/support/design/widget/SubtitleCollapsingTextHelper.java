@@ -78,12 +78,12 @@ final class SubtitleCollapsingTextHelper {
     private ColorStateList mExpandedTitleColor, mExpandedSubtitleColor;
     private ColorStateList mCollapsedTitleColor, mCollapsedSubtitleColor;
 
-    private float mExpandedDrawY, mExpandedDrawSubY;
-    private float mCollapsedDrawY, mCollapsedDrawSubY;
-    private float mExpandedDrawX;
-    private float mCollapsedDrawX;
-    private float mCurrentDrawX;
-    private float mCurrentDrawY, mCurrentDrawSubY;
+    private float mExpandedTitleY, mExpandedSubtitleY;
+    private float mCollapsedTitleY, mCollapsedSubtitleY;
+    private float mExpandedTitleX;
+    private float mCollapsedTitleX;
+    private float mCurrentTitleX;
+    private float mCurrentTitleY, mCurrentSubtitleY;
     private Typeface mCollapsedTypeface;
     private Typeface mExpandedTypeface;
     private Typeface mCurrentTypeface;
@@ -181,7 +181,7 @@ final class SubtitleCollapsingTextHelper {
         }
     }
 
-    private void onBoundsChanged() {
+    void onBoundsChanged() {
         mDrawTitle = mCollapsedBounds.width() > 0 && mCollapsedBounds.height() > 0
                 && mExpandedBounds.width() > 0 && mExpandedBounds.height() > 0;
     }
@@ -386,11 +386,11 @@ final class SubtitleCollapsingTextHelper {
 
     private void calculateOffsets(final float fraction) {
         interpolateBounds(fraction);
-        mCurrentDrawX = lerp(mExpandedDrawX, mCollapsedDrawX, fraction,
+        mCurrentTitleX = lerp(mExpandedTitleX, mCollapsedTitleX, fraction,
                 mPositionInterpolator);
-        mCurrentDrawY = lerp(mExpandedDrawY, mCollapsedDrawY, fraction,
+        mCurrentTitleY = lerp(mExpandedTitleY, mCollapsedTitleY, fraction,
                 mPositionInterpolator);
-        mCurrentDrawSubY = lerp(mExpandedDrawSubY, mCollapsedDrawSubY, fraction,
+        mCurrentSubtitleY = lerp(mExpandedSubtitleY, mCollapsedSubtitleY, fraction,
                 mPositionInterpolator);
 
         setInterpolatedTitleSize(lerp(mExpandedTitleSize, mCollapsedTitleSize,
@@ -483,26 +483,26 @@ final class SubtitleCollapsingTextHelper {
                 float textHeight = mTitlePaint.descent() - mTitlePaint.ascent();
                 float textOffset = (textHeight / 2) - mTitlePaint.descent();
                 if (TextUtils.isEmpty(mSubtitle)) {
-                    mCollapsedDrawY = mCollapsedBounds.centerY() + textOffset;
+                    mCollapsedTitleY = mCollapsedBounds.centerY() + textOffset;
                 } else {
                     float subHeight = mSubtitlePaint.descent() - mSubtitlePaint.ascent();
                     float subOffset = (subHeight / 2) - mSubtitlePaint.descent();
                     float offset = ((mCollapsedBounds.height() - (textHeight + subHeight)) / 3);
-                    mCollapsedDrawY = mCollapsedBounds.top + offset - mTitlePaint.ascent();
-                    mCollapsedDrawSubY = mCollapsedBounds.top + (offset * 2) + textHeight - mSubtitlePaint.ascent();
+                    mCollapsedTitleY = mCollapsedBounds.top + offset - mTitlePaint.ascent();
+                    mCollapsedSubtitleY = mCollapsedBounds.top + (offset * 2) + textHeight - mSubtitlePaint.ascent();
                 }
                 break;
         }
         switch (collapsedAbsGravity & GravityCompat.RELATIVE_HORIZONTAL_GRAVITY_MASK) {
             case Gravity.CENTER_HORIZONTAL:
-                mCollapsedDrawX = mCollapsedBounds.centerX() - (width / 2);
+                mCollapsedTitleX = mCollapsedBounds.centerX() - (width / 2);
                 break;
             case Gravity.END:
-                mCollapsedDrawX = mCollapsedBounds.right - width;
+                mCollapsedTitleX = mCollapsedBounds.right - width;
                 break;
             case Gravity.START:
             default:
-                mCollapsedDrawX = mCollapsedBounds.left;
+                mCollapsedTitleX = mCollapsedBounds.left;
                 break;
         }
 
@@ -524,25 +524,25 @@ final class SubtitleCollapsingTextHelper {
                 float textHeight = mTitlePaint.descent() - mTitlePaint.ascent();
                 float textOffset = (textHeight / 2) - mTitlePaint.descent();
                 if (TextUtils.isEmpty(mSubtitle)) {
-                    mExpandedDrawY = mExpandedBounds.centerY() + textOffset;
+                    mExpandedTitleY = mExpandedBounds.centerY() + textOffset;
                 } else {
                     float subHeight = mSubtitlePaint.descent() - mSubtitlePaint.ascent();
                     float subOffset = (subHeight / 2);
-                    mExpandedDrawY = mExpandedBounds.bottom + mSubtitlePaint.ascent();
-                    mExpandedDrawSubY = mExpandedDrawY + subOffset - mSubtitlePaint.ascent();
+                    mExpandedTitleY = mExpandedBounds.bottom + mSubtitlePaint.ascent();
+                    mExpandedSubtitleY = mExpandedTitleY + subOffset - mSubtitlePaint.ascent();
                 }
                 break;
         }
         switch (expandedAbsGravity & GravityCompat.RELATIVE_HORIZONTAL_GRAVITY_MASK) {
             case Gravity.CENTER_HORIZONTAL:
-                mExpandedDrawX = mExpandedBounds.centerX() - (width / 2);
+                mExpandedTitleX = mExpandedBounds.centerX() - (width / 2);
                 break;
             case Gravity.END:
-                mExpandedDrawX = mExpandedBounds.right - width;
+                mExpandedTitleX = mExpandedBounds.right - width;
                 break;
             case Gravity.START:
             default:
-                mExpandedDrawX = mExpandedBounds.left;
+                mExpandedTitleX = mExpandedBounds.left;
                 break;
         }
 
@@ -556,7 +556,7 @@ final class SubtitleCollapsingTextHelper {
     private void interpolateBounds(float fraction) {
         mCurrentBounds.left = lerp(mExpandedBounds.left, mCollapsedBounds.left,
                 fraction, mPositionInterpolator);
-        mCurrentBounds.top = lerp(mExpandedDrawY, mCollapsedDrawY,
+        mCurrentBounds.top = lerp(mExpandedTitleY, mCollapsedTitleY,
                 fraction, mPositionInterpolator);
         mCurrentBounds.right = lerp(mExpandedBounds.right, mCollapsedBounds.right,
                 fraction, mPositionInterpolator);
@@ -568,9 +568,10 @@ final class SubtitleCollapsingTextHelper {
         final int saveCount = canvas.save();
 
         if (mTextToDraw != null && mDrawTitle) {
-            float x = mCurrentDrawX;
-            float y = mCurrentDrawY;
-            float subY = mCurrentDrawSubY;
+            float titleX = mCurrentTitleX;
+            float titleY = mCurrentTitleY;
+            float subtitleY = mCurrentSubtitleY;
+
             final boolean drawTexture = mUseTexture && mExpandedTitleTexture != null;
 
             final float ascent;
@@ -585,34 +586,41 @@ final class SubtitleCollapsingTextHelper {
 
             if (DEBUG_DRAW) {
                 // Just a debug tool, which drawn a magenta rect in the text bounds
-                canvas.drawRect(mCurrentBounds.left, y + ascent, mCurrentBounds.right, y + descent,
+                canvas.drawRect(mCurrentBounds.left, titleY + ascent, mCurrentBounds.right, titleY + descent,
                         DEBUG_DRAW_PAINT);
             }
 
             if (drawTexture) {
-                y += ascent;
+                titleY += ascent;
+            }
+
+            if (mTitleScale != 1f) {
+                canvas.scale(mTitleScale, mTitleScale, titleX, titleY);
             }
 
             //region modification
             final int saveCountSub = canvas.save();
             if (mSubtitle != null) {
                 if (mSubtitleScale != 1f) {
-                    canvas.scale(mSubtitleScale, mSubtitleScale, x, subY);
+                    canvas.scale(mSubtitleScale, mSubtitleScale, titleX, subtitleY);
                 }
-                canvas.drawText(mSubtitle, 0, mSubtitle.length(), x, subY, mSubtitlePaint);
+                canvas.drawText(mSubtitle, 0, mSubtitle.length(), titleX, subtitleY, mSubtitlePaint);
                 canvas.restoreToCount(saveCountSub);
             }
             //endregion
 
-            if (mTitleScale != 1f) {
-                canvas.scale(mTitleScale, mTitleScale, x, y);
-            }
+            /*if (!TextUtils.isEmpty(mSubtitle)) {
+                if (mSubtitleScale != 1f) {
+                    canvas.scale(mSubtitleScale, mSubtitleScale, titleX, subtitleY);
+                }
+                canvas.drawText(mSubtitle, 0, mSubtitle.length(), titleX, subtitleY, mSubtitlePaint);
+            }*/
 
             if (drawTexture) {
                 // If we should use a texture, draw it instead of text
-                canvas.drawBitmap(mExpandedTitleTexture, x, y, mTexturePaint);
+                canvas.drawBitmap(mExpandedTitleTexture, titleX, titleY, mTexturePaint);
             } else {
-                canvas.drawText(mTextToDraw, 0, mTextToDraw.length(), x, y, mTitlePaint);
+                canvas.drawText(mTextToDraw, 0, mTextToDraw.length(), titleX, titleY, mTitlePaint);
             }
         }
 
@@ -799,7 +807,7 @@ final class SubtitleCollapsingTextHelper {
         }
     }
 
-    void recalculate() {
+    public void recalculate() {
         if (mView.getHeight() > 0 && mView.getWidth() > 0) {
             // If we've already been laid out, calculate everything now otherwise we'll wait
             // until a layout
