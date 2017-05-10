@@ -22,8 +22,8 @@
             android:fitsSystemWindows="true"
             app:contentScrim="?colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:subtitle="Papua, Indonesia"
-            app:title="Raja Ampat">
+            app:subtitle="Papua, Indonesia aaaaaaaaaaaaaaaaaaaaaaaaa"
+            app:title="Raja Ampat aaaaaaaaaaaaaaaaaaaaaaaaaaaaa">
 
             <ImageView
                 android:layout_width="match_parent"
