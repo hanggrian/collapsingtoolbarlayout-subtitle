@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.hendraanggrian.bundler.annotations.BindExtra;
@@ -24,16 +25,21 @@ import butterknife.BindView;
  */
 public class ArticleActivity extends BaseActivity implements View.OnClickListener {
 
-    private static final Map<CharSequence, Integer> OPTIONS_GRAVITY = new LinkedHashMap<>();
+    private static final String OPTION_SET_TITLE = "Set title";
+    private static final String OPTION_SET_SUBTITLE = "Set subtitle";
+    private static final String OPTION_SET_EXPANDED_GRAVITY = "Set expanded gravity";
+    private static final String OPTION_SET_COLLAPSED_GRAVITY = "Set collapsed gravity";
+    private static final String OPTION_DISABLE_BACK_BUTTON = "Disable back button";
+    private static final Map<CharSequence, Integer> GRAVITY = new LinkedHashMap<>();
 
     static {
-        OPTIONS_GRAVITY.put("START", Gravity.START);
-        OPTIONS_GRAVITY.put("TOP", Gravity.TOP);
-        OPTIONS_GRAVITY.put("END", Gravity.END);
-        OPTIONS_GRAVITY.put("BOTTOM", Gravity.BOTTOM);
-        OPTIONS_GRAVITY.put("CENTER_HORIZONTAL", Gravity.CENTER_HORIZONTAL);
-        OPTIONS_GRAVITY.put("CENTER_VERTICAL", Gravity.CENTER_VERTICAL);
-        OPTIONS_GRAVITY.put("CENTER", Gravity.CENTER);
+        GRAVITY.put("START", Gravity.START);
+        GRAVITY.put("TOP", Gravity.TOP);
+        GRAVITY.put("END", Gravity.END);
+        GRAVITY.put("BOTTOM", Gravity.BOTTOM);
+        GRAVITY.put("CENTER_HORIZONTAL", Gravity.CENTER_HORIZONTAL);
+        GRAVITY.put("CENTER_VERTICAL", Gravity.CENTER_VERTICAL);
+        GRAVITY.put("CENTER", Gravity.CENTER);
     }
 
     @BindExtra int layoutRes;
@@ -57,34 +63,54 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View v) {
         final BaseToolbarLayout toolbarLayout = getToolbarLayout();
         new MaterialDialog.Builder(this)
-                .items("Set expanded gravity", "Set collapsed gravity", "Disable back button")
+                .items(OPTION_SET_TITLE, OPTION_SET_SUBTITLE, OPTION_SET_EXPANDED_GRAVITY, OPTION_SET_COLLAPSED_GRAVITY, OPTION_DISABLE_BACK_BUTTON)
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
-                    public void onSelection(MaterialDialog dialog, View itemView, final int position, CharSequence text) {
-                        switch (position) {
-                            case 2:
-                                toolbar.setNavigationIcon(null);
-                                break;
-                            default:
+                    public void onSelection(MaterialDialog dialog, View itemView, int position, final CharSequence text) {
+                        switch (text.toString()) {
+                            case OPTION_SET_TITLE:
+                            case OPTION_SET_SUBTITLE:
                                 new MaterialDialog.Builder(ArticleActivity.this)
-                                        .items(OPTIONS_GRAVITY.keySet())
+                                        .input("Text", "", new MaterialDialog.InputCallback() {
+                                            @Override
+                                            public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                                                switch (text.toString()) {
+                                                    case OPTION_SET_TITLE:
+                                                        toolbarLayout.setTitle(input);
+                                                        break;
+                                                    case OPTION_SET_SUBTITLE:
+                                                        if (collapsingToolbarLayout instanceof SubtitleCollapsingToolbarLayout) {
+                                                            ((SubtitleCollapsingToolbarLayout) collapsingToolbarLayout).setSubtitle(input);
+                                                            return;
+                                                        }
+                                                        Toast.makeText(ArticleActivity.this, "Unsupported", Toast.LENGTH_SHORT).show();
+                                                        break;
+                                                }
+                                            }
+                                        })
+                                        .show();
+                                break;
+                            case OPTION_SET_EXPANDED_GRAVITY:
+                            case OPTION_SET_COLLAPSED_GRAVITY:
+                                new MaterialDialog.Builder(ArticleActivity.this)
+                                        .items(GRAVITY.keySet())
                                         .itemsCallbackMultiChoice(null, new MaterialDialog.ListCallbackMultiChoice() {
                                             @Override
                                             public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] texts) {
                                                 Integer flags = null;
                                                 for (CharSequence text : texts) {
-                                                    int flag = OPTIONS_GRAVITY.get(text);
+                                                    int flag = GRAVITY.get(text);
                                                     if (flags == null)
                                                         flags = flag;
                                                     else
                                                         flags |= flag;
                                                 }
                                                 if (flags != null) {
-                                                    switch (position) {
-                                                        case 0:
+                                                    switch (text.toString()) {
+                                                        case OPTION_SET_EXPANDED_GRAVITY:
                                                             toolbarLayout.setExpandedTitleGravity(flags);
                                                             break;
-                                                        case 1:
+                                                        case OPTION_SET_COLLAPSED_GRAVITY:
                                                             toolbarLayout.setCollapsedTitleGravity(flags);
                                                             break;
                                                     }
@@ -94,6 +120,9 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                                         })
                                         .positiveText(android.R.string.ok)
                                         .show();
+                                break;
+                            case OPTION_DISABLE_BACK_BUTTON:
+                                toolbar.setNavigationIcon(null);
                                 break;
                         }
                     }
@@ -111,6 +140,14 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     @NonNull
     BaseToolbarLayout getToolbarLayout() {
         return new BaseToolbarLayout() {
+            @Override
+            public void setTitle(CharSequence text) {
+                if (collapsingToolbarLayout instanceof CollapsingToolbarLayout)
+                    ((CollapsingToolbarLayout) collapsingToolbarLayout).setTitle(text);
+                else if (collapsingToolbarLayout instanceof SubtitleCollapsingToolbarLayout)
+                    ((SubtitleCollapsingToolbarLayout) collapsingToolbarLayout).setTitle(text);
+            }
+
             @Override
             public void setExpandedTitleGravity(int gravity) {
                 if (collapsingToolbarLayout instanceof CollapsingToolbarLayout)

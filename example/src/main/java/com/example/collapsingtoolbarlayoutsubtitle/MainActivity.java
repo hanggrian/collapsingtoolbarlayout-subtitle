@@ -27,9 +27,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        final int layoutRes;
+        if (v.getId() == R.id.button_main_default)
+            layoutRes = R.layout.activity_article_default;
+        else
+            layoutRes = R.layout.activity_article_subtitle;
         startActivity(new Intent(this, ArticleActivity.class)
-                .putExtras(Bundler.wrap(ArticleActivity.class, v.getId() == R.id.button_main_default
-                        ? R.layout.activity_article_default
-                        : R.layout.activity_article_subtitle)));
+                .putExtras(Bundler.wrap(ArticleActivity.class, layoutRes)));
     }
 }

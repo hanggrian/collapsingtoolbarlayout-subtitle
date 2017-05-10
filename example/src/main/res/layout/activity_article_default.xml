@@ -22,7 +22,7 @@
             android:fitsSystemWindows="true"
             app:contentScrim="?colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:title="Raja Ampat aaaaaaaaaaaaaaaaaaaaa">
+            app:title="Raja Ampat">
 
             <ImageView
                 android:layout_width="match_parent"

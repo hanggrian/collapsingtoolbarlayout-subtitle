@@ -5,6 +5,8 @@ package com.example.collapsingtoolbarlayoutsubtitle;
  */
 interface BaseToolbarLayout {
 
+    void setTitle(CharSequence text);
+
     void setExpandedTitleGravity(int gravity);
 
     void setCollapsedTitleGravity(int gravity);
