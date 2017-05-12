@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.SubtitleCollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     private static final String OPTION_SET_EXPANDED_GRAVITY = "Set expanded gravity";
     private static final String OPTION_SET_COLLAPSED_GRAVITY = "Set collapsed gravity";
     private static final String OPTION_DISABLE_BACK_BUTTON = "Disable back button";
+    private static final String OPTION_TOGGLE_MENU_ITEM = "Toggle menu item visible";
     private static final Map<CharSequence, Integer> GRAVITY = new LinkedHashMap<>();
 
     static {
@@ -46,6 +48,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     @BindView(R.id.collapsingtoolbarlayout_article) View collapsingToolbarLayout;
     @BindView(R.id.toolbar_article) Toolbar toolbar;
     @BindView(R.id.floatingactionbutton_article) FloatingActionButton floatingActionButton;
+    private MenuItem menuItem;
 
     @Override
     int getContentView() {
@@ -63,7 +66,12 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View v) {
         final BaseToolbarLayout toolbarLayout = getToolbarLayout();
         new MaterialDialog.Builder(this)
-                .items(OPTION_SET_TITLE, OPTION_SET_SUBTITLE, OPTION_SET_EXPANDED_GRAVITY, OPTION_SET_COLLAPSED_GRAVITY, OPTION_DISABLE_BACK_BUTTON)
+                .items(OPTION_SET_TITLE,
+                        OPTION_SET_SUBTITLE,
+                        OPTION_SET_EXPANDED_GRAVITY,
+                        OPTION_SET_COLLAPSED_GRAVITY,
+                        OPTION_DISABLE_BACK_BUTTON,
+                        OPTION_TOGGLE_MENU_ITEM)
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
                     public void onSelection(MaterialDialog dialog, View itemView, int position, final CharSequence text) {
@@ -124,10 +132,20 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                             case OPTION_DISABLE_BACK_BUTTON:
                                 toolbar.setNavigationIcon(null);
                                 break;
+                            case OPTION_TOGGLE_MENU_ITEM:
+                                menuItem.setVisible(!menuItem.isVisible());
+                                break;
                         }
                     }
                 })
                 .show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.article, menu);
+        menuItem = menu.findItem(R.id.item_article_bookmark);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

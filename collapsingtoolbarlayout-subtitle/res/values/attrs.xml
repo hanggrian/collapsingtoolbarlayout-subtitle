@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="SubtitleCollapsingToolbarLayout" parent="CollapsingToolbarLayout">
+        <attr name="subtitle" format="string"/>
         <attr name="expandedSubtitleTextAppearance" format="reference"/>
         <attr name="collapsedSubtitleTextAppearance" format="reference"/>
-        <attr name="subtitle" format="string"/>
+        <attr name="useCorrectPadding" format="boolean"/>
     </declare-styleable>
 </resources>

@@ -47,6 +47,7 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
 | `subtitle`                        | subtitle text                              | disabled                                             |
 | `collapsedSubtitleTextAppearance` | text appearance of subtitle when collapsed | `TextAppearance.AppCompat.Widget.ActionBar.Subtitle` |
 | `expandedSubtitleTextAppearance`  | text appearance of subtitle when expanded  | `TextAppearance.AppCompat.Headline`                  |
+| `useCorrectPadding`               | add 16dp padding to title and subtitle     | disabled                                             |
 
 Compatibility
 -------------
@@ -58,7 +59,7 @@ Download
 --------
 ```gradle
 dependencies {
-    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:0.4.3'
+    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:0.4.4'
 }
 ```
 
