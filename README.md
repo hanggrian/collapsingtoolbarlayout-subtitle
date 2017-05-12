@@ -59,7 +59,7 @@ Download
 --------
 ```gradle
 dependencies {
-    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:0.4.4'
+    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:0.4.5'
 }
 ```
 

@@ -16,6 +16,7 @@
 
 package android.support.design.widget;
 
+import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -280,9 +281,8 @@ final class SubtitleCollapsingTextHelper {
                 : new int[0]);
         try {
             final String family = a.getString(0);
-            if (family != null) {
+            if (family != null)
                 return Typeface.create(family, Typeface.NORMAL);
-            }
         } catch (Exception e) {
             throw new RuntimeException("Unable to read font family typeface: " + resId);
         } finally {
@@ -415,6 +415,7 @@ final class SubtitleCollapsingTextHelper {
             return mCollapsedSubtitleColor.getDefaultColor();
     }
 
+    @SuppressLint("RtlHardcoded")
     private void calculateBaseOffsets() {
         final float currentTitleSize = mCurrentTitleSize;
         final float currentSubtitleSize = mCurrentSubtitleSize;
@@ -422,50 +423,53 @@ final class SubtitleCollapsingTextHelper {
 
         calculateUsingTitleSize(mCollapsedTitleSize);
         calculateUsingSubtitleSize(mCollapsedSubtitleSize);
-        float width = mTitleToDraw != null ?
-                mTitlePaint.measureText(mTitleToDraw, 0, mTitleToDraw.length()) : 0;
-        final int collapsedAbsGravity = GravityCompat.getAbsoluteGravity(mCollapsedTextGravity,
-                mIsRtl ? ViewCompat.LAYOUT_DIRECTION_RTL : ViewCompat.LAYOUT_DIRECTION_LTR);
+        float titleWidth = mTitleToDraw != null ? mTitlePaint.measureText(mTitleToDraw, 0, mTitleToDraw.length()) : 0;
+        float subtitleWidth = mSubtitleToDraw != null ? mSubtitlePaint.measureText(mSubtitleToDraw, 0, mSubtitleToDraw.length()) : 0;
+        float titleHeight = mTitlePaint.descent() - mTitlePaint.ascent();
+        float titleOffset = (titleHeight / 2) - mTitlePaint.descent();
+        float subtitleHeight = mSubtitlePaint.descent() - mSubtitlePaint.ascent();
+        float subtitleOffset = (subtitleHeight / 2);
+        final int collapsedAbsGravity = GravityCompat.getAbsoluteGravity(mCollapsedTextGravity, mIsRtl ? ViewCompat.LAYOUT_DIRECTION_RTL : ViewCompat.LAYOUT_DIRECTION_LTR);
         switch (collapsedAbsGravity & Gravity.VERTICAL_GRAVITY_MASK) {
-            /*case Gravity.BOTTOM:
+            case Gravity.BOTTOM:
                 if (titleOnly) {
                     mCollapsedTitleY = mCollapsedBounds.bottom;
                 } else {
-
+                    float offset = ((mCollapsedBounds.height() - (titleHeight + subtitleHeight)) / 3);
+                    mCollapsedTitleY = mCollapsedBounds.top + offset - mTitlePaint.ascent();
+                    mCollapsedSubtitleY = mCollapsedBounds.top + (offset * 2) + titleHeight - mSubtitlePaint.ascent();
                 }
                 break;
             case Gravity.TOP:
                 if (titleOnly) {
                     mCollapsedTitleY = mCollapsedBounds.top - mTitlePaint.ascent();
                 } else {
-
+                    float offset = ((mCollapsedBounds.height() - (titleHeight + subtitleHeight)) / 3);
+                    mCollapsedTitleY = mCollapsedBounds.top + offset - mTitlePaint.ascent();
+                    mCollapsedSubtitleY = mCollapsedBounds.top + (offset * 2) + titleHeight - mSubtitlePaint.ascent();
                 }
                 break;
-            case Gravity.CENTER_VERTICAL:*/
+            case Gravity.CENTER_VERTICAL:
             default:
-                float textHeight = mTitlePaint.descent() - mTitlePaint.ascent();
-                float textOffset = (textHeight / 2) - mTitlePaint.descent();
                 if (titleOnly) {
-                    mCollapsedTitleY = mCollapsedBounds.centerY() + textOffset;
+                    mCollapsedTitleY = mCollapsedBounds.centerY() + titleOffset;
                 } else {
-                    float subHeight = mSubtitlePaint.descent() - mSubtitlePaint.ascent();
-                    float subOffset = (subHeight / 2) - mSubtitlePaint.descent();
-                    float offset = ((mCollapsedBounds.height() - (textHeight + subHeight)) / 3);
+                    float offset = ((mCollapsedBounds.height() - (titleHeight + subtitleHeight)) / 3);
                     mCollapsedTitleY = mCollapsedBounds.top + offset - mTitlePaint.ascent();
-                    mCollapsedSubtitleY = mCollapsedBounds.top + (offset * 2) + textHeight - mSubtitlePaint.ascent();
+                    mCollapsedSubtitleY = mCollapsedBounds.top + (offset * 2) + titleHeight - mSubtitlePaint.ascent();
                 }
                 break;
         }
         switch (collapsedAbsGravity & GravityCompat.RELATIVE_HORIZONTAL_GRAVITY_MASK) {
             case Gravity.CENTER_HORIZONTAL:
-                mCollapsedTitleX = mCollapsedBounds.centerX() - (width / 2);
-                mCollapsedSubtitleX = mCollapsedBounds.centerX() - (width / 2);
+                mCollapsedTitleX = mCollapsedBounds.centerX() - (titleWidth / 2);
+                mCollapsedSubtitleX = mCollapsedBounds.centerX() - (subtitleWidth / 2);
                 break;
-            case Gravity.END:
-                mCollapsedTitleX = mCollapsedBounds.right - width;
-                mCollapsedSubtitleX = mCollapsedBounds.right - width;
+            case Gravity.RIGHT:
+                mCollapsedTitleX = mCollapsedBounds.right - titleWidth;
+                mCollapsedSubtitleX = mCollapsedBounds.right - subtitleWidth;
                 break;
-            case Gravity.START:
+            case Gravity.LEFT:
             default:
                 mCollapsedTitleX = mCollapsedBounds.left;
                 mCollapsedSubtitleX = mCollapsedBounds.left;
@@ -474,49 +478,50 @@ final class SubtitleCollapsingTextHelper {
 
         calculateUsingTitleSize(mExpandedTitleSize);
         calculateUsingSubtitleSize(mExpandedSubtitleSize);
-        width = mTitleToDraw != null
-                ? mTitlePaint.measureText(mTitleToDraw, 0, mTitleToDraw.length()) : 0;
-        final int expandedAbsGravity = GravityCompat.getAbsoluteGravity(mExpandedTextGravity,
-                mIsRtl ? ViewCompat.LAYOUT_DIRECTION_RTL : ViewCompat.LAYOUT_DIRECTION_LTR);
+        titleWidth = mTitleToDraw != null ? mTitlePaint.measureText(mTitleToDraw, 0, mTitleToDraw.length()) : 0;
+        subtitleWidth = mSubtitleToDraw != null ? mSubtitlePaint.measureText(mSubtitleToDraw, 0, mSubtitleToDraw.length()) : 0;
+        titleHeight = mTitlePaint.descent() - mTitlePaint.ascent();
+        titleOffset = (titleHeight / 2) - mTitlePaint.descent();
+        subtitleHeight = mSubtitlePaint.descent() - mSubtitlePaint.ascent();
+        subtitleOffset = (subtitleHeight / 2);
+        final int expandedAbsGravity = GravityCompat.getAbsoluteGravity(mExpandedTextGravity, mIsRtl ? ViewCompat.LAYOUT_DIRECTION_RTL : ViewCompat.LAYOUT_DIRECTION_LTR);
         switch (expandedAbsGravity & Gravity.VERTICAL_GRAVITY_MASK) {
-            /*case Gravity.BOTTOM:
+            case Gravity.BOTTOM:
                 if (titleOnly) {
                     mExpandedTitleY = mExpandedBounds.bottom;
                 } else {
-
+                    mExpandedTitleY = mExpandedBounds.bottom + mSubtitlePaint.ascent();
+                    mExpandedSubtitleY = mExpandedTitleY + subtitleOffset - mSubtitlePaint.ascent();
                 }
                 break;
             case Gravity.TOP:
                 if (titleOnly) {
                     mExpandedTitleY = mExpandedBounds.top - mTitlePaint.ascent();
                 } else {
-
+                    mExpandedTitleY = mExpandedBounds.top - mTitlePaint.ascent();
+                    mExpandedSubtitleY = mExpandedTitleY + subtitleOffset - mSubtitlePaint.ascent();
                 }
                 break;
-            case Gravity.CENTER_VERTICAL:*/
+            case Gravity.CENTER_VERTICAL:
             default:
-                float textHeight = mTitlePaint.descent() - mTitlePaint.ascent();
-                float textOffset = (textHeight / 2) - mTitlePaint.descent();
                 if (titleOnly) {
-                    mExpandedTitleY = mExpandedBounds.centerY() + textOffset;
+                    mExpandedTitleY = mExpandedBounds.centerY() + titleOffset;
                 } else {
-                    float subHeight = mSubtitlePaint.descent() - mSubtitlePaint.ascent();
-                    float subOffset = (subHeight / 2);
-                    mExpandedTitleY = mExpandedBounds.bottom + mSubtitlePaint.ascent();
-                    mExpandedSubtitleY = mExpandedTitleY + subOffset - mSubtitlePaint.ascent();
+                    mExpandedTitleY = mExpandedBounds.centerY() + titleOffset + mSubtitlePaint.ascent();
+                    mExpandedSubtitleY = mExpandedTitleY + subtitleOffset - mSubtitlePaint.ascent();
                 }
                 break;
         }
         switch (expandedAbsGravity & GravityCompat.RELATIVE_HORIZONTAL_GRAVITY_MASK) {
             case Gravity.CENTER_HORIZONTAL:
-                mExpandedTitleX = mExpandedBounds.centerX() - (width / 2);
-                mExpandedSubtitleX = mExpandedBounds.centerX() - (width / 2);
+                mExpandedTitleX = mExpandedBounds.centerX() - (titleWidth / 2);
+                mExpandedSubtitleX = mExpandedBounds.centerX() - (subtitleWidth / 2);
                 break;
-            case Gravity.END:
-                mExpandedTitleX = mExpandedBounds.right - width;
-                mExpandedSubtitleX = mExpandedBounds.right - width;
+            case Gravity.RIGHT:
+                mExpandedTitleX = mExpandedBounds.right - titleWidth;
+                mExpandedSubtitleX = mExpandedBounds.right - subtitleWidth;
                 break;
-            case Gravity.START:
+            case Gravity.LEFT:
             default:
                 mExpandedTitleX = mExpandedBounds.left;
                 mExpandedSubtitleX = mExpandedBounds.left;
