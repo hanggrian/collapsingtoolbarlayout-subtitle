@@ -134,30 +134,44 @@ final class SubtitleCollapsingTextHelper {
         recalculate();
     }
 
-    void setExpandedTextSize(float textSize) {
+    void setExpandedTitleSize(float textSize) {
         if (mExpandedTitleSize != textSize) {
             mExpandedTitleSize = textSize;
             recalculate();
         }
     }
 
-    void setCollapsedTextSize(float textSize) {
+    void setCollapsedTitleSize(float textSize) {
         if (mCollapsedTitleSize != textSize) {
             mCollapsedTitleSize = textSize;
             recalculate();
         }
     }
 
-    void setCollapsedTextColor(ColorStateList textColor) {
+    void setCollapsedTitleColor(ColorStateList textColor) {
         if (mCollapsedTitleColor != textColor) {
             mCollapsedTitleColor = textColor;
             recalculate();
         }
     }
 
-    void setExpandedTextColor(ColorStateList textColor) {
+    void setExpandedTitleColor(ColorStateList textColor) {
         if (mExpandedTitleColor != textColor) {
             mExpandedTitleColor = textColor;
+            recalculate();
+        }
+    }
+
+    void setCollapsedSubtitleColor(ColorStateList textColor) {
+        if (mCollapsedSubtitleColor != textColor) {
+            mCollapsedSubtitleColor = textColor;
+            recalculate();
+        }
+    }
+
+    void setExpandedSubtitleColor(ColorStateList textColor) {
+        if (mExpandedSubtitleColor != textColor) {
+            mExpandedSubtitleColor = textColor;
             recalculate();
         }
     }
@@ -791,11 +805,11 @@ final class SubtitleCollapsingTextHelper {
         return Math.abs(value - targetValue) < 0.001f;
     }
 
-    ColorStateList getExpandedTextColor() {
+    ColorStateList getExpandedTitleColor() {
         return mExpandedTitleColor;
     }
 
-    ColorStateList getCollapsedTextColor() {
+    ColorStateList getCollapsedTitleColor() {
         return mCollapsedTitleColor;
     }
 

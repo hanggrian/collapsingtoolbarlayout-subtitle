@@ -12,10 +12,6 @@ allprojects {
     repositories {
         jcenter()
     }
-    tasks.withType(Javadoc) {
-        options.addStringOption('Xdoclint:none', '-quiet')
-        options.addStringOption('encoding', 'UTF-8')
-    }
 }
 
 task clean(type: Delete) {
@@ -44,7 +40,7 @@ ext.bintray = [
         user    : 'hendraanggrian',
         group   : 'com.hendraanggrian',
         artifact: 'collapsingtoolbarlayout-subtitle',
-        version : '0.4.2',
+        version : '0.4.3',
         desc    : 'Standard CollapsingToolbarLayout with subtitle support.',
         website : 'https://github.com/HendraAnggrian/collapsingtoolbarlayout-subtitle'
 ]
