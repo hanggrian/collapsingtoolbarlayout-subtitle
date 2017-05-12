@@ -84,7 +84,6 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
 
     WindowInsetsCompat mLastInsets;
 
-    // extra attr
     private boolean useCorrectPadding;
 
     public SubtitleCollapsingToolbarLayout(Context context) {

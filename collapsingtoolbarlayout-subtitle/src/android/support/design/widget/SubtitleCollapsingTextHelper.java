@@ -46,8 +46,6 @@ import com.hendraanggrian.collapsingtoolbarlayout.subtitle.R;
  */
 final class SubtitleCollapsingTextHelper {
 
-    // Pre-JB-MR2 doesn't support HW accelerated canvas scaled text so we will workaround it
-    // by using our own texture
     private static final boolean USE_SCALING_TEXTURE = Build.VERSION.SDK_INT < 18;
 
     private static final boolean DEBUG_DRAW = false;

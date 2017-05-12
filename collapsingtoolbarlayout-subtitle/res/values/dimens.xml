@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- according to https://material.io/guidelines/layout/structure.html#structure-app-bar -->
     <dimen name="appbar_horizontal_padding">16dp</dimen>
 </resources>

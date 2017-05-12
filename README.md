@@ -1,12 +1,12 @@
 SubtitleCollapsingToolbarLayout
 ===============================
-Standard CollapsingToolbarLayout with subtitle support.
+Standard `CollapsingToolbarLayout` with subtitle support.
 
 ![SubtitleCollapsingToolbarLayout][demo]
 
 Usage
 -----
-Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLayout`:
+Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLayout`.
 ```xml
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -24,8 +24,8 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
             android:layout_height="wrap_content"
             app:contentScrim="?colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:subtitle="CollapsingToolbarLayout"
-            app:title="Subtitle">
+            app:subtitle="Papua, Indonesia"
+            app:title="Raja Ampat">
 
             <!-- collapsing toolbar content goes here -->
 
@@ -49,17 +49,18 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
 | `expandedSubtitleTextAppearance`  | text appearance of subtitle when expanded  | `TextAppearance.AppCompat.Headline`                  |
 | `useCorrectPadding`               | add 16dp padding to title and subtitle     | disabled                                             |
 
-Compatibility
--------------
-This library relies heavily on private resources and internal classes from [Android's support design library][design].
-Which is why there's a good chance that it might not work on older support design library versions.
-Check [build.gradle][build] to see current support design version used.
-
 Download
 --------
+This library relies heavily on private resources and internal classes from [Android's support design library][design].
+It is only tested with support design library version as listed below with no intention of supporting older versions.
 ```gradle
+repositories {
+    jcenter()
+}
+
 dependencies {
-    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:0.4.6'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:0.4.6@aar'
 }
 ```
 
@@ -81,5 +82,4 @@ License
     
     
  [demo]: /art/demo_collapsingtoolbarlayout-subtitle.gif
- [build]: /build.gradle
  [design]: https://github.com/android/platform_frameworks_support/tree/master/design
