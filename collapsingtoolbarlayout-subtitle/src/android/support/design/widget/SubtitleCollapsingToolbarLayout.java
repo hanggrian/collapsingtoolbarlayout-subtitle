@@ -134,7 +134,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
 
         // begin modification
         TypedArray a2 = context.obtainStyledAttributes(attrs, R.styleable.SubtitleCollapsingToolbarLayout, defStyleAttr, R.style.SubtitleCollapsingToolbarLayout);
-        setSubtitle(a2.getText(R.styleable.SubtitleCollapsingToolbarLayout_subtitle).toString());
+        setSubtitle(a2.getText(R.styleable.SubtitleCollapsingToolbarLayout_subtitle));
 
         useCorrectPadding = a2.getBoolean(R.styleable.SubtitleCollapsingToolbarLayout_useCorrectPadding, false);
 
