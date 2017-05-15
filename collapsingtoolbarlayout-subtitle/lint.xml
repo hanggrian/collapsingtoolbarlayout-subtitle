@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <lint>
+    <!-- SubtitleCollapsingToolbarLayout attributes extends from CollapsingToolbarLayout-->
     <issue id="PrivateResource" severity="ignore"/>
+    <!-- Use of Gravity.RIGHT and Gravity.LEFT instead of Gravity.END and Gravity.START -->
+    <issue id="RtlHardcoded" severity="ignore"/>
 </lint>

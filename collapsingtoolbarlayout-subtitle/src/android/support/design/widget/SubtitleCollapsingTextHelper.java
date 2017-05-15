@@ -16,7 +16,6 @@
 
 package android.support.design.widget;
 
-import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -44,6 +43,7 @@ import com.hendraanggrian.collapsingtoolbarlayout.subtitle.R;
  * @author Hendra Anggrian (hendraanggrian@gmail.com)
  * @see CollapsingTextHelper
  */
+@SuppressWarnings("RestrictedApi")
 final class SubtitleCollapsingTextHelper {
 
     private static final boolean USE_SCALING_TEXTURE = Build.VERSION.SDK_INT < 18;
@@ -217,7 +217,6 @@ final class SubtitleCollapsingTextHelper {
         return mCollapsedTextGravity;
     }
 
-    @SuppressWarnings("RestrictedApi")
     void setCollapsedTitleAppearance(int resId) {
         TintTypedArray a = TintTypedArray.obtainStyledAttributes(mView.getContext(), resId, android.support.v7.appcompat.R.styleable.TextAppearance);
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor))
@@ -234,7 +233,6 @@ final class SubtitleCollapsingTextHelper {
         recalculate();
     }
 
-    @SuppressWarnings("RestrictedApi")
     void setExpandedTitleAppearance(int resId) {
         TintTypedArray a = TintTypedArray.obtainStyledAttributes(mView.getContext(), resId, android.support.v7.appcompat.R.styleable.TextAppearance);
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor))
@@ -251,7 +249,6 @@ final class SubtitleCollapsingTextHelper {
         recalculate();
     }
 
-    @SuppressWarnings("RestrictedApi")
     void setCollapsedSubtitleAppearance(int resId) {
         TintTypedArray a = TintTypedArray.obtainStyledAttributes(mView.getContext(), resId, R.styleable.TextAppearance);
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor))
@@ -262,7 +259,6 @@ final class SubtitleCollapsingTextHelper {
         recalculate();
     }
 
-    @SuppressWarnings("RestrictedApi")
     void setExpandedSubtitleAppearance(int resId) {
         TintTypedArray a = TintTypedArray.obtainStyledAttributes(mView.getContext(), resId, android.support.v7.appcompat.R.styleable.TextAppearance);
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor))
@@ -413,7 +409,6 @@ final class SubtitleCollapsingTextHelper {
             return mCollapsedSubtitleColor.getDefaultColor();
     }
 
-    @SuppressLint("RtlHardcoded")
     private void calculateBaseOffsets() {
         final float currentTitleSize = mCurrentTitleSize;
         final float currentSubtitleSize = mCurrentSubtitleSize;

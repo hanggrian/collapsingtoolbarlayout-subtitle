@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="SubtitleCollapsingToolbarLayout" parent="CollapsingToolbarLayout">
+    <declare-styleable name="SubtitleCollapsingToolbarLayout">
         <attr name="subtitle" format="string"/>
         <attr name="expandedSubtitleTextAppearance" format="reference"/>
         <attr name="collapsedSubtitleTextAppearance" format="reference"/>
