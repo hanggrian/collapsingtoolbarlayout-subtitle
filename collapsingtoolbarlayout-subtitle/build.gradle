@@ -24,6 +24,7 @@ android {
 
 dependencies {
     compile deps.supportDesign
+    compile deps.utilContent
 }
 
 publish {

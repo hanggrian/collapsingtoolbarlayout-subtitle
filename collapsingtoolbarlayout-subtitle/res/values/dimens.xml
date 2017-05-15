@@ -2,4 +2,5 @@
 <resources>
     <!-- according to https://material.io/guidelines/layout/structure.html#structure-app-bar -->
     <dimen name="appbar_horizontal_padding">16dp</dimen>
+    <dimen name="appbar_horizontal_padding_large">24dp</dimen>
 </resources>

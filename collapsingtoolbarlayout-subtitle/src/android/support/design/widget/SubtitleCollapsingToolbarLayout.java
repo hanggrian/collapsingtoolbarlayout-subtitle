@@ -19,6 +19,8 @@ package android.support.design.widget;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -47,6 +49,7 @@ import android.view.ViewParent;
 import android.widget.FrameLayout;
 
 import com.hendraanggrian.collapsingtoolbarlayout.subtitle.R;
+import com.hendraanggrian.compat.content.Configurations;
 
 /**
  * @author Hendra Anggrian (hendraanggrian@gmail.com)
@@ -320,11 +323,16 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
                 int collapsedBoundsRight = mTmpRect.right + (isRtl
                         ? mToolbar.getTitleMarginStart()
                         : mToolbar.getTitleMarginEnd());
-                if (useCorrectPadding && mToolbar.getMenu() != null && !mToolbar.getMenu().hasVisibleItems())
+                if (useCorrectPadding && mToolbar.getMenu() != null && !mToolbar.getMenu().hasVisibleItems()) {
+                    Resources res = getContext().getResources();
+                    int padding = res.getDimensionPixelSize(Configurations.isScreenSizeAtLeast(res, Configuration.SCREENLAYOUT_SIZE_LARGE)
+                            ? R.dimen.appbar_horizontal_padding_large
+                            : R.dimen.appbar_horizontal_padding);
                     if (isRtl)
-                        collapsedBoundsLeft += getContext().getResources().getDimension(R.dimen.appbar_horizontal_padding);
+                        collapsedBoundsLeft += padding;
                     else
-                        collapsedBoundsRight -= getContext().getResources().getDimension(R.dimen.appbar_horizontal_padding);
+                        collapsedBoundsRight -= padding;
+                }
                 mCollapsingTextHelper.setCollapsedBounds(
                         collapsedBoundsLeft,
                         mTmpRect.top + maxOffset + mToolbar.getTitleMarginTop(),

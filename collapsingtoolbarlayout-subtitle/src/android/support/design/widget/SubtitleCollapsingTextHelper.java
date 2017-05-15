@@ -337,12 +337,20 @@ final class SubtitleCollapsingTextHelper {
         return mExpandedFraction;
     }
 
-    float getCollapsedTextSize() {
+    float getCollapsedTitleSize() {
         return mCollapsedTitleSize;
     }
 
-    float getExpandedTextSize() {
+    float getExpandedTitleSize() {
         return mExpandedTitleSize;
+    }
+
+    float getCollapsedSubtitleSize() {
+        return mCollapsedSubtitleSize;
+    }
+
+    float getExpandedSubtitleSize() {
+        return mExpandedSubtitleSize;
     }
 
     private void calculateCurrentOffsets() {

@@ -1,7 +1,9 @@
 package com.example.collapsingtoolbarlayoutsubtitle;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -23,6 +25,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         for (Button button : buttons)
             button.setOnClickListener(this);
+        Log.d("ASD", String.valueOf(getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK));
     }
 
     @Override
