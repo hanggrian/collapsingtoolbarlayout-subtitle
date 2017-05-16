@@ -87,11 +87,7 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
                                                         toolbarLayout.setTitle(input);
                                                         break;
                                                     case OPTION_SET_SUBTITLE:
-                                                        if (collapsingToolbarLayout instanceof SubtitleCollapsingToolbarLayout) {
-                                                            ((SubtitleCollapsingToolbarLayout) collapsingToolbarLayout).setSubtitle(input);
-                                                            return;
-                                                        }
-                                                        Toast.makeText(ArticleActivity.this, "Unsupported", Toast.LENGTH_SHORT).show();
+                                                        toolbarLayout.setSubtitle(input);
                                                         break;
                                                 }
                                             }
@@ -159,11 +155,19 @@ public class ArticleActivity extends BaseActivity implements View.OnClickListene
     BaseToolbarLayout getToolbarLayout() {
         return new BaseToolbarLayout() {
             @Override
-            public void setTitle(CharSequence text) {
+            public void setTitle(@Nullable CharSequence text) {
                 if (collapsingToolbarLayout instanceof CollapsingToolbarLayout)
                     ((CollapsingToolbarLayout) collapsingToolbarLayout).setTitle(text);
                 else if (collapsingToolbarLayout instanceof SubtitleCollapsingToolbarLayout)
                     ((SubtitleCollapsingToolbarLayout) collapsingToolbarLayout).setTitle(text);
+            }
+
+            @Override
+            public void setSubtitle(@Nullable CharSequence text) {
+                if (collapsingToolbarLayout instanceof CollapsingToolbarLayout)
+                    Toast.makeText(ArticleActivity.this, "Unsupported.", Toast.LENGTH_SHORT).show();
+                else if (collapsingToolbarLayout instanceof SubtitleCollapsingToolbarLayout)
+                    ((SubtitleCollapsingToolbarLayout) collapsingToolbarLayout).setSubtitle(text);
             }
 
             @Override
