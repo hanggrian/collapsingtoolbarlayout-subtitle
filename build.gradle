@@ -11,6 +11,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url 'https://dl.bintray.com/hendraanggrian/maven' }
     }
 }
 
@@ -34,8 +35,8 @@ ext.deps = [
         supportDesign      : 'com.android.support:design:25.3.1',
         supportTestRunner  : 'com.android.support.test:runner:0.5',
         supportTestEspresso: 'com.android.support.test.espresso:espresso-core:2.2.2',
-        // util
-        utilContent        : 'com.hendraanggrian:compat-content:0.1'
+        // third-party
+        supportUtils       : 'com.hendraanggrian:support-utils:0.1'
 ]
 
 ext.bintray = [

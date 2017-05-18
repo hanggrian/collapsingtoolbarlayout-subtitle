@@ -49,7 +49,7 @@ import android.view.ViewParent;
 import android.widget.FrameLayout;
 
 import com.hendraanggrian.collapsingtoolbarlayout.subtitle.R;
-import com.hendraanggrian.compat.content.Configurations;
+import com.hendraanggrian.support.utils.content.Configurations;
 
 /**
  * @author Hendra Anggrian (hendraanggrian@gmail.com)
