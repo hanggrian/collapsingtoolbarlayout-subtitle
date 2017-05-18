@@ -1,5 +1,5 @@
-apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+apply plugin: plugin.android.lib
+apply plugin: plugin.novoda
 
 android {
     compileSdkVersion config.sdk.target
@@ -11,20 +11,15 @@ android {
     }
     sourceSets {
         main.manifest.srcFile 'AndroidManifest.xml'
-        main.java.srcDirs = [
-                'src'
-        ]
-        main.res.srcDirs = [
-                'res',
-                'res-public'
-        ]
+        main.java.srcDirs 'src'
+        main.res.srcDirs = ['res', 'res-public']
         main.resources.srcDir 'src'
     }
 }
 
 dependencies {
-    compile deps.supportDesign
-    compile deps.supportUtils
+    compile deps.support.design
+    compile deps.hendraanggrian.utils
 }
 
 publish {

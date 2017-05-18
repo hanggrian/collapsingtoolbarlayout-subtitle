@@ -1,4 +1,6 @@
-apply plugin: 'com.android.application'
+apply plugin: plugin.android.app
+apply plugin: plugin.kotlin.android
+apply plugin: plugin.kotlin.kapt
 
 android {
     compileSdkVersion config.sdk.target
@@ -21,17 +23,18 @@ android {
 
 dependencies {
     compile project(':collapsingtoolbarlayout-subtitle')
-    compile 'com.afollestad.material-dialogs:core:0.9.4.4'
-    compile 'com.hendraanggrian:bundler:0.3.2'
-    compile 'com.jakewharton:butterknife:8.5.1'
+    compile deps.kotlin
+    compile deps.materialdialogs
+    compile deps.hendraanggrian.bundler.main
+    compile deps.butterknife.main
 
-    annotationProcessor 'com.hendraanggrian:bundler-compiler:0.3.2'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    kapt deps.hendraanggrian.bundler.processor
+    kapt deps.butterknife.processor
 
-    androidTestCompile(deps.supportTestRunner) {
+    androidTestCompile(deps.support.test.runner) {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
-    androidTestCompile(deps.supportTestEspresso) {
+    androidTestCompile(deps.support.test.espresso) {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
 
