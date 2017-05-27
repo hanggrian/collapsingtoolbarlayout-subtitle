@@ -15,7 +15,7 @@ buildscript {
                     min   : 9,
                     target: 25,
             ],
-            buildTools: '25.0.2',
+            buildTools: '25.0.3',
             testRunner: 'android.support.test.runner.AndroidJUnitRunner'
     ]
     ext.deps = [
@@ -28,7 +28,7 @@ buildscript {
                     ]
             ],
             hendraanggrian : [
-                    utils  : 'com.hendraanggrian:support-utils:0.1',
+                    utils  : 'com.hendraanggrian:support-utils:0.7',
                     bundler: [
                             main     : 'com.hendraanggrian:bundler:0.3.2',
                             processor: 'com.hendraanggrian:bundler-compiler:0.3.2'
