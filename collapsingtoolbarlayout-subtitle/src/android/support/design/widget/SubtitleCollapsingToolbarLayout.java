@@ -27,7 +27,9 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
@@ -50,6 +52,7 @@ import android.widget.FrameLayout;
 
 import com.hendraanggrian.collapsingtoolbarlayout.subtitle.R;
 import com.hendraanggrian.support.utils.content.Configurations;
+import com.hendraanggrian.support.utils.content.Themes;
 
 /**
  * @author Hendra Anggrian (hendraanggrian@gmail.com)
@@ -551,27 +554,49 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
         return mStatusBarScrim;
     }
 
-    public void setCollapsedTitleTextAppearance(@StyleRes int resId) {
+    public void setCollapsedTitleAppearance(@StyleRes int resId) {
         mCollapsingTextHelper.setCollapsedTitleAppearance(resId);
     }
 
-    public void setCollapsedSubtitleTextAppearance(@StyleRes int resId) {
+    public void setCollapsedSubtitleAppearance(@StyleRes int resId) {
         mCollapsingTextHelper.setCollapsedSubtitleAppearance(resId);
     }
 
-    public void setCollapsedTitleTextColor(@ColorInt int color) {
-        setCollapsedTitleTextColor(ColorStateList.valueOf(color));
+    public void setCollapsedTitleColor(@ColorInt int color) {
+        setCollapsedTitleColor(ColorStateList.valueOf(color));
     }
 
-    public void setCollapsedSubtitleTextColor(@ColorInt int color) {
-        setCollapsedSubtitleTextColor(ColorStateList.valueOf(color));
+    public void setCollapsedTitleColorRes(@ColorRes int res) {
+        setCollapsedTitleColor(ContextCompat.getColor(getContext(), res));
     }
 
-    public void setCollapsedTitleTextColor(@NonNull ColorStateList colors) {
+    public void setCollapsedTitleColorAttr(@AttrRes int attr) {
+        int color = Themes.getColor(getContext(), attr, 0);
+        if (color == 0)
+            throw new RuntimeException("Color attribute not found in current theme!");
+        setCollapsedTitleColor(color);
+    }
+
+    public void setCollapsedTitleColor(@NonNull ColorStateList colors) {
         mCollapsingTextHelper.setCollapsedTitleColor(colors);
     }
 
-    public void setCollapsedSubtitleTextColor(@NonNull ColorStateList colors) {
+    public void setCollapsedSubtitleColor(@ColorInt int color) {
+        setCollapsedSubtitleColor(ColorStateList.valueOf(color));
+    }
+
+    public void setCollapsedSubtitleColorRes(@ColorRes int res) {
+        setCollapsedSubtitleColor(ContextCompat.getColor(getContext(), res));
+    }
+
+    public void setCollapsedSubtitleColorAttr(@AttrRes int attr) {
+        int color = Themes.getColor(getContext(), attr, 0);
+        if (color == 0)
+            throw new RuntimeException("Color attribute not found in current theme!");
+        setCollapsedSubtitleColor(color);
+    }
+
+    public void setCollapsedSubtitleColor(@NonNull ColorStateList colors) {
         mCollapsingTextHelper.setCollapsedSubtitleColor(colors);
     }
 
@@ -583,27 +608,49 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
         return mCollapsingTextHelper.getCollapsedTextGravity();
     }
 
-    public void setExpandedTitleTextAppearance(@StyleRes int resId) {
+    public void setExpandedTitleAppearance(@StyleRes int resId) {
         mCollapsingTextHelper.setExpandedTitleAppearance(resId);
     }
 
-    public void setExpandedSubtitleTextAppearance(@StyleRes int resId) {
+    public void setExpandedSubtitleAppearance(@StyleRes int resId) {
         mCollapsingTextHelper.setExpandedSubtitleAppearance(resId);
     }
 
     public void setExpandedTitleColor(@ColorInt int color) {
-        setExpandedTitleTextColor(ColorStateList.valueOf(color));
+        setExpandedTitleColor(ColorStateList.valueOf(color));
     }
 
-    public void setExpandedSubtitleColor(@ColorInt int color) {
-        setExpandedSubtitleTextColor(ColorStateList.valueOf(color));
+    public void setExpandedTitleColorRes(@ColorRes int res) {
+        setExpandedTitleColor(ContextCompat.getColor(getContext(), res));
     }
 
-    public void setExpandedTitleTextColor(@NonNull ColorStateList colors) {
+    public void setExpandedTitleColorAttr(@AttrRes int attr) {
+        int color = Themes.getColor(getContext(), attr, 0);
+        if (color == 0)
+            throw new RuntimeException("Color attribute not found in current theme!");
+        setExpandedTitleColor(color);
+    }
+
+    public void setExpandedTitleColor(@NonNull ColorStateList colors) {
         mCollapsingTextHelper.setExpandedTitleColor(colors);
     }
 
-    public void setExpandedSubtitleTextColor(@NonNull ColorStateList colors) {
+    public void setExpandedSubtitleColor(@ColorInt int color) {
+        setExpandedSubtitleColor(ColorStateList.valueOf(color));
+    }
+
+    public void setExpandedSubtitleColorRes(@ColorRes int res) {
+        setExpandedSubtitleColor(ContextCompat.getColor(getContext(), res));
+    }
+
+    public void setExpandedSubtitleColorAttr(@AttrRes int attr) {
+        int color = Themes.getColor(getContext(), attr, 0);
+        if (color == 0)
+            throw new RuntimeException("Color attribute not found in current theme!");
+        setExpandedSubtitleColor(color);
+    }
+
+    public void setExpandedSubtitleColor(@NonNull ColorStateList colors) {
         mCollapsingTextHelper.setExpandedSubtitleColor(colors);
     }
 

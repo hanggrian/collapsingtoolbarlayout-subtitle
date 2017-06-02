@@ -9,10 +9,10 @@ import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import butterknife.BindView
 import com.afollestad.materialdialogs.MaterialDialog
-import com.hendraanggrian.bundler.annotations.BindExtra
+import com.hendraanggrian.bundler.BindExtra
+import com.hendraanggrian.support.utils.widget.Toasts
 import java.util.*
 
 /**
@@ -33,6 +33,10 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setSupportActionBar(toolbar)
         floatingActionButton.setOnClickListener(this)
+
+        if (collapsingToolbarLayout is SubtitleCollapsingToolbarLayout) {
+            (collapsingToolbarLayout as SubtitleCollapsingToolbarLayout).setCollapsedTitleColorAttr(R.attr.colorAccent)
+        }
     }
 
     override fun onClick(v: View) {
@@ -105,7 +109,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
 
             override fun setSubtitle(text: CharSequence?) {
                 if (collapsingToolbarLayout is CollapsingToolbarLayout)
-                    Toast.makeText(this@ArticleActivity, "Unsupported.", Toast.LENGTH_SHORT).show()
+                    Toasts.showShort(this@ArticleActivity, "Unsupported.")
                 else if (collapsingToolbarLayout is SubtitleCollapsingToolbarLayout)
                     (collapsingToolbarLayout as SubtitleCollapsingToolbarLayout).subtitle = text
             }

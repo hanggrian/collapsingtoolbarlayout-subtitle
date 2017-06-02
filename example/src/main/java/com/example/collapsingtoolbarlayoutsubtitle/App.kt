@@ -11,7 +11,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        ButterKnife.setDebug(true)
-        Bundler.setDebug(true)
+        ButterKnife.setDebug(BuildConfig.DEBUG)
+        Bundler.setDebug(BuildConfig.DEBUG)
     }
 }

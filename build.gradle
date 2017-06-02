@@ -1,65 +1,28 @@
 buildscript {
-    ext.plugin = [
-            android: [
-                    app: 'com.android.application',
-                    lib: 'com.android.library'
-            ],
-            kotlin : [
-                    android: 'kotlin-android',
-                    kapt   : 'kotlin-kapt'
-            ],
-            novoda : 'com.novoda.bintray-release'
-    ]
-    ext.config = [
-            sdk       : [
-                    min   : 9,
-                    target: 25,
-            ],
-            buildTools: '25.0.3',
-            testRunner: 'android.support.test.runner.AndroidJUnitRunner'
-    ]
-    ext.deps = [
-            junit          : 'junit:junit:4.12',
-            support        : [
-                    design: 'com.android.support:design:25.3.1',
-                    test  : [
-                            runner  : 'com.android.support.test:runner:0.5',
-                            espresso: 'com.android.support.test.espresso:espresso-core:2.2.2'
-                    ]
-            ],
-            hendraanggrian : [
-                    utils  : 'com.hendraanggrian:support-utils:0.7',
-                    bundler: [
-                            main     : 'com.hendraanggrian:bundler:0.3.2',
-                            processor: 'com.hendraanggrian:bundler-compiler:0.3.2'
-                    ]
-            ],
-            butterknife    : [
-                    main     : 'com.jakewharton:butterknife:8.5.1',
-                    processor: 'com.jakewharton:butterknife-compiler:8.5.1'
-            ],
-            materialdialogs: 'com.afollestad.material-dialogs:core:0.9.4.4',
-            kotlin         : 'org.jetbrains.kotlin:kotlin-stdlib-jre7:1.1.2-3'
-    ]
-    ext.bintray = [
-            user    : 'hendraanggrian',
-            group   : 'com.hendraanggrian',
-            artifact: 'collapsingtoolbarlayout-subtitle',
-            version : '0.5.1',
-            desc    : 'Standard CollapsingToolbarLayout with subtitle support.',
-            website : 'https://github.com/HendraAnggrian/collapsingtoolbarlayout-subtitle'
-    ]
     repositories {
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.2'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.2-3'
         classpath 'com.novoda:bintray-release:0.3.4'
     }
 }
 
 allprojects {
+    ext.versions = [
+            // android
+            sdk       : [
+                    min   : 9,
+                    target: 25,
+            ],
+            buildTools: '25.0.3',
+
+            // main
+            support   : '25.3.1',
+            utils     : '0.7',
+
+            release   : '0.5.2'
+    ]
     repositories {
         jcenter()
     }
