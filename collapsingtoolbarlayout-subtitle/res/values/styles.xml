@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.Design.SubtitleCollapsingToolbar" parent="android:Widget">
+        <item name="expandedSubtitleTextAppearance">@style/TextAppearance.AppCompat.Headline</item>
+        <item name="collapsedSubtitleTextAppearance">@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle</item>
+        <item name="useCorrectPadding">false</item>
+    </style>
+</resources>

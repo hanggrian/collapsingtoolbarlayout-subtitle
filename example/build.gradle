@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 buildscript {
-    ext.kotlin = '1.1.2-3'
+    ext.kotlin = '1.1.2-5'
     ext.materialdialogs = '0.9.4.5'
     ext.butterknife = '8.6.0'
     ext.bundler = '0.4.1'
@@ -39,8 +39,11 @@ android {
 
 dependencies {
     compile project(':collapsingtoolbarlayout-subtitle')
+    compile "com.android.support:appcompat-v7:$versions.support"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin"
-    compile "com.afollestad.material-dialogs:core:$materialdialogs"
+    compile("com.afollestad.material-dialogs:core:$materialdialogs") {
+        exclude group: 'com.android.support'
+    }
 
     compile "com.jakewharton:butterknife:$butterknife"
     kapt "com.jakewharton:butterknife-compiler:$butterknife"

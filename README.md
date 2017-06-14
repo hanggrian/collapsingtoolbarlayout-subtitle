@@ -56,11 +56,12 @@ It is only tested with support design library version as listed below with no in
 ```gradle
 repositories {
     jcenter()
+    maven { url "https://maven.google.com" }
 }
 
 dependencies {
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:0.5.2'
+    compile 'com.android.support:design:25.4.0'
+    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:0.6.0'
 }
 ```
 
