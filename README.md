@@ -1,11 +1,13 @@
 SubtitleCollapsingToolbarLayout
 ===============================
-Standard `CollapsingToolbarLayout` with subtitle support.
+![icon][icon]
 
-![SubtitleCollapsingToolbarLayout][demo]
+Standard `CollapsingToolbarLayout` with subtitle support.
 
 Usage
 -----
+![demo][demo]
+
 Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLayout`.
 ```xml
 <android.support.design.widget.CoordinatorLayout
@@ -81,6 +83,6 @@ License
     See the License for the specific language governing permissions and
     limitations under the License.
     
-    
- [demo]: /art/demo_collapsingtoolbarlayout-subtitle.gif
- [design]: https://github.com/android/platform_frameworks_support/tree/master/design
+[icon]: /example/res/mipmap-xxxhdpi/ic_launcher.png
+[demo]: /art/demo_collapsingtoolbarlayout-subtitle.gif
+[design]: https://github.com/android/platform_frameworks_support/tree/master/design

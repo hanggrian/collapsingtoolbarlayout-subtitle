@@ -1,15 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 
 buildscript {
-    ext.kotlin = '1.1.2-5'
+    ext.kotlin = '1.1.3'
     ext.materialdialogs = '0.9.4.5'
-    ext.butterknife = '8.6.0'
-    ext.bundler = '0.4.1'
-    ext.runner = '0.5'
-    ext.espresso = '2.2.2'
-    ext.junit = '4.12'
     repositories {
         mavenCentral()
     }
@@ -27,10 +22,19 @@ android {
         versionName '1.0'
         minSdkVersion 13
         targetSdkVersion versions.sdk.target
-        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+    }
+    sourceSets {
+        main.manifest.srcFile 'AndroidManifest.xml'
+        main.java.srcDirs 'src'
+        main.res.srcDirs 'res', 'res-public'
+        main.resources.srcDir 'src'
     }
     buildTypes {
         debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -44,19 +48,4 @@ dependencies {
     compile("com.afollestad.material-dialogs:core:$materialdialogs") {
         exclude group: 'com.android.support'
     }
-
-    compile "com.jakewharton:butterknife:$butterknife"
-    kapt "com.jakewharton:butterknife-compiler:$butterknife"
-
-    compile "com.hendraanggrian:bundler:$bundler"
-    kapt "com.hendraanggrian:bundler-compiler:$bundler"
-
-    androidTestCompile("com.android.support.test:runner:$runner") {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
-    androidTestCompile("com.android.support.test.espresso:espresso-core:$espresso") {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
-
-    testCompile "junit:junit:$junit"
 }

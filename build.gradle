@@ -19,13 +19,19 @@ allprojects {
 
             // main
             support   : '25.4.0',
-            utils     : '0.12',
+            utils     : '0.13',
+
+            // test
+            ruler     : '0.5',
+            runner    : '0.5',
+            espresso  : '2.2.2',
+            junit     : '4.12',
 
             release   : '0.6.0'
     ]
     repositories {
-        jcenter()
         maven { url "https://maven.google.com" }
+        jcenter()
     }
     tasks.withType(Javadoc) {
         options.addStringOption('Xdoclint:none', '-quiet')
