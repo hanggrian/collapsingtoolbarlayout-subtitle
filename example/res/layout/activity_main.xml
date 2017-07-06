@@ -38,8 +38,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                app:layout_collapseMode="pin"
-                app:navigationIcon="?homeAsUpIndicator"/>
+                app:layout_collapseMode="pin"/>
         </android.support.design.widget.SubtitleCollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 

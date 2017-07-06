@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         floatingActionButton.setOnClickListener(this)
-
         toolbarLayout.setCollapsedTitleColorAttr(R.attr.colorAccent)
     }
 
@@ -76,12 +75,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         menuInflater.inflate(R.menu.article, menu)
         menuItem = menu.findItem(R.id.item_article_bookmark)
         return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home)
-            finish()
-        return super.onOptionsItemSelected(item)
     }
 
     companion object {

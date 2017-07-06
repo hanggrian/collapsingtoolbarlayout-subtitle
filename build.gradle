@@ -19,7 +19,7 @@ allprojects {
 
             // main
             support   : '25.4.0',
-            utils     : '0.13',
+            utils     : '0.15',
 
             // test
             ruler     : '0.5',
@@ -27,7 +27,7 @@ allprojects {
             espresso  : '2.2.2',
             junit     : '4.12',
 
-            release   : '0.6.0'
+            release   : '0.6.1'
     ]
     repositories {
         maven { url "https://maven.google.com" }

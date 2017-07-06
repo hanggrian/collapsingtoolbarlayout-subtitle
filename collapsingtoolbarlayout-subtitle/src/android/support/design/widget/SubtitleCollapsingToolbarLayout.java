@@ -118,14 +118,18 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
 
         mExpandedMarginStart = mExpandedMarginTop = mExpandedMarginEnd = mExpandedMarginBottom = a1.getDimensionPixelSize(R.styleable.CollapsingToolbarLayout_expandedTitleMargin, 0);
 
-        if (a1.hasValue(R.styleable.CollapsingToolbarLayout_expandedTitleMarginStart))
+        if (a1.hasValue(R.styleable.CollapsingToolbarLayout_expandedTitleMarginStart)) {
             mExpandedMarginStart = a1.getDimensionPixelSize(R.styleable.CollapsingToolbarLayout_expandedTitleMarginStart, 0);
-        if (a1.hasValue(R.styleable.CollapsingToolbarLayout_expandedTitleMarginEnd))
+        }
+        if (a1.hasValue(R.styleable.CollapsingToolbarLayout_expandedTitleMarginEnd)) {
             mExpandedMarginEnd = a1.getDimensionPixelSize(R.styleable.CollapsingToolbarLayout_expandedTitleMarginEnd, 0);
-        if (a1.hasValue(R.styleable.CollapsingToolbarLayout_expandedTitleMarginTop))
+        }
+        if (a1.hasValue(R.styleable.CollapsingToolbarLayout_expandedTitleMarginTop)) {
             mExpandedMarginTop = a1.getDimensionPixelSize(R.styleable.CollapsingToolbarLayout_expandedTitleMarginTop, 0);
-        if (a1.hasValue(R.styleable.CollapsingToolbarLayout_expandedTitleMarginBottom))
+        }
+        if (a1.hasValue(R.styleable.CollapsingToolbarLayout_expandedTitleMarginBottom)) {
             mExpandedMarginBottom = a1.getDimensionPixelSize(R.styleable.CollapsingToolbarLayout_expandedTitleMarginBottom, 0);
+        }
 
         mCollapsingTitleEnabled = a1.getBoolean(R.styleable.CollapsingToolbarLayout_titleEnabled, true);
         setTitle(a1.getText(R.styleable.CollapsingToolbarLayout_title));
@@ -136,10 +140,12 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
         mCollapsingTextHelper.setCollapsedTitleAppearance(android.support.v7.appcompat.R.style.TextAppearance_AppCompat_Widget_ActionBar_Title);
 
         // Now overlay any custom text appearances
-        if (a1.hasValue(R.styleable.CollapsingToolbarLayout_expandedTitleTextAppearance))
+        if (a1.hasValue(R.styleable.CollapsingToolbarLayout_expandedTitleTextAppearance)) {
             mCollapsingTextHelper.setExpandedTitleAppearance(a1.getResourceId(R.styleable.CollapsingToolbarLayout_expandedTitleTextAppearance, 0));
-        if (a1.hasValue(R.styleable.CollapsingToolbarLayout_collapsedTitleTextAppearance))
+        }
+        if (a1.hasValue(R.styleable.CollapsingToolbarLayout_collapsedTitleTextAppearance)) {
             mCollapsingTextHelper.setCollapsedTitleAppearance(a1.getResourceId(R.styleable.CollapsingToolbarLayout_collapsedTitleTextAppearance, 0));
+        }
 
         mCollapsingTextHelper.setExpandedSubtitleAppearance(a2.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_expandedSubtitleTextAppearance, 0));
         mCollapsingTextHelper.setCollapsedSubtitleAppearance(a2.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_collapsedSubtitleTextAppearance, 0));
@@ -173,8 +179,9 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
         final ViewParent parent = getParent();
         if (parent instanceof AppBarLayout) {
             ViewCompat.setFitsSystemWindows(this, ViewCompat.getFitsSystemWindows((View) parent));
-            if (mOnOffsetChangedListener == null)
+            if (mOnOffsetChangedListener == null) {
                 mOnOffsetChangedListener = new OffsetUpdateListener();
+            }
             ((AppBarLayout) parent).addOnOffsetChangedListener(mOnOffsetChangedListener);
             ViewCompat.requestApplyInsets(this);
         }
@@ -183,15 +190,17 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     @Override
     protected void onDetachedFromWindow() {
         final ViewParent parent = getParent();
-        if (mOnOffsetChangedListener != null && parent instanceof AppBarLayout)
+        if (mOnOffsetChangedListener != null && parent instanceof AppBarLayout) {
             ((AppBarLayout) parent).removeOnOffsetChangedListener(mOnOffsetChangedListener);
+        }
         super.onDetachedFromWindow();
     }
 
     WindowInsetsCompat onWindowInsetChanged(final WindowInsetsCompat insets) {
         WindowInsetsCompat newInsets = null;
-        if (ViewCompat.getFitsSystemWindows(this))
+        if (ViewCompat.getFitsSystemWindows(this)) {
             newInsets = insets;
+        }
         if (!ViewUtils.objectEquals(mLastInsets, newInsets)) {
             mLastInsets = newInsets;
             requestLayout();
@@ -234,19 +243,22 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        if (mContentScrim != null)
+        if (mContentScrim != null) {
             mContentScrim.setBounds(0, 0, w, h);
+        }
     }
 
     private void ensureToolbar() {
-        if (!mRefreshToolbar)
+        if (!mRefreshToolbar) {
             return;
+        }
         mToolbar = null;
         mToolbarDirectChild = null;
         if (mToolbarId != -1) {
             mToolbar = (Toolbar) findViewById(mToolbarId);
-            if (mToolbar != null)
+            if (mToolbar != null) {
                 mToolbarDirectChild = findDirectChild(mToolbar);
+            }
         }
         if (mToolbar == null) {
             Toolbar toolbar = null;
@@ -282,14 +294,17 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     private void updateDummyView() {
         if (!mCollapsingTitleEnabled && mDummyView != null) {
             final ViewParent parent = mDummyView.getParent();
-            if (parent instanceof ViewGroup)
+            if (parent instanceof ViewGroup) {
                 ((ViewGroup) parent).removeView(mDummyView);
+            }
         }
         if (mCollapsingTitleEnabled && mToolbar != null) {
-            if (mDummyView == null)
+            if (mDummyView == null) {
                 mDummyView = new View(getContext());
-            if (mDummyView.getParent() == null)
+            }
+            if (mDummyView.getParent() == null) {
                 mToolbar.addView(mDummyView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+            }
         }
     }
 
@@ -306,9 +321,11 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
             final int insetTop = mLastInsets.getSystemWindowInsetTop();
             for (int i = 0, z = getChildCount(); i < z; i++) {
                 final View child = getChildAt(i);
-                if (!ViewCompat.getFitsSystemWindows(child))
-                    if (child.getTop() < insetTop)
+                if (!ViewCompat.getFitsSystemWindows(child)) {
+                    if (child.getTop() < insetTop) {
                         ViewCompat.offsetTopAndBottom(child, insetTop);
+                    }
+                }
             }
         }
         if (mCollapsingTitleEnabled && mDummyView != null) {
@@ -346,15 +363,18 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
                 mCollapsingTextHelper.recalculate();
             }
         }
-        for (int i = 0, z = getChildCount(); i < z; i++)
+        for (int i = 0, z = getChildCount(); i < z; i++) {
             getViewOffsetHelper(getChildAt(i)).onViewLayout();
+        }
         if (mToolbar != null) {
-            if (mCollapsingTitleEnabled && TextUtils.isEmpty(mCollapsingTextHelper.getTitle()))
+            if (mCollapsingTitleEnabled && TextUtils.isEmpty(mCollapsingTextHelper.getTitle())) {
                 mCollapsingTextHelper.setTitle(mToolbar.getTitle());
-            if (mToolbarDirectChild == null || mToolbarDirectChild == this)
+            }
+            if (mToolbarDirectChild == null || mToolbarDirectChild == this) {
                 setMinimumHeight(getHeightWithMargins(mToolbar));
-            else
+            } else {
                 setMinimumHeight(getHeightWithMargins(mToolbarDirectChild));
+            }
         }
         updateScrimVisibility();
     }
@@ -418,10 +438,11 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
 
     public void setScrimsShown(boolean shown, boolean animate) {
         if (mScrimsAreShown != shown) {
-            if (animate)
+            if (animate) {
                 animateScrim(shown ? 0xFF : 0x0);
-            else
+            } else {
                 setScrimAlpha(shown ? 0xFF : 0x0);
+            }
             mScrimsAreShown = shown;
         }
     }
@@ -451,8 +472,9 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     void setScrimAlpha(int alpha) {
         if (alpha != mScrimAlpha) {
             final Drawable contentScrim = mContentScrim;
-            if (contentScrim != null && mToolbar != null)
+            if (contentScrim != null && mToolbar != null) {
                 ViewCompat.postInvalidateOnAnimation(mToolbar);
+            }
             mScrimAlpha = alpha;
             ViewCompat.postInvalidateOnAnimation(SubtitleCollapsingToolbarLayout.this);
         }
@@ -464,8 +486,9 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
 
     public void setContentScrim(@Nullable Drawable drawable) {
         if (mContentScrim != drawable) {
-            if (mContentScrim != null)
+            if (mContentScrim != null) {
                 mContentScrim.setCallback(null);
+            }
             mContentScrim = drawable != null ? drawable.mutate() : null;
             if (mContentScrim != null) {
                 mContentScrim.setBounds(0, 0, getWidth(), getHeight());
@@ -491,12 +514,14 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
 
     public void setStatusBarScrim(@Nullable Drawable drawable) {
         if (mStatusBarScrim != drawable) {
-            if (mStatusBarScrim != null)
+            if (mStatusBarScrim != null) {
                 mStatusBarScrim.setCallback(null);
+            }
             mStatusBarScrim = drawable != null ? drawable.mutate() : null;
             if (mStatusBarScrim != null) {
-                if (mStatusBarScrim.isStateful())
+                if (mStatusBarScrim.isStateful()) {
                     mStatusBarScrim.setState(getDrawableState());
+                }
                 DrawableCompat.setLayoutDirection(mStatusBarScrim, ViewCompat.getLayoutDirection(this));
                 mStatusBarScrim.setVisible(getVisibility() == VISIBLE, false);
                 mStatusBarScrim.setCallback(this);
@@ -512,15 +537,19 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
         final int[] state = getDrawableState();
         boolean changed = false;
         Drawable d = mStatusBarScrim;
-        if (d != null && d.isStateful())
+        if (d != null && d.isStateful()) {
             changed |= d.setState(state);
+        }
         d = mContentScrim;
-        if (d != null && d.isStateful())
+        if (d != null && d.isStateful()) {
             changed |= d.setState(state);
-        if (mCollapsingTextHelper != null)
+        }
+        if (mCollapsingTextHelper != null) {
             changed |= mCollapsingTextHelper.setState(state);
-        if (changed)
+        }
+        if (changed) {
             invalidate();
+        }
     }
 
     @Override
@@ -532,10 +561,12 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     public void setVisibility(int visibility) {
         super.setVisibility(visibility);
         final boolean visible = visibility == VISIBLE;
-        if (mStatusBarScrim != null && mStatusBarScrim.isVisible() != visible)
+        if (mStatusBarScrim != null && mStatusBarScrim.isVisible() != visible) {
             mStatusBarScrim.setVisible(visible, false);
-        if (mContentScrim != null && mContentScrim.isVisible() != visible)
+        }
+        if (mContentScrim != null && mContentScrim.isVisible() != visible) {
             mContentScrim.setVisible(visible, false);
+        }
     }
 
     public void setStatusBarScrimColor(@ColorInt int color) {
@@ -568,10 +599,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     }
 
     public void setCollapsedTitleColorAttr(@AttrRes int attr) {
-        int color = Themes.getColor(getContext(), attr, 0);
-        if (color == 0)
-            throw new RuntimeException("Color attribute not found in current theme!");
-        setCollapsedTitleColor(color);
+        setCollapsedTitleColor(Themes.getColor(getContext(), attr));
     }
 
     public void setCollapsedTitleColor(@NonNull ColorStateList colors) {
@@ -587,10 +615,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     }
 
     public void setCollapsedSubtitleColorAttr(@AttrRes int attr) {
-        int color = Themes.getColor(getContext(), attr, 0);
-        if (color == 0)
-            throw new RuntimeException("Color attribute not found in current theme!");
-        setCollapsedSubtitleColor(color);
+        setCollapsedSubtitleColor(Themes.getColor(getContext(), attr));
     }
 
     public void setCollapsedSubtitleColor(@NonNull ColorStateList colors) {
@@ -622,10 +647,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     }
 
     public void setExpandedTitleColorAttr(@AttrRes int attr) {
-        int color = Themes.getColor(getContext(), attr, 0);
-        if (color == 0)
-            throw new RuntimeException("Color attribute not found in current theme!");
-        setExpandedTitleColor(color);
+        setExpandedTitleColor(Themes.getColor(getContext(), attr));
     }
 
     public void setExpandedTitleColor(@NonNull ColorStateList colors) {
@@ -641,10 +663,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     }
 
     public void setExpandedSubtitleColorAttr(@AttrRes int attr) {
-        int color = Themes.getColor(getContext(), attr, 0);
-        if (color == 0)
-            throw new RuntimeException("Color attribute not found in current theme!");
-        setExpandedSubtitleColor(color);
+        setExpandedSubtitleColor(Themes.getColor(getContext(), attr));
     }
 
     public void setExpandedSubtitleColor(@NonNull ColorStateList colors) {
@@ -734,8 +753,9 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
             return mScrimVisibleHeightTrigger;
         final int insetTop = mLastInsets != null ? mLastInsets.getSystemWindowInsetTop() : 0;
         final int minHeight = ViewCompat.getMinimumHeight(this);
-        if (minHeight > 0)
+        if (minHeight > 0) {
             return Math.min((minHeight * 2) + insetTop, getHeight());
+        }
         return getHeight() / 3;
     }
 
@@ -768,8 +788,9 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     }
 
     final void updateScrimVisibility() {
-        if (mContentScrim != null || mStatusBarScrim != null)
+        if (mContentScrim != null || mStatusBarScrim != null) {
             setScrimsShown(getHeight() + mCurrentOffset < getScrimVisibleHeightTrigger());
+        }
     }
 
     final int getMaxOffsetForPinChild(View child) {
