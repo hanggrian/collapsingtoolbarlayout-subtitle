@@ -43,7 +43,7 @@ import com.hendraanggrian.collapsingtoolbarlayout.subtitle.R;
  * @author Hendra Anggrian (hendraanggrian@gmail.com)
  * @see CollapsingTextHelper
  */
-@SuppressWarnings("RestrictedApi")
+@SuppressWarnings({"RestrictedApi", "WeakerAccess", "unused"})
 final class SubtitleCollapsingTextHelper {
 
     private static final boolean USE_SCALING_TEXTURE = Build.VERSION.SDK_INT < 18;
@@ -763,6 +763,7 @@ final class SubtitleCollapsingTextHelper {
             mSubtitleTexturePaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public void recalculate() {
         if (mView.getHeight() > 0 && mView.getWidth() > 0) {
             calculateBaseOffsets();

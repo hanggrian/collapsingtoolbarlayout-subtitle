@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Widget.Design.SubtitleCollapsingToolbar" parent="android:Widget">
+    <style name="Widget.Design.CollapsingToolbar.Subtitle" parent="android:Widget">
+        <item name="expandedTitleMargin2">32dp</item>
+        <item name="statusBarScrim2">?attr/colorPrimaryDark</item>
+
         <item name="expandedSubtitleTextAppearance">@style/TextAppearance.AppCompat.Headline</item>
         <item name="collapsedSubtitleTextAppearance">@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle</item>
         <item name="useCorrectPadding">false</item>

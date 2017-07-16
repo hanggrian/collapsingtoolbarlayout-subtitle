@@ -4,7 +4,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'com.novoda:bintray-release:0.3.4'
+        classpath 'com.novoda:bintray-release:0.5.0'
     }
 }
 
@@ -15,13 +15,14 @@ allprojects {
                     min   : 9,
                     target: 25,
             ],
-            buildTools: '25.0.3',
+            buildTools: '26.0.0',
 
             // main
             support   : '25.4.0',
-            utils     : '0.15',
+            kota      : '0.1.2',
 
             // test
+            errorview : '0.8.1',
             ruler     : '0.5',
             runner    : '0.5',
             espresso  : '2.2.2',
@@ -30,7 +31,7 @@ allprojects {
             release   : '0.6.1'
     ]
     repositories {
-        maven { url "https://maven.google.com" }
+        maven { url 'https://maven.google.com' }
         jcenter()
     }
     tasks.withType(Javadoc) {
