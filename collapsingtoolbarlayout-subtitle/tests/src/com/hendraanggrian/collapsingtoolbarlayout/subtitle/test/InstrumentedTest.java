@@ -1,5 +1,7 @@
 package com.hendraanggrian.collapsingtoolbarlayout.subtitle.test;
 
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.SubtitleCollapsingToolbarLayout;
 import android.support.test.espresso.ViewAction;
@@ -19,6 +21,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static android.support.test.InstrumentationRegistry.getTargetContext;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.actionWithAssertions;
 import static android.support.test.espresso.action.ViewActions.swipeDown;
@@ -51,7 +54,24 @@ public class InstrumentedTest {
         });
     }
 
-    public static void turn(final OnPerform<SubtitleCollapsingToolbarLayout> perform) {
+    @Test
+    public void typeface() {
+        turn(new OnPerform<SubtitleCollapsingToolbarLayout>() {
+            @Override
+            public void onPerform(SubtitleCollapsingToolbarLayout layout) {
+            }
+        });
+        turn(new OnPerform<SubtitleCollapsingToolbarLayout>() {
+            @Override
+            public void onPerform(SubtitleCollapsingToolbarLayout layout) {
+                AssetManager assets = getTargetContext().getAssets();
+                layout.setExpandedTitleTypeface(Typeface.createFromAsset(assets, "SourceCodePro-Bold.ttf"));
+                layout.setExpandedSubtitleTypeface(Typeface.createFromAsset(assets, "SourceCodePro-Regular.ttf"));
+            }
+        });
+    }
+
+    private void turn(final OnPerform<SubtitleCollapsingToolbarLayout> perform) {
         onView(withId(R.id.errorView)).perform(new SimpleViewAction<ErrorView>(ErrorView.class) {
             @Override
             public void onPerform(ErrorView view) {
@@ -83,14 +103,14 @@ public class InstrumentedTest {
     }
 
     @NonNull
-    public static ViewAction slowerSwipeUp() {
+    private static ViewAction slowerSwipeUp() {
         return actionWithAssertions(new GeneralSwipeAction(SlowerSwipe.INSTANCE,
                 translate(GeneralLocation.BOTTOM_CENTER, 0, -EDGE_FUZZ_FACTOR),
                 GeneralLocation.TOP_CENTER, Press.FINGER));
     }
 
     @NonNull
-    public static ViewAction slowerSwipeDown() {
+    private static ViewAction slowerSwipeDown() {
         return actionWithAssertions(new GeneralSwipeAction(Swipe.SLOW,
                 translate(GeneralLocation.TOP_CENTER, 0, EDGE_FUZZ_FACTOR),
                 GeneralLocation.BOTTOM_CENTER, Press.FINGER));

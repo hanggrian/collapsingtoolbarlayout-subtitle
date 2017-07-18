@@ -61,7 +61,7 @@ repositories {
 
 dependencies {
     compile 'com.android.support:design:25.4.0'
-    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:0.6.1'
+    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:0.7.0'
 }
 ```
 

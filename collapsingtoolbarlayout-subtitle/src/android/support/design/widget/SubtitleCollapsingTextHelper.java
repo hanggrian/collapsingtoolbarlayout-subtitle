@@ -43,7 +43,7 @@ import com.hendraanggrian.collapsingtoolbarlayout.subtitle.R;
  * @author Hendra Anggrian (hendraanggrian@gmail.com)
  * @see CollapsingTextHelper
  */
-@SuppressWarnings({"RestrictedApi", "WeakerAccess", "unused"})
+@SuppressWarnings({"RestrictedApi", "unused"})
 final class SubtitleCollapsingTextHelper {
 
     private static final boolean USE_SCALING_TEXTURE = Build.VERSION.SDK_INT < 18;
@@ -82,9 +82,9 @@ final class SubtitleCollapsingTextHelper {
     private float mCollapsedTitleX, mCollapsedSubtitleX;
     private float mCurrentTitleX, mCurrentSubtitleX;
     private float mCurrentTitleY, mCurrentSubtitleY;
-    private Typeface mCollapsedTypeface;
-    private Typeface mExpandedTypeface;
-    private Typeface mCurrentTypeface;
+    private Typeface mCollapsedTitleTypeface, mCollapsedSubtitleTypeface;
+    private Typeface mExpandedTitleTypeface, mExpandedSubtitleTypeface;
+    private Typeface mCurrentTitleTypeface, mCurrentSubtitleTypeface;
 
     private CharSequence mTitle, mSubtitle;
     private CharSequence mTitleToDraw, mSubtitleToDraw;
@@ -229,7 +229,7 @@ final class SubtitleCollapsingTextHelper {
         mCollapsedShadowRadius = a.getFloat(android.support.v7.appcompat.R.styleable.TextAppearance_android_shadowRadius, 0);
         a.recycle();
         if (Build.VERSION.SDK_INT >= 16)
-            mCollapsedTypeface = readFontFamilyTypeface(resId);
+            mCollapsedTitleTypeface = readFontFamilyTypeface(resId);
         recalculate();
     }
 
@@ -245,7 +245,7 @@ final class SubtitleCollapsingTextHelper {
         mExpandedShadowRadius = a.getFloat(android.support.v7.appcompat.R.styleable.TextAppearance_android_shadowRadius, 0);
         a.recycle();
         if (Build.VERSION.SDK_INT >= 16)
-            mExpandedTypeface = readFontFamilyTypeface(resId);
+            mExpandedTitleTypeface = readFontFamilyTypeface(resId);
         recalculate();
     }
 
@@ -256,6 +256,8 @@ final class SubtitleCollapsingTextHelper {
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textSize))
             mCollapsedSubtitleSize = a.getDimensionPixelSize(android.support.v7.appcompat.R.styleable.TextAppearance_android_textSize, (int) mCollapsedSubtitleSize);
         a.recycle();
+        if (Build.VERSION.SDK_INT >= 16)
+            mCollapsedSubtitleTypeface = readFontFamilyTypeface(resId);
         recalculate();
     }
 
@@ -266,6 +268,8 @@ final class SubtitleCollapsingTextHelper {
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textSize))
             mExpandedSubtitleSize = a.getDimensionPixelSize(android.support.v7.appcompat.R.styleable.TextAppearance_android_textSize, (int) mExpandedSubtitleSize);
         a.recycle();
+        if (Build.VERSION.SDK_INT >= 16)
+            mExpandedSubtitleTypeface = readFontFamilyTypeface(resId);
         recalculate();
     }
 
@@ -285,31 +289,58 @@ final class SubtitleCollapsingTextHelper {
         return null;
     }
 
-    void setCollapsedTypeface(Typeface typeface) {
-        if (mCollapsedTypeface != typeface) {
-            mCollapsedTypeface = typeface;
+    void setCollapsedTitleTypeface(Typeface typeface) {
+        if (mCollapsedTitleTypeface != typeface) {
+            mCollapsedTitleTypeface = typeface;
             recalculate();
         }
     }
 
-    void setExpandedTypeface(Typeface typeface) {
-        if (mExpandedTypeface != typeface) {
-            mExpandedTypeface = typeface;
+    void setExpandedTitleTypeface(Typeface typeface) {
+        if (mExpandedTitleTypeface != typeface) {
+            mExpandedTitleTypeface = typeface;
             recalculate();
         }
     }
 
-    void setTypefaces(Typeface typeface) {
-        mCollapsedTypeface = mExpandedTypeface = typeface;
+    void setCollapsedSubtitleTypeface(Typeface typeface) {
+        if (mCollapsedSubtitleTypeface != typeface) {
+            mCollapsedSubtitleTypeface = typeface;
+            recalculate();
+        }
+    }
+
+    void setExpandedSubtitleTypeface(Typeface typeface) {
+        if (mExpandedSubtitleTypeface != typeface) {
+            mExpandedSubtitleTypeface = typeface;
+            recalculate();
+        }
+    }
+
+    void setTitleTypefaces(Typeface typeface) {
+        mCollapsedTitleTypeface = mExpandedTitleTypeface = typeface;
         recalculate();
     }
 
-    Typeface getCollapsedTypeface() {
-        return mCollapsedTypeface != null ? mCollapsedTypeface : Typeface.DEFAULT;
+    void setSubtitleTypefaces(Typeface typeface) {
+        mCollapsedSubtitleTypeface = mExpandedSubtitleTypeface = typeface;
+        recalculate();
     }
 
-    Typeface getExpandedTypeface() {
-        return mExpandedTypeface != null ? mExpandedTypeface : Typeface.DEFAULT;
+    Typeface getCollapsedTitleTypeface() {
+        return mCollapsedTitleTypeface != null ? mCollapsedTitleTypeface : Typeface.DEFAULT;
+    }
+
+    Typeface getExpandedTitleTypeface() {
+        return mExpandedTitleTypeface != null ? mExpandedTitleTypeface : Typeface.DEFAULT;
+    }
+
+    Typeface getCollapsedSubtitleTypeface() {
+        return mCollapsedSubtitleTypeface != null ? mCollapsedSubtitleTypeface : Typeface.DEFAULT;
+    }
+
+    Typeface getExpandedSubtitleTypeface() {
+        return mExpandedSubtitleTypeface != null ? mExpandedSubtitleTypeface : Typeface.DEFAULT;
     }
 
     void setExpansionFraction(float fraction) {
@@ -541,6 +572,7 @@ final class SubtitleCollapsingTextHelper {
         mCurrentBounds.bottom = lerp(mExpandedBounds.bottom, mCollapsedBounds.bottom, fraction, mPositionInterpolator);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public void draw(Canvas canvas) {
         final int saveCountTitle = canvas.save();
         if (mTitleToDraw != null && mDrawTitle) {
@@ -622,15 +654,15 @@ final class SubtitleCollapsingTextHelper {
         if (isClose(titleSize, mCollapsedTitleSize)) {
             newTitleSize = mCollapsedTitleSize;
             mTitleScale = 1f;
-            if (mCurrentTypeface != mCollapsedTypeface) {
-                mCurrentTypeface = mCollapsedTypeface;
+            if (mCurrentTitleTypeface != mCollapsedTitleTypeface) {
+                mCurrentTitleTypeface = mCollapsedTitleTypeface;
                 updateDrawText = true;
             }
             availableWidth = collapsedWidth;
         } else {
             newTitleSize = mExpandedTitleSize;
-            if (mCurrentTypeface != mExpandedTypeface) {
-                mCurrentTypeface = mExpandedTypeface;
+            if (mCurrentTitleTypeface != mExpandedTitleTypeface) {
+                mCurrentTitleTypeface = mExpandedTitleTypeface;
                 updateDrawText = true;
             }
             if (isClose(titleSize, mExpandedTitleSize))
@@ -655,7 +687,7 @@ final class SubtitleCollapsingTextHelper {
 
         if (mTitleToDraw == null || updateDrawText) {
             mTitlePaint.setTextSize(mCurrentTitleSize);
-            mTitlePaint.setTypeface(mCurrentTypeface);
+            mTitlePaint.setTypeface(mCurrentTitleTypeface);
             mTitlePaint.setLinearText(mTitleScale != 1f);
             final CharSequence title = TextUtils.ellipsize(mTitle, mTitlePaint, availableWidth, TextUtils.TruncateAt.END);
             if (!TextUtils.equals(title, mTitleToDraw)) {
@@ -686,15 +718,15 @@ final class SubtitleCollapsingTextHelper {
         if (isClose(subtitleSize, mCollapsedSubtitleSize)) {
             newSubtitleSize = mCollapsedSubtitleSize;
             mSubtitleScale = 1f;
-            if (mCurrentTypeface != mCollapsedTypeface) {
-                mCurrentTypeface = mCollapsedTypeface;
+            if (mCurrentSubtitleTypeface != mCollapsedSubtitleTypeface) {
+                mCurrentSubtitleTypeface = mCollapsedSubtitleTypeface;
                 updateDrawText = true;
             }
             availableWidth = collapsedWidth;
         } else {
             newSubtitleSize = mExpandedSubtitleSize;
-            if (mCurrentTypeface != mExpandedTypeface) {
-                mCurrentTypeface = mExpandedTypeface;
+            if (mCurrentSubtitleTypeface != mExpandedSubtitleTypeface) {
+                mCurrentSubtitleTypeface = mExpandedSubtitleTypeface;
                 updateDrawText = true;
             }
             if (isClose(subtitleSize, mExpandedSubtitleSize))
@@ -719,7 +751,7 @@ final class SubtitleCollapsingTextHelper {
 
         if (mSubtitleToDraw == null || updateDrawText) {
             mSubtitlePaint.setTextSize(mCurrentSubtitleSize);
-            mSubtitlePaint.setTypeface(mCurrentTypeface);
+            mSubtitlePaint.setTypeface(mCurrentSubtitleTypeface);
             mSubtitlePaint.setLinearText(mSubtitleScale != 1f);
             final CharSequence subtitle = TextUtils.ellipsize(mSubtitle, mSubtitlePaint, availableWidth, TextUtils.TruncateAt.END);
             if (!TextUtils.equals(subtitle, mSubtitleToDraw)) {

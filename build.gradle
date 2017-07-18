@@ -19,7 +19,7 @@ allprojects {
 
             // main
             support   : '25.4.0',
-            kota      : '0.1.2',
+            kota      : '0.1.4',
 
             // test
             errorview : '0.8.1',
@@ -28,7 +28,7 @@ allprojects {
             espresso  : '2.2.2',
             junit     : '4.12',
 
-            release   : '0.6.1'
+            release   : '0.7.0'
     ]
     repositories {
         maven { url 'https://maven.google.com' }

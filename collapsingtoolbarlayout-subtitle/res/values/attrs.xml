@@ -1,48 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="SubtitleCollapsingToolbarLayout">
-        <attr name="title" format="string"/>
-        <attr name="subtitle" format="string"/>
+        <!-- attrs inherited from CollapsingToolbarLayout -->
+        <!-- formats are deliberately left to avoid duplicate attr declaration -->
+        <attr name="expandedTitleMargin"/>
+        <attr name="expandedTitleMarginStart"/>
+        <attr name="expandedTitleMarginTop"/>
+        <attr name="expandedTitleMarginEnd"/>
+        <attr name="expandedTitleMarginBottom"/>
+        <attr name="expandedTitleTextAppearance"/>
+        <attr name="collapsedTitleTextAppearance"/>
+        <attr name="contentScrim"/>
+        <attr name="statusBarScrim"/>
+        <attr name="toolbarId"/>
+        <attr name="scrimVisibleHeightTrigger"/>
+        <attr name="scrimAnimationDuration"/>
+        <attr name="collapsedTitleGravity"/>
+        <attr name="expandedTitleGravity"/>
+        <attr name="titleEnabled"/>
+
+        <!-- inherited from Toolbar -->
+        <attr name="title"/>
+        <attr name="subtitle"/>
+
+        <!-- original SubtitleCollapsingToolbarLayout attrs -->
         <attr name="expandedSubtitleTextAppearance" format="reference"/>
         <attr name="collapsedSubtitleTextAppearance" format="reference"/>
         <attr name="useCorrectPadding" format="boolean"/>
-
-        <attr name="expandedTitleMargin2" format="dimension"/>
-        <attr name="expandedTitleMarginStart2" format="dimension"/>
-        <attr name="expandedTitleMarginTop2" format="dimension"/>
-        <attr name="expandedTitleMarginEnd2" format="dimension"/>
-        <attr name="expandedTitleMarginBottom2" format="dimension"/>
-        <attr name="expandedTitleTextAppearance2" format="reference"/>
-        <attr name="collapsedTitleTextAppearance2" format="reference"/>
-        <attr name="contentScrim2" format="color"/>
-        <attr name="statusBarScrim2" format="color"/>
-        <attr name="toolbarId2" format="reference"/>
-        <attr name="scrimVisibleHeightTrigger2" format="dimension"/>
-        <attr name="scrimAnimationDuration2" format="integer"/>
-        <attr name="collapsedTitleGravity2">
-            <flag name="top" value="0x30"/>
-            <flag name="bottom" value="0x50"/>
-            <flag name="left" value="0x03"/>
-            <flag name="right" value="0x05"/>
-            <flag name="center_vertical" value="0x10"/>
-            <flag name="fill_vertical" value="0x70"/>
-            <flag name="center_horizontal" value="0x01"/>
-            <flag name="center" value="0x11"/>
-            <flag name="start" value="0x00800003"/>
-            <flag name="end" value="0x00800005"/>
-        </attr>
-        <attr name="expandedTitleGravity2">
-            <flag name="top" value="0x30"/>
-            <flag name="bottom" value="0x50"/>
-            <flag name="left" value="0x03"/>
-            <flag name="right" value="0x05"/>
-            <flag name="center_vertical" value="0x10"/>
-            <flag name="fill_vertical" value="0x70"/>
-            <flag name="center_horizontal" value="0x01"/>
-            <flag name="center" value="0x11"/>
-            <flag name="start" value="0x00800003"/>
-            <flag name="end" value="0x00800005"/>
-        </attr>
-        <attr name="titleEnabled2" format="boolean"/>
     </declare-styleable>
 </resources>
