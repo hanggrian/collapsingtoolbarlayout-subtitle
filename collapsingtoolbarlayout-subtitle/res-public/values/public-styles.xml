@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <public name="Widget.Design.SubtitleCollapsingToolbar" type="style"/>
+    <public name="Widget.Design.CollapsingToolbar.Subtitle" type="style"/>
 </resources>
