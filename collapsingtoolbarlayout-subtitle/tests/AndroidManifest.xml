@@ -11,6 +11,6 @@
 
     <application android:theme="@style/AppTheme">
         <uses-library android:name="android.test.runner"/>
-        <activity android:name=".InstrumentedActivity"/>
+        <activity android:name=".activity.InstrumentedActivity"/>
     </application>
 </manifest>
