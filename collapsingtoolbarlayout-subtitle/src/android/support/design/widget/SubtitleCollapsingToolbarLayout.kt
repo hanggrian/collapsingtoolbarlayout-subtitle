@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:JvmName("SubtitleCollapsingToolbarLayout")
+
 package android.support.design.widget
 
 import android.annotation.TargetApi
@@ -39,7 +41,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.hendraanggrian.collapsingtoolbarlayout.subtitle.R
-import com.hendraanggrian.kota.content.res.*
+import com.hendraanggrian.kota.content.*
 
 /**
  * @author Hendra Anggrian (hendraanggrian@gmail.com)

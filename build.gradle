@@ -13,10 +13,10 @@ buildscript {
                     anko  : '0.10.1'
             ],
             support   : '25.4.0',
-            kota      : '0.2.2',
+            kota      : '0.4.1',
 
             // test
-            errorbar  : '0.2.0',
+            errorbar  : '0.3.0',
             ruler     : '0.5',
             runner    : '0.5',
             espresso  : '2.2.2',
@@ -40,8 +40,7 @@ allprojects {
         jcenter()
     }
     tasks.withType(Javadoc) {
-        options.addStringOption('Xdoclint:none', '-quiet')
-        options.addStringOption('encoding', 'UTF-8')
+        excludes = ['**/*.kt']
     }
 }
 
