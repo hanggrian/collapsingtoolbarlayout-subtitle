@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:JvmName("SubtitleCollapsingTextHelper")
-
 package android.support.design.widget
 
 import android.content.res.ColorStateList

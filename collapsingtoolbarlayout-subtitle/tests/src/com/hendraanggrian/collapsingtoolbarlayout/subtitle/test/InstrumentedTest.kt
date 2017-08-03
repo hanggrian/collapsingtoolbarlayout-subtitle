@@ -3,6 +3,7 @@ package com.hendraanggrian.collapsingtoolbarlayout.subtitle.test
 import android.graphics.Typeface
 import android.support.design.widget.Errorbar
 import android.support.design.widget.SubtitleCollapsingToolbarLayout
+import android.support.design.widget.errorbar
 import android.support.test.InstrumentationRegistry.getTargetContext
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.*
@@ -11,6 +12,7 @@ import android.support.test.espresso.action.ViewActions.swipeDown
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
+import android.support.v7.widget.Toolbar
 import android.view.Gravity
 import android.widget.FrameLayout
 import com.hendraanggrian.collapsingtoolbarlayout.subtitle.test.activity.InstrumentedActivity
@@ -32,8 +34,7 @@ class InstrumentedTest {
     fun errorbarInit() {
         onView(withId(R.id.frameLayout)).perform(object : SimpleViewAction<FrameLayout>(FrameLayout::class.java) {
             override fun onPerform(t: FrameLayout) {
-                errorbar = Errorbar.make(t, "", Errorbar.LENGTH_INDEFINITE)
-                errorbar.show()
+                errorbar = errorbar(t, "")
             }
         })
     }
@@ -60,26 +61,33 @@ class InstrumentedTest {
     }
 
     private fun turn(perform: (SubtitleCollapsingToolbarLayout) -> Unit) {
-        rule.activity.runOnUiThread {
-            errorbar.setLogoResource(R.drawable.up)
-            errorbar.setText("Swiping up...")
-        }
-        onView(withId(R.id.toolbarLayout)).perform(object : SimpleViewAction<SubtitleCollapsingToolbarLayout>(SubtitleCollapsingToolbarLayout::class.java) {
-            override fun onPerform(t: SubtitleCollapsingToolbarLayout) {
-                perform.invoke(t)
-            }
-        }, slowerSwipeUp())
-
-        rule.activity.runOnUiThread {
-            errorbar.setLogoResource(R.drawable.down)
-            errorbar.setText("Swiping down...")
-        }
-        onView(withId(R.id.toolbar)).perform(swipeDown(), swipeDown(), swipeDown(), swipeDown(), swipeDown())
-
-        rule.activity.runOnUiThread {
-            errorbar.setLogoDrawable(null)
-            errorbar.setText("Done")
-        }
+        onView(withId(R.id.toolbarLayout)).perform(
+                object : SimpleViewAction<SubtitleCollapsingToolbarLayout>(SubtitleCollapsingToolbarLayout::class.java) {
+                    override fun onPerform(t: SubtitleCollapsingToolbarLayout) {
+                        perform.invoke(t)
+                        errorbar.setLogoResource(R.drawable.up)
+                        errorbar.setText("Swiping up...")
+                    }
+                },
+                slowerSwipeUp())
+        onView(withId(R.id.toolbar)).perform(
+                object : SimpleViewAction<Toolbar>(Toolbar::class.java) {
+                    override fun onPerform(t: Toolbar) {
+                        errorbar.setLogoResource(R.drawable.down)
+                        errorbar.setText("Swiping down...")
+                    }
+                },
+                swipeDown(),
+                swipeDown(),
+                swipeDown(),
+                swipeDown(),
+                swipeDown(),
+                object : SimpleViewAction<Toolbar>(Toolbar::class.java) {
+                    override fun onPerform(t: Toolbar) {
+                        errorbar.setLogoDrawable(null)
+                        errorbar.setText("Done")
+                    }
+                })
     }
 
     companion object {

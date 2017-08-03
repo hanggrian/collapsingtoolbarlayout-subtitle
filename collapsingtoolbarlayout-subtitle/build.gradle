@@ -28,12 +28,8 @@ android {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin.main"
     compile "com.android.support:design:$versions.support"
-    compile("com.hendraanggrian:kota:$versions.kota") {
-        exclude group: 'com.android.support', module: 'support-compat'
-    }
-    androidTestCompile("com.hendraanggrian:errorbar:$versions.errorbar") {
-        transitive = false
-    }
+    compile "com.hendraanggrian:kota:$versions.kota"
+    androidTestCompile "com.hendraanggrian:errorbar:$versions.errorbar"
     androidTestCompile("com.android.support.test:rules:$versions.rules") {
         exclude group: 'com.android.support', module: 'support-annotations'
     }

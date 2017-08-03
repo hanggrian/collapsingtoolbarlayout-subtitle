@@ -18,6 +18,7 @@
 
 package android.support.design.widget
 
+import android.animation.ValueAnimator
 import android.annotation.TargetApi
 import android.content.Context
 import android.content.res.ColorStateList
@@ -116,7 +117,7 @@ class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
             }
         }
     private var mScrimsAreShown = false
-    private var mScrimAnimator: ValueAnimatorCompat? = null
+    private var mScrimAnimator: ValueAnimator? = null
     var scrimAnimationDuration = 0L
     private var mScrimVisibleHeightTrigger = -1
 
@@ -231,7 +232,7 @@ class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
         if (ViewCompat.getFitsSystemWindows(this)) {
             newInsets = insets
         }
-        if (!ViewUtils.objectEquals(mLastInsets, newInsets)) {
+        if (mLastInsets == newInsets) {
             mLastInsets = newInsets
             requestLayout()
         }
@@ -444,14 +445,13 @@ class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
     private fun animateScrim(targetAlpha: Int) {
         ensureToolbar()
         if (mScrimAnimator == null) {
-            mScrimAnimator = ViewUtils.createAnimator()
+            mScrimAnimator = ValueAnimator()
             mScrimAnimator!!.duration = scrimAnimationDuration
-            mScrimAnimator!!.setInterpolator(
-                    if (targetAlpha > scrimAlpha)
-                        AnimationUtils.FAST_OUT_LINEAR_IN_INTERPOLATOR
-                    else
-                        AnimationUtils.LINEAR_OUT_SLOW_IN_INTERPOLATOR)
-            mScrimAnimator!!.addUpdateListener { animator -> scrimAlpha = animator.animatedIntValue }
+            mScrimAnimator!!.interpolator = if (targetAlpha > scrimAlpha)
+                AnimationUtils.FAST_OUT_LINEAR_IN_INTERPOLATOR
+            else
+                AnimationUtils.LINEAR_OUT_SLOW_IN_INTERPOLATOR
+            mScrimAnimator!!.addUpdateListener { animator -> scrimAlpha = animator.animatedValue as Int }
         } else if (mScrimAnimator!!.isRunning) {
             mScrimAnimator!!.cancel()
         }

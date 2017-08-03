@@ -4,4 +4,6 @@
     <issue id="PrivateResource" severity="ignore"/>
     <!-- Use of Gravity.RIGHT and Gravity.LEFT instead of Gravity.END and Gravity.START -->
     <issue id="RtlHardcoded" severity="ignore"/>
+    <!-- possible Kotlin bug -->
+    <issue id="UnusedResources" severity="ignore"/>
 </lint>

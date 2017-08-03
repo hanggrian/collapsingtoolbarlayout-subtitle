@@ -55,13 +55,13 @@ This library relies heavily on private resources and internal classes from [Andr
 It is only tested with support design library version as listed below with no intention of supporting older versions.
 ```gradle
 repositories {
+    maven { url 'https://maven.google.com' }
     jcenter()
-    maven { url "https://maven.google.com" }
 }
 
 dependencies {
-    compile 'com.android.support:design:25.4.0'
-    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:0.7.0'
+    compile 'com.android.support:design:26.0.0'
+    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:0.8.0'
 }
 ```
 
