@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="SubtitleCollapsingToolbarLayout">
-        <!-- attrs inherited from CollapsingToolbarLayout -->
-        <!-- formats are deliberately left to avoid duplicate attr declaration -->
-        <attr name="expandedTitleMargin"/>
-        <attr name="expandedTitleMarginStart"/>
-        <attr name="expandedTitleMarginTop"/>
-        <attr name="expandedTitleMarginEnd"/>
-        <attr name="expandedTitleMarginBottom"/>
-        <attr name="expandedTitleTextAppearance"/>
-        <attr name="collapsedTitleTextAppearance"/>
-        <attr name="contentScrim"/>
-        <attr name="statusBarScrim"/>
-        <attr name="toolbarId"/>
-        <attr name="scrimVisibleHeightTrigger"/>
-        <attr name="scrimAnimationDuration"/>
-        <attr name="collapsedTitleGravity"/>
-        <attr name="expandedTitleGravity"/>
-        <attr name="titleEnabled"/>
-
-        <!-- inherited from Toolbar -->
-        <attr name="title"/>
-        <attr name="subtitle"/>
-
-        <!-- original SubtitleCollapsingToolbarLayout attrs -->
-        <attr name="expandedSubtitleTextAppearance" format="reference"/>
-        <attr name="collapsedSubtitleTextAppearance" format="reference"/>
-        <attr name="useCorrectPadding" format="boolean"/>
+        <!-- Some attrs' formats are deliberately left to avoid duplicate declaration. -->
+        <!-- CollapsingToolbarLayout's attrs -->
+        <attr name="expandedTitleMargin" />
+        <attr name="expandedTitleMarginStart" />
+        <attr name="expandedTitleMarginTop" />
+        <attr name="expandedTitleMarginEnd" />
+        <attr name="expandedTitleMarginBottom" />
+        <attr name="expandedTitleTextAppearance" />
+        <attr name="collapsedTitleTextAppearance" />
+        <attr name="contentScrim" />
+        <attr name="statusBarScrim" />
+        <attr name="toolbarId" />
+        <attr name="scrimVisibleHeightTrigger" />
+        <attr name="scrimAnimationDuration" />
+        <attr name="collapsedTitleGravity" />
+        <attr name="expandedTitleGravity" />
+        <attr name="titleEnabled" />
+        <!-- Toolbar's attrs -->
+        <attr name="title" />
+        <attr name="subtitle" />
+        <!-- SubtitleCollapsingToolbarLayout's attrs -->
+        <attr name="expandedSubtitleTextAppearance" format="reference" />
+        <attr name="collapsedSubtitleTextAppearance" format="reference" />
+        <attr name="useCorrectPadding" format="boolean" />
     </declare-styleable>
 </resources>

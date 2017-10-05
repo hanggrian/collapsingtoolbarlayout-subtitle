@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
+import kota.contents.getAttrColor
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         floatingActionButton.setOnClickListener(this)
-        toolbarLayout.setCollapsedTitleColorAttr(R.attr.colorAccent)
+        toolbarLayout.setCollapsedTitleColor(getAttrColor(R.attr.colorAccent))
     }
 
     override fun onClick(v: View) {

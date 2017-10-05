@@ -18,7 +18,15 @@ package android.support.design.widget
 
 internal object MathUtils {
 
-    fun constrain(amount: Int, low: Int, high: Int) = if (amount < low) low else if (amount > high) high else amount
+    fun constrain(amount: Int, low: Int, high: Int): Int = when {
+        amount < low -> low
+        amount > high -> high
+        else -> amount
+    }
 
-    fun constrain(amount: Float, low: Float, high: Float) = if (amount < low) low else if (amount > high) high else amount
+    fun constrain(amount: Float, low: Float, high: Float): Float = when {
+        amount < low -> low
+        amount > high -> high
+        else -> amount
+    }
 }

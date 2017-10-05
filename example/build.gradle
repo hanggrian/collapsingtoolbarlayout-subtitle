@@ -2,10 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-buildscript {
-    ext.materialdialogs = '0.9.4.5'
-}
-
 android {
     compileSdkVersion versions.sdk.target
     buildToolsVersion versions.buildTools
@@ -17,10 +13,12 @@ android {
         targetSdkVersion versions.sdk.target
     }
     sourceSets {
-        main.manifest.srcFile 'AndroidManifest.xml'
-        main.java.srcDirs 'src'
-        main.res.srcDirs 'res', 'res-public'
-        main.resources.srcDir 'src'
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs 'src'
+            res.srcDirs 'res', 'res-public'
+            resources.srcDir 'src'
+        }
     }
     buildTypes {
         debug {
@@ -35,10 +33,11 @@ android {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin.main"
     compile project(':collapsingtoolbarlayout-subtitle')
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
+    compile 'com.hendraanggrian:kota:0.8.0'
     compile "com.android.support:appcompat-v7:$versions.support"
-    compile("com.afollestad.material-dialogs:core:$materialdialogs") {
+    compile('com.afollestad.material-dialogs:core:0.9.4.5') {
         exclude group: 'com.android.support'
     }
 }
