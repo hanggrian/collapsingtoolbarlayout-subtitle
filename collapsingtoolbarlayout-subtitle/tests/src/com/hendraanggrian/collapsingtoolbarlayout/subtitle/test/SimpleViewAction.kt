@@ -11,8 +11,8 @@ import android.view.View
 abstract class SimpleViewAction<T : View> @JvmOverloads constructor(
         val viewCls: Class<T>,
         val desc: String? = null,
-        vararg val formatArgs: Any = emptyArray()) :
-        ViewAction {
+        vararg val formatArgs: Any = emptyArray()
+) : ViewAction {
 
     abstract fun onPerform(t: T)
 

@@ -135,7 +135,7 @@ class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
         ThemeUtils.checkAppCompatTheme(context)
 
         mCollapsingTextHelper = SubtitleCollapsingTextHelper(this)
-        mCollapsingTextHelper.textSizeInterpolator = AnimationUtils.DECELERATE_INTERPOLATOR
+        mCollapsingTextHelper.setTextSizeInterpolator(AnimationUtils.DECELERATE_INTERPOLATOR)
 
         val a = context.obtainStyledAttributes(attrs, R.styleable.SubtitleCollapsingToolbarLayout, defStyleAttr, R.style.Widget_Design_CollapsingToolbar_Subtitle)
 
@@ -378,18 +378,16 @@ class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
                     if (isRtl) collapsedBoundsLeft += padding
                     else collapsedBoundsRight -= padding
                 }
-                mCollapsingTextHelper!!.collapsedBounds = Rect(
+                mCollapsingTextHelper!!.setCollapsedBounds(
                         collapsedBoundsLeft,
                         mTmpRect.top + maxOffset + mToolbar!!.titleMarginTop,
                         collapsedBoundsRight,
-                        mTmpRect.bottom + maxOffset - mToolbar!!.titleMarginBottom
-                )
-                mCollapsingTextHelper.expandedBounds = Rect(
+                        mTmpRect.bottom + maxOffset - mToolbar!!.titleMarginBottom)
+                mCollapsingTextHelper.setExpandedBounds(
                         if (isRtl) mExpandedMarginEnd else mExpandedMarginStart,
                         mTmpRect.top + mExpandedMarginTop,
                         right - left - if (isRtl) mExpandedMarginStart else mExpandedMarginEnd,
-                        bottom - top - mExpandedMarginBottom
-                )
+                        bottom - top - mExpandedMarginBottom)
                 mCollapsingTextHelper.recalculate()
             }
         }

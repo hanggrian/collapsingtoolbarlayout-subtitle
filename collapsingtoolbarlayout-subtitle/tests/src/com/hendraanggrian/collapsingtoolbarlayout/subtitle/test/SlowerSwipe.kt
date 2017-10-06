@@ -15,15 +15,14 @@ import android.util.Log
  */
 class SlowerSwipe private constructor() : Swiper {
 
-    override fun sendSwipe(uiController: UiController, startCoordinates: FloatArray, endCoordinates: FloatArray, precision: FloatArray): Swiper.Status {
-        return sendLinearSwipe(uiController, startCoordinates, endCoordinates, precision, SWIPE_SLOWER_DURATION_MS)
-    }
+    override fun sendSwipe(uiController: UiController, startCoordinates: FloatArray, endCoordinates: FloatArray, precision: FloatArray): Swiper.Status =
+            sendLinearSwipe(uiController, startCoordinates, endCoordinates, precision, SWIPE_SLOWER_DURATION_MS)
 
     companion object {
         val INSTANCE: Swiper = SlowerSwipe()
 
-        private val SWIPE_EVENT_COUNT = 10
-        private val SWIPE_SLOWER_DURATION_MS = 5000
+        private const val SWIPE_EVENT_COUNT = 10
+        private const val SWIPE_SLOWER_DURATION_MS = 5000
 
         private fun sendLinearSwipe(uiController: UiController, startCoordinates: FloatArray, endCoordinates: FloatArray, precision: FloatArray, duration: Int): Swiper.Status {
             checkNotNull(uiController)
@@ -64,14 +63,11 @@ class SlowerSwipe private constructor() : Swiper {
         private fun interpolate(start: FloatArray, end: FloatArray, steps: Int): Array<FloatArray> {
             checkElementIndex(1, start.size)
             checkElementIndex(1, end.size)
-
             val res = Array(steps) { FloatArray(2) }
-
-            for (i in 1..steps + 1 - 1) {
+            for (i in 1 until steps + 1) {
                 res[i - 1][0] = start[0] + (end[0] - start[0]) * i / (steps + 2f)
                 res[i - 1][1] = start[1] + (end[1] - start[1]) * i / (steps + 2f)
             }
-
             return res
         }
     }

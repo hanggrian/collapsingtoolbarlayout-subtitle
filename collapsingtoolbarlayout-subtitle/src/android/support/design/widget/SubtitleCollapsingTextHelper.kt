@@ -39,22 +39,35 @@ import com.hendraanggrian.collapsingtoolbarlayout.subtitle.R
 @SuppressLint("RestrictedApi")
 internal class SubtitleCollapsingTextHelper(private val mView: View) {
 
-    private var mDrawTitle = false
+    private var mDrawTitle: Boolean = false
+    private var mExpandedFraction: Float = 0f
 
-    private val mCurrentBounds = RectF()
+    private val mExpandedBounds: Rect = Rect()
+    private val mCollapsedBounds: Rect = Rect()
+    private val mCurrentBounds: RectF = RectF()
+    private var mExpandedTextGravity: Int = Gravity.CENTER_VERTICAL
+    private var mCollapsedTextGravity: Int = Gravity.CENTER_VERTICAL
+    private var mExpandedTitleSize: Float = 15f
+    private var mExpandedSubtitleSize: Float = 15f
+    private var mCollapsedTitleSize: Float = 15f
+    private var mCollapsedSubtitleSize: Float = 15f
+    private var mExpandedTitleColor: ColorStateList? = null
+    private var mExpandedSubtitleColor: ColorStateList? = null
+    private var mCollapsedTitleColor: ColorStateList? = null
+    private var mCollapsedSubtitleColor: ColorStateList? = null
 
-    private var mExpandedTitleY = 0f
-    private var mExpandedSubtitleY = 0f
-    private var mCollapsedTitleY = 0f
-    private var mCollapsedSubtitleY = 0f
-    private var mExpandedTitleX = 0f
-    private var mExpandedSubtitleX = 0f
-    private var mCollapsedTitleX = 0f
-    private var mCollapsedSubtitleX = 0f
-    private var mCurrentTitleX = 0f
-    private var mCurrentSubtitleX = 0f
-    private var mCurrentTitleY = 0f
-    private var mCurrentSubtitleY = 0f
+    private var mExpandedTitleY: Float = 0f
+    private var mExpandedSubtitleY: Float = 0f
+    private var mCollapsedTitleY: Float = 0f
+    private var mCollapsedSubtitleY: Float = 0f
+    private var mExpandedTitleX: Float = 0f
+    private var mExpandedSubtitleX: Float = 0f
+    private var mCollapsedTitleX: Float = 0f
+    private var mCollapsedSubtitleX: Float = 0f
+    private var mCurrentTitleX: Float = 0f
+    private var mCurrentSubtitleX: Float = 0f
+    private var mCurrentTitleY: Float = 0f
+    private var mCurrentSubtitleY: Float = 0f
     private var mCollapsedTitleTypeface: Typeface? = null
     private var mCollapsedSubtitleTypeface: Typeface? = null
     private var mExpandedTitleTypeface: Typeface? = null
@@ -62,152 +75,163 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
     private var mCurrentTitleTypeface: Typeface? = null
     private var mCurrentSubtitleTypeface: Typeface? = null
 
+    private var mTitle: CharSequence? = null
+    private var mSubtitle: CharSequence? = null
     private var mTitleToDraw: CharSequence? = null
     private var mSubtitleToDraw: CharSequence? = null
-    private var mIsRtl = false
+    private var mIsRtl: Boolean = false
 
-    private var mUseTexture = false
+    private var mUseTexture: Boolean = false
     private var mExpandedTitleTexture: Bitmap? = null
     private var mExpandedSubtitleTexture: Bitmap? = null
     private var mTitleTexturePaint: Paint? = null
     private var mSubtitleTexturePaint: Paint? = null
-    private var mTitleTextureAscent = 0f
-    private var mSubtitleTextureAscent = 0f
-    private var mTitleTextureDescent = 0f
-    private var mSubtitleTextureDescent = 0f
+    private var mTitleTextureAscent: Float = 0f
+    private var mSubtitleTextureAscent: Float = 0f
+    private var mTitleTextureDescent: Float = 0f
+    private var mSubtitleTextureDescent: Float = 0f
 
-    private var mTitleScale = 0f
-    private var mSubtitleScale = 0f
-    private var mCurrentTitleSize = 0f
-    private var mCurrentSubtitleSize = 0f
+    private var mTitleScale: Float = 0f
+    private var mSubtitleScale: Float = 0f
+    private var mCurrentTitleSize: Float = 0f
+    private var mCurrentSubtitleSize: Float = 0f
 
     private var mState: IntArray? = null
 
     private var mBoundsChanged = false
 
-    private val mTitlePaint = TextPaint(Paint.ANTI_ALIAS_FLAG or Paint.SUBPIXEL_TEXT_FLAG)
-    private val mSubtitlePaint = TextPaint(Paint.ANTI_ALIAS_FLAG or Paint.SUBPIXEL_TEXT_FLAG)
+    private val mTitlePaint: TextPaint = TextPaint(Paint.ANTI_ALIAS_FLAG or Paint.SUBPIXEL_TEXT_FLAG)
+    private val mSubtitlePaint: TextPaint = TextPaint(Paint.ANTI_ALIAS_FLAG or Paint.SUBPIXEL_TEXT_FLAG)
 
-    private var mCollapsedShadowRadius = 0f
-    private var mCollapsedShadowDx = 0f
-    private var mCollapsedShadowDy = 0f
-    private var mCollapsedShadowColor = 0
+    private var mPositionInterpolator: Interpolator? = null
+    private var mTextSizeInterpolator: Interpolator? = null
 
-    private var mExpandedShadowRadius = 0f
-    private var mExpandedShadowDx = 0f
-    private var mExpandedShadowDy = 0f
-    private var mExpandedShadowColor = 0
+    private var mCollapsedShadowRadius: Float = 0f
+    private var mCollapsedShadowDx: Float = 0f
+    private var mCollapsedShadowDy: Float = 0f
+    private var mCollapsedShadowColor: Int = 0
 
-    internal var textSizeInterpolator: Interpolator? = null
-        set(value) {
-            field = value
-            recalculate()
-        }
+    private var mExpandedShadowRadius: Float = 0f
+    private var mExpandedShadowDx: Float = 0f
+    private var mExpandedShadowDy: Float = 0f
+    private var mExpandedShadowColor: Int = 0
 
-    internal var positionInterpolator: Interpolator? = null
-        set(value) {
-            field = value
-            recalculate()
-        }
-
-    internal var expandedTitleSize: Float = 15f
-        set(value) {
-            if (field != value) {
-                field = value
-                recalculate()
-            }
-        }
-
-    internal var expandedSubtitleSize: Float = 15f
-        set(value) {
-            if (field != value) {
-                field = value
-                recalculate()
-            }
-        }
-
-    internal var collapsedTitleSize: Float = 15f
-        set(value) {
-            if (field != value) {
-                field = value
-                recalculate()
-            }
-        }
-
-    internal var collapsedSubtitleSize: Float = 15f
-        set(value) {
-            if (field != value) {
-                field = value
-                recalculate()
-            }
-        }
-
-    internal var expandedTitleColor: ColorStateList? = null
-        set(value) {
-            if (field != value) {
-                field = value
-                recalculate()
-            }
-        }
-
-    internal var expandedSubtitleColor: ColorStateList? = null
-        set(value) {
-            if (field != value) {
-                field = value
-                recalculate()
-            }
-        }
-
-    internal var collapsedTitleColor: ColorStateList? = null
-        set(value) {
-            if (field != value) {
-                field = value
-                recalculate()
-            }
-        }
-
-    internal var collapsedSubtitleColor: ColorStateList? = null
-        set(value) {
-            if (field != value) {
-                field = value
-                recalculate()
-            }
-        }
-
-    internal var expandedBounds = Rect()
-        set(value) {
-            if (!rectEquals(field, value.left, value.top, value.right, value.bottom)) {
-                field.set(value.left, value.top, value.right, value.bottom)
-                mBoundsChanged = true
-                onBoundsChanged()
-            }
-        }
-
-    internal var collapsedBounds = Rect()
-        set(value) {
-            if (!rectEquals(field, value.left, value.top, value.right, value.bottom)) {
-                field.set(value.left, value.top, value.right, value.bottom)
-                mBoundsChanged = true
-                onBoundsChanged()
-            }
-        }
-
-    internal fun onBoundsChanged() {
-        mDrawTitle = collapsedBounds.width() > 0 && collapsedBounds.height() > 0 && expandedBounds.width() > 0 && expandedBounds.height() > 0
+    internal fun setTextSizeInterpolator(interpolator: Interpolator) {
+        mTextSizeInterpolator = interpolator
+        recalculate()
     }
 
-    internal var expandedTextGravity = Gravity.CENTER_VERTICAL
-        set(value) {
-            if (field != value) {
-                field = value
+    internal fun setPositionInterpolator(interpolator: Interpolator) {
+        mPositionInterpolator = interpolator
+        recalculate()
+    }
+
+    internal var expandedTitleSize: Float
+        get() = mExpandedTitleSize
+        set(textSize) {
+            if (mExpandedTitleSize != textSize) {
+                mExpandedTitleSize = textSize
                 recalculate()
             }
         }
 
-    internal var collapsedTextGravity = Gravity.CENTER_VERTICAL
-        set(value) {
-            if (field != value) {
-                field = value
+    internal var expandedSubtitleSize: Float
+        get() = mExpandedSubtitleSize
+        set(textSize) {
+            if (mExpandedSubtitleSize != textSize) {
+                mExpandedSubtitleSize = textSize
+                recalculate()
+            }
+        }
+
+    internal var collapsedTitleSize: Float
+        get() = mCollapsedTitleSize
+        set(textSize) {
+            if (mCollapsedTitleSize != textSize) {
+                mCollapsedTitleSize = textSize
+                recalculate()
+            }
+        }
+
+    internal var collapsedSubtitleSize: Float
+        get() = mCollapsedSubtitleSize
+        set(textSize) {
+            if (mCollapsedSubtitleSize != textSize) {
+                mCollapsedSubtitleSize = textSize
+                recalculate()
+            }
+        }
+
+    internal var expandedTitleColor: ColorStateList
+        get() = mExpandedTitleColor!!
+        set(textColor) {
+            if (mExpandedTitleColor != textColor) {
+                mExpandedTitleColor = textColor
+                recalculate()
+            }
+        }
+
+    internal var expandedSubtitleColor: ColorStateList
+        get() = mExpandedSubtitleColor!!
+        set(textColor) {
+            if (mExpandedSubtitleColor != textColor) {
+                mExpandedSubtitleColor = textColor
+                recalculate()
+            }
+        }
+
+    internal var collapsedTitleColor: ColorStateList
+        get() = mCollapsedTitleColor!!
+        set(textColor) {
+            if (mCollapsedTitleColor != textColor) {
+                mCollapsedTitleColor = textColor
+                recalculate()
+            }
+        }
+
+    internal var collapsedSubtitleColor: ColorStateList
+        get() = mCollapsedSubtitleColor!!
+        set(textColor) {
+            if (mCollapsedSubtitleColor != textColor) {
+                mCollapsedSubtitleColor = textColor
+                recalculate()
+            }
+        }
+
+    internal fun setExpandedBounds(left: Int, top: Int, right: Int, bottom: Int) {
+        if (!rectEquals(mExpandedBounds, left, top, right, bottom)) {
+            mExpandedBounds.set(left, top, right, bottom)
+            mBoundsChanged = true
+            onBoundsChanged()
+        }
+    }
+
+    internal fun setCollapsedBounds(left: Int, top: Int, right: Int, bottom: Int) {
+        if (!rectEquals(mCollapsedBounds, left, top, right, bottom)) {
+            mCollapsedBounds.set(left, top, right, bottom)
+            mBoundsChanged = true
+            onBoundsChanged()
+        }
+    }
+
+    internal fun onBoundsChanged() {
+        mDrawTitle = mCollapsedBounds.width() > 0 && mCollapsedBounds.height() > 0 && mExpandedBounds.width() > 0 && mExpandedBounds.height() > 0
+    }
+
+    internal var expandedTextGravity: Int
+        get() = mExpandedTextGravity
+        set(gravity) {
+            if (mExpandedTextGravity != gravity) {
+                mExpandedTextGravity = gravity
+                recalculate()
+            }
+        }
+
+    internal var collapsedTextGravity: Int
+        get() = mCollapsedTextGravity
+        set(gravity) {
+            if (mCollapsedTextGravity != gravity) {
+                mCollapsedTextGravity = gravity
                 recalculate()
             }
         }
@@ -215,9 +239,9 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
     internal fun setCollapsedTitleAppearance(resId: Int) {
         val a = TintTypedArray.obtainStyledAttributes(mView.context, resId, android.support.v7.appcompat.R.styleable.TextAppearance)
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor))
-            collapsedTitleColor = a.getColorStateList(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)
+            mCollapsedTitleColor = a.getColorStateList(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textSize))
-            collapsedTitleSize = a.getDimensionPixelSize(android.support.v7.appcompat.R.styleable.TextAppearance_android_textSize, collapsedTitleSize.toInt()).toFloat()
+            mCollapsedTitleSize = a.getDimensionPixelSize(android.support.v7.appcompat.R.styleable.TextAppearance_android_textSize, collapsedTitleSize.toInt()).toFloat()
         mCollapsedShadowColor = a.getInt(android.support.v7.appcompat.R.styleable.TextAppearance_android_shadowColor, 0)
         mCollapsedShadowDx = a.getFloat(android.support.v7.appcompat.R.styleable.TextAppearance_android_shadowDx, 0f)
         mCollapsedShadowDy = a.getFloat(android.support.v7.appcompat.R.styleable.TextAppearance_android_shadowDy, 0f)
@@ -231,9 +255,9 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
     internal fun setExpandedTitleAppearance(resId: Int) {
         val a = TintTypedArray.obtainStyledAttributes(mView.context, resId, android.support.v7.appcompat.R.styleable.TextAppearance)
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor))
-            expandedTitleColor = a.getColorStateList(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)
+            mExpandedTitleColor = a.getColorStateList(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textSize))
-            expandedTitleSize = a.getDimensionPixelSize(android.support.v7.appcompat.R.styleable.TextAppearance_android_textSize, expandedTitleSize.toInt()).toFloat()
+            mExpandedTitleSize = a.getDimensionPixelSize(android.support.v7.appcompat.R.styleable.TextAppearance_android_textSize, expandedTitleSize.toInt()).toFloat()
         mExpandedShadowColor = a.getInt(android.support.v7.appcompat.R.styleable.TextAppearance_android_shadowColor, 0)
         mExpandedShadowDx = a.getFloat(android.support.v7.appcompat.R.styleable.TextAppearance_android_shadowDx, 0f)
         mExpandedShadowDy = a.getFloat(android.support.v7.appcompat.R.styleable.TextAppearance_android_shadowDy, 0f)
@@ -247,9 +271,9 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
     internal fun setCollapsedSubtitleAppearance(resId: Int) {
         val a = TintTypedArray.obtainStyledAttributes(mView.context, resId, R.styleable.TextAppearance)
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor))
-            collapsedSubtitleColor = a.getColorStateList(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)
+            mCollapsedSubtitleColor = a.getColorStateList(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textSize))
-            collapsedSubtitleSize = a.getDimensionPixelSize(android.support.v7.appcompat.R.styleable.TextAppearance_android_textSize, collapsedSubtitleSize.toInt()).toFloat()
+            mCollapsedSubtitleSize = a.getDimensionPixelSize(android.support.v7.appcompat.R.styleable.TextAppearance_android_textSize, collapsedSubtitleSize.toInt()).toFloat()
         a.recycle()
         if (Build.VERSION.SDK_INT >= 16)
             mCollapsedSubtitleTypeface = readFontFamilyTypeface(resId)
@@ -259,9 +283,9 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
     internal fun setExpandedSubtitleAppearance(resId: Int) {
         val a = TintTypedArray.obtainStyledAttributes(mView.context, resId, android.support.v7.appcompat.R.styleable.TextAppearance)
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor))
-            expandedSubtitleColor = a.getColorStateList(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)
+            mExpandedSubtitleColor = a.getColorStateList(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textSize))
-            expandedSubtitleSize = a.getDimensionPixelSize(android.support.v7.appcompat.R.styleable.TextAppearance_android_textSize, expandedSubtitleSize.toInt()).toFloat()
+            mExpandedSubtitleSize = a.getDimensionPixelSize(android.support.v7.appcompat.R.styleable.TextAppearance_android_textSize, expandedSubtitleSize.toInt()).toFloat()
         a.recycle()
         if (Build.VERSION.SDK_INT >= 16)
             mExpandedSubtitleTypeface = readFontFamilyTypeface(resId)
@@ -316,21 +340,22 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
 
     internal fun setTitleTypefaces(typeface: Typeface) {
         mExpandedTitleTypeface = typeface
-        mCollapsedTitleTypeface = mExpandedTitleTypeface
+        mCollapsedTitleTypeface = typeface
         recalculate()
     }
 
     internal fun setSubtitleTypefaces(typeface: Typeface) {
         mExpandedSubtitleTypeface = typeface
-        mCollapsedSubtitleTypeface = mExpandedSubtitleTypeface
+        mCollapsedSubtitleTypeface = typeface
         recalculate()
     }
 
-    internal var expansionFraction = 0f
-        set(value) {
-            val fraction = MathUtils.constrain(value, 0f, 1f)
-            if (fraction != expansionFraction) {
-                field = fraction
+    internal var expansionFraction
+        get() = mExpandedFraction
+        set(fraction) {
+            val fraction2 = MathUtils.constrain(fraction, 0f, 1f)
+            if (fraction2 != expansionFraction) {
+                mExpandedFraction = fraction2
                 calculateCurrentOffsets()
             }
         }
@@ -344,26 +369,24 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
         return false
     }
 
-    internal val isStateful = collapsedTitleColor != null && collapsedTitleColor!!.isStateful || expandedTitleColor != null && expandedTitleColor!!.isStateful
+    internal val isStateful = mCollapsedTitleColor != null && mCollapsedTitleColor!!.isStateful || mExpandedTitleColor != null && mExpandedTitleColor!!.isStateful
 
-    private fun calculateCurrentOffsets() = calculateOffsets(expansionFraction)
+    private fun calculateCurrentOffsets() = calculateOffsets(mExpandedFraction)
 
     private fun calculateOffsets(fraction: Float) {
         interpolateBounds(fraction)
-        mCurrentTitleX = lerp(mExpandedTitleX, mCollapsedTitleX, fraction, positionInterpolator)
-        mCurrentTitleY = lerp(mExpandedTitleY, mCollapsedTitleY, fraction, positionInterpolator)
-        mCurrentSubtitleX = lerp(mExpandedSubtitleX, mCollapsedSubtitleX, fraction, positionInterpolator)
-        mCurrentSubtitleY = lerp(mExpandedSubtitleY, mCollapsedSubtitleY, fraction, positionInterpolator)
-
-        setInterpolatedTitleSize(lerp(expandedTitleSize, collapsedTitleSize, fraction, textSizeInterpolator))
-        setInterpolatedSubtitleSize(lerp(expandedSubtitleSize, collapsedSubtitleSize, fraction, textSizeInterpolator))
-
-        if (collapsedTitleColor != expandedTitleColor) mTitlePaint.color = blendColors(currentExpandedTitleColor, currentCollapsedTitleColor, fraction)
-        else mTitlePaint.color = currentCollapsedTitleColor
-
-        if (collapsedSubtitleColor != expandedSubtitleColor) mSubtitlePaint.color = blendColors(currentExpandedSubtitleColor, currentCollapsedSubtitleColor, fraction)
-        else mSubtitlePaint.color = currentCollapsedSubtitleColor
-
+        mCurrentTitleX = lerp(mExpandedTitleX, mCollapsedTitleX, fraction, mPositionInterpolator)
+        mCurrentTitleY = lerp(mExpandedTitleY, mCollapsedTitleY, fraction, mPositionInterpolator)
+        mCurrentSubtitleX = lerp(mExpandedSubtitleX, mCollapsedSubtitleX, fraction, mPositionInterpolator)
+        mCurrentSubtitleY = lerp(mExpandedSubtitleY, mCollapsedSubtitleY, fraction, mPositionInterpolator)
+        setInterpolatedTitleSize(lerp(mExpandedTitleSize, mCollapsedTitleSize, fraction, mTextSizeInterpolator))
+        setInterpolatedSubtitleSize(lerp(mExpandedSubtitleSize, mCollapsedSubtitleSize, fraction, mTextSizeInterpolator))
+        mTitlePaint.color =
+                if (mCollapsedTitleColor != mExpandedTitleColor) blendColors(currentExpandedTitleColor, currentCollapsedTitleColor, fraction)
+                else currentCollapsedTitleColor
+        mSubtitlePaint.color =
+                if (mCollapsedSubtitleColor != mExpandedSubtitleColor) blendColors(currentExpandedSubtitleColor, currentCollapsedSubtitleColor, fraction)
+                else currentCollapsedSubtitleColor
         mTitlePaint.setShadowLayer(
                 lerp(mExpandedShadowRadius, mCollapsedShadowRadius, fraction, null),
                 lerp(mExpandedShadowDx, mCollapsedShadowDx, fraction, null),
@@ -374,23 +397,23 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
 
     private val currentExpandedTitleColor: Int
         @ColorInt get() =
-            if (mState != null) expandedTitleColor!!.getColorForState(mState, 0)
-            else expandedTitleColor!!.defaultColor
+            if (mState != null) mExpandedTitleColor!!.getColorForState(mState, 0)
+            else mExpandedTitleColor!!.defaultColor
 
     private val currentCollapsedTitleColor: Int
         @ColorInt get() =
-            if (mState != null) collapsedTitleColor!!.getColorForState(mState, 0)
-            else collapsedTitleColor!!.defaultColor
+            if (mState != null) mCollapsedTitleColor!!.getColorForState(mState, 0)
+            else mCollapsedTitleColor!!.defaultColor
 
     private val currentExpandedSubtitleColor: Int
         @ColorInt get() =
-            if (mState != null) expandedSubtitleColor!!.getColorForState(mState, 0)
-            else expandedSubtitleColor!!.defaultColor
+            if (mState != null) mExpandedSubtitleColor!!.getColorForState(mState, 0)
+            else mExpandedSubtitleColor!!.defaultColor
 
     private val currentCollapsedSubtitleColor: Int
         @ColorInt get() =
-            if (mState != null) collapsedSubtitleColor!!.getColorForState(mState, 0)
-            else collapsedSubtitleColor!!.defaultColor
+            if (mState != null) mCollapsedSubtitleColor!!.getColorForState(mState, 0)
+            else mCollapsedSubtitleColor!!.defaultColor
 
     private fun calculateBaseOffsets() {
         val currentTitleSize = mCurrentTitleSize
@@ -408,41 +431,41 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
         val collapsedAbsGravity = GravityCompat.getAbsoluteGravity(collapsedTextGravity, if (mIsRtl) ViewCompat.LAYOUT_DIRECTION_RTL else ViewCompat.LAYOUT_DIRECTION_LTR)
         when (collapsedAbsGravity and Gravity.VERTICAL_GRAVITY_MASK) {
             Gravity.BOTTOM -> if (titleOnly) {
-                mCollapsedTitleY = collapsedBounds.bottom.toFloat()
+                mCollapsedTitleY = mCollapsedBounds.bottom.toFloat()
             } else {
-                val offset = (collapsedBounds.height() - (titleHeight + subtitleHeight)) / 3
-                mCollapsedTitleY = collapsedBounds.top + offset - mTitlePaint.ascent()
-                mCollapsedSubtitleY = collapsedBounds.top.toFloat() + offset * 2 + titleHeight - mSubtitlePaint.ascent()
+                val offset = (mCollapsedBounds.height() - (titleHeight + subtitleHeight)) / 3
+                mCollapsedTitleY = mCollapsedBounds.top + offset - mTitlePaint.ascent()
+                mCollapsedSubtitleY = mCollapsedBounds.top.toFloat() + offset * 2 + titleHeight - mSubtitlePaint.ascent()
             }
             Gravity.TOP -> if (titleOnly) {
-                mCollapsedTitleY = collapsedBounds.top - mTitlePaint.ascent()
+                mCollapsedTitleY = mCollapsedBounds.top - mTitlePaint.ascent()
             } else {
-                val offset = (collapsedBounds.height() - (titleHeight + subtitleHeight)) / 3
-                mCollapsedTitleY = collapsedBounds.top + offset - mTitlePaint.ascent()
-                mCollapsedSubtitleY = collapsedBounds.top.toFloat() + offset * 2 + titleHeight - mSubtitlePaint.ascent()
+                val offset = (mCollapsedBounds.height() - (titleHeight + subtitleHeight)) / 3
+                mCollapsedTitleY = mCollapsedBounds.top + offset - mTitlePaint.ascent()
+                mCollapsedSubtitleY = mCollapsedBounds.top.toFloat() + offset * 2 + titleHeight - mSubtitlePaint.ascent()
             }
         // Gravity.CENTER_VERTICAL,
             else -> if (titleOnly) {
-                mCollapsedTitleY = collapsedBounds.centerY() + titleOffset
+                mCollapsedTitleY = mCollapsedBounds.centerY() + titleOffset
             } else {
-                val offset = (collapsedBounds.height() - (titleHeight + subtitleHeight)) / 3
-                mCollapsedTitleY = collapsedBounds.top + offset - mTitlePaint.ascent()
-                mCollapsedSubtitleY = collapsedBounds.top.toFloat() + offset * 2 + titleHeight - mSubtitlePaint.ascent()
+                val offset = (mCollapsedBounds.height() - (titleHeight + subtitleHeight)) / 3
+                mCollapsedTitleY = mCollapsedBounds.top + offset - mTitlePaint.ascent()
+                mCollapsedSubtitleY = mCollapsedBounds.top.toFloat() + offset * 2 + titleHeight - mSubtitlePaint.ascent()
             }
         }
         when (collapsedAbsGravity and GravityCompat.RELATIVE_HORIZONTAL_GRAVITY_MASK) {
             Gravity.CENTER_HORIZONTAL -> {
-                mCollapsedTitleX = collapsedBounds.centerX() - titleWidth / 2
-                mCollapsedSubtitleX = collapsedBounds.centerX() - subtitleWidth / 2
+                mCollapsedTitleX = mCollapsedBounds.centerX() - titleWidth / 2
+                mCollapsedSubtitleX = mCollapsedBounds.centerX() - subtitleWidth / 2
             }
             Gravity.RIGHT -> {
-                mCollapsedTitleX = collapsedBounds.right - titleWidth
-                mCollapsedSubtitleX = collapsedBounds.right - subtitleWidth
+                mCollapsedTitleX = mCollapsedBounds.right - titleWidth
+                mCollapsedSubtitleX = mCollapsedBounds.right - subtitleWidth
             }
         // Gravity.LEFT,
             else -> {
-                mCollapsedTitleX = collapsedBounds.left.toFloat()
-                mCollapsedSubtitleX = collapsedBounds.left.toFloat()
+                mCollapsedTitleX = mCollapsedBounds.left.toFloat()
+                mCollapsedSubtitleX = mCollapsedBounds.left.toFloat()
             }
         }
 
@@ -457,38 +480,38 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
         val expandedAbsGravity = GravityCompat.getAbsoluteGravity(expandedTextGravity, if (mIsRtl) ViewCompat.LAYOUT_DIRECTION_RTL else ViewCompat.LAYOUT_DIRECTION_LTR)
         when (expandedAbsGravity and Gravity.VERTICAL_GRAVITY_MASK) {
             Gravity.BOTTOM -> if (titleOnly) {
-                mExpandedTitleY = expandedBounds.bottom.toFloat()
+                mExpandedTitleY = mExpandedBounds.bottom.toFloat()
             } else {
-                mExpandedTitleY = expandedBounds.bottom + mSubtitlePaint.ascent()
+                mExpandedTitleY = mExpandedBounds.bottom + mSubtitlePaint.ascent()
                 mExpandedSubtitleY = mExpandedTitleY + subtitleOffset - mSubtitlePaint.ascent()
             }
             Gravity.TOP -> if (titleOnly) {
-                mExpandedTitleY = expandedBounds.top - mTitlePaint.ascent()
+                mExpandedTitleY = mExpandedBounds.top - mTitlePaint.ascent()
             } else {
-                mExpandedTitleY = expandedBounds.top - mTitlePaint.ascent()
+                mExpandedTitleY = mExpandedBounds.top - mTitlePaint.ascent()
                 mExpandedSubtitleY = mExpandedTitleY + subtitleOffset - mSubtitlePaint.ascent()
             }
         // Gravity.CENTER_VERTICAL,
             else -> if (titleOnly) {
-                mExpandedTitleY = expandedBounds.centerY() + titleOffset
+                mExpandedTitleY = mExpandedBounds.centerY() + titleOffset
             } else {
-                mExpandedTitleY = expandedBounds.centerY().toFloat() + titleOffset + mSubtitlePaint.ascent()
+                mExpandedTitleY = mExpandedBounds.centerY().toFloat() + titleOffset + mSubtitlePaint.ascent()
                 mExpandedSubtitleY = mExpandedTitleY + subtitleOffset - mSubtitlePaint.ascent()
             }
         }
         when (expandedAbsGravity and GravityCompat.RELATIVE_HORIZONTAL_GRAVITY_MASK) {
             Gravity.CENTER_HORIZONTAL -> {
-                mExpandedTitleX = expandedBounds.centerX() - titleWidth / 2
-                mExpandedSubtitleX = expandedBounds.centerX() - subtitleWidth / 2
+                mExpandedTitleX = mExpandedBounds.centerX() - titleWidth / 2
+                mExpandedSubtitleX = mExpandedBounds.centerX() - subtitleWidth / 2
             }
             Gravity.RIGHT -> {
-                mExpandedTitleX = expandedBounds.right - titleWidth
-                mExpandedSubtitleX = expandedBounds.right - subtitleWidth
+                mExpandedTitleX = mExpandedBounds.right - titleWidth
+                mExpandedSubtitleX = mExpandedBounds.right - subtitleWidth
             }
         // Gravity.LEFT,
             else -> {
-                mExpandedTitleX = expandedBounds.left.toFloat()
-                mExpandedSubtitleX = expandedBounds.left.toFloat()
+                mExpandedTitleX = mExpandedBounds.left.toFloat()
+                mExpandedSubtitleX = mExpandedBounds.left.toFloat()
             }
         }
 
@@ -498,10 +521,10 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
     }
 
     private fun interpolateBounds(fraction: Float) {
-        mCurrentBounds.left = lerp(expandedBounds.left.toFloat(), collapsedBounds.left.toFloat(), fraction, positionInterpolator)
-        mCurrentBounds.top = lerp(mExpandedTitleY, mCollapsedTitleY, fraction, positionInterpolator)
-        mCurrentBounds.right = lerp(expandedBounds.right.toFloat(), collapsedBounds.right.toFloat(), fraction, positionInterpolator)
-        mCurrentBounds.bottom = lerp(expandedBounds.bottom.toFloat(), collapsedBounds.bottom.toFloat(), fraction, positionInterpolator)
+        mCurrentBounds.left = lerp(mExpandedBounds.left.toFloat(), mCollapsedBounds.left.toFloat(), fraction, mPositionInterpolator)
+        mCurrentBounds.top = lerp(mExpandedTitleY, mCollapsedTitleY, fraction, mPositionInterpolator)
+        mCurrentBounds.right = lerp(mExpandedBounds.right.toFloat(), mCollapsedBounds.right.toFloat(), fraction, mPositionInterpolator)
+        mCurrentBounds.bottom = lerp(mExpandedBounds.bottom.toFloat(), mCollapsedBounds.bottom.toFloat(), fraction, mPositionInterpolator)
     }
 
     fun draw(canvas: Canvas) {
@@ -564,11 +587,13 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
         ViewCompat.postInvalidateOnAnimation(mView)
     }
 
+    private fun areTypefacesDifferent(first: Typeface?, second: Typeface?) = first != null && first != second || first == null && second != null
+
     private fun calculateUsingTitleSize(titleSize: Float) {
         if (title == null) return
 
-        val collapsedWidth = collapsedBounds.width().toFloat()
-        val expandedWidth = expandedBounds.width().toFloat()
+        val collapsedWidth = mCollapsedBounds.width().toFloat()
+        val expandedWidth = mExpandedBounds.width().toFloat()
 
         val availableWidth: Float
         val newTitleSize: Float
@@ -628,8 +653,8 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
     private fun calculateUsingSubtitleSize(subtitleSize: Float) {
         if (subtitle == null) return
 
-        val collapsedWidth = collapsedBounds.width().toFloat()
-        val expandedWidth = expandedBounds.width().toFloat()
+        val collapsedWidth = mCollapsedBounds.width().toFloat()
+        val expandedWidth = mExpandedBounds.width().toFloat()
 
         val availableWidth: Float
         val newSubtitleSize: Float
@@ -680,7 +705,7 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
     }
 
     private fun ensureExpandedTitleTexture() {
-        if (mExpandedTitleTexture != null || expandedBounds.isEmpty || TextUtils.isEmpty(mTitleToDraw)) return
+        if (mExpandedTitleTexture != null || mExpandedBounds.isEmpty || TextUtils.isEmpty(mTitleToDraw)) return
         calculateOffsets(0f)
         mTitleTextureAscent = mTitlePaint.ascent()
         mTitleTextureDescent = mTitlePaint.descent()
@@ -695,7 +720,7 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
     }
 
     private fun ensureExpandedSubtitleTexture() {
-        if (mExpandedSubtitleTexture != null || expandedBounds.isEmpty || TextUtils.isEmpty(mSubtitleToDraw)) return
+        if (mExpandedSubtitleTexture != null || mExpandedBounds.isEmpty || TextUtils.isEmpty(mSubtitleToDraw)) return
         calculateOffsets(0f)
         mSubtitleTextureAscent = mSubtitlePaint.ascent()
         mSubtitleTextureDescent = mSubtitlePaint.descent()
@@ -716,20 +741,22 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
         }
     }
 
-    internal var title: CharSequence? = null
+    internal var title: CharSequence?
+        get() = mTitle
         set(title) {
-            if (title == null || title != this.title) {
-                field = title
+            if (title == null || title != mTitle) {
+                mTitle = title
                 mTitleToDraw = null
                 clearTexture()
                 recalculate()
             }
         }
 
-    internal var subtitle: CharSequence? = null
+    internal var subtitle: CharSequence?
+        get() = mSubtitle
         set(subtitle) {
-            if (subtitle == null || subtitle != this.subtitle) {
-                field = subtitle
+            if (subtitle == null || subtitle != mSubtitle) {
+                mSubtitle = subtitle
                 mSubtitleToDraw = null
                 clearTexture()
                 recalculate()
