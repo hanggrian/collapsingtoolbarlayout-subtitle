@@ -31,6 +31,7 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.support.annotation.*
 import android.support.annotation.IntRange
+import android.support.design.widget.CollapsingToolbarLayout.getViewOffsetHelper
 import android.support.v4.content.ContextCompat
 import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v4.view.GravityCompat
@@ -44,7 +45,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.hendraanggrian.collapsingtoolbarlayout.subtitle.R
-import isScreenSizeAtLeast
 
 /**
  * @author Hendra Anggrian (hendraanggrian@gmail.com)
@@ -403,11 +403,9 @@ class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
             if (mCollapsingTitleEnabled && TextUtils.isEmpty(mCollapsingTextHelper!!.title)) {
                 mCollapsingTextHelper.title = mToolbar!!.title
             }
-            if (mToolbarDirectChild == null || mToolbarDirectChild === this) {
-                minimumHeight = getHeightWithMargins(mToolbar!!)
-            } else {
-                minimumHeight = getHeightWithMargins(mToolbarDirectChild!!)
-            }
+            minimumHeight =
+                    if (mToolbarDirectChild == null || mToolbarDirectChild == this) mToolbar!!.heightWithMargins
+                    else mToolbarDirectChild!!.heightWithMargins
         }
         updateScrimVisibility()
     }
@@ -735,22 +733,17 @@ class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
     companion object {
         private val DEFAULT_SCRIM_ANIMATION_DURATION = 600
 
-        private fun getHeightWithMargins(view: View): Int {
-            val lp = view.layoutParams
-            if (lp is ViewGroup.MarginLayoutParams) {
-                val mlp = lp
-                return view.height + mlp.topMargin + mlp.bottomMargin
+        private val View.heightWithMargins: Int
+            get() {
+                if (layoutParams is ViewGroup.MarginLayoutParams) {
+                    val mlp = layoutParams as ViewGroup.MarginLayoutParams
+                    return height + mlp.topMargin + mlp.bottomMargin
+                }
+                return height
             }
-            return view.height
-        }
 
-        internal fun getViewOffsetHelper(view: View): ViewOffsetHelper {
-            var offsetHelper = view.getTag(R.id.view_offset_helper) as ViewOffsetHelper?
-            if (offsetHelper == null) {
-                offsetHelper = ViewOffsetHelper(view)
-                view.setTag(R.id.view_offset_helper, offsetHelper)
-            }
-            return offsetHelper
+        private fun Context.isScreenSizeAtLeast(size: Int): Boolean = (resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK).let { screenSize ->
+            screenSize != Configuration.SCREENLAYOUT_SIZE_UNDEFINED && screenSize >= size
         }
     }
 }

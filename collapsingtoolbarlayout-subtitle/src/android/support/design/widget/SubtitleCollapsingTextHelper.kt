@@ -272,10 +272,10 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
         try {
             val family = it.getString(0)
             if (family != null) Typeface.create(family, Typeface.NORMAL)
+            else null
         } finally {
             it.recycle()
         }
-        null
     }
 
     internal var collapsedTitleTypeface: Typeface
@@ -772,12 +772,7 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
             return Color.argb(a.toInt(), r.toInt(), g.toInt(), b.toInt())
         }
 
-        private fun lerp(startValue: Float, endValue: Float, fraction: Float, interpolator: Interpolator?): Float {
-            var fraction = fraction
-            if (interpolator != null)
-                fraction = interpolator.getInterpolation(fraction)
-            return AnimationUtils.lerp(startValue, endValue, fraction)
-        }
+        private fun lerp(startValue: Float, endValue: Float, fraction: Float, interpolator: Interpolator?): Float = AnimationUtils.lerp(startValue, endValue, interpolator?.let { interpolator.getInterpolation(fraction) } ?: fraction)
 
         private fun rectEquals(r: Rect, left: Int, top: Int, right: Int, bottom: Int) = !(r.left != left || r.top != top || r.right != right || r.bottom != bottom)
     }
