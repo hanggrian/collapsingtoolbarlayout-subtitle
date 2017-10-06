@@ -49,7 +49,7 @@ publish {
     userOrg = bintray.user
     groupId = bintray.group
     artifactId = bintray.artifact.collapsingtoolbarlayout_subtitle.id
-    publishVersion = versions.release
+    publishVersion = versions.support
     desc = bintray.artifact.collapsingtoolbarlayout_subtitle.desc
     website = bintray.artifact.collapsingtoolbarlayout_subtitle.website
 }

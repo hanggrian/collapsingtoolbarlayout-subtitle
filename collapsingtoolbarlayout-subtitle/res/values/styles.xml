@@ -3,6 +3,6 @@
     <style name="Widget.Design.CollapsingToolbar.Subtitle" parent="Widget.Design.CollapsingToolbar">
         <item name="expandedSubtitleTextAppearance">@style/TextAppearance.AppCompat.Headline</item>
         <item name="collapsedSubtitleTextAppearance">@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle</item>
-        <item name="useCorrectPadding">false</item>
+        <item name="fixPadding">false</item>
     </style>
 </resources>

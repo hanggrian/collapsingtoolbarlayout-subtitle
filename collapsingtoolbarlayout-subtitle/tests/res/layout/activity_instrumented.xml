@@ -22,7 +22,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:subtitle="CollapsingToolbarLayout"
             app:title="Subtitle"
-            app:useCorrectPadding="true">
+            app:fixPadding="true">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         floatingActionButton.setOnClickListener(this)
-        toolbarLayout.setCollapsedTitleColor(getAttrColor(R.attr.colorAccent))
+        toolbarLayout.setCollapsedTitleTextColor(getAttrColor(R.attr.colorAccent))
     }
 
     override fun onClick(v: View) {
@@ -48,8 +48,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                                 .items(GRAVITY.keys)
                                 .itemsCallbackMultiChoice(null) { _, _, texts ->
                                     var flags: Int? = null
-                                    for (text in texts) {
-                                        val flag = GRAVITY[text]
+                                    for (txt in texts) {
+                                        val flag = GRAVITY[txt]
                                         if (flags == null)
                                             flags = flag
                                         else

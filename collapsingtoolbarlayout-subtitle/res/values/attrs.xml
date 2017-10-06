@@ -24,6 +24,6 @@
         <!-- SubtitleCollapsingToolbarLayout's attrs -->
         <attr name="expandedSubtitleTextAppearance" format="reference" />
         <attr name="collapsedSubtitleTextAppearance" format="reference" />
-        <attr name="useCorrectPadding" format="boolean" />
+        <attr name="fixPadding" format="boolean" />
     </declare-styleable>
 </resources>
