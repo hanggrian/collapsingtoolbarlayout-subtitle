@@ -52,7 +52,7 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
 
 Download
 --------
-Since version `26.1.0`, this library follows [Android's support library revisions][support].
+Since version `26.1.0`, this library follows [Android's support library revisions][support-revisions].
 
 ```gradle
 repositories {
