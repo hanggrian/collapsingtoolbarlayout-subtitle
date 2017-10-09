@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import kota.contents.getAttrColor
+import kota.contents.getColor2
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -24,6 +25,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setSupportActionBar(toolbar)
         floatingActionButton.setOnClickListener(this)
         toolbarLayout.setCollapsedTitleTextColor(getAttrColor(R.attr.colorAccent))
+        toolbarLayout.setExpandedTitleTextColor(getColor2(android.R.color.white))
+        toolbarLayout.setExpandedSubtitleTextColor(getColor2(android.R.color.white))
     }
 
     override fun onClick(v: View) {

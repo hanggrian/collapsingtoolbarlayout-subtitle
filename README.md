@@ -7,6 +7,7 @@ Standard `CollapsingToolbarLayout` with subtitle support.
 Usage
 -----
 Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLayout`.
+
 ```xml
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -51,8 +52,8 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
 
 Download
 --------
-This library relies heavily on private resources and internal classes from [Android's support design library][design].
-It is only tested with support design library version as listed below with no intention of supporting older versions.
+Since version `26.1.0`, this library follows [Android's support library revisions][support].
+
 ```gradle
 repositories {
     google()
@@ -80,5 +81,5 @@ License
     See the License for the specific language governing permissions and
     limitations under the License.
     
-[demo]: /art/demo_collapsingtoolbarlayout-subtitle.gif
-[design]: https://github.com/android/platform_frameworks_support/tree/master/design
+[demo]: /art/demo.gif
+[support-revisions]: https://developer.android.com/topic/libraries/support-library/revisions.html

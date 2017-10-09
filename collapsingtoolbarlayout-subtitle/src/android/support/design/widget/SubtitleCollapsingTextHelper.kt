@@ -236,7 +236,7 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
             }
         }
 
-    internal fun setCollapsedTitleAppearance(resId: Int) {
+    internal fun setCollapsedTitleTextAppearance(resId: Int) {
         val a = TintTypedArray.obtainStyledAttributes(mView.context, resId, android.support.v7.appcompat.R.styleable.TextAppearance)
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)) {
             mCollapsedTitleColor = a.getColorStateList(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)
@@ -255,7 +255,7 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
         recalculate()
     }
 
-    internal fun setExpandedTitleAppearance(resId: Int) {
+    internal fun setExpandedTitleTextAppearance(resId: Int) {
         val a = TintTypedArray.obtainStyledAttributes(mView.context, resId, android.support.v7.appcompat.R.styleable.TextAppearance)
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)) {
             mExpandedTitleColor = a.getColorStateList(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)
@@ -274,7 +274,7 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
         recalculate()
     }
 
-    internal fun setCollapsedSubtitleAppearance(resId: Int) {
+    internal fun setCollapsedSubtitleTextAppearance(resId: Int) {
         val a = TintTypedArray.obtainStyledAttributes(mView.context, resId, R.styleable.TextAppearance)
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)) {
             mCollapsedSubtitleColor = a.getColorStateList(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)
@@ -289,7 +289,7 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
         recalculate()
     }
 
-    internal fun setExpandedSubtitleAppearance(resId: Int) {
+    internal fun setExpandedSubtitleTextAppearance(resId: Int) {
         val a = TintTypedArray.obtainStyledAttributes(mView.context, resId, android.support.v7.appcompat.R.styleable.TextAppearance)
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)) {
             mExpandedSubtitleColor = a.getColorStateList(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)

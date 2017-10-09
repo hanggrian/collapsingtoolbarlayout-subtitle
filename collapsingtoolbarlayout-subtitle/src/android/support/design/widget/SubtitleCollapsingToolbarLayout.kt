@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:JvmName("SubtitleCollapsingToolbarLayout")
-
 package android.support.design.widget
 
 import android.animation.ValueAnimator
@@ -122,19 +120,19 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
         mCollapsingTextHelper.subtitle = a.getText(R.styleable.SubtitleCollapsingToolbarLayout_subtitle)
 
         // First load the default text appearances
-        mCollapsingTextHelper.setExpandedTitleAppearance(R.style.TextAppearance_Design_CollapsingToolbar_Expanded)
-        mCollapsingTextHelper.setCollapsedTitleAppearance(android.support.v7.appcompat.R.style.TextAppearance_AppCompat_Widget_ActionBar_Title)
+        mCollapsingTextHelper.setExpandedTitleTextAppearance(R.style.TextAppearance_Design_CollapsingToolbar_Expanded)
+        mCollapsingTextHelper.setCollapsedTitleTextAppearance(android.support.v7.appcompat.R.style.TextAppearance_AppCompat_Widget_ActionBar_Title)
 
         // Now overlay any custom text appearances
         if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleTextAppearance)) {
-            mCollapsingTextHelper.setExpandedTitleAppearance(a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleTextAppearance, 0))
+            mCollapsingTextHelper.setExpandedTitleTextAppearance(a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleTextAppearance, 0))
         }
         if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleTextAppearance)) {
-            mCollapsingTextHelper.setCollapsedTitleAppearance(a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleTextAppearance, 0))
+            mCollapsingTextHelper.setCollapsedTitleTextAppearance(a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleTextAppearance, 0))
         }
 
-        mCollapsingTextHelper.setExpandedSubtitleAppearance(a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_expandedSubtitleTextAppearance, 0))
-        mCollapsingTextHelper.setCollapsedSubtitleAppearance(a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_collapsedSubtitleTextAppearance, 0))
+        mCollapsingTextHelper.setExpandedSubtitleTextAppearance(a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_expandedSubtitleTextAppearance, 0))
+        mCollapsingTextHelper.setCollapsedSubtitleTextAppearance(a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_collapsedSubtitleTextAppearance, 0))
 
         mScrimVisibleHeightTrigger = a.getDimensionPixelSize(R.styleable.SubtitleCollapsingToolbarLayout_scrimVisibleHeightTrigger, -1)
         mScrimAnimationDuration = a.getInt(R.styleable.SubtitleCollapsingToolbarLayout_scrimAnimationDuration, DEFAULT_SCRIM_ANIMATION_DURATION).toLong()
@@ -146,12 +144,9 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
         mFixPadding = a.getBoolean(R.styleable.SubtitleCollapsingToolbarLayout_fixPadding, false)
 
         a.recycle()
-        setWillNotDraw2(false)
+        setWillNotDraw(false)
         ViewCompat.setOnApplyWindowInsetsListener(this) { _, insets -> onWindowInsetChanged(insets) }
     }
-
-    /** Final version of [View.setWillNotDraw] that does not generates warning when used in init. */
-    private fun setWillNotDraw2(willNotDraw: Boolean) = setWillNotDraw(willNotDraw)
 
     @Suppress("DEPRECATION")
     override fun onAttachedToWindow() {
@@ -508,29 +503,21 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
         statusBarScrim = ContextCompat.getDrawable(context, resId)
     }
 
-    open fun setCollapsedTitleTextAppearance(@StyleRes resId: Int) {
-        mCollapsingTextHelper.setCollapsedTitleAppearance(resId)
-    }
+    open fun setCollapsedTitleTextAppearance(@StyleRes resId: Int) = mCollapsingTextHelper.setCollapsedTitleTextAppearance(resId)
 
-    open fun setCollapsedSubtitleTextAppearance(@StyleRes resId: Int) {
-        mCollapsingTextHelper.setCollapsedSubtitleAppearance(resId)
-    }
-
-    open fun setCollapsedTitleTextColor(@ColorInt color: Int) {
-        setCollapsedTitleTextColor(ColorStateList.valueOf(color))
-    }
+    open fun setCollapsedSubtitleTextAppearance(@StyleRes resId: Int) = mCollapsingTextHelper.setCollapsedSubtitleTextAppearance(resId)
 
     open fun setCollapsedTitleTextColor(colors: ColorStateList) {
         mCollapsingTextHelper.collapsedTitleColor = colors
     }
 
-    open fun setCollapsedSubtitleTextColor(@ColorInt color: Int) {
-        setCollapsedSubtitleTextColor(ColorStateList.valueOf(color))
-    }
+    open fun setCollapsedTitleTextColor(@ColorInt color: Int) = setCollapsedTitleTextColor(ColorStateList.valueOf(color))
 
     open fun setCollapsedSubtitleTextColor(colors: ColorStateList) {
         mCollapsingTextHelper.collapsedSubtitleColor = colors
     }
+
+    open fun setCollapsedSubtitleTextColor(@ColorInt color: Int) = setCollapsedSubtitleTextColor(ColorStateList.valueOf(color))
 
     open var collapsedTitleGravity: Int
         get() = mCollapsingTextHelper.collapsedTextGravity
@@ -538,29 +525,21 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
             mCollapsingTextHelper.collapsedTextGravity = gravity
         }
 
-    open fun setExpandedTitleTextAppearance(@StyleRes resId: Int) {
-        mCollapsingTextHelper.setExpandedTitleAppearance(resId)
-    }
+    open fun setExpandedTitleTextAppearance(@StyleRes resId: Int) = mCollapsingTextHelper.setExpandedTitleTextAppearance(resId)
 
-    open fun setExpandedSubtitleTextAppearance(@StyleRes resId: Int) {
-        mCollapsingTextHelper.setExpandedSubtitleAppearance(resId)
-    }
-
-    open fun setExpandedTitleTextColor(@ColorInt color: Int) {
-        setExpandedTitleTextColor(ColorStateList.valueOf(color))
-    }
+    open fun setExpandedSubtitleTextAppearance(@StyleRes resId: Int) = mCollapsingTextHelper.setExpandedSubtitleTextAppearance(resId)
 
     open fun setExpandedTitleTextColor(colors: ColorStateList) {
         mCollapsingTextHelper.expandedTitleColor = colors
     }
 
-    open fun setExpandedSubtitleTextColor(@ColorInt color: Int) {
-        setExpandedSubtitleTextColor(ColorStateList.valueOf(color))
-    }
+    open fun setExpandedTitleTextColor(@ColorInt color: Int) = setExpandedTitleTextColor(ColorStateList.valueOf(color))
 
     open fun setExpandedSubtitleTextColor(colors: ColorStateList) {
         mCollapsingTextHelper.expandedSubtitleColor = colors
     }
+
+    open fun setExpandedSubtitleTextColor(@ColorInt color: Int) = setExpandedSubtitleTextColor(ColorStateList.valueOf(color))
 
     open var expandedTitleGravity: Int
         get() = mCollapsingTextHelper.expandedTextGravity
