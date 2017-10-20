@@ -36,9 +36,9 @@ dependencies {
     compile project(':collapsingtoolbarlayout-subtitle')
     compile "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
 
-    compile 'com.hendraanggrian:kota:0.12'
-    compile 'com.hendraanggrian:kota-design:0.12'
-    compile 'com.hendraanggrian:kota-appcompat-v7:0.12'
+    compile 'com.hendraanggrian:kota:0.13'
+    compile 'com.hendraanggrian:kota-design:0.13'
+    compile 'com.hendraanggrian:kota-appcompat-v7:0.13'
 
     compile "com.android.support:design:$versions.support"
     compile "com.android.support:appcompat-v7:$versions.support"

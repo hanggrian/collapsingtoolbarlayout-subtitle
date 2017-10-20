@@ -22,7 +22,7 @@
             app:contentScrim="?colorPrimary"
             app:fixMenuPadding="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:subtitle="1221"
+            app:subtitle="Papua, Indonesia"
             app:title="Raja Ampat">
 
             <ImageView

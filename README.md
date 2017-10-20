@@ -48,7 +48,7 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
 | `subtitle`                        | subtitle text                              | disabled                                             |
 | `collapsedSubtitleTextAppearance` | text appearance of subtitle when collapsed | `TextAppearance.AppCompat.Widget.ActionBar.Subtitle` |
 | `expandedSubtitleTextAppearance`  | text appearance of subtitle when expanded  | `TextAppearance.AppCompat.Headline`                  |
-| `fixPadding`                      | add 16dp padding to title and subtitle     | disabled                                             |
+| `fixMenuPadding`                  | add 16dp padding to title and subtitle     | disabled                                             |
 
 Download
 --------

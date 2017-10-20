@@ -486,12 +486,12 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
             when (expandedAbsGravity and Gravity.VERTICAL_GRAVITY_MASK) {
                 Gravity.BOTTOM -> mExpandedTitleY = mExpandedBounds.bottom - subtitleHeight - titleOffset
                 Gravity.TOP -> mExpandedTitleY = mExpandedBounds.top - mTitlePaint.ascent()
-                Gravity.CENTER_VERTICAL -> mExpandedTitleY = mExpandedBounds.centerY().toFloat() + titleOffset + mSubtitlePaint.ascent()
+                Gravity.CENTER_VERTICAL -> mExpandedTitleY = mExpandedBounds.centerY() + titleOffset
             }
             when (expandedAbsGravity and Gravity.VERTICAL_GRAVITY_MASK) {
                 Gravity.BOTTOM -> mExpandedSubtitleY = mExpandedBounds.bottom.toFloat()
-                Gravity.TOP -> mExpandedSubtitleY = mExpandedTitleY - mSubtitlePaint.ascent() + subtitleOffset
-                Gravity.CENTER_VERTICAL -> mExpandedSubtitleY = mExpandedTitleY - mSubtitlePaint.ascent() + subtitleOffset
+                Gravity.TOP -> mExpandedSubtitleY = mExpandedTitleY + subtitleHeight + titleOffset
+                Gravity.CENTER_VERTICAL -> mExpandedSubtitleY = mExpandedTitleY + subtitleHeight + titleOffset
             }
         }
         when (expandedAbsGravity and GravityCompat.RELATIVE_HORIZONTAL_GRAVITY_MASK) {
