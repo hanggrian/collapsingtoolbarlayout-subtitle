@@ -31,7 +31,6 @@ import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
 import android.view.animation.Interpolator
-import com.hendraanggrian.collapsingtoolbarlayout.subtitle.R
 
 /**
  * @see CollapsingTextHelper
@@ -275,7 +274,7 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
     }
 
     internal fun setCollapsedSubtitleTextAppearance(resId: Int) {
-        val a = TintTypedArray.obtainStyledAttributes(mView.context, resId, R.styleable.TextAppearance)
+        val a = TintTypedArray.obtainStyledAttributes(mView.context, resId, android.support.v7.appcompat.R.styleable.TextAppearance)
         if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)) {
             mCollapsedSubtitleColor = a.getColorStateList(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)
         }
@@ -430,40 +429,28 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
     private fun calculateBaseOffsets() {
         val currentTitleSize = mCurrentTitleSize
         val currentSubtitleSize = mCurrentSubtitleSize
-        val isTitleOnly = TextUtils.isEmpty(subtitle)
+        val isTitleOnly = TextUtils.isEmpty(mSubtitle)
 
         calculateUsingTitleSize(mCollapsedTitleSize)
         calculateUsingSubtitleSize(mCollapsedSubtitleSize)
-        var titleWidth = if (mTitleToDraw != null) mTitlePaint.measureText(mTitleToDraw, 0, mTitleToDraw!!.length) else 0f
+
+        var titleWidth: Float = if (mTitleToDraw != null) mTitlePaint.measureText(mTitleToDraw, 0, mTitleToDraw!!.length) else 0f
         var subtitleWidth = if (mSubtitleToDraw != null) mSubtitlePaint.measureText(mSubtitleToDraw, 0, mSubtitleToDraw!!.length) else 0f
         var titleHeight = mTitlePaint.descent() - mTitlePaint.ascent()
         var titleOffset = titleHeight / 2 - mTitlePaint.descent()
         var subtitleHeight = mSubtitlePaint.descent() - mSubtitlePaint.ascent()
-        var subtitleOffset = subtitleHeight / 2
+        var subtitleOffset = subtitleHeight / 2 - mSubtitlePaint.descent()
+        val offset = (mCollapsedBounds.height() - (titleHeight + subtitleHeight)) / 3
         val collapsedAbsGravity = GravityCompat.getAbsoluteGravity(mCollapsedTextGravity, if (mIsRtl) ViewCompat.LAYOUT_DIRECTION_RTL else ViewCompat.LAYOUT_DIRECTION_LTR)
-        when (collapsedAbsGravity and Gravity.VERTICAL_GRAVITY_MASK) {
-            Gravity.BOTTOM -> if (isTitleOnly) {
-                mCollapsedTitleY = mCollapsedBounds.bottom.toFloat()
-            } else {
-                val offset = (mCollapsedBounds.height() - (titleHeight + subtitleHeight)) / 3
-                mCollapsedTitleY = mCollapsedBounds.top + offset - mTitlePaint.ascent()
-                mCollapsedSubtitleY = mCollapsedBounds.top.toFloat() + offset * 2 + titleHeight - mSubtitlePaint.ascent()
+        if (isTitleOnly) {
+            when (collapsedAbsGravity and Gravity.VERTICAL_GRAVITY_MASK) {
+                Gravity.BOTTOM -> mCollapsedTitleY = mCollapsedBounds.bottom.toFloat()
+                Gravity.TOP -> mCollapsedTitleY = mCollapsedBounds.top - mTitlePaint.ascent()
+                Gravity.CENTER_VERTICAL -> mCollapsedTitleY = mCollapsedBounds.centerY() + titleOffset
             }
-            Gravity.TOP -> if (isTitleOnly) {
-                mCollapsedTitleY = mCollapsedBounds.top - mTitlePaint.ascent()
-            } else {
-                val offset = (mCollapsedBounds.height() - (titleHeight + subtitleHeight)) / 3
-                mCollapsedTitleY = mCollapsedBounds.top + offset - mTitlePaint.ascent()
-                mCollapsedSubtitleY = mCollapsedBounds.top.toFloat() + offset * 2 + titleHeight - mSubtitlePaint.ascent()
-            }
-        // Gravity.CENTER_VERTICAL,
-            else -> if (isTitleOnly) {
-                mCollapsedTitleY = mCollapsedBounds.centerY() + titleOffset
-            } else {
-                val offset = (mCollapsedBounds.height() - (titleHeight + subtitleHeight)) / 3
-                mCollapsedTitleY = mCollapsedBounds.top + offset - mTitlePaint.ascent()
-                mCollapsedSubtitleY = mCollapsedBounds.top.toFloat() + offset * 2 + titleHeight - mSubtitlePaint.ascent()
-            }
+        } else {
+            mCollapsedTitleY = mCollapsedBounds.top + offset - mTitlePaint.ascent()
+            mCollapsedSubtitleY = mCollapsedBounds.top.toFloat() + offset * 2 + titleHeight - mSubtitlePaint.ascent()
         }
         when (collapsedAbsGravity and GravityCompat.RELATIVE_HORIZONTAL_GRAVITY_MASK) {
             Gravity.CENTER_HORIZONTAL -> {
@@ -474,8 +461,7 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
                 mCollapsedTitleX = mCollapsedBounds.right - titleWidth
                 mCollapsedSubtitleX = mCollapsedBounds.right - subtitleWidth
             }
-        // Gravity.LEFT,
-            else -> {
+            Gravity.LEFT -> {
                 mCollapsedTitleX = mCollapsedBounds.left.toFloat()
                 mCollapsedSubtitleX = mCollapsedBounds.left.toFloat()
             }
@@ -488,27 +474,24 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
         titleHeight = mTitlePaint.descent() - mTitlePaint.ascent()
         titleOffset = titleHeight / 2 - mTitlePaint.descent()
         subtitleHeight = mSubtitlePaint.descent() - mSubtitlePaint.ascent()
-        subtitleOffset = subtitleHeight / 2
+        subtitleOffset = subtitleHeight / 2 - mSubtitlePaint.descent()
         val expandedAbsGravity = GravityCompat.getAbsoluteGravity(mExpandedTextGravity, if (mIsRtl) ViewCompat.LAYOUT_DIRECTION_RTL else ViewCompat.LAYOUT_DIRECTION_LTR)
-        when (expandedAbsGravity and Gravity.VERTICAL_GRAVITY_MASK) {
-            Gravity.BOTTOM -> if (isTitleOnly) {
-                mExpandedTitleY = mExpandedBounds.bottom.toFloat()
-            } else {
-                mExpandedTitleY = mExpandedBounds.bottom + mSubtitlePaint.ascent()
-                mExpandedSubtitleY = mExpandedTitleY + subtitleOffset - mSubtitlePaint.ascent()
+        if (isTitleOnly) {
+            when (expandedAbsGravity and Gravity.VERTICAL_GRAVITY_MASK) {
+                Gravity.BOTTOM -> mExpandedTitleY = mExpandedBounds.bottom.toFloat()
+                Gravity.TOP -> mExpandedTitleY = mExpandedBounds.top - mTitlePaint.ascent()
+                Gravity.CENTER_VERTICAL -> mExpandedTitleY = mExpandedBounds.centerY() + titleOffset
             }
-            Gravity.TOP -> if (isTitleOnly) {
-                mExpandedTitleY = mExpandedBounds.top - mTitlePaint.ascent()
-            } else {
-                mExpandedTitleY = mExpandedBounds.top - mTitlePaint.ascent()
-                mExpandedSubtitleY = mExpandedTitleY + subtitleOffset - mSubtitlePaint.ascent()
+        } else {
+            when (expandedAbsGravity and Gravity.VERTICAL_GRAVITY_MASK) {
+                Gravity.BOTTOM -> mExpandedTitleY = mExpandedBounds.bottom - subtitleHeight - titleOffset
+                Gravity.TOP -> mExpandedTitleY = mExpandedBounds.top - mTitlePaint.ascent()
+                Gravity.CENTER_VERTICAL -> mExpandedTitleY = mExpandedBounds.centerY().toFloat() + titleOffset + mSubtitlePaint.ascent()
             }
-        // Gravity.CENTER_VERTICAL,
-            else -> if (isTitleOnly) {
-                mExpandedTitleY = mExpandedBounds.centerY() + titleOffset
-            } else {
-                mExpandedTitleY = mExpandedBounds.centerY().toFloat() + titleOffset + mSubtitlePaint.ascent()
-                mExpandedSubtitleY = mExpandedTitleY + subtitleOffset - mSubtitlePaint.ascent()
+            when (expandedAbsGravity and Gravity.VERTICAL_GRAVITY_MASK) {
+                Gravity.BOTTOM -> mExpandedSubtitleY = mExpandedBounds.bottom.toFloat()
+                Gravity.TOP -> mExpandedSubtitleY = mExpandedTitleY - mSubtitlePaint.ascent() + subtitleOffset
+                Gravity.CENTER_VERTICAL -> mExpandedSubtitleY = mExpandedTitleY - mSubtitlePaint.ascent() + subtitleOffset
             }
         }
         when (expandedAbsGravity and GravityCompat.RELATIVE_HORIZONTAL_GRAVITY_MASK) {
@@ -520,8 +503,7 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
                 mExpandedTitleX = mExpandedBounds.right - titleWidth
                 mExpandedSubtitleX = mExpandedBounds.right - subtitleWidth
             }
-        // Gravity.LEFT,
-            else -> {
+            Gravity.LEFT -> {
                 mExpandedTitleX = mExpandedBounds.left.toFloat()
                 mExpandedSubtitleX = mExpandedBounds.left.toFloat()
             }

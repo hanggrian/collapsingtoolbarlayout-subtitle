@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="SubtitleCollapsingToolbarLayout">
-        <!-- Some attrs' formats are deliberately left to avoid duplicate declaration. -->
+        <!-- Toolbar's attrs -->
+        <attr name="title" />
+        <attr name="subtitle" />
+
         <!-- CollapsingToolbarLayout's attrs -->
         <attr name="expandedTitleMargin" />
         <attr name="expandedTitleMarginStart" />
@@ -18,12 +21,10 @@
         <attr name="collapsedTitleGravity" />
         <attr name="expandedTitleGravity" />
         <attr name="titleEnabled" />
-        <!-- Toolbar's attrs -->
-        <attr name="title" />
-        <attr name="subtitle" />
+
         <!-- SubtitleCollapsingToolbarLayout's attrs -->
         <attr name="expandedSubtitleTextAppearance" format="reference" />
         <attr name="collapsedSubtitleTextAppearance" format="reference" />
-        <attr name="fixPadding" format="boolean" />
+        <attr name="fixMenuPadding" format="boolean" />
     </declare-styleable>
 </resources>

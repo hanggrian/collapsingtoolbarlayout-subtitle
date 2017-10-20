@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    android:id="@+id/coordinatorLayout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -19,16 +18,16 @@
             android:layout_height="256dp"
             android:fitsSystemWindows="true"
             app:contentScrim="?colorPrimary"
+            app:fixMenuPadding="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:subtitle="CollapsingToolbarLayout"
-            app:title="Subtitle"
-            app:fixPadding="true">
+            app:title="Subtitle">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                app:layout_collapseMode="pin"/>
+                app:layout_collapseMode="pin" />
         </android.support.design.widget.SubtitleCollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
@@ -36,5 +35,5 @@
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 </android.support.design.widget.CoordinatorLayout>

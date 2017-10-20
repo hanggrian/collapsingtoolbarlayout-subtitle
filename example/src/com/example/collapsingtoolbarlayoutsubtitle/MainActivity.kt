@@ -7,8 +7,10 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
-import kota.contents.getAttrColor
-import kota.contents.getColor2
+import kota.dialogs.supportItemsAlert
+import kota.firstItem
+import kota.resources.getAttrColor
+import kota.resources.getColor2
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -17,67 +19,55 @@ import java.util.*
  */
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    var menuItem: MenuItem? = null
+    private lateinit var menuItem: MenuItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        floatingActionButton.setOnClickListener(this)
         toolbarLayout.setCollapsedTitleTextColor(getAttrColor(R.attr.colorAccent))
         toolbarLayout.setExpandedTitleTextColor(getColor2(android.R.color.white))
         toolbarLayout.setExpandedSubtitleTextColor(getColor2(android.R.color.white))
     }
 
     override fun onClick(v: View) {
-        MaterialDialog.Builder(this)
-                .items(OPTION_SET_TITLE,
-                        OPTION_SET_SUBTITLE,
-                        OPTION_SET_EXPANDED_GRAVITY,
-                        OPTION_SET_COLLAPSED_GRAVITY,
-                        OPTION_DISABLE_BACK_BUTTON,
-                        OPTION_TOGGLE_MENU_ITEM)
-                .itemsCallback { _, _, _, text ->
-                    when (text.toString()) {
-                        OPTION_SET_TITLE, OPTION_SET_SUBTITLE -> MaterialDialog.Builder(this@MainActivity)
-                                .input("Text", "") { _, input ->
-                                    when (text.toString()) {
-                                        OPTION_SET_TITLE -> toolbarLayout.title = input
-                                        OPTION_SET_SUBTITLE -> toolbarLayout.subtitle = input
-                                    }
+        supportItemsAlert("Options", OPTIONS, { _, i ->
+            when (OPTIONS[i]) {
+                OPTION_SET_TITLE, OPTION_SET_SUBTITLE -> MaterialDialog.Builder(this@MainActivity)
+                        .input("Text", "") { _, input ->
+                            when (OPTIONS[i]) {
+                                OPTION_SET_TITLE -> toolbarLayout.title = input
+                                OPTION_SET_SUBTITLE -> toolbarLayout.subtitle = input
+                            }
+                        }
+                        .show()
+                OPTION_SET_EXPANDED_GRAVITY, OPTION_SET_COLLAPSED_GRAVITY -> MaterialDialog.Builder(this@MainActivity)
+                        .items(GRAVITY.keys)
+                        .itemsCallbackMultiChoice(null) { _, _, texts ->
+                            var flags: Int? = null
+                            for (txt in texts) {
+                                val flag = GRAVITY[txt]
+                                flags = if (flags == null) flag else flags or flag as Int
+                            }
+                            if (flags != null) {
+                                when (OPTIONS[i]) {
+                                    OPTION_SET_EXPANDED_GRAVITY -> toolbarLayout.expandedTitleGravity = flags
+                                    OPTION_SET_COLLAPSED_GRAVITY -> toolbarLayout.collapsedTitleGravity = flags
                                 }
-                                .show()
-                        OPTION_SET_EXPANDED_GRAVITY, OPTION_SET_COLLAPSED_GRAVITY -> MaterialDialog.Builder(this@MainActivity)
-                                .items(GRAVITY.keys)
-                                .itemsCallbackMultiChoice(null) { _, _, texts ->
-                                    var flags: Int? = null
-                                    for (txt in texts) {
-                                        val flag = GRAVITY[txt]
-                                        if (flags == null)
-                                            flags = flag
-                                        else
-                                            flags = flags or flag as Int
-                                    }
-                                    if (flags != null) {
-                                        when (text.toString()) {
-                                            OPTION_SET_EXPANDED_GRAVITY -> toolbarLayout.expandedTitleGravity = flags
-                                            OPTION_SET_COLLAPSED_GRAVITY -> toolbarLayout.collapsedTitleGravity = flags
-                                        }
-                                    }
-                                    false
-                                }
-                                .positiveText(android.R.string.ok)
-                                .show()
-                        OPTION_DISABLE_BACK_BUTTON -> toolbar.navigationIcon = null
-                        OPTION_TOGGLE_MENU_ITEM -> menuItem!!.isVisible = !menuItem!!.isVisible
-                    }
-                }
-                .show()
+                            }
+                            false
+                        }
+                        .positiveText(android.R.string.ok)
+                        .show()
+                OPTION_DISABLE_BACK_BUTTON -> toolbar.navigationIcon = null
+                OPTION_TOGGLE_MENU_ITEM -> menuItem.isVisible = !menuItem.isVisible
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.article, menu)
-        menuItem = menu.findItem(R.id.item_article_bookmark)
+        menuItem = menu.firstItem
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -89,6 +79,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         private val OPTION_DISABLE_BACK_BUTTON = "Disable back button"
         private val OPTION_TOGGLE_MENU_ITEM = "Toggle menu item visible"
         private val GRAVITY = LinkedHashMap<CharSequence, Int>()
+        private val OPTIONS = arrayOf(OPTION_SET_TITLE,
+                OPTION_SET_SUBTITLE,
+                OPTION_SET_EXPANDED_GRAVITY,
+                OPTION_SET_COLLAPSED_GRAVITY,
+                OPTION_DISABLE_BACK_BUTTON,
+                OPTION_TOGGLE_MENU_ITEM)
 
         init {
             GRAVITY.put("START", Gravity.START)

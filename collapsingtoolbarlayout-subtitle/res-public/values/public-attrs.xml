@@ -2,5 +2,5 @@
 <resources>
     <public name="expandedSubtitleTextAppearance" type="attr"/>
     <public name="collapsedSubtitleTextAppearance" type="attr"/>
-    <public name="fixPadding" type="attr"/>
+    <public name="fixMenuPadding" type="attr"/>
 </resources>

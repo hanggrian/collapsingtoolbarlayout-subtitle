@@ -141,7 +141,7 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
         mStatusBarScrim = a.getDrawable(R.styleable.SubtitleCollapsingToolbarLayout_statusBarScrim)
 
         mToolbarId = a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_toolbarId, -1)
-        mFixPadding = a.getBoolean(R.styleable.SubtitleCollapsingToolbarLayout_fixPadding, false)
+        mFixPadding = a.getBoolean(R.styleable.SubtitleCollapsingToolbarLayout_fixMenuPadding, false)
 
         a.recycle()
         setWillNotDraw(false)
@@ -684,6 +684,8 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
     }
 
     companion object {
+        internal const val SUBTITLE_MARGIN_NONE: Int = 0
+        internal const val SUBTITLE_MARGIN_DEFAULT: Int = 1
         private const val DEFAULT_SCRIM_ANIMATION_DURATION: Int = 600
 
         private val View.heightWithMargins: Int
