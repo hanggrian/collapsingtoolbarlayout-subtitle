@@ -3,14 +3,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion versions.sdk.target
-    buildToolsVersion versions.buildTools
+    compileSdkVersion sdk_target.toInteger()
+    buildToolsVersion build_tools
     defaultConfig {
         applicationId 'com.example.collapsingtoolbarlayoutsubtitle'
         versionCode 1
         versionName '1.0'
-        minSdkVersion versions.sdk.min
-        targetSdkVersion versions.sdk.target
+        minSdkVersion sdk_min.toInteger()
+        targetSdkVersion sdk_target.toInteger()
     }
     sourceSets {
         main {
@@ -30,20 +30,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
-    compile project(':collapsingtoolbarlayout-subtitle')
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
+    implementation project(':collapsingtoolbarlayout-subtitle')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin"
 
-    compile 'com.hendraanggrian:kota:0.13'
-    compile 'com.hendraanggrian:kota-design:0.13'
-    compile 'com.hendraanggrian:kota-appcompat-v7:0.13'
+    implementation "com.android.support:design:$support"
+    implementation "com.android.support:appcompat-v7:$support"
 
-    compile "com.android.support:design:$versions.support"
-    compile "com.android.support:appcompat-v7:$versions.support"
+    implementation "com.hendraanggrian:kota-design:$kota"
+    implementation "com.hendraanggrian:kota-appcompat-v7:$kota"
 
-    compile('com.afollestad.material-dialogs:core:0.9.4.5') {
+    implementation('com.afollestad.material-dialogs:core:0.9.4.5') {
         exclude group: 'com.android.support'
     }
 }

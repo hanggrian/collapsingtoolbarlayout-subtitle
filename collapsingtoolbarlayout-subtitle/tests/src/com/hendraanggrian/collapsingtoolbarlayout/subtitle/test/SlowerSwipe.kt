@@ -4,9 +4,8 @@ import android.os.SystemClock
 import android.support.test.espresso.UiController
 import android.support.test.espresso.action.MotionEvents
 import android.support.test.espresso.action.Swiper
-import android.support.test.espresso.core.deps.guava.base.Preconditions.checkElementIndex
-import android.support.test.espresso.core.deps.guava.base.Preconditions.checkNotNull
 import android.util.Log
+import com.google.common.base.Preconditions.checkElementIndex
 
 /**
  * @author Hendra Anggrian (hendraanggrian@gmail.com)

@@ -1,14 +1,13 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.novoda.bintray-release'
-apply from: 'https://raw.githubusercontent.com/HendraAnggrian/hendraanggrian.github.io/master/bintray.gradle'
 
 android {
-    compileSdkVersion versions.sdk.target
-    buildToolsVersion versions.buildTools
+    compileSdkVersion sdk_target.toInteger()
+    buildToolsVersion build_tools
     defaultConfig {
-        minSdkVersion versions.sdk.min
-        targetSdkVersion versions.sdk.target
+        minSdkVersion sdk_min.toInteger()
+        targetSdkVersion sdk_target.toInteger()
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
     sourceSets {
@@ -30,26 +29,23 @@ android {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
-    compile "com.android.support:design:$versions.support"
-    androidTestCompile "com.hendraanggrian:errorbar:$versions.errorbar"
-    androidTestCompile("com.android.support.test:rules:$versions.rules") {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
-    androidTestCompile("com.android.support.test:runner:$versions.runner") {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
-    androidTestCompile("com.android.support.test.espresso:espresso-core:$versions.espresso") {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
-    testCompile "junit:junit:$versions.junit"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin"
+    compile "com.android.support:design:$support"
+
+    testImplementation "junit:junit:$junit"
+    testImplementation "com.google.truth:truth:$truth"
+
+    androidTestImplementation "com.google.truth:truth:$truth"
+    androidTestImplementation "com.hendraanggrian:errorbar:$errorbar"
+    androidTestImplementation "com.android.support.test:runner:$runner"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso"
 }
 
 publish {
-    userOrg = bintray.user
-    groupId = bintray.group
-    artifactId = bintray.artifact.collapsingtoolbarlayout_subtitle.id
-    publishVersion = versions.support
-    desc = bintray.artifact.collapsingtoolbarlayout_subtitle.desc
-    website = bintray.artifact.collapsingtoolbarlayout_subtitle.website
+    userOrg bintray_user
+    groupId bintray_group
+    artifactId bintray_artifact
+    publishVersion support
+    desc bintray_desc
+    website bintray_web
 }

@@ -52,7 +52,9 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
 
 Download
 --------
-Since version `26.1.0`, this library follows [Android's support library revisions][support-revisions].
+This library follows [Android's support library revisions][support-revisions]. Supported versions are:
+ * 27.0.1
+ * 26.1.0
 
 ```gradle
 repositories {
@@ -61,9 +63,12 @@ repositories {
 }
 
 dependencies {
-    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:26.1.0'
+    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:27.0.1'
 }
 ```
+
+Older versions:
+ * 26.1.0
 
 License
 -------

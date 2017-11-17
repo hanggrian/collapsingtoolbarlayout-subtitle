@@ -9,15 +9,13 @@ import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import kota.dialogs.supportItemsAlert
 import kota.firstItem
-import kota.resources.getAttrColor
+import kota.inflateMenu
 import kota.resources.getColor2
+import kota.resources.getColorAttr
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
-/**
- * @author Hendra Anggrian (hendraanggrian@gmail.com)
- */
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var menuItem: MenuItem
 
@@ -25,12 +23,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        toolbarLayout.setCollapsedTitleTextColor(getAttrColor(R.attr.colorAccent))
+        toolbarLayout.setCollapsedTitleTextColor(getColorAttr(R.attr.colorAccent))
         toolbarLayout.setExpandedTitleTextColor(getColor2(android.R.color.white))
         toolbarLayout.setExpandedSubtitleTextColor(getColor2(android.R.color.white))
     }
 
-    override fun onClick(v: View) {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        inflateMenu(R.menu.article, menu)
+        menuItem = menu.firstItem
+        return true
+    }
+
+    fun onClick(v: View) {
         supportItemsAlert("Options", OPTIONS, { _, i ->
             when (OPTIONS[i]) {
                 OPTION_SET_TITLE, OPTION_SET_SUBTITLE -> MaterialDialog.Builder(this@MainActivity)
@@ -63,12 +67,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 OPTION_TOGGLE_MENU_ITEM -> menuItem.isVisible = !menuItem.isVisible
             }
         })
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.article, menu)
-        menuItem = menu.firstItem
-        return super.onCreateOptionsMenu(menu)
     }
 
     companion object {

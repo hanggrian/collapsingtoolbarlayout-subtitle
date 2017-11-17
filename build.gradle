@@ -1,29 +1,12 @@
 buildscript {
-    ext.versions = [
-            // android
-            sdk       : [
-                    min   : 14,
-                    target: 26,
-            ],
-            buildTools: '26.0.2',
-            // main
-            kotlin    : '1.1.51',
-            support   : '26.1.0',
-            // test
-            errorbar  : '0.3.0',
-            ruler     : '0.5',
-            runner    : '0.5',
-            espresso  : '2.2.2',
-            junit     : '4.12'
-    ]
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-rc1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
-        classpath 'com.novoda:bintray-release:0.5.0'
+        classpath 'com.android.tools.build:gradle:3.0.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin"
+        classpath 'com.novoda:bintray-release:0.7.0'
     }
 }
 

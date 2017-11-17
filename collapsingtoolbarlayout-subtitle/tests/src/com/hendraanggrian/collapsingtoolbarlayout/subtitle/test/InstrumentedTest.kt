@@ -10,6 +10,7 @@ import android.support.test.espresso.action.*
 import android.support.test.espresso.action.ViewActions.actionWithAssertions
 import android.support.test.espresso.action.ViewActions.swipeDown
 import android.support.test.espresso.matcher.ViewMatchers.withId
+import android.support.test.filters.LargeTest
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.Toolbar
@@ -21,10 +22,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-/**
- * @author Hendra Anggrian (hendraanggrian@gmail.com)
- */
 @RunWith(AndroidJUnit4::class)
+@LargeTest
 class InstrumentedTest {
 
     @Rule @JvmField val rule = ActivityTestRule(InstrumentedActivity::class.java)
