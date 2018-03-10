@@ -8,14 +8,12 @@ import android.util.Log
 import com.google.common.base.Preconditions.checkElementIndex
 
 /**
- * @author Hendra Anggrian (hendraanggrian@gmail.com)
- * *
  * @see android.support.test.espresso.action.Swipe
  */
 class SlowerSwipe private constructor() : Swiper {
 
     override fun sendSwipe(uiController: UiController, startCoordinates: FloatArray, endCoordinates: FloatArray, precision: FloatArray): Swiper.Status =
-            sendLinearSwipe(uiController, startCoordinates, endCoordinates, precision, SWIPE_SLOWER_DURATION_MS)
+        sendLinearSwipe(uiController, startCoordinates, endCoordinates, precision, SWIPE_SLOWER_DURATION_MS)
 
     companion object {
         val INSTANCE: Swiper = SlowerSwipe()

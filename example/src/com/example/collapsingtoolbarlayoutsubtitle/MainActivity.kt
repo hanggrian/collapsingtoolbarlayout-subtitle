@@ -13,7 +13,7 @@ import kota.inflateMenu
 import kota.resources.getColor2
 import kota.resources.getColorAttr
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
+import java.util.LinkedHashMap
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,60 +38,60 @@ class MainActivity : AppCompatActivity() {
         supportItemsAlert("Options", OPTIONS, { _, i ->
             when (OPTIONS[i]) {
                 OPTION_SET_TITLE, OPTION_SET_SUBTITLE -> MaterialDialog.Builder(this@MainActivity)
-                        .input("Text", "") { _, input ->
-                            when (OPTIONS[i]) {
-                                OPTION_SET_TITLE -> toolbarLayout.title = input
-                                OPTION_SET_SUBTITLE -> toolbarLayout.subtitle = input
-                            }
+                    .input("Text", "") { _, input ->
+                        when (OPTIONS[i]) {
+                            OPTION_SET_TITLE -> toolbarLayout.title = input
+                            OPTION_SET_SUBTITLE -> toolbarLayout.subtitle = input
                         }
-                        .show()
+                    }
+                    .show()
                 OPTION_SET_EXPANDED_GRAVITY, OPTION_SET_COLLAPSED_GRAVITY -> MaterialDialog.Builder(this@MainActivity)
-                        .items(GRAVITY.keys)
-                        .itemsCallbackMultiChoice(null) { _, _, texts ->
-                            var flags: Int? = null
-                            for (txt in texts) {
-                                val flag = GRAVITY[txt]
-                                flags = if (flags == null) flag else flags or flag as Int
-                            }
-                            if (flags != null) {
-                                when (OPTIONS[i]) {
-                                    OPTION_SET_EXPANDED_GRAVITY -> toolbarLayout.expandedTitleGravity = flags
-                                    OPTION_SET_COLLAPSED_GRAVITY -> toolbarLayout.collapsedTitleGravity = flags
-                                }
-                            }
-                            false
+                    .items(GRAVITY.keys)
+                    .itemsCallbackMultiChoice(null) { _, _, texts ->
+                        var flags: Int? = null
+                        for (txt in texts) {
+                            val flag = GRAVITY[txt]
+                            flags = if (flags == null) flag else flags or flag as Int
                         }
-                        .positiveText(android.R.string.ok)
-                        .show()
+                        if (flags != null) {
+                            when (OPTIONS[i]) {
+                                OPTION_SET_EXPANDED_GRAVITY -> toolbarLayout.expandedTitleGravity = flags
+                                OPTION_SET_COLLAPSED_GRAVITY -> toolbarLayout.collapsedTitleGravity = flags
+                            }
+                        }
+                        false
+                    }
+                    .positiveText(android.R.string.ok)
+                    .show()
                 OPTION_DISABLE_BACK_BUTTON -> toolbar.navigationIcon = null
                 OPTION_TOGGLE_MENU_ITEM -> menuItem.isVisible = !menuItem.isVisible
             }
         })
     }
 
-    companion object {
-        private val OPTION_SET_TITLE = "Set title"
-        private val OPTION_SET_SUBTITLE = "Set subtitle"
-        private val OPTION_SET_EXPANDED_GRAVITY = "Set expanded gravity"
-        private val OPTION_SET_COLLAPSED_GRAVITY = "Set collapsed gravity"
-        private val OPTION_DISABLE_BACK_BUTTON = "Disable back button"
-        private val OPTION_TOGGLE_MENU_ITEM = "Toggle menu item visible"
-        private val GRAVITY = LinkedHashMap<CharSequence, Int>()
-        private val OPTIONS = arrayOf(OPTION_SET_TITLE,
-                OPTION_SET_SUBTITLE,
-                OPTION_SET_EXPANDED_GRAVITY,
-                OPTION_SET_COLLAPSED_GRAVITY,
-                OPTION_DISABLE_BACK_BUTTON,
-                OPTION_TOGGLE_MENU_ITEM)
+    private companion object {
+        const val OPTION_SET_TITLE = "Set title"
+        const val OPTION_SET_SUBTITLE = "Set subtitle"
+        const val OPTION_SET_EXPANDED_GRAVITY = "Set expanded gravity"
+        const val OPTION_SET_COLLAPSED_GRAVITY = "Set collapsed gravity"
+        const val OPTION_DISABLE_BACK_BUTTON = "Disable back button"
+        const val OPTION_TOGGLE_MENU_ITEM = "Toggle menu item visible"
+        val GRAVITY = LinkedHashMap<CharSequence, Int>()
+        val OPTIONS = arrayOf(OPTION_SET_TITLE,
+            OPTION_SET_SUBTITLE,
+            OPTION_SET_EXPANDED_GRAVITY,
+            OPTION_SET_COLLAPSED_GRAVITY,
+            OPTION_DISABLE_BACK_BUTTON,
+            OPTION_TOGGLE_MENU_ITEM)
 
         init {
-            GRAVITY.put("START", Gravity.START)
-            GRAVITY.put("TOP", Gravity.TOP)
-            GRAVITY.put("END", Gravity.END)
-            GRAVITY.put("BOTTOM", Gravity.BOTTOM)
-            GRAVITY.put("CENTER_HORIZONTAL", Gravity.CENTER_HORIZONTAL)
-            GRAVITY.put("CENTER_VERTICAL", Gravity.CENTER_VERTICAL)
-            GRAVITY.put("CENTER", Gravity.CENTER)
+            GRAVITY["START"] = Gravity.START
+            GRAVITY["TOP"] = Gravity.TOP
+            GRAVITY["END"] = Gravity.END
+            GRAVITY["BOTTOM"] = Gravity.BOTTOM
+            GRAVITY["CENTER_HORIZONTAL"] = Gravity.CENTER_HORIZONTAL
+            GRAVITY["CENTER_VERTICAL"] = Gravity.CENTER_VERTICAL
+            GRAVITY["CENTER"] = Gravity.CENTER
         }
     }
 }

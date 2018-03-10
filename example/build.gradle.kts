@@ -1,9 +1,12 @@
+import com.android.build.gradle.ProguardFiles.getDefaultProguardFile
+import org.gradle.internal.impldep.com.amazonaws.PredefinedClientConfigurations.defaultConfig
+import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.exclude
 import org.gradle.kotlin.dsl.kotlin
 
 plugins {
-    id("com.android.application")
+    `android-application`
     kotlin("android")
-    id("kotlin-android-extensions")
+    kotlin("android.extensions")
 }
 
 android {
@@ -49,7 +52,5 @@ dependencies {
     implementation(hendraanggrian("kota-design", kotaVersion))
     implementation(hendraanggrian("kota-appcompat-v7", kotaVersion))
 
-    implementation("com.afollestad.material-dialogs:core:0.9.4.5") {
-        exclude(group = "com.android.support")
-    }
+    implementation("com.afollestad.material-dialogs:core:0.9.6.0")
 }

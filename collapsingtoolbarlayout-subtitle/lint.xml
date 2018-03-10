@@ -1,9 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <lint>
-    <!-- SubtitleCollapsingToolbarLayout attributes extends from CollapsingToolbarLayout-->
-    <issue id="PrivateResource" severity="ignore"/>
-    <!-- Use of Gravity.RIGHT and Gravity.LEFT instead of Gravity.END and Gravity.START -->
-    <issue id="RtlHardcoded" severity="ignore"/>
-    <!-- possible Kotlin bug -->
-    <issue id="UnusedResources" severity="ignore"/>
+    <!-- Possible Kotlin bug, rest assured all resources are used. -->
+    <issue id="UnusedResources" severity="ignore" />
 </lint>
