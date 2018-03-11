@@ -1,4 +1,5 @@
 import org.gradle.kotlin.dsl.kotlin
+import org.gradle.language.base.plugins.LifecycleBasePlugin.*
 import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
@@ -40,27 +41,26 @@ dependencies {
     compile(kotlin("stdlib", kotlinVersion))
     compile(support("design", supportVersion))
 
-    ktlint(ktlint())
-
     testImplementation(junit())
     testImplementation(truth())
-
     androidTestImplementation(truth())
     androidTestImplementation(hendraanggrian("errorbar", errorbarVersion))
     androidTestImplementation(support("runner", runnerVersion, "test"))
     androidTestImplementation(support("espresso-core", espressoVersion, "test", "espresso"))
+
+    ktlint(ktlint())
 }
 
 tasks {
     "ktlint"(JavaExec::class) {
         get("check").dependsOn(this)
-        group = "verification"
+        group = VERIFICATION_GROUP
         inputs.dir("src")
         outputs.dir("src")
         description = "Check Kotlin code style."
         classpath = ktlint
         main = "com.github.shyiko.ktlint.Main"
-        args("src/**/*.kt")
+        args("--android", "src/**/*.kt")
     }
     "ktlintFormat"(JavaExec::class) {
         group = "formatting"
@@ -69,7 +69,7 @@ tasks {
         description = "Fix Kotlin code style deviations."
         classpath = ktlint
         main = "com.github.shyiko.ktlint.Main"
-        args("-F", "src/**/*.kt")
+        args("--android", "-F", "src/**/*.kt")
     }
 
     val dokka by getting(DokkaTask::class) {

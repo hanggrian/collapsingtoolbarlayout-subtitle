@@ -40,7 +40,7 @@ class InstrumentedTest {
     @Before
     fun errorbarInit() {
         onView(withId(R.id.frameLayout)).perform(viewActionOf<FrameLayout> {
-            errorbar = errorbar(it, "")
+            errorbar = errorbar(it, "Initializing ...")
         })
     }
 

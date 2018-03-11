@@ -14,7 +14,7 @@ const val buildTools = "27.0.3"
 const val kotlinVersion = "1.2.30"
 const val kotaVersion = "0.19"
 const val supportVersion = "27.1.0"
-const val errorbarVersion = "0.3.0"
+const val errorbarVersion = "0.4"
 
 const val runnerVersion = "1.0.1"
 const val espressoVersion = "3.0.1"

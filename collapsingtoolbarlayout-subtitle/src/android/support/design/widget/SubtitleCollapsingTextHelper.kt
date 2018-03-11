@@ -891,7 +891,8 @@ internal class SubtitleCollapsingTextHelper(private val mView: View) {
         calculateOffsets(0f)
         mSubtitleTextureAscent = mSubtitlePaint.ascent()
         mSubtitleTextureDescent = mSubtitlePaint.descent()
-        val w = mSubtitlePaint.measureText(mSubtitleToDraw, 0, mSubtitleToDraw!!.length).roundToInt()
+        val w = mSubtitlePaint.measureText(mSubtitleToDraw, 0, mSubtitleToDraw!!.length)
+            .roundToInt()
         val h = (mSubtitleTextureDescent - mSubtitleTextureAscent).roundToInt()
         if (w <= 0 || h <= 0) return
         mExpandedSubtitleTexture = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
