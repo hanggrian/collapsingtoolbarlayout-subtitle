@@ -1,4 +1,3 @@
-import org.gradle.internal.impldep.com.amazonaws.PredefinedClientConfigurations.defaultConfig
 import org.gradle.kotlin.dsl.kotlin
 import org.jetbrains.dokka.gradle.DokkaTask
 

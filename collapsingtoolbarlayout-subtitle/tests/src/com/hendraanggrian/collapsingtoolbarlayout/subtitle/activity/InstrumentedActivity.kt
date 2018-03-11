@@ -1,4 +1,4 @@
-package com.hendraanggrian.collapsingtoolbarlayout.subtitle.test.activity
+package com.hendraanggrian.collapsingtoolbarlayout.subtitle.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

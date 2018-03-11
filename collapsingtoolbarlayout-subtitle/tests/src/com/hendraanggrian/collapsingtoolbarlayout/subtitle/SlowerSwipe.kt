@@ -1,42 +1,40 @@
-package com.hendraanggrian.collapsingtoolbarlayout.subtitle.test
+package com.hendraanggrian.collapsingtoolbarlayout.subtitle
 
 import android.os.SystemClock
 import android.support.test.espresso.UiController
 import android.support.test.espresso.action.MotionEvents
 import android.support.test.espresso.action.Swiper
+import android.support.test.espresso.action.Swiper.Status.FAILURE
+import android.support.test.espresso.action.Swiper.Status.SUCCESS
 import android.util.Log
 import com.google.common.base.Preconditions.checkElementIndex
 
 /**
  * @see android.support.test.espresso.action.Swipe
  */
-class SlowerSwipe private constructor() : Swiper {
+internal class SlowerSwipe : Swiper {
 
     override fun sendSwipe(uiController: UiController, startCoordinates: FloatArray, endCoordinates: FloatArray, precision: FloatArray): Swiper.Status =
         sendLinearSwipe(uiController, startCoordinates, endCoordinates, precision, SWIPE_SLOWER_DURATION_MS)
 
-    companion object {
-        val INSTANCE: Swiper = SlowerSwipe()
+    private companion object {
+        const val SWIPE_EVENT_COUNT = 10
+        const val SWIPE_SLOWER_DURATION_MS = 5000
 
-        private const val SWIPE_EVENT_COUNT = 10
-        private const val SWIPE_SLOWER_DURATION_MS = 5000
-
-        private fun sendLinearSwipe(uiController: UiController, startCoordinates: FloatArray, endCoordinates: FloatArray, precision: FloatArray, duration: Int): Swiper.Status {
+        fun sendLinearSwipe(uiController: UiController, startCoordinates: FloatArray, endCoordinates: FloatArray, precision: FloatArray, duration: Int): Swiper.Status {
             checkNotNull(uiController)
             checkNotNull(startCoordinates)
             checkNotNull(endCoordinates)
             checkNotNull(precision)
-
             val steps = interpolate(startCoordinates, endCoordinates, SWIPE_EVENT_COUNT)
             val delayBetweenMovements = duration / steps.size
-
             val downEvent = MotionEvents.sendDown(uiController, startCoordinates, precision).down
             try {
                 for (i in steps.indices) {
                     if (!MotionEvents.sendMovement(uiController, downEvent, steps[i])) {
                         Log.e("SlowerSwipe", "Injection of move event as part of the swipe failed. Sending cancel event.")
                         MotionEvents.sendCancel(uiController, downEvent)
-                        return Swiper.Status.FAILURE
+                        return FAILURE
                     }
 
                     val desiredTime = downEvent.downTime + delayBetweenMovements * i
@@ -45,19 +43,18 @@ class SlowerSwipe private constructor() : Swiper {
                         uiController.loopMainThreadForAtLeast(timeUntilDesired)
                     }
                 }
-
                 if (!MotionEvents.sendUp(uiController, downEvent, endCoordinates)) {
                     Log.e("SlowerSwipe", "Injection of up event as part of the swipe failed. Sending cancel event.")
                     MotionEvents.sendCancel(uiController, downEvent)
-                    return Swiper.Status.FAILURE
+                    return FAILURE
                 }
             } finally {
                 downEvent.recycle()
             }
-            return Swiper.Status.SUCCESS
+            return SUCCESS
         }
 
-        private fun interpolate(start: FloatArray, end: FloatArray, steps: Int): Array<FloatArray> {
+        fun interpolate(start: FloatArray, end: FloatArray, steps: Int): Array<FloatArray> {
             checkElementIndex(1, start.size)
             checkElementIndex(1, end.size)
             val res = Array(steps) { FloatArray(2) }
