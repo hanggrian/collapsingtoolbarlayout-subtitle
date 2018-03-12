@@ -27,7 +27,7 @@ tasks {
         delete(buildDir)
     }
     "wrapper"(Wrapper::class) {
-        gradleVersion = "4.4"
+        gradleVersion = "4.4.1"
     }
 }
 

@@ -16,6 +16,7 @@ android {
     defaultConfig {
         minSdkVersion(minSdk)
         targetSdkVersion(targetSdk)
+        versionName = supportVersion
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     }
     sourceSets {
@@ -32,6 +33,9 @@ android {
             res.srcDir("tests/res")
             resources.srcDir("tests/src")
         }
+    }
+    libraryVariants.all {
+        generateBuildConfig.enabled = false
     }
 }
 
@@ -81,6 +85,7 @@ tasks {
         branch = "gh-pages"
         contents.from(dokka.outputDirectory)
     }
+    get("gitPublishCopy").dependsOn(dokka)
 }
 
 publish {

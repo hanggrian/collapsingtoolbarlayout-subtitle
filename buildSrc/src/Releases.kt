@@ -1,0 +1,5 @@
+const val releaseUser = "hendraanggrian"
+const val releaseGroup = "com.$releaseUser"
+const val releaseArtifact = "collapsingtoolbarlayout-subtitle"
+const val releaseDesc = "Standard CollapsingToolbarLayout with subtitle support"
+const val releaseWeb = "https://github.com/$releaseUser/$releaseArtifact"
