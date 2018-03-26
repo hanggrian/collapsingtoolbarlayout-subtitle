@@ -1,6 +1,8 @@
 SubtitleCollapsingToolbarLayout
 ===============================
-Standard `CollapsingToolbarLayout` with subtitle support.
+Standard `CollapsingToolbarLayout` with subtitle support. Using internal
+components of support design library allows it to behave similarly to its
+sibling `CollapsingToolbarLayout`, while also ensuring minimum library size.
 
 ![demo][demo]
 
