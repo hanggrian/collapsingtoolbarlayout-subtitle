@@ -11,12 +11,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion(targetSdk)
-    buildToolsVersion(buildTools)
+    compileSdkVersion(SDK_TARGET)
+    buildToolsVersion(BUILD_TOOLS)
     defaultConfig {
-        minSdkVersion(minSdk)
-        targetSdkVersion(targetSdk)
-        versionName = supportVersion
+        minSdkVersion(SDK_MIN)
+        targetSdkVersion(SDK_TARGET)
+        versionName = VERSION_SUPPORT
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     }
     sourceSets {
@@ -35,22 +35,22 @@ android {
         }
     }
     libraryVariants.all {
-        generateBuildConfig.enabled = false
+        generateBuildConfig?.enabled = false
     }
 }
 
 val ktlint by configurations.creating
 
 dependencies {
-    compile(kotlin("stdlib", kotlinVersion))
-    compile(support("design", supportVersion))
+    api(kotlin("stdlib", VERSION_KOTLIN))
+    implementation(support("design", VERSION_SUPPORT))
 
     testImplementation(junit())
     testImplementation(truth())
     androidTestImplementation(truth())
-    androidTestImplementation(hendraanggrian("errorbar", errorbarVersion))
-    androidTestImplementation(support("runner", runnerVersion, "test"))
-    androidTestImplementation(support("espresso-core", espressoVersion, "test", "espresso"))
+    androidTestImplementation(hendraanggrian("errorbar", VERSION_ERRORBAR))
+    androidTestImplementation(support("runner", VERSION_RUNNER, "test"))
+    androidTestImplementation(support("espresso-core", VERSION_ESPRESSO, "test", "espresso"))
 
     ktlint(ktlint())
 }
@@ -81,7 +81,7 @@ tasks {
         doFirst { file(outputDirectory).deleteRecursively() }
     }
     gitPublish {
-        repoUri = releaseWeb
+        repoUri = RELEASE_WEBSITE
         branch = "gh-pages"
         contents.from(dokka.outputDirectory)
     }
@@ -89,10 +89,10 @@ tasks {
 }
 
 publish {
-    userOrg = releaseUser
-    groupId = releaseGroup
-    artifactId = releaseArtifact
-    publishVersion = supportVersion
-    desc = releaseDesc
-    website = releaseWeb
+    userOrg = RELEASE_USER
+    groupId = RELEASE_GROUP
+    artifactId = RELEASE_GROUP
+    publishVersion = VERSION_SUPPORT
+    desc = RELEASE_DESC
+    website = RELEASE_WEBSITE
 }

@@ -12,6 +12,7 @@ import kota.firstItem
 import kota.inflateMenu
 import kota.resources.getColor2
 import kota.resources.getColorAttr
+import kota.resources.getDrawableAttr
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.LinkedHashMap
 
@@ -63,7 +64,10 @@ class MainActivity : AppCompatActivity() {
                     }
                     .positiveText(android.R.string.ok)
                     .show()
-                OPTION_DISABLE_BACK_BUTTON -> toolbar.navigationIcon = null
+                OPTION_DISABLE_BACK_BUTTON -> toolbar.navigationIcon = when (toolbar.navigationIcon) {
+                    null -> getDrawableAttr(R.attr.homeAsUpIndicator)
+                    else -> null
+                }
                 OPTION_TOGGLE_MENU_ITEM -> menuItem.isVisible = !menuItem.isVisible
             }
         })
@@ -74,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         const val OPTION_SET_SUBTITLE = "Set subtitle"
         const val OPTION_SET_EXPANDED_GRAVITY = "Set expanded gravity"
         const val OPTION_SET_COLLAPSED_GRAVITY = "Set collapsed gravity"
-        const val OPTION_DISABLE_BACK_BUTTON = "Disable back button"
+        const val OPTION_DISABLE_BACK_BUTTON = "Toggle back button"
         const val OPTION_TOGGLE_MENU_ITEM = "Toggle menu item visible"
         val GRAVITY = LinkedHashMap<CharSequence, Int>()
         val OPTIONS = arrayOf(OPTION_SET_TITLE,

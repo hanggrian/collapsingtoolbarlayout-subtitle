@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion(targetSdk)
-    buildToolsVersion(buildTools)
+    compileSdkVersion(SDK_TARGET)
+    buildToolsVersion(BUILD_TOOLS)
     defaultConfig {
-        minSdkVersion(minSdk)
-        targetSdkVersion(targetSdk)
+        minSdkVersion(SDK_MIN)
+        targetSdkVersion(SDK_TARGET)
         applicationId = "com.example.collapsingtoolbarlayoutsubtitle"
         versionCode = 1
         versionName = "1.0"
@@ -42,13 +42,13 @@ android {
 
 dependencies {
     implementation(project(":collapsingtoolbarlayout-subtitle"))
-    implementation(kotlin("stdlib", kotlinVersion))
+    implementation(kotlin("stdlib", VERSION_KOTLIN))
 
-    implementation(support("design", supportVersion))
-    implementation(support("appcompat-v7", supportVersion))
+    implementation(support("appcompat-v7", VERSION_SUPPORT))
+    implementation(support("recyclerview-v7", VERSION_SUPPORT))
 
-    implementation(hendraanggrian("kota-design", kotaVersion))
-    implementation(hendraanggrian("kota-appcompat-v7", kotaVersion))
+    implementation(hendraanggrian("kota-design", VERSION_KOTA))
+    implementation(hendraanggrian("kota-appcompat-v7", VERSION_KOTA))
 
     implementation("com.afollestad.material-dialogs:core:0.9.6.0")
 }
