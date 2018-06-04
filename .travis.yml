@@ -1,6 +1,24 @@
 language: android
 
+sudo: required
+
 jdk: oraclejdk8
+
+before_cache:
+ -rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+ -rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+ directories:
+ -$HOME/.gradle/caches/
+ -$HOME/.gradle/wrapper/
+
+env:
+ global:
+ - ANDROID_API=27
+ - EMULATOR_API=27
+ - ANDROID_BUILD_TOOLS=27.0.3
+ - ADB_INSTALL_TIMEOUT=5 # minutes
 
 android:
   components:
@@ -18,4 +36,4 @@ android:
 
     # Specify at least one system image, if you need to run emulator(s) during your tests
     #- sys-img-armeabi-v7a-android-19
-    #- sys-img-x86-android-17
+    - sys-img-x86-android-27
