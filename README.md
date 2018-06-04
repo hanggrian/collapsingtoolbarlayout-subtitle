@@ -1,5 +1,9 @@
 SubtitleCollapsingToolbarLayout
 ===============================
+[![Download](https://api.bintray.com/packages/hendraanggrian/maven/collapsingtoolbarlayout-subtitle/images/download.svg) ](https://bintray.com/hendraanggrian/maven/collapsingtoolbarlayout-subtitle/_latestVersion)
+[![Build Status](https://travis-ci.org/hendraanggrian/collapsingtoolbarlayout-subtitle.svg)](https://travis-ci.org/hendraanggrian/collapsingtoolbarlayout-subtitle)
+[![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
+
 Standard `CollapsingToolbarLayout` with subtitle support. Using internal
 components of support design library allows it to behave similarly to its
 sibling `CollapsingToolbarLayout`, while also ensuring minimum library size.
@@ -17,7 +21,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:27.1.0'
+    compile "com.hendraanggrian:collapsingtoolbarlayout-subtitle:$version"
 }
 ```
 
