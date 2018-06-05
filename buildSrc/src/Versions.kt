@@ -9,8 +9,9 @@ const val VERSION_KOTA = "0.19"
 const val VERSION_SUPPORT = "27.1.1"
 const val VERSION_ERRORBAR = "0.4"
 
-const val VERSION_RUNNER = "1.0.2"
 const val VERSION_ESPRESSO = "3.0.2"
+const val VERSION_RUNNER = "1.0.2"
+const val VERSION_RULES = "1.0.2"
 
 internal const val VERSION_ANDROID_PLUGIN = "3.1.0"
 internal const val VERSION_TRUTH = "0.40"
