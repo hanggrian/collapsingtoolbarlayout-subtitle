@@ -6,7 +6,7 @@ buildscript {
     dependencies {
         classpath(android())
         classpath(kotlin("gradle-plugin", VERSION_KOTLIN))
-        classpath(dokka())
+        classpath(dokkaAndroid())
         classpath(gitPublish())
         classpath(bintrayRelease())
     }
