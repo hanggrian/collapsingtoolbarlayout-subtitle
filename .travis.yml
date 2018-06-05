@@ -2,52 +2,26 @@ language: android
 
 jdk: oraclejdk8
 
-cache:
-  directories:
-   - node_modules
-sudo: false
-
-android:
-  components:
-   # Uncomment the lines below if you want to
-    # use the latest revision of Android SDK Tools
-    - platform-tools
-    - tools
-
-    # The BuildTools version used by your project
-    - build-tools-27.0.3
-
-    # The SDK version used to compile your project
-    - android-27
-
-    # Additional components
-    - extra-google-google_play_services
-    - extra-google-m2repository
-    - extra-android-m2repository
-    # - addon-google_apis-google-19
-    # - add-on
-    # - extra
-
-    # Specify at least one system image,
-    # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-27
-    # - sys-img-x86-android-27
-
-  licenses:
-   - 'android-sdk-license-.+'
-
 env:
   global:
-   # install timeout in minutes (2 minutes by default)
-    - ADB_INSTALL_TIMEOUT=8
+    - ANDROID_TARGET=android-27
+    - ANDROID_ABI=x86
+    
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-27.0.3
+    - android-27
+    - extra-android-m2repository
+    - extra-google-m2repository
+    - sys-img-x86-android-27
 
-# Emulator Management: Create, Start and Wait
 before_script:
-  - echo no | android create avd --force -n test -t android-27 --abi armeabi-v7a
+  - echo no | android create avd --force -n test -t android-27 --abi x86
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
-
+  
 script:
-  - android list target
   - ./gradlew connectedAndroidTest
