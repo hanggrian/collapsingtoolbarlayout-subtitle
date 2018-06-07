@@ -2,44 +2,24 @@ language: android
 
 jdk: oraclejdk8
 
-sudo: false
+env:
+  global:
+    - ANDROID_TARGET=android-27
+    - ANDROID_ABI=armeabi-v7a
 
 android:
-    components:
-        - platform-tools
-        - tools
-        - extra-android-support
-        - extra-android-m2repository
-        - extra-google-m2repository
-        - extra-google-google_play_services
-        - build-tools-27.0.3
-        - android-27
-        - sys-img-armeabi-v7a-android-27
-    licenses:
-        - '.+'
-        - android-sdk-license-.+
-        - google-gdk-license-.+
-
-before_install:
-    - chmod +x gradlew
-
-before_script:
-    - echo no | android create avd --force -n test -t android-27 --abi armeabi-v7a
-    - emulator -avd test -no-audio -no-window &
-    - android-wait-for-emulator
-    - adb shell input keyevent 82 &
-
+  components:
+    - tools
+    - platform-tools
+    - build-tools-27.0.3
+    - android-27
+    - extra-android-m2repository
+    - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
+    
 script:
-    - ./gradlew connectedCheck --stacktrace
-
-notifications:
-    on_success: change
-    on_failure: never
-
-before_cache:
-  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
-  
-cache:
-  directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+  - ./gradlew build jacocoTestReport assembleAndroidTest
+  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
+  - ./gradlew connectedCheck
