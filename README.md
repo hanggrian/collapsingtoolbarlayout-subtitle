@@ -4,11 +4,11 @@ SubtitleCollapsingToolbarLayout
 [![Build Status](https://travis-ci.org/hendraanggrian/collapsingtoolbarlayout-subtitle.svg)](https://travis-ci.org/hendraanggrian/collapsingtoolbarlayout-subtitle)
 [![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
 
+![demo][demo]
+
 Standard `CollapsingToolbarLayout` with subtitle support. Using internal
 components of support design library allows it to behave similarly to its
 sibling `CollapsingToolbarLayout`, while also ensuring minimum library size.
-
-![demo][demo]
 
 Download
 --------
