@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<lint>
-    <!-- Possible Kotlin bug, rest assured all resources are used. -->
-    <issue id="UnusedResources" severity="ignore" />
-</lint>
