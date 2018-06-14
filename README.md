@@ -21,7 +21,8 @@ repositories {
 }
 
 dependencies {
-    compile "com.hendraanggrian:collapsingtoolbarlayout-subtitle:$version"
+    implementation "com.hendraanggrian:collapsingtoolbarlayout-subtitle:$version"
+    implementation "com.android.support:design:$version"
 }
 ```
 

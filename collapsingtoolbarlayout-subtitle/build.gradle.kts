@@ -48,7 +48,7 @@ dependencies {
     testImplementation(junit())
     testImplementation(truth())
     androidTestImplementation(truth())
-    androidTestImplementation(hendraanggrian("errorbar", VERSION_ERRORBAR))
+    androidTestImplementation(hendraanggrian("errorbar", VERSION_SUPPORT))
     androidTestImplementation(support("espresso-core", VERSION_ESPRESSO, "test", "espresso"))
     androidTestImplementation(support("runner", VERSION_RUNNER, "test"))
     androidTestImplementation(support("rules", VERSION_RULES, "test"))

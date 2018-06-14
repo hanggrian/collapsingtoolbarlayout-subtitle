@@ -1,2 +1,2 @@
 include(":collapsingtoolbarlayout-subtitle")
-include(":example")
+include(":demo")

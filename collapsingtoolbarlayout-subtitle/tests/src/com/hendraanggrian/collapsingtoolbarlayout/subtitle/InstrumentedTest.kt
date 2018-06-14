@@ -1,9 +1,10 @@
 package com.hendraanggrian.collapsingtoolbarlayout.subtitle
 
+import android.graphics.Color
 import android.graphics.Typeface.createFromAsset
 import android.support.design.widget.Errorbar
 import android.support.design.widget.SubtitleCollapsingToolbarLayout
-import android.support.design.widget.errorbar
+import android.support.design.widget.indefiniteErrorbar
 import android.support.test.InstrumentationRegistry.getTargetContext
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.ViewAction
@@ -37,45 +38,46 @@ class InstrumentedTest {
     @Rule @JvmField val rule = ActivityTestRule(InstrumentedActivity::class.java)
     private lateinit var errorbar: Errorbar
 
-    @Before
-    fun errorbarInit() {
+    @Before fun errorbarInit() {
         onView(withId(R.id.frameLayout)).perform(viewActionOf<FrameLayout> {
-            errorbar = errorbar(it, "Initializing ...")
+            errorbar = it.indefiniteErrorbar {
+                setText("Initializing ...")
+            }
         })
     }
 
     @Test
     @Throws(Exception::class)
     fun gravity() {
-        turn({ })
-        turn({
+        turn { }
+        turn {
             it.expandedTitleGravity = END
             it.collapsedTitleGravity = CENTER
-        })
+        }
     }
 
     @Test
     @Throws(Exception::class)
     fun typeface() {
-        turn({ })
-        turn({
+        turn { }
+        turn {
             val assets = getTargetContext().assets
             it.expandedTitleTypeface = createFromAsset(assets, "SourceCodePro-Bold.ttf")
             it.expandedSubtitleTypeface = createFromAsset(assets, "SourceCodePro-Regular.ttf")
-        })
+        }
     }
 
     private fun turn(perform: (SubtitleCollapsingToolbarLayout) -> Unit) {
         onView(withId(R.id.toolbarLayout)).perform(
             viewActionOf<SubtitleCollapsingToolbarLayout> {
                 perform(it)
-                errorbar.setLogoResource(R.drawable.up)
+                errorbar.setImage(R.drawable.up)
                 errorbar.setText("Swiping up...")
             },
             slowerSwipeUp())
         onView(withId(R.id.toolbar)).perform(
             viewActionOf<Toolbar> {
-                errorbar.setLogoResource(R.drawable.down)
+                errorbar.setImage(R.drawable.down)
                 errorbar.setText("Swiping down...")
             },
             swipeDown(),
@@ -84,7 +86,7 @@ class InstrumentedTest {
             swipeDown(),
             swipeDown(),
             viewActionOf<Toolbar> {
-                errorbar.setLogoDrawable(null)
+                errorbar.setImage(Color.TRANSPARENT)
                 errorbar.setText("Done")
             })
     }

@@ -44,11 +44,11 @@ dependencies {
     implementation(project(":collapsingtoolbarlayout-subtitle"))
     implementation(kotlin("stdlib", VERSION_KOTLIN))
 
-    implementation(support("appcompat-v7", VERSION_SUPPORT))
-    implementation(support("recyclerview-v7", VERSION_SUPPORT))
+    implementation(support("design", VERSION_SUPPORT))
+    implementation(support("cardview-v7", VERSION_SUPPORT))
 
-    implementation(hendraanggrian("kota-design", VERSION_KOTA))
-    implementation(hendraanggrian("kota-appcompat-v7", VERSION_KOTA))
+    implementation(bottomsheet("commons"))
+    implementation(androidKTX())
 
     implementation("com.afollestad.material-dialogs:core:0.9.6.0")
 }
