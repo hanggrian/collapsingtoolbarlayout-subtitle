@@ -1,70 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.flipboard.bottomsheet.BottomSheetLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout"
+    android:id="@+id/sheetLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".MainActivity"
-    tools:ignore="ContentDescription">
+    android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
-
-        <android.support.design.widget.SubtitleCollapsingToolbarLayout
-            android:id="@+id/toolbarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="256dp"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?colorPrimary"
-            app:fixMenuPadding="true"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:subtitle="Papua, Indonesia"
-            app:title="Raja Ampat">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/bg"
-                app:layout_collapseMode="parallax" />
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                app:layout_collapseMode="pin" />
-        </android.support.design.widget.SubtitleCollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.widget.NestedScrollView
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:fitsSystemWindows="true"
+        tools:context=".MainActivity"
+        tools:ignore="ContentDescription">
 
-        <TextView
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+
+            <android.support.design.widget.SubtitleCollapsingToolbarLayout
+                android:id="@+id/toolbarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="256dp"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?colorPrimary"
+                app:fixMenuPadding="true"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:subtitle="Papua, Indonesia"
+                app:title="Raja Ampat">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg"
+                    app:layout_collapseMode="parallax" />
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    app:layout_collapseMode="pin" />
+            </android.support.design.widget.SubtitleCollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="10dp"
-            android:paddingEnd="20dp"
-            android:paddingStart="20dp"
-            android:paddingTop="10dp"
-            android:text="@string/content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-    </android.support.v4.widget.NestedScrollView>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:onClick="onClick"
-        android:src="@drawable/ic_action_tune"
-        app:fabSize="normal"
-        app:layout_anchor="@id/appbarLayout"
-        app:layout_anchorGravity="bottom|end" />
-</android.support.design.widget.CoordinatorLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="10dp"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:text="@string/content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        </android.support.v4.widget.NestedScrollView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:onClick="onClick"
+            android:src="@drawable/ic_action_tune"
+            app:fabSize="normal"
+            app:layout_anchor="@id/appbarLayout"
+            app:layout_anchorGravity="bottom|end" />
+    </android.support.design.widget.CoordinatorLayout>
+</com.flipboard.bottomsheet.BottomSheetLayout>

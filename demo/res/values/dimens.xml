@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="input_dialog_padding_horizontal">20dp</dimen>
+    <dimen name="input_dialog_padding_vertical">10dp</dimen>
+</resources>

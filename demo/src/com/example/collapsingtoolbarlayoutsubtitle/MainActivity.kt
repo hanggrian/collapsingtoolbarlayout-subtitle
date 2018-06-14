@@ -7,6 +7,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.core.view.get
+import com.flipboard.bottomsheet.commons.MenuSheetView
+import com.flipboard.bottomsheet.commons.MenuSheetView.MenuType.GRID
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -28,5 +30,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClick(view: View) {
+        sheetLayout.showWithSheetView(MenuSheetView(this, GRID, "Demo") {
+            when (it.itemId) {
+                R.id.title -> inputDialog("Title") { toolbarLayout.title = it }
+                R.id.subtitle -> inputDialog("Subtitle") { toolbarLayout.subtitle = it }
+            }
+            true
+        }.apply { inflateMenu(R.menu.activity_main) })
     }
 }

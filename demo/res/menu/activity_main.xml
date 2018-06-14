@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/title"
+        android:title="Title" />
+
+    <item
+        android:id="@+id/titleExpandedColor"
+        android:title="Expanded color" />
+
+    <item
+        android:id="@+id/titleCollapsedColor"
+        android:title="Collapsed color" />
+
+    <item
+        android:id="@+id/subtitle"
+        android:title="Subtitle" />
+
+    <item
+        android:id="@+id/subtitleExpandedColor"
+        android:title="Expanded color" />
+
+    <item
+        android:id="@+id/subtitleCollapsedColor"
+        android:title="Collapsed color" />
+</menu>
