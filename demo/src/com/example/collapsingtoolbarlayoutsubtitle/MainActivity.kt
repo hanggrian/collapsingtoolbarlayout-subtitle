@@ -8,6 +8,7 @@ import android.support.annotation.AttrRes
 import android.support.annotation.StringRes
 import android.support.design.widget.errorbar
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem.SHOW_AS_ACTION_ALWAYS
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.color.ColorChooserDialog
@@ -19,8 +20,6 @@ class MainActivity : AppCompatActivity(), ColorChooserDialog.ColorCallback {
 
     private var isTitle = false
     private var isExpanded = false
-
-    private var isHomeShown = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,9 +47,17 @@ class MainActivity : AppCompatActivity(), ColorChooserDialog.ColorCallback {
                 R.id.subtitleCollapsedColor -> colorPickerDialog(R.string.subtitle_collapsed_color, false, false)
                 R.id.expandedGravity -> gravityDialog("Expanded gravity") { toolbarLayout.expandedTitleGravity = it }
                 R.id.collapsedGravity -> gravityDialog("Collapsed gravity") { toolbarLayout.collapsedTitleGravity = it }
-                R.id.backIcon -> {
-                    isHomeShown = !isHomeShown
-                    toolbar.navigationIcon = if (isHomeShown) getDrawableAttr(R.attr.homeAsUpIndicator) else null
+                R.id.navigationIcon -> toolbar.navigationIcon = when (toolbar.navigationIcon) {
+                    null -> getDrawableAttr(R.attr.homeAsUpIndicator)
+                    else -> null
+                }
+                R.id.menuItems -> when {
+                    toolbar.menu.hasVisibleItems() -> toolbar.menu.clear()
+                    else -> toolbar.menu.run {
+                        add("1").setShowAsActionFlags(SHOW_AS_ACTION_ALWAYS).setIcon(R.drawable.ic_action_back)
+                        add("2").setShowAsActionFlags(SHOW_AS_ACTION_ALWAYS).setIcon(R.drawable.ic_action_color)
+                        add("3").setShowAsActionFlags(SHOW_AS_ACTION_ALWAYS).setIcon(R.drawable.ic_action_gravity)
+                    }
                 }
             }
             if (sheetLayout.isSheetShowing) sheetLayout.dismissSheet()

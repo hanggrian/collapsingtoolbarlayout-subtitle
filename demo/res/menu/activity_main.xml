@@ -42,7 +42,11 @@
         android:title="Collapsed gravity" />
 
     <item
-        android:id="@+id/backIcon"
+        android:id="@+id/navigationIcon"
         android:icon="@drawable/ic_action_back"
-        android:title="Toggle home indicator" />
+        android:title="Toggle navigation icon" />
+
+    <item
+        android:id="@+id/menuItems"
+        android:title="Toggle menu items" />
 </menu>
