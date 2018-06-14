@@ -5,9 +5,9 @@ fun DependencyHandler.android() = "com.android.tools.build:gradle:$VERSION_ANDRO
 inline val PluginDependenciesSpec.`android-library` get() = id("com.android.library")
 inline val PluginDependenciesSpec.`android-application` get() = id("com.android.application")
 
-fun DependencyHandler.androidKTX() = "androidx.core:core-ktx:$VERSION_ANDROID_KTX"
-
 fun DependencyHandler.bottomsheet(module: String) = "com.flipboard:bottomsheet-$module:$VERSION_BOTTOMSHEET"
+
+fun DependencyHandler.materialDialogs(module: String) = "com.afollestad.material-dialogs:$module:$VERSION_MATERIAL_DIALOGS"
 
 fun DependencyHandler.support(module: String, version: String, vararg suffixes: String) =
     "${StringBuilder("com.android.support").apply {
@@ -22,8 +22,11 @@ fun DependencyHandler.junit() = "junit:junit:$VERSION_JUNIT"
 
 fun DependencyHandler.ktlint() = "com.github.shyiko:ktlint:$VERSION_KTLINT"
 
-fun DependencyHandler.dokkaAndroid() = "org.jetbrains.dokka:dokka-android-gradle-plugin:$VERSION_DOKKA"
-inline val PluginDependenciesSpec.`dokka-android` get() = id("org.jetbrains.dokka-android")
+fun DependencyHandler.anko(module: String? = null) = "org.jetbrains.anko:${module?.let { "anko-$it" }
+    ?: "anko"}:$VERSION_ANKO"
+
+fun DependencyHandler.dokka() = "org.jetbrains.dokka:dokka-android-gradle-plugin:$VERSION_DOKKA"
+inline val PluginDependenciesSpec.dokka get() = id("org.jetbrains.dokka-android")
 
 fun DependencyHandler.gitPublish() = "org.ajoberstar:gradle-git-publish:$VERSION_GIT_PUBLISH"
 inline val PluginDependenciesSpec.`git-publish` get() = id("org.ajoberstar.git-publish")

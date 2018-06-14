@@ -3,25 +3,41 @@
 
     <item
         android:id="@+id/title"
+        android:icon="@drawable/ic_action_title"
         android:title="Title" />
 
     <item
         android:id="@+id/titleExpandedColor"
-        android:title="Expanded color" />
+        android:icon="@drawable/ic_action_color"
+        android:title="Title expanded color" />
 
     <item
         android:id="@+id/titleCollapsedColor"
-        android:title="Collapsed color" />
+        android:icon="@drawable/ic_action_color"
+        android:title="Title collapsed color" />
 
     <item
         android:id="@+id/subtitle"
+        android:icon="@drawable/ic_action_title"
         android:title="Subtitle" />
 
     <item
         android:id="@+id/subtitleExpandedColor"
-        android:title="Expanded color" />
+        android:icon="@drawable/ic_action_color"
+        android:title="Subtitle expanded color" />
 
     <item
         android:id="@+id/subtitleCollapsedColor"
-        android:title="Collapsed color" />
+        android:icon="@drawable/ic_action_color"
+        android:title="Subtitle collapsed color" />
+
+    <item
+        android:id="@+id/expandedGravity"
+        android:icon="@drawable/ic_action_gravity"
+        android:title="Expanded gravity" />
+
+    <item
+        android:id="@+id/collapsedGravity"
+        android:icon="@drawable/ic_action_gravity"
+        android:title="Collapsed gravity" />
 </menu>

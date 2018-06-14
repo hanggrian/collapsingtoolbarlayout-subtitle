@@ -41,14 +41,14 @@ android {
 }
 
 dependencies {
-    implementation(project(":collapsingtoolbarlayout-subtitle"))
     implementation(kotlin("stdlib", VERSION_KOTLIN))
+    implementation(anko("sdk25"))
+    implementation(anko("appcompat-v7"))
 
+    implementation(project(":collapsingtoolbarlayout-subtitle"))
     implementation(support("design", VERSION_SUPPORT))
-    implementation(support("cardview-v7", VERSION_SUPPORT))
 
     implementation(bottomsheet("commons"))
-    implementation(androidKTX())
-
-    implementation("com.afollestad.material-dialogs:core:0.9.6.0")
+    implementation(materialDialogs("commons"))
+    implementation(hendraanggrian("errorbar", VERSION_SUPPORT))
 }

@@ -5,7 +5,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 plugins {
     `android-library`
     kotlin("android")
-    `dokka-android`
+    dokka
     `git-publish`
     `bintray-release`
 }
