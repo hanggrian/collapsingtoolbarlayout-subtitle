@@ -26,10 +26,6 @@ dependencies {
 }
 ```
 
-Older versions:
- * 27.0.1
- * 26.1.0
-
 Usage
 -----
 Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLayout`.
@@ -74,7 +70,6 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
 | `subtitle`                        | subtitle text                              | disabled                                             |
 | `collapsedSubtitleTextAppearance` | text appearance of subtitle when collapsed | `TextAppearance.AppCompat.Widget.ActionBar.Subtitle` |
 | `expandedSubtitleTextAppearance`  | text appearance of subtitle when expanded  | `TextAppearance.AppCompat.Headline`                  |
-| `fixMenuPadding`                  | add 16dp padding to title and subtitle     | disabled                                             |
 
 License
 -------

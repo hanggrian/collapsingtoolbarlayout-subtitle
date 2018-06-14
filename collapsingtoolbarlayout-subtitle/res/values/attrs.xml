@@ -25,6 +25,5 @@
         <!-- SubtitleCollapsingToolbarLayout attrs -->
         <attr name="expandedSubtitleTextAppearance" format="reference" />
         <attr name="collapsedSubtitleTextAppearance" format="reference" />
-        <attr name="fixMenuPadding" format="boolean" />
     </declare-styleable>
 </resources>

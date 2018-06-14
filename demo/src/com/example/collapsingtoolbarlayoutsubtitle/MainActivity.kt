@@ -2,12 +2,12 @@ package com.example.collapsingtoolbarlayoutsubtitle
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.support.annotation.AttrRes
 import android.support.annotation.StringRes
 import android.support.design.widget.errorbar
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.color.ColorChooserDialog
@@ -17,10 +17,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), ColorChooserDialog.ColorCallback {
 
-    private lateinit var menuItem: MenuItem
-
     private var isTitle = false
     private var isExpanded = false
+
+    private var isHomeShown = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,15 +32,9 @@ class MainActivity : AppCompatActivity(), ColorChooserDialog.ColorCallback {
             setBackdrop(R.drawable.errorbar_bg_cloud)
             setImage(R.drawable.ic_display_tune)
             setText("Tap tune button to customize toolbar layout")
-            setContentMarginLeft(resources.getDimensionPixelOffset(R.dimen.input_dialog_padding_vertical))
-            setContentMarginRight(resources.getDimensionPixelOffset(R.dimen.input_dialog_padding_vertical))
+            setContentMarginLeft(resources.getDimensionPixelOffset(R.dimen.padding_vertical))
+            setContentMarginRight(resources.getDimensionPixelOffset(R.dimen.padding_vertical))
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.article, menu)
-        menuItem = menu.getItem(0)
-        return true
     }
 
     fun onClick(v: View) {
@@ -54,6 +48,10 @@ class MainActivity : AppCompatActivity(), ColorChooserDialog.ColorCallback {
                 R.id.subtitleCollapsedColor -> colorPickerDialog(R.string.subtitle_collapsed_color, false, false)
                 R.id.expandedGravity -> gravityDialog("Expanded gravity") { toolbarLayout.expandedTitleGravity = it }
                 R.id.collapsedGravity -> gravityDialog("Collapsed gravity") { toolbarLayout.collapsedTitleGravity = it }
+                R.id.backIcon -> {
+                    isHomeShown = !isHomeShown
+                    toolbar.navigationIcon = if (isHomeShown) getDrawableAttr(R.attr.homeAsUpIndicator) else null
+                }
             }
             if (sheetLayout.isSheetShowing) sheetLayout.dismissSheet()
             true
@@ -118,6 +116,14 @@ class MainActivity : AppCompatActivity(), ColorChooserDialog.ColorCallback {
                 .negativeText(android.R.string.cancel)
                 .positiveText("Choose")
                 .show()
+        }
+
+        inline fun Context.getDrawableAttr(@AttrRes attr: Int): Drawable? = obtainStyledAttributes(null, intArrayOf(attr)).let {
+            try {
+                return it.getDrawable(0)
+            } finally {
+                it.recycle()
+            }
         }
     }
 }

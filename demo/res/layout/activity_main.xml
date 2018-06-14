@@ -7,9 +7,9 @@
     android:layout_height="match_parent">
 
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/coordinatorLayout"
         android:fitsSystemWindows="true"
         tools:context=".MainActivity"
         tools:ignore="ContentDescription">
@@ -26,7 +26,6 @@
                 android:layout_height="256dp"
                 android:fitsSystemWindows="true"
                 app:contentScrim="?colorPrimary"
-                app:fixMenuPadding="true"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:subtitle="Papua, Indonesia"
                 app:title="Raja Ampat">

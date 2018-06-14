@@ -18,7 +18,6 @@
             android:layout_height="256dp"
             android:fitsSystemWindows="true"
             app:contentScrim="?colorPrimary"
-            app:fixMenuPadding="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:subtitle="CollapsingToolbarLayout"
             app:title="Subtitle">

@@ -20,7 +20,6 @@ import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
-import android.content.res.Configuration.SCREENLAYOUT_SIZE_LARGE
 import android.content.res.Configuration.SCREENLAYOUT_SIZE_MASK
 import android.content.res.Configuration.SCREENLAYOUT_SIZE_UNDEFINED
 import android.graphics.Canvas
@@ -104,8 +103,6 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
 
     internal var mLastInsets: WindowInsetsCompat? = null
 
-    private var mFixMenuPadding: Boolean
-
     init {
         ThemeUtils.checkAppCompatTheme(context)
 
@@ -169,10 +166,23 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
                 R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleTextAppearance, 0))
         }
 
+        // First load the default title appearances
         mCollapsingTextHelper.setExpandedSubtitleTextAppearance(a.getResourceId(
             R.styleable.SubtitleCollapsingToolbarLayout_expandedSubtitleTextAppearance, 0))
         mCollapsingTextHelper.setCollapsedSubtitleTextAppearance(a.getResourceId(
             R.styleable.SubtitleCollapsingToolbarLayout_collapsedSubtitleTextAppearance, 0))
+
+        // Now overlay any custom subtitle appearances
+        if (a.hasValue(
+                R.styleable.SubtitleCollapsingToolbarLayout_expandedSubtitleTextAppearance)) {
+            mCollapsingTextHelper.setExpandedSubtitleTextAppearance(a.getResourceId(
+                R.styleable.SubtitleCollapsingToolbarLayout_expandedSubtitleTextAppearance, 0))
+        }
+        if (a.hasValue(
+                R.styleable.SubtitleCollapsingToolbarLayout_collapsedSubtitleTextAppearance)) {
+            mCollapsingTextHelper.setCollapsedSubtitleTextAppearance(a.getResourceId(
+                R.styleable.SubtitleCollapsingToolbarLayout_collapsedSubtitleTextAppearance, 0))
+        }
 
         mScrimVisibleHeightTrigger = a.getDimensionPixelSize(
             R.styleable.SubtitleCollapsingToolbarLayout_scrimVisibleHeightTrigger, -1)
@@ -184,8 +194,6 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
         mStatusBarScrim = a.getDrawable(R.styleable.SubtitleCollapsingToolbarLayout_statusBarScrim)
 
         mToolbarId = a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_toolbarId, -1)
-        mFixMenuPadding = a.getBoolean(
-            R.styleable.SubtitleCollapsingToolbarLayout_fixMenuPadding, false)
 
         a.recycle()
         setWillNotDraw(false)
@@ -353,45 +361,40 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
                 i++
             }
         }
+
         if (mCollapsingTitleEnabled && mDummyView != null) {
             mDrawCollapsingTitle = ViewCompat.isAttachedToWindow(mDummyView) &&
                 mDummyView!!.visibility == VISIBLE
             if (mDrawCollapsingTitle) {
                 val isRtl = ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL
-                val maxOffset = (mToolbarDirectChild ?: mToolbar!!).maxOffsetForPinChild
-                ViewGroupUtils.getDescendantRect(this, mDummyView!!, mTmpRect)
-                var collapsedBoundsLeft = mTmpRect.left + when {
-                    isRtl -> mToolbar!!.titleMarginEnd
-                    else -> mToolbar!!.titleMarginStart
-                }
-                var collapsedBoundsRight = mTmpRect.right + when {
-                    isRtl -> mToolbar!!.titleMarginStart
-                    else -> mToolbar!!.titleMarginEnd
-                }
-                if (mFixMenuPadding && mToolbar!!.menu != null &&
-                    !mToolbar!!.menu.hasVisibleItems()) {
-                    val padding = context.resources.getDimensionPixelSize(when {
-                        context.isScreenSizeAtLeast(SCREENLAYOUT_SIZE_LARGE) ->
-                            R.dimen.appbar_horizontal_padding_large
-                        else -> R.dimen.appbar_horizontal_padding
-                    })
-                    if (isRtl) collapsedBoundsLeft += padding
-                    else collapsedBoundsRight -= padding
-                }
+                val maxOffset = (mToolbarDirectChild ?: mToolbar)!!.maxOffsetForPinChild
+                ViewGroupUtils.getDescendantRect(this, mDummyView, mTmpRect)
                 mCollapsingTextHelper.setCollapsedBounds(
-                    collapsedBoundsLeft,
+                    mTmpRect.left + when {
+                        isRtl -> mToolbar!!.titleMarginEnd
+                        else -> mToolbar!!.titleMarginStart
+                    },
                     mTmpRect.top + maxOffset + mToolbar!!.titleMarginTop,
-                    collapsedBoundsRight,
+                    mTmpRect.right + when {
+                        isRtl -> mToolbar!!.titleMarginStart
+                        else -> mToolbar!!.titleMarginEnd
+                    },
                     mTmpRect.bottom + maxOffset - mToolbar!!.titleMarginBottom)
                 mCollapsingTextHelper.setExpandedBounds(
-                    if (isRtl) mExpandedMarginEnd
-                    else mExpandedMarginStart,
+                    when {
+                        isRtl -> mExpandedMarginEnd
+                        else -> mExpandedMarginStart
+                    },
                     mTmpRect.top + mExpandedMarginTop,
-                    right - left - if (isRtl) mExpandedMarginStart else mExpandedMarginEnd,
+                    right - left - when {
+                        isRtl -> mExpandedMarginStart
+                        else -> mExpandedMarginEnd
+                    },
                     bottom - top - mExpandedMarginBottom)
                 mCollapsingTextHelper.recalculate()
             }
         }
+
         var i = 0
         val z = childCount
         while (i < z) {
@@ -573,18 +576,6 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
     open fun setStatusBarScrimResource(@DrawableRes resId: Int) {
         statusBarScrim = ContextCompat.getDrawable(context, resId)
     }
-
-    /**
-     * Checks whether this toolbar layout should add menu item padding.
-     *
-     * @see R.styleable.SubtitleCollapsingToolbarLayout_fixMenuPadding
-     */
-    open var fixMenuPadding: Boolean
-        get() = mFixMenuPadding
-        set(value) {
-            mFixMenuPadding = value
-            requestLayout()
-        }
 
     override fun drawableStateChanged() {
         super.drawableStateChanged()
