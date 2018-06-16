@@ -40,9 +40,7 @@ class InstrumentedTest {
 
     @Before fun errorbarInit() {
         onView(withId(R.id.frameLayout)).perform(viewActionOf<FrameLayout> {
-            errorbar = it.indefiniteErrorbar {
-                setText("Initializing ...")
-            }
+            errorbar = it.indefiniteErrorbar("Initializing ...")
         })
     }
 
@@ -71,13 +69,13 @@ class InstrumentedTest {
         onView(withId(R.id.toolbarLayout)).perform(
             viewActionOf<SubtitleCollapsingToolbarLayout> {
                 perform(it)
-                errorbar.setImage(R.drawable.up)
+                errorbar.setIcon(R.drawable.up)
                 errorbar.setText("Swiping up...")
             },
             slowerSwipeUp())
         onView(withId(R.id.toolbar)).perform(
             viewActionOf<Toolbar> {
-                errorbar.setImage(R.drawable.down)
+                errorbar.setIcon(R.drawable.down)
                 errorbar.setText("Swiping down...")
             },
             swipeDown(),
@@ -86,7 +84,7 @@ class InstrumentedTest {
             swipeDown(),
             swipeDown(),
             viewActionOf<Toolbar> {
-                errorbar.setImage(Color.TRANSPARENT)
+                errorbar.setIcon(Color.TRANSPARENT)
                 errorbar.setText("Done")
             })
     }

@@ -27,10 +27,9 @@ class MainActivity : AppCompatActivity(), ColorChooserDialog.ColorCallback {
         setSupportActionBar(toolbar)
         toolbarLayout.setExpandedTitleTextColor(Color.WHITE)
         toolbarLayout.setExpandedSubtitleTextColor(Color.WHITE)
-        coordinatorLayout.errorbar {
-            setBackdrop(R.drawable.errorbar_bg_cloud)
-            setImage(R.drawable.ic_display_tune)
-            setText("Tap tune button to customize toolbar layout")
+        coordinatorLayout.errorbar("Tap tune button to customize toolbar layout") {
+            setBackground(R.drawable.errorbar_bg_cloud)
+            setIcon(R.drawable.ic_display_tune)
             setContentMarginLeft(resources.getDimensionPixelOffset(R.dimen.padding_vertical))
             setContentMarginRight(resources.getDimensionPixelOffset(R.dimen.padding_vertical))
         }
