@@ -1,6 +1,12 @@
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.plugin.use.PluginDependenciesSpec
 
+fun DependencyHandler.hendraanggrian(
+    module: String,
+    version: String,
+    submodule: String? = null
+) = "com.hendraanggrian.$module:${submodule?.let { "$module-$it" } ?: module}:$version"
+
 fun DependencyHandler.android() = "com.android.tools.build:gradle:$VERSION_ANDROID_PLUGIN"
 inline val PluginDependenciesSpec.`android-library` get() = id("com.android.library")
 inline val PluginDependenciesSpec.`android-application` get() = id("com.android.application")
@@ -13,8 +19,6 @@ fun DependencyHandler.support(module: String, version: String, vararg suffixes: 
     "${StringBuilder("com.android.support").apply {
         suffixes.forEach { append(".$it") }
     }}:$module:$version"
-
-fun DependencyHandler.hendraanggrian(module: String, version: String) = "com.hendraanggrian:$module:$version"
 
 fun DependencyHandler.truth() = "com.google.truth:truth:$VERSION_TRUTH"
 

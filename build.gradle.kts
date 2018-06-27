@@ -16,6 +16,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven("https://dl.bintray.com/hendraanggrian/errorbar")
     }
     tasks.withType<Javadoc> {
         isEnabled = false

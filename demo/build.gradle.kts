@@ -13,7 +13,7 @@ android {
     defaultConfig {
         minSdkVersion(SDK_MIN)
         targetSdkVersion(SDK_TARGET)
-        applicationId = "com.example.collapsingtoolbarlayoutsubtitle"
+        applicationId = "com.example.${RELEASE_ARTIFACT.replace('-', '.')}"
         versionCode = 1
         versionName = "1.0"
     }
@@ -45,10 +45,10 @@ dependencies {
     implementation(anko("sdk25"))
     implementation(anko("appcompat-v7"))
 
-    implementation(project(":collapsingtoolbarlayout-subtitle"))
+    implementation(project(":$RELEASE_ARTIFACT"))
     implementation(support("design", VERSION_SUPPORT))
 
     implementation(bottomsheet("commons"))
     implementation(materialDialogs("commons"))
-    implementation(hendraanggrian("errorbar", VERSION_SUPPORT))
+    implementation(hendraanggrian("errorbar", VERSION_SUPPORT, "commons"))
 }

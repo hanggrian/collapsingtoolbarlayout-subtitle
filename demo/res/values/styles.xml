@@ -3,5 +3,12 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
         <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="l">true</item>
+
+        <item name="errorbarStyle">@style/ErrorbarStyle</item>
+    </style>
+
+    <style name="ErrorbarStyle" parent="Widget.Design.Errorbar.Light">
+        <item name="android:background">@drawable/errorbar_bg_cloud_light</item>
+        <item name="android:src">@drawable/ic_action_tune</item>
     </style>
 </resources>

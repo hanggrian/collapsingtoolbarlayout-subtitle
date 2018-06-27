@@ -48,7 +48,7 @@ dependencies {
     testImplementation(junit())
     testImplementation(truth())
     androidTestImplementation(truth())
-    androidTestImplementation(hendraanggrian("errorbar", VERSION_SUPPORT))
+    androidTestImplementation(hendraanggrian("errorbar", VERSION_SUPPORT, "commons"))
     androidTestImplementation(support("espresso-core", VERSION_ESPRESSO, "test", "espresso"))
     androidTestImplementation(support("runner", VERSION_RUNNER, "test"))
     androidTestImplementation(support("rules", VERSION_RULES, "test"))
@@ -90,6 +90,8 @@ tasks {
 }
 
 publish {
+    repoName = RELEASE_ARTIFACT
+
     userOrg = RELEASE_USER
     groupId = RELEASE_GROUP
     artifactId = RELEASE_ARTIFACT
