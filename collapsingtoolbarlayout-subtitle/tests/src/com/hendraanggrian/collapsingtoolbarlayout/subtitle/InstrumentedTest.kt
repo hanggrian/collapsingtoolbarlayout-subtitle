@@ -69,13 +69,13 @@ class InstrumentedTest {
         onView(withId(R.id.toolbarLayout)).perform(
             viewActionOf<SubtitleCollapsingToolbarLayout> {
                 perform(it)
-                errorbar.setIcon(R.drawable.up)
+                errorbar.setImage(R.drawable.up)
                 errorbar.setText("Swiping up...")
             },
             slowerSwipeUp())
         onView(withId(R.id.toolbar)).perform(
             viewActionOf<Toolbar> {
-                errorbar.setIcon(R.drawable.down)
+                errorbar.setImage(R.drawable.down)
                 errorbar.setText("Swiping down...")
             },
             swipeDown(),
@@ -84,7 +84,7 @@ class InstrumentedTest {
             swipeDown(),
             swipeDown(),
             viewActionOf<Toolbar> {
-                errorbar.setIcon(Color.TRANSPARENT)
+                errorbar.setImage(Color.TRANSPARENT)
                 errorbar.setText("Done")
             })
     }

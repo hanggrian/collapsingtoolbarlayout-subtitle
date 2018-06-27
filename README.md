@@ -1,6 +1,6 @@
 SubtitleCollapsingToolbarLayout
 ===============================
-[![Download](https://api.bintray.com/packages/hendraanggrian/maven/collapsingtoolbarlayout-subtitle/images/download.svg) ](https://bintray.com/hendraanggrian/maven/collapsingtoolbarlayout-subtitle/_latestVersion)
+[![Download](https://api.bintray.com/packages/hendraanggrian/collapsingtoolbarlayout-subtitle/collapsingtoolbarlayout-subtitle/images/download.svg) ](https://bintray.com/hendraanggrian/collapsingtoolbarlayout-subtitle/collapsingtoolbarlayout-subtitle/_latestVersion)
 [![Build Status](https://travis-ci.org/hendraanggrian/collapsingtoolbarlayout-subtitle.svg)](https://travis-ci.org/hendraanggrian/collapsingtoolbarlayout-subtitle)
 [![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
 
@@ -21,8 +21,8 @@ repositories {
 }
 
 dependencies {
-    implementation "com.hendraanggrian:collapsingtoolbarlayout-subtitle:$version"
     implementation "com.android.support:design:$version"
+    implementation "com.hendraanggrian.collapsingtoolbarlayout:collapsingtoolbarlayout-subtitle:$version"
 }
 ```
 
