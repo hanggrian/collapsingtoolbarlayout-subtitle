@@ -15,7 +15,7 @@ android {
         targetSdkVersion(SDK_TARGET)
         applicationId = "com.example.${RELEASE_ARTIFACT.replace('-', '.')}"
         versionCode = 1
-        versionName = "1.0"
+        versionName = VERSION_ANDROIDX
     }
     sourceSets {
         getByName("main") {
@@ -43,12 +43,17 @@ android {
 dependencies {
     implementation(kotlin("stdlib", VERSION_KOTLIN))
     implementation(anko("sdk25"))
-    implementation(anko("appcompat-v7"))
 
     implementation(project(":$RELEASE_ARTIFACT"))
-    implementation(support("design", VERSION_SUPPORT))
+    implementation(material())
+    implementation(androidx("appcompat"))
+    implementation(androidx("coordinatorlayout"))
 
-    implementation(bottomsheet("commons"))
-    implementation(materialDialogs("commons"))
-    implementation(hendraanggrian("errorbar", VERSION_SUPPORT, "commons"))
+    implementation(bottomsheet("commons")) {
+        exclude("com.android.support")
+    }
+    implementation(materialDialogs("commons")) {
+        exclude("com.android.support")
+    }
+    implementation(hendraanggrian("errorbar", "commons", VERSION_ANDROIDX))
 }

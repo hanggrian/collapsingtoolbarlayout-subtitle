@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.support.design.widget
+package com.google.android.material.appbar
 
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
@@ -27,25 +27,6 @@ import android.graphics.Rect
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import android.support.annotation.ColorInt
-import android.support.annotation.DrawableRes
-import android.support.annotation.IntRange
-import android.support.annotation.RequiresApi
-import android.support.annotation.StyleRes
-import android.support.design.widget.AnimationUtils.FAST_OUT_LINEAR_IN_INTERPOLATOR
-import android.support.design.widget.AnimationUtils.LINEAR_OUT_SLOW_IN_INTERPOLATOR
-import android.support.design.widget.CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PARALLAX
-import android.support.design.widget.CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PIN
-import android.support.design.widget.CollapsingToolbarLayout.getViewOffsetHelper
-import android.support.v4.content.ContextCompat
-import android.support.v4.graphics.drawable.DrawableCompat
-import android.support.v4.math.MathUtils
-import android.support.v4.util.ObjectsCompat
-import android.support.v4.view.GravityCompat
-import android.support.v4.view.ViewCompat
-import android.support.v4.view.WindowInsetsCompat
-import android.support.v4.widget.ViewGroupUtils
-import android.support.v7.widget.Toolbar
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.Gravity
@@ -54,6 +35,27 @@ import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewParent
 import android.widget.FrameLayout
+import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
+import androidx.annotation.IntRange
+import androidx.annotation.RequiresApi
+import androidx.annotation.StyleRes
+import androidx.appcompat.widget.Toolbar
+import androidx.coordinatorlayout.widget.ViewGroupUtils
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.math.MathUtils
+import androidx.core.util.ObjectsCompat
+import androidx.core.view.GravityCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.animation.AnimationUtils
+import com.google.android.material.animation.AnimationUtils.FAST_OUT_LINEAR_IN_INTERPOLATOR
+import com.google.android.material.animation.AnimationUtils.LINEAR_OUT_SLOW_IN_INTERPOLATOR
+import com.google.android.material.appbar.CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PARALLAX
+import com.google.android.material.appbar.CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PIN
+import com.google.android.material.appbar.CollapsingToolbarLayout.getViewOffsetHelper
+import com.google.android.material.internal.SubtitleCollapsingTextHelper
 import com.hendraanggrian.collapsingtoolbarlayout.subtitle.R
 import kotlin.math.abs
 import kotlin.math.min
@@ -73,127 +75,124 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private var mRefreshToolbar = true
-    private var mToolbarId: Int
-    private var mToolbar: Toolbar? = null
-    private var mToolbarDirectChild: View? = null
-    private var mDummyView: View? = null
+    private var refreshToolbar = true
+    private var toolbarId: Int
+    private var toolbar: Toolbar? = null
+    private var toolbarDirectChild: View? = null
+    private var dummyView: View? = null
 
-    private var mExpandedMarginStart: Int
-    private var mExpandedMarginTop: Int
-    private var mExpandedMarginEnd: Int
-    private var mExpandedMarginBottom: Int
+    private var expandedMarginStart: Int
+    private var expandedMarginTop: Int
+    private var expandedMarginEnd: Int
+    private var expandedMarginBottom: Int
 
-    private val mTmpRect = Rect()
-    internal val mCollapsingTextHelper: SubtitleCollapsingTextHelper
-    private var mCollapsingTitleEnabled: Boolean
-    private var mDrawCollapsingTitle = false
+    private val tmpRect = Rect()
+    internal val collapsingTextHelper = SubtitleCollapsingTextHelper(this)
+    private var collapsingTitleEnabled: Boolean
+    private var drawCollapsingTitle = false
 
-    private var mContentScrim: Drawable?
-    internal var mStatusBarScrim: Drawable?
-    private var mScrimAlpha = 0
-    private var mScrimsAreShown = false
-    private var mScrimAnimator: ValueAnimator? = null
-    private var mScrimAnimationDuration: Long
-    private var mScrimVisibleHeightTrigger = -1
+    private var _contentScrim: Drawable?
+    internal var _statusBarScrim: Drawable?
+    private var _scrimAlpha = 0
+    private var scrimsAreShown = false
+    private var scrimAnimator: ValueAnimator? = null
+    private var _scrimAnimationDuration: Long
+    private var _scrimVisibleHeightTrigger = -1
 
-    private var mOnOffsetChangedListener: AppBarLayout.OnOffsetChangedListener? = null
+    private var onOffsetChangedListener: AppBarLayout.OnOffsetChangedListener? = null
 
-    internal var mCurrentOffset = 0
+    internal var currentOffset = 0
 
-    internal var mLastInsets: WindowInsetsCompat? = null
+    internal var lastInsets: WindowInsetsCompat? = null
 
     init {
-        ThemeUtils.checkAppCompatTheme(context)
-
-        mCollapsingTextHelper = SubtitleCollapsingTextHelper(this)
-        mCollapsingTextHelper.setTextSizeInterpolator(AnimationUtils.DECELERATE_INTERPOLATOR)
+        collapsingTextHelper.setTextSizeInterpolator(AnimationUtils.DECELERATE_INTERPOLATOR)
 
         val a = context.obtainStyledAttributes(attrs,
             R.styleable.SubtitleCollapsingToolbarLayout, defStyleAttr,
             R.style.Widget_Design_CollapsingToolbar_Subtitle)
 
-        mCollapsingTextHelper.expandedTextGravity =
+        collapsingTextHelper.expandedTextGravity =
             a.getInt(R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleGravity,
                 GravityCompat.START or Gravity.BOTTOM)
-        mCollapsingTextHelper.collapsedTextGravity =
+        collapsingTextHelper.collapsedTextGravity =
             a.getInt(R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleGravity,
                 GravityCompat.START or Gravity.CENTER_VERTICAL)
 
-        mExpandedMarginBottom = a.getDimensionPixelSize(
+        expandedMarginBottom = a.getDimensionPixelSize(
             R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleMargin, 0)
-        mExpandedMarginEnd = mExpandedMarginBottom
-        mExpandedMarginTop = mExpandedMarginEnd
-        mExpandedMarginStart = mExpandedMarginTop
+        expandedMarginEnd = expandedMarginBottom
+        expandedMarginTop = expandedMarginEnd
+        expandedMarginStart = expandedMarginTop
 
         if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleMarginStart)) {
-            mExpandedMarginStart = a.getDimensionPixelSize(
+            expandedMarginStart = a.getDimensionPixelSize(
                 R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleMarginStart, 0)
         }
         if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleMarginEnd)) {
-            mExpandedMarginEnd = a.getDimensionPixelSize(
+            expandedMarginEnd = a.getDimensionPixelSize(
                 R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleMarginEnd, 0)
         }
         if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleMarginTop)) {
-            mExpandedMarginTop = a.getDimensionPixelSize(
+            expandedMarginTop = a.getDimensionPixelSize(
                 R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleMarginTop, 0)
         }
         if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleMarginBottom)) {
-            mExpandedMarginBottom = a.getDimensionPixelSize(
+            expandedMarginBottom = a.getDimensionPixelSize(
                 R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleMarginBottom, 0)
         }
 
-        mCollapsingTitleEnabled = a.getBoolean(
+        collapsingTitleEnabled = a.getBoolean(
             R.styleable.SubtitleCollapsingToolbarLayout_titleEnabled, true)
-        mCollapsingTextHelper.title = a.getText(
+        collapsingTextHelper.title = a.getText(
             R.styleable.SubtitleCollapsingToolbarLayout_title)
-        mCollapsingTextHelper.subtitle = a.getText(
+        collapsingTextHelper.subtitle = a.getText(
             R.styleable.SubtitleCollapsingToolbarLayout_subtitle)
 
         // First load the default title appearances
-        mCollapsingTextHelper.setExpandedTitleTextAppearance(
+        collapsingTextHelper.setExpandedTitleTextAppearance(
             R.style.TextAppearance_Design_CollapsingToolbar_Expanded)
-        mCollapsingTextHelper.setCollapsedTitleTextAppearance(
-            android.support.v7.appcompat.R.style.TextAppearance_AppCompat_Widget_ActionBar_Title)
+        collapsingTextHelper.setCollapsedTitleTextAppearance(
+            androidx.appcompat.R.style.TextAppearance_AppCompat_Widget_ActionBar_Title)
 
         // Now overlay any custom subtitle appearances
         if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleTextAppearance)) {
-            mCollapsingTextHelper.setExpandedTitleTextAppearance(a.getResourceId(
+            collapsingTextHelper.setExpandedTitleTextAppearance(a.getResourceId(
                 R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleTextAppearance, 0))
         }
         if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleTextAppearance)) {
-            mCollapsingTextHelper.setCollapsedTitleTextAppearance(a.getResourceId(
+            collapsingTextHelper.setCollapsedTitleTextAppearance(a.getResourceId(
                 R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleTextAppearance, 0))
         }
 
         // First load the default title appearances
-        mCollapsingTextHelper.setExpandedSubtitleTextAppearance(a.getResourceId(
+        collapsingTextHelper.setExpandedSubtitleTextAppearance(a.getResourceId(
             R.styleable.SubtitleCollapsingToolbarLayout_expandedSubtitleTextAppearance, 0))
-        mCollapsingTextHelper.setCollapsedSubtitleTextAppearance(a.getResourceId(
+        collapsingTextHelper.setCollapsedSubtitleTextAppearance(a.getResourceId(
             R.styleable.SubtitleCollapsingToolbarLayout_collapsedSubtitleTextAppearance, 0))
 
         // Now overlay any custom subtitle appearances
         if (a.hasValue(
                 R.styleable.SubtitleCollapsingToolbarLayout_expandedSubtitleTextAppearance)) {
-            mCollapsingTextHelper.setExpandedSubtitleTextAppearance(a.getResourceId(
+            collapsingTextHelper.setExpandedSubtitleTextAppearance(a.getResourceId(
                 R.styleable.SubtitleCollapsingToolbarLayout_expandedSubtitleTextAppearance, 0))
         }
         if (a.hasValue(
                 R.styleable.SubtitleCollapsingToolbarLayout_collapsedSubtitleTextAppearance)) {
-            mCollapsingTextHelper.setCollapsedSubtitleTextAppearance(a.getResourceId(
+            collapsingTextHelper.setCollapsedSubtitleTextAppearance(a.getResourceId(
                 R.styleable.SubtitleCollapsingToolbarLayout_collapsedSubtitleTextAppearance, 0))
         }
 
-        mScrimVisibleHeightTrigger = a.getDimensionPixelSize(
+        _scrimVisibleHeightTrigger = a.getDimensionPixelSize(
             R.styleable.SubtitleCollapsingToolbarLayout_scrimVisibleHeightTrigger, -1)
-        mScrimAnimationDuration = a.getInt(
+        _scrimAnimationDuration = a.getInt(
             R.styleable.SubtitleCollapsingToolbarLayout_scrimAnimationDuration,
             DEFAULT_SCRIM_ANIMATION_DURATION).toLong()
 
-        mContentScrim = a.getDrawable(R.styleable.SubtitleCollapsingToolbarLayout_contentScrim)
-        mStatusBarScrim = a.getDrawable(R.styleable.SubtitleCollapsingToolbarLayout_statusBarScrim)
+        _contentScrim = a.getDrawable(R.styleable.SubtitleCollapsingToolbarLayout_contentScrim)
+        _statusBarScrim = a.getDrawable(R.styleable.SubtitleCollapsingToolbarLayout_statusBarScrim)
 
-        mToolbarId = a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_toolbarId, -1)
+        toolbarId = a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_toolbarId, -1)
 
         a.recycle()
         setWillNotDraw(false)
@@ -208,18 +207,18 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
         if (parent is AppBarLayout) {
             @Suppress("DEPRECATION") ViewCompat.setFitsSystemWindows(this,
                 ViewCompat.getFitsSystemWindows(parent as View))
-            if (mOnOffsetChangedListener == null) {
-                mOnOffsetChangedListener = OffsetUpdateListener()
+            if (onOffsetChangedListener == null) {
+                onOffsetChangedListener = OffsetUpdateListener()
             }
-            parent.addOnOffsetChangedListener(mOnOffsetChangedListener)
+            parent.addOnOffsetChangedListener(onOffsetChangedListener)
             ViewCompat.requestApplyInsets(this)
         }
     }
 
     override fun onDetachedFromWindow() {
         val parent = parent
-        if (mOnOffsetChangedListener != null && parent is AppBarLayout) {
-            parent.removeOnOffsetChangedListener(mOnOffsetChangedListener)
+        if (onOffsetChangedListener != null && parent is AppBarLayout) {
+            parent.removeOnOffsetChangedListener(onOffsetChangedListener)
         }
         super.onDetachedFromWindow()
     }
@@ -229,8 +228,8 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
         if (ViewCompat.getFitsSystemWindows(this)) {
             newInsets = insets
         }
-        if (!ObjectsCompat.equals(mLastInsets, newInsets)) {
-            mLastInsets = newInsets
+        if (!ObjectsCompat.equals(lastInsets, newInsets)) {
+            lastInsets = newInsets
             requestLayout()
         }
         return insets.consumeSystemWindowInsets()
@@ -239,28 +238,28 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
         ensureToolbar()
-        if (mToolbar == null && mContentScrim != null && mScrimAlpha > 0) {
-            mContentScrim!!.mutate().alpha = mScrimAlpha
-            mContentScrim!!.draw(canvas)
+        if (toolbar == null && _contentScrim != null && _scrimAlpha > 0) {
+            _contentScrim!!.mutate().alpha = _scrimAlpha
+            _contentScrim!!.draw(canvas)
         }
-        if (mCollapsingTitleEnabled && mDrawCollapsingTitle) {
-            mCollapsingTextHelper.draw(canvas)
+        if (collapsingTitleEnabled && drawCollapsingTitle) {
+            collapsingTextHelper.draw(canvas)
         }
-        if (mStatusBarScrim != null && mScrimAlpha > 0) {
-            val topInset = mLastInsets?.systemWindowInsetTop ?: 0
+        if (_statusBarScrim != null && _scrimAlpha > 0) {
+            val topInset = lastInsets?.systemWindowInsetTop ?: 0
             if (topInset > 0) {
-                mStatusBarScrim!!.setBounds(0, -mCurrentOffset, width, topInset - mCurrentOffset)
-                mStatusBarScrim!!.mutate().alpha = mScrimAlpha
-                mStatusBarScrim!!.draw(canvas)
+                _statusBarScrim!!.setBounds(0, -currentOffset, width, topInset - currentOffset)
+                _statusBarScrim!!.mutate().alpha = _scrimAlpha
+                _statusBarScrim!!.draw(canvas)
             }
         }
     }
 
     override fun drawChild(canvas: Canvas, child: View, drawingTime: Long): Boolean {
         var invalidated = false
-        if (mContentScrim != null && mScrimAlpha > 0 && child.isToolbarChild()) {
-            mContentScrim!!.mutate().alpha = mScrimAlpha
-            mContentScrim!!.draw(canvas)
+        if (_contentScrim != null && _scrimAlpha > 0 && child.isToolbarChild()) {
+            _contentScrim!!.mutate().alpha = _scrimAlpha
+            _contentScrim!!.draw(canvas)
             invalidated = true
         }
         return super.drawChild(canvas, child, drawingTime) || invalidated
@@ -268,22 +267,22 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        mContentScrim?.setBounds(0, 0, w, h)
+        _contentScrim?.setBounds(0, 0, w, h)
     }
 
     private fun ensureToolbar() {
-        if (!mRefreshToolbar) {
+        if (!refreshToolbar) {
             return
         }
-        mToolbar = null
-        mToolbarDirectChild = null
-        if (mToolbarId != -1) {
-            mToolbar = findViewById(mToolbarId)
-            if (mToolbar != null) {
-                mToolbarDirectChild = mToolbar!!.findDirectChild()
+        toolbar = null
+        toolbarDirectChild = null
+        if (toolbarId != -1) {
+            toolbar = findViewById(toolbarId)
+            if (toolbar != null) {
+                toolbarDirectChild = toolbar!!.findDirectChild()
             }
         }
-        if (mToolbar == null) {
+        if (toolbar == null) {
             var toolbar: Toolbar? = null
             var i = 0
             val count = childCount
@@ -295,15 +294,15 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
                 }
                 i++
             }
-            mToolbar = toolbar
+            this.toolbar = toolbar
         }
         updateDummyView()
-        mRefreshToolbar = false
+        refreshToolbar = false
     }
 
-    private fun View.isToolbarChild(): Boolean = this == when (mToolbarDirectChild) {
-        null, this@SubtitleCollapsingToolbarLayout -> mToolbar
-        else -> mToolbarDirectChild
+    private fun View.isToolbarChild(): Boolean = this == when (toolbarDirectChild) {
+        null, this@SubtitleCollapsingToolbarLayout -> toolbar
+        else -> toolbarDirectChild
     }
 
     private fun View.findDirectChild(): View {
@@ -319,16 +318,16 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
     }
 
     private fun updateDummyView() {
-        if (!mCollapsingTitleEnabled && mDummyView != null) {
-            val parent = mDummyView!!.parent
-            (parent as? ViewGroup)?.removeView(mDummyView)
+        if (!collapsingTitleEnabled && dummyView != null) {
+            val parent = dummyView!!.parent
+            (parent as? ViewGroup)?.removeView(dummyView)
         }
-        if (mCollapsingTitleEnabled && mToolbar != null) {
-            if (mDummyView == null) {
-                mDummyView = View(context)
+        if (collapsingTitleEnabled && toolbar != null) {
+            if (dummyView == null) {
+                dummyView = View(context)
             }
-            if (mDummyView!!.parent == null) {
-                mToolbar!!.addView(mDummyView, MATCH_PARENT, MATCH_PARENT)
+            if (dummyView!!.parent == null) {
+                toolbar!!.addView(dummyView, MATCH_PARENT, MATCH_PARENT)
             }
         }
     }
@@ -337,7 +336,7 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
         ensureToolbar()
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val mode = MeasureSpec.getMode(heightMeasureSpec)
-        val topInset = mLastInsets?.systemWindowInsetTop ?: 0
+        val topInset = lastInsets?.systemWindowInsetTop ?: 0
         if (mode == MeasureSpec.UNSPECIFIED && topInset > 0) {
             super.onMeasure(widthMeasureSpec,
                 MeasureSpec.makeMeasureSpec(measuredHeight + topInset, MeasureSpec.EXACTLY))
@@ -347,8 +346,8 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
     @SuppressLint("RestrictedApi")
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        if (mLastInsets != null) {
-            val insetTop = mLastInsets!!.systemWindowInsetTop
+        if (lastInsets != null) {
+            val insetTop = lastInsets!!.systemWindowInsetTop
             var i = 0
             val z = childCount
             while (i < z) {
@@ -362,36 +361,36 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
             }
         }
 
-        if (mCollapsingTitleEnabled && mDummyView != null) {
-            mDrawCollapsingTitle = ViewCompat.isAttachedToWindow(mDummyView) &&
-                mDummyView!!.visibility == VISIBLE
-            if (mDrawCollapsingTitle) {
+        if (collapsingTitleEnabled && dummyView != null) {
+            drawCollapsingTitle = ViewCompat.isAttachedToWindow(dummyView!!) &&
+                dummyView!!.visibility == VISIBLE
+            if (drawCollapsingTitle) {
                 val isRtl = ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL
-                val maxOffset = (mToolbarDirectChild ?: mToolbar)!!.maxOffsetForPinChild
-                ViewGroupUtils.getDescendantRect(this, mDummyView, mTmpRect)
-                mCollapsingTextHelper.setCollapsedBounds(
-                    mTmpRect.left + when {
-                        isRtl -> mToolbar!!.titleMarginEnd
-                        else -> mToolbar!!.titleMarginStart
+                val maxOffset = (toolbarDirectChild ?: toolbar)!!.maxOffsetForPinChild
+                ViewGroupUtils.getDescendantRect(this, dummyView, tmpRect)
+                collapsingTextHelper.setCollapsedBounds(
+                    tmpRect.left + when {
+                        isRtl -> toolbar!!.titleMarginEnd
+                        else -> toolbar!!.titleMarginStart
                     },
-                    mTmpRect.top + maxOffset + mToolbar!!.titleMarginTop,
-                    mTmpRect.right + when {
-                        isRtl -> mToolbar!!.titleMarginStart
-                        else -> mToolbar!!.titleMarginEnd
+                    tmpRect.top + maxOffset + toolbar!!.titleMarginTop,
+                    tmpRect.right + when {
+                        isRtl -> toolbar!!.titleMarginStart
+                        else -> toolbar!!.titleMarginEnd
                     },
-                    mTmpRect.bottom + maxOffset - mToolbar!!.titleMarginBottom)
-                mCollapsingTextHelper.setExpandedBounds(
+                    tmpRect.bottom + maxOffset - toolbar!!.titleMarginBottom)
+                collapsingTextHelper.setExpandedBounds(
                     when {
-                        isRtl -> mExpandedMarginEnd
-                        else -> mExpandedMarginStart
+                        isRtl -> expandedMarginEnd
+                        else -> expandedMarginStart
                     },
-                    mTmpRect.top + mExpandedMarginTop,
+                    tmpRect.top + expandedMarginTop,
                     right - left - when {
-                        isRtl -> mExpandedMarginStart
-                        else -> mExpandedMarginEnd
+                        isRtl -> expandedMarginStart
+                        else -> expandedMarginEnd
                     },
-                    bottom - top - mExpandedMarginBottom)
-                mCollapsingTextHelper.recalculate()
+                    bottom - top - expandedMarginBottom)
+                collapsingTextHelper.recalculate()
             }
         }
 
@@ -401,13 +400,13 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
             getViewOffsetHelper(getChildAt(i)).onViewLayout()
             i++
         }
-        if (mToolbar != null) {
-            if (mCollapsingTitleEnabled && TextUtils.isEmpty(mCollapsingTextHelper.title)) {
-                mCollapsingTextHelper.title = mToolbar!!.title
+        if (toolbar != null) {
+            if (collapsingTitleEnabled && TextUtils.isEmpty(collapsingTextHelper.title)) {
+                collapsingTextHelper.title = toolbar!!.title
             }
-            minimumHeight = when (mToolbarDirectChild) {
-                null, this -> mToolbar!!.heightWithMargins
-                else -> mToolbarDirectChild!!.heightWithMargins
+            minimumHeight = when (toolbarDirectChild) {
+                null, this -> toolbar!!.heightWithMargins
+                else -> toolbarDirectChild!!.heightWithMargins
             }
         }
         updateScrimVisibility()
@@ -419,9 +418,9 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
      * @see R.styleable.SubtitleCollapsingToolbarLayout_title
      */
     open var title: CharSequence?
-        get() = if (mCollapsingTitleEnabled) mCollapsingTextHelper.title else null
+        get() = if (collapsingTitleEnabled) collapsingTextHelper.title else null
         set(title) {
-            mCollapsingTextHelper.title = title
+            collapsingTextHelper.title = title
         }
 
     /**
@@ -430,9 +429,9 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
      * @see R.styleable.SubtitleCollapsingToolbarLayout_subtitle
      */
     open var subtitle: CharSequence?
-        get() = if (mCollapsingTitleEnabled) mCollapsingTextHelper.subtitle else null
+        get() = if (collapsingTitleEnabled) collapsingTextHelper.subtitle else null
         set(subtitle) {
-            mCollapsingTextHelper.subtitle = subtitle
+            collapsingTextHelper.subtitle = subtitle
         }
 
     /**
@@ -441,10 +440,10 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
      * @see R.styleable.SubtitleCollapsingToolbarLayout_titleEnabled
      */
     open var isTitleEnabled: Boolean
-        get() = mCollapsingTitleEnabled
+        get() = collapsingTitleEnabled
         set(enabled) {
-            if (enabled != mCollapsingTitleEnabled) {
-                mCollapsingTitleEnabled = enabled
+            if (enabled != collapsingTitleEnabled) {
+                collapsingTitleEnabled = enabled
                 updateDummyView()
                 requestLayout()
             }
@@ -455,44 +454,44 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
         shown: Boolean,
         animate: Boolean = ViewCompat.isLaidOut(this) && !isInEditMode
     ) {
-        if (mScrimsAreShown != shown) {
+        if (scrimsAreShown != shown) {
             when {
                 animate -> animateScrim(if (shown) 0xFF else 0x0)
                 else -> scrimAlpha = if (shown) 0xFF else 0x0
             }
-            mScrimsAreShown = shown
+            scrimsAreShown = shown
         }
     }
 
     private fun animateScrim(targetAlpha: Int) {
         ensureToolbar()
         when {
-            mScrimAnimator == null -> {
-                mScrimAnimator = ValueAnimator()
-                mScrimAnimator!!.duration = mScrimAnimationDuration
-                mScrimAnimator!!.interpolator = when {
+            scrimAnimator == null -> {
+                scrimAnimator = ValueAnimator()
+                scrimAnimator!!.duration = _scrimAnimationDuration
+                scrimAnimator!!.interpolator = when {
                     targetAlpha > scrimAlpha -> FAST_OUT_LINEAR_IN_INTERPOLATOR
                     else -> LINEAR_OUT_SLOW_IN_INTERPOLATOR
                 }
-                mScrimAnimator!!.addUpdateListener { animator ->
+                scrimAnimator!!.addUpdateListener { animator ->
                     scrimAlpha = animator.animatedValue as Int
                 }
             }
-            mScrimAnimator!!.isRunning -> mScrimAnimator!!.cancel()
+            scrimAnimator!!.isRunning -> scrimAnimator!!.cancel()
         }
-        mScrimAnimator!!.setIntValues(mScrimAlpha, targetAlpha)
-        mScrimAnimator!!.start()
+        scrimAnimator!!.setIntValues(_scrimAlpha, targetAlpha)
+        scrimAnimator!!.start()
     }
 
     internal open var scrimAlpha: Int
-        get() = mScrimAlpha
+        get() = _scrimAlpha
         set(alpha) {
-            if (alpha != mScrimAlpha) {
-                val contentScrim = mContentScrim
-                if (contentScrim != null && mToolbar != null) {
-                    ViewCompat.postInvalidateOnAnimation(mToolbar)
+            if (alpha != _scrimAlpha) {
+                val contentScrim = _contentScrim
+                if (contentScrim != null && toolbar != null) {
+                    ViewCompat.postInvalidateOnAnimation(toolbar!!)
                 }
-                mScrimAlpha = alpha
+                _scrimAlpha = alpha
                 ViewCompat.postInvalidateOnAnimation(this)
             }
         }
@@ -503,15 +502,15 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
      * @see R.styleable.SubtitleCollapsingToolbarLayout_contentScrim
      */
     open var contentScrim: Drawable?
-        get() = mContentScrim
+        get() = _contentScrim
         set(drawable) {
-            if (mContentScrim != drawable) {
-                mContentScrim?.callback = null
-                mContentScrim = drawable?.mutate()
-                mContentScrim?.let {
+            if (_contentScrim != drawable) {
+                _contentScrim?.callback = null
+                _contentScrim = drawable?.mutate()
+                _contentScrim?.let {
                     it.setBounds(0, 0, width, height)
                     it.callback = this
-                    it.alpha = mScrimAlpha
+                    it.alpha = _scrimAlpha
                 }
                 ViewCompat.postInvalidateOnAnimation(this)
             }
@@ -541,19 +540,19 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
      * @see R.styleable.SubtitleCollapsingToolbarLayout_statusBarScrim
      */
     open var statusBarScrim: Drawable?
-        get() = mStatusBarScrim
+        get() = _statusBarScrim
         set(drawable) {
-            if (mStatusBarScrim != drawable) {
-                mStatusBarScrim?.callback = null
-                mStatusBarScrim = drawable?.mutate()
-                mStatusBarScrim?.let {
+            if (_statusBarScrim != drawable) {
+                _statusBarScrim?.callback = null
+                _statusBarScrim = drawable?.mutate()
+                _statusBarScrim?.let {
                     if (it.isStateful) {
                         it.state = drawableState
                     }
                     DrawableCompat.setLayoutDirection(it, ViewCompat.getLayoutDirection(this))
                     it.setVisible(visibility == VISIBLE, false)
                     it.callback = this
-                    it.alpha = mScrimAlpha
+                    it.alpha = _scrimAlpha
                 }
                 ViewCompat.postInvalidateOnAnimation(this)
             }
@@ -581,17 +580,17 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
         super.drawableStateChanged()
         val state = drawableState
         var changed = false
-        var d = mStatusBarScrim
+        var d = _statusBarScrim
         if (d != null && d.isStateful) {
             changed = d.setState(state)
         }
-        d = mContentScrim
+        d = _contentScrim
         if (d != null && d.isStateful) {
             changed = changed or d.setState(state)
         }
         @Suppress("SENSELESS_COMPARISON")
-        if (mCollapsingTextHelper != null) {
-            changed = changed or mCollapsingTextHelper.setState(state)
+        if (collapsingTextHelper != null) {
+            changed = changed or collapsingTextHelper.setState(state)
         }
         if (changed) {
             invalidate()
@@ -599,17 +598,17 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
     }
 
     override fun verifyDrawable(who: Drawable) = super.verifyDrawable(who) ||
-        who == mContentScrim ||
-        who == mStatusBarScrim
+        who == _contentScrim ||
+        who == _statusBarScrim
 
     override fun setVisibility(visibility: Int) {
         super.setVisibility(visibility)
         val visible = visibility == VISIBLE
-        if (mStatusBarScrim != null && mStatusBarScrim!!.isVisible != visible) {
-            mStatusBarScrim!!.setVisible(visible, false)
+        if (_statusBarScrim != null && _statusBarScrim!!.isVisible != visible) {
+            _statusBarScrim!!.setVisible(visible, false)
         }
-        if (mContentScrim != null && mContentScrim!!.isVisible != visible) {
-            mContentScrim!!.setVisible(visible, false)
+        if (_contentScrim != null && _contentScrim!!.isVisible != visible) {
+            _contentScrim!!.setVisible(visible, false)
         }
     }
 
@@ -619,7 +618,7 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
      * @see R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleTextAppearance
      */
     open fun setCollapsedTitleTextAppearance(@StyleRes resId: Int) =
-        mCollapsingTextHelper.setCollapsedTitleTextAppearance(resId)
+        collapsingTextHelper.setCollapsedTitleTextAppearance(resId)
 
     /**
      * Sets text color and size for the collapsed subtitle.
@@ -627,11 +626,11 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
      * @see R.styleable.SubtitleCollapsingToolbarLayout_collapsedSubtitleTextAppearance
      */
     open fun setCollapsedSubtitleTextAppearance(@StyleRes resId: Int) =
-        mCollapsingTextHelper.setCollapsedSubtitleTextAppearance(resId)
+        collapsingTextHelper.setCollapsedSubtitleTextAppearance(resId)
 
     /** Sets text color of the collapsed title from color state list. */
     open fun setCollapsedTitleTextColor(colors: ColorStateList) {
-        mCollapsingTextHelper.collapsedTitleColor = colors
+        collapsingTextHelper.collapsedTitleColor = colors
     }
 
     /** Sets text color of the collapsed title from color resource. */
@@ -640,7 +639,7 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
 
     /** Sets text color of the collapsed subtitle from color state list. */
     open fun setCollapsedSubtitleTextColor(colors: ColorStateList) {
-        mCollapsingTextHelper.collapsedSubtitleColor = colors
+        collapsingTextHelper.collapsedSubtitleColor = colors
     }
 
     /** Sets text color of the collapsed subtitle from color resource. */
@@ -653,9 +652,9 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
      * @see R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleGravity
      */
     open var collapsedTitleGravity: Int
-        get() = mCollapsingTextHelper.collapsedTextGravity
+        get() = collapsingTextHelper.collapsedTextGravity
         set(gravity) {
-            mCollapsingTextHelper.collapsedTextGravity = gravity
+            collapsingTextHelper.collapsedTextGravity = gravity
         }
 
     /**
@@ -664,7 +663,7 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
      * @see R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleTextAppearance
      */
     open fun setExpandedTitleTextAppearance(@StyleRes resId: Int) =
-        mCollapsingTextHelper.setExpandedTitleTextAppearance(resId)
+        collapsingTextHelper.setExpandedTitleTextAppearance(resId)
 
     /**
      * Sets text color and size for the expanded subtitle.
@@ -672,11 +671,11 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
      * @see R.styleable.SubtitleCollapsingToolbarLayout_expandedSubtitleTextAppearance
      */
     open fun setExpandedSubtitleTextAppearance(@StyleRes resId: Int) =
-        mCollapsingTextHelper.setExpandedSubtitleTextAppearance(resId)
+        collapsingTextHelper.setExpandedSubtitleTextAppearance(resId)
 
     /** Sets text color of the expanded title from color state list. */
     open fun setExpandedTitleTextColor(colors: ColorStateList) {
-        mCollapsingTextHelper.expandedTitleColor = colors
+        collapsingTextHelper.expandedTitleColor = colors
     }
 
     /** Sets text color of the expanded title from color resource. */
@@ -685,7 +684,7 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
 
     /** Sets text color of the expanded subtitle from color state list. */
     open fun setExpandedSubtitleTextColor(colors: ColorStateList) {
-        mCollapsingTextHelper.expandedSubtitleColor = colors
+        collapsingTextHelper.expandedSubtitleColor = colors
     }
 
     /** Sets text color of the expanded subtitle from color resource. */
@@ -698,45 +697,45 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
      * @see R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleGravity
      */
     open var expandedTitleGravity: Int
-        get() = mCollapsingTextHelper.expandedTextGravity
+        get() = collapsingTextHelper.expandedTextGravity
         set(gravity) {
-            mCollapsingTextHelper.expandedTextGravity = gravity
+            collapsingTextHelper.expandedTextGravity = gravity
         }
 
     /** Typeface used for the collapsed title. */
     open var collapsedTitleTypeface: Typeface
-        get() = mCollapsingTextHelper.collapsedTitleTypeface
+        get() = collapsingTextHelper.collapsedTitleTypeface
         set(typeface) {
-            mCollapsingTextHelper.collapsedTitleTypeface = typeface
+            collapsingTextHelper.collapsedTitleTypeface = typeface
         }
 
     /** Typeface used for the collapsed subtitle. */
     open var collapsedSubtitleTypeface: Typeface
-        get() = mCollapsingTextHelper.collapsedSubtitleTypeface
+        get() = collapsingTextHelper.collapsedSubtitleTypeface
         set(typeface) {
-            mCollapsingTextHelper.collapsedSubtitleTypeface = typeface
+            collapsingTextHelper.collapsedSubtitleTypeface = typeface
         }
 
     /** Typeface used for the expanded title. */
     open var expandedTitleTypeface: Typeface
-        get() = mCollapsingTextHelper.expandedTitleTypeface
+        get() = collapsingTextHelper.expandedTitleTypeface
         set(typeface) {
-            mCollapsingTextHelper.expandedTitleTypeface = typeface
+            collapsingTextHelper.expandedTitleTypeface = typeface
         }
 
     /** Typeface used for the expanded subtitle. */
     open var expandedSubtitleTypeface: Typeface
-        get() = mCollapsingTextHelper.expandedSubtitleTypeface
+        get() = collapsingTextHelper.expandedSubtitleTypeface
         set(typeface) {
-            mCollapsingTextHelper.expandedSubtitleTypeface = typeface
+            collapsingTextHelper.expandedSubtitleTypeface = typeface
         }
 
     /** Sets the expanded title margins. */
     open fun setExpandedTitleMargin(start: Int, top: Int, end: Int, bottom: Int) {
-        mExpandedMarginStart = start
-        mExpandedMarginTop = top
-        mExpandedMarginEnd = end
-        mExpandedMarginBottom = bottom
+        expandedMarginStart = start
+        expandedMarginTop = top
+        expandedMarginEnd = end
+        expandedMarginBottom = bottom
         requestLayout()
     }
 
@@ -746,9 +745,9 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
      * @see R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleMarginStart
      */
     open var expandedTitleMarginStart: Int
-        get() = mExpandedMarginStart
+        get() = expandedMarginStart
         set(margin) {
-            mExpandedMarginStart = margin
+            expandedMarginStart = margin
             requestLayout()
         }
 
@@ -758,9 +757,9 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
      * @see R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleMarginTop
      */
     open var expandedTitleMarginTop: Int
-        get() = mExpandedMarginTop
+        get() = expandedMarginTop
         set(margin) {
-            mExpandedMarginTop = margin
+            expandedMarginTop = margin
             requestLayout()
         }
 
@@ -770,9 +769,9 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
      * @see R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleMarginEnd
      */
     open var expandedTitleMarginEnd: Int
-        get() = mExpandedMarginEnd
+        get() = expandedMarginEnd
         set(margin) {
-            mExpandedMarginEnd = margin
+            expandedMarginEnd = margin
             requestLayout()
         }
 
@@ -782,9 +781,9 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
      * @see R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleMarginBottom
      */
     open var expandedTitleMarginBottom: Int
-        get() = mExpandedMarginBottom
+        get() = expandedMarginBottom
         set(margin) {
-            mExpandedMarginBottom = margin
+            expandedMarginBottom = margin
             requestLayout()
         }
 
@@ -796,17 +795,17 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
      */
     open var scrimVisibleHeightTrigger: Int
         get() {
-            if (mScrimVisibleHeightTrigger >= 0) {
-                return mScrimVisibleHeightTrigger
+            if (_scrimVisibleHeightTrigger >= 0) {
+                return _scrimVisibleHeightTrigger
             }
-            val insetTop = mLastInsets?.systemWindowInsetTop ?: 0
+            val insetTop = lastInsets?.systemWindowInsetTop ?: 0
             val minHeight = ViewCompat.getMinimumHeight(this)
             if (minHeight > 0) return min(minHeight * 2 + insetTop, height)
             return height / 3
         }
         set(@IntRange(from = 0) height) {
-            if (mScrimVisibleHeightTrigger != height) {
-                mScrimVisibleHeightTrigger = height
+            if (_scrimVisibleHeightTrigger != height) {
+                _scrimVisibleHeightTrigger = height
                 updateScrimVisibility()
             }
         }
@@ -817,9 +816,9 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
      * @see R.styleable.SubtitleCollapsingToolbarLayout_scrimAnimationDuration
      */
     open var scrimAnimationDuration: Long
-        get() = mScrimAnimationDuration
+        get() = _scrimAnimationDuration
         set(@IntRange(from = 0) duration) {
-            mScrimAnimationDuration = duration
+            _scrimAnimationDuration = duration
         }
 
     override fun checkLayoutParams(p: ViewGroup.LayoutParams): Boolean = p is LayoutParams
@@ -843,8 +842,8 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
     }
 
     internal fun updateScrimVisibility() {
-        if (mContentScrim != null || mStatusBarScrim != null) {
-            setScrimsShown(height + mCurrentOffset < scrimVisibleHeightTrigger)
+        if (_contentScrim != null || _statusBarScrim != null) {
+            setScrimsShown(height + currentOffset < scrimVisibleHeightTrigger)
         }
     }
 
@@ -858,8 +857,8 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
 
     private inner class OffsetUpdateListener : AppBarLayout.OnOffsetChangedListener {
         override fun onOffsetChanged(layout: AppBarLayout, verticalOffset: Int) {
-            mCurrentOffset = verticalOffset
-            val insetTop = mLastInsets?.systemWindowInsetTop ?: 0
+            currentOffset = verticalOffset
+            val insetTop = lastInsets?.systemWindowInsetTop ?: 0
             var i = 0
             val z = childCount
             while (i < z) {
@@ -875,12 +874,12 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
                 i++
             }
             updateScrimVisibility()
-            if (mStatusBarScrim != null && insetTop > 0) {
+            if (_statusBarScrim != null && insetTop > 0) {
                 ViewCompat.postInvalidateOnAnimation(this@SubtitleCollapsingToolbarLayout)
             }
             val expandRange = height -
                 ViewCompat.getMinimumHeight(this@SubtitleCollapsingToolbarLayout) - insetTop
-            mCollapsingTextHelper.expansionFraction = abs(verticalOffset) / expandRange.toFloat()
+            collapsingTextHelper.expansionFraction = abs(verticalOffset) / expandRange.toFloat()
         }
     }
 

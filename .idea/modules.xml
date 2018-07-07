@@ -5,8 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/buildSrc/buildSrc.iml" filepath="$PROJECT_DIR$/buildSrc/buildSrc.iml" />
       <module fileurl="file://$PROJECT_DIR$/collapsingtoolbarlayout-subtitle.iml" filepath="$PROJECT_DIR$/collapsingtoolbarlayout-subtitle.iml" />
       <module fileurl="file://$PROJECT_DIR$/collapsingtoolbarlayout-subtitle/collapsingtoolbarlayout-subtitle-collapsingtoolbarlayout-subtitle.iml" filepath="$PROJECT_DIR$/collapsingtoolbarlayout-subtitle/collapsingtoolbarlayout-subtitle-collapsingtoolbarlayout-subtitle.iml" />
-      <module fileurl="file://$PROJECT_DIR$/demo/demo.iml" filepath="$PROJECT_DIR$/demo/demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/demo/demo.iml" filepath="$PROJECT_DIR$/demo/demo.iml" />
     </modules>
   </component>
 </project>

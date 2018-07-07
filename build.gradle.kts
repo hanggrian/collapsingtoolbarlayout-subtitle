@@ -16,6 +16,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven("https://dl.bintray.com/hendraanggrian/errorbar") // awaiting jcenter approval
     }
     tasks.withType<Javadoc> {
         isEnabled = false
@@ -30,7 +31,3 @@ tasks {
         gradleVersion = VERSION_GRADLE
     }
 }
-
-/** bintray upload snippet
-./gradlew bintrayUpload -PbintrayUser=hendraanggrian -PdryRun=false -PbintrayKey=
- */

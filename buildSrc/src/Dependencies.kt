@@ -1,24 +1,28 @@
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.plugin.use.PluginDependenciesSpec
 
-fun DependencyHandler.hendraanggrian(
-    module: String,
-    version: String,
-    submodule: String? = null
-) = "com.hendraanggrian.$module:${submodule?.let { "$module-$it" } ?: module}:$version"
-
 fun DependencyHandler.android() = "com.android.tools.build:gradle:$VERSION_ANDROID_PLUGIN"
 inline val PluginDependenciesSpec.`android-library` get() = id("com.android.library")
 inline val PluginDependenciesSpec.`android-application` get() = id("com.android.application")
 
+fun androidx(
+    repository: String,
+    module: String = repository,
+    version: String = VERSION_ANDROIDX
+): String = "androidx.$repository:$module:$version"
+
+fun hendraanggrian(
+    repository: String,
+    module: String? = null,
+    version: String = VERSION_ANDROIDX
+): String = "com.hendraanggrian.$repository:${module?.let { "$repository-$it" }
+    ?: repository}:$version"
+
+fun material() = "com.google.android.material:material:$VERSION_ANDROIDX"
+
 fun DependencyHandler.bottomsheet(module: String) = "com.flipboard:bottomsheet-$module:$VERSION_BOTTOMSHEET"
 
 fun DependencyHandler.materialDialogs(module: String) = "com.afollestad.material-dialogs:$module:$VERSION_MATERIAL_DIALOGS"
-
-fun DependencyHandler.support(module: String, version: String, vararg suffixes: String) =
-    "${StringBuilder("com.android.support").apply {
-        suffixes.forEach { append(".$it") }
-    }}:$module:$version"
 
 fun DependencyHandler.truth() = "com.google.truth:truth:$VERSION_TRUTH"
 

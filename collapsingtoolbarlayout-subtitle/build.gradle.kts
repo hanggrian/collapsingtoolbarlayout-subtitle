@@ -16,8 +16,8 @@ android {
     defaultConfig {
         minSdkVersion(SDK_MIN)
         targetSdkVersion(SDK_TARGET)
-        versionName = VERSION_SUPPORT
-        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+        versionName = VERSION_ANDROIDX
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     sourceSets {
         getByName("main") {
@@ -43,15 +43,17 @@ val ktlint by configurations.creating
 
 dependencies {
     api(kotlin("stdlib", VERSION_KOTLIN))
-    implementation(support("design", VERSION_SUPPORT))
+    implementation(material())
+    implementation(androidx("appcompat"))
 
     testImplementation(junit())
     testImplementation(truth())
     androidTestImplementation(truth())
-    androidTestImplementation(hendraanggrian("errorbar", VERSION_SUPPORT, "commons"))
-    androidTestImplementation(support("espresso-core", VERSION_ESPRESSO, "test", "espresso"))
-    androidTestImplementation(support("runner", VERSION_RUNNER, "test"))
-    androidTestImplementation(support("rules", VERSION_RULES, "test"))
+    androidTestImplementation(hendraanggrian("errorbar", "commons", VERSION_ANDROIDX))
+    androidTestImplementation(androidx("appcompat"))
+    androidTestImplementation(androidx("test.espresso", "espresso-core", VERSION_ESPRESSO))
+    androidTestImplementation(androidx("test", "runner", VERSION_RUNNER))
+    androidTestImplementation(androidx("test", "rules", VERSION_RULES))
 
     ktlint(ktlint())
 }
@@ -90,12 +92,15 @@ tasks {
 }
 
 publish {
+    bintrayUser = bintrayUserEnv
+    bintrayKey = bintrayKeyEnv
+    dryRun = false
     repoName = RELEASE_ARTIFACT
 
     userOrg = RELEASE_USER
     groupId = RELEASE_GROUP
     artifactId = RELEASE_ARTIFACT
-    publishVersion = VERSION_SUPPORT
+    publishVersion = VERSION_ANDROIDX
     desc = RELEASE_DESC
     website = RELEASE_WEBSITE
 }

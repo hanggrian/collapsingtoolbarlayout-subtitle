@@ -2,37 +2,35 @@ package com.hendraanggrian.collapsingtoolbarlayout.subtitle
 
 import android.graphics.Color
 import android.graphics.Typeface.createFromAsset
-import android.support.design.widget.Errorbar
-import android.support.design.widget.SubtitleCollapsingToolbarLayout
-import android.support.design.widget.indefiniteErrorbar
-import android.support.test.InstrumentationRegistry.getTargetContext
-import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.ViewAction
-import android.support.test.espresso.action.CoordinatesProvider
-import android.support.test.espresso.action.GeneralLocation.BOTTOM_CENTER
-import android.support.test.espresso.action.GeneralLocation.TOP_CENTER
-import android.support.test.espresso.action.GeneralSwipeAction
-import android.support.test.espresso.action.Press.FINGER
-import android.support.test.espresso.action.Swipe.SLOW
-import android.support.test.espresso.action.ViewActions.actionWithAssertions
-import android.support.test.espresso.action.ViewActions.swipeDown
-import android.support.test.espresso.matcher.ViewMatchers.withId
-import android.support.test.filters.LargeTest
-import android.support.test.rule.ActivityTestRule
-import android.support.test.runner.AndroidJUnit4
-import android.support.v7.widget.Toolbar
 import android.view.Gravity.CENTER
 import android.view.Gravity.END
 import android.widget.FrameLayout
+import androidx.appcompat.widget.Toolbar
+import androidx.test.InstrumentationRegistry.getTargetContext
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.ViewAction
+import androidx.test.espresso.action.CoordinatesProvider
+import androidx.test.espresso.action.GeneralLocation.BOTTOM_CENTER
+import androidx.test.espresso.action.GeneralLocation.TOP_CENTER
+import androidx.test.espresso.action.GeneralSwipeAction
+import androidx.test.espresso.action.Press.FINGER
+import androidx.test.espresso.action.ViewActions.actionWithAssertions
+import androidx.test.espresso.action.ViewActions.swipeDown
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.filters.LargeTest
+import androidx.test.rule.ActivityTestRule
+import androidx.test.runner.AndroidJUnit4
+import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
 import com.hendraanggrian.collapsingtoolbarlayout.subtitle.activity.InstrumentedActivity
-import com.hendraanggrian.collapsingtoolbarlayout.subtitle.test.R
+import com.hendraanggrian.errorbar.Errorbar
+import com.hendraanggrian.errorbar.indefiniteErrorbar
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@LargeTest
 @RunWith(AndroidJUnit4::class)
+@LargeTest
 class InstrumentedTest {
 
     @Rule @JvmField val rule = ActivityTestRule(InstrumentedActivity::class.java)
@@ -100,7 +98,7 @@ class InstrumentedTest {
             FINGER))
 
         fun slowerSwipeDown(): ViewAction = actionWithAssertions(GeneralSwipeAction(
-            SLOW,
+            androidx.test.espresso.action.Swipe.SLOW,
             translate(TOP_CENTER, 0f, EDGE_FUZZ_FACTOR),
             BOTTOM_CENTER,
             FINGER))

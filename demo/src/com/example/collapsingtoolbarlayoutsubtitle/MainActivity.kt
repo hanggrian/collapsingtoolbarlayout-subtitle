@@ -4,16 +4,16 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.annotation.AttrRes
-import android.support.annotation.StringRes
-import android.support.design.widget.errorbar
-import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem.SHOW_AS_ACTION_ALWAYS
 import android.view.View
+import androidx.annotation.AttrRes
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.color.ColorChooserDialog
 import com.flipboard.bottomsheet.commons.MenuSheetView
 import com.flipboard.bottomsheet.commons.MenuSheetView.MenuType.LIST
+import com.hendraanggrian.errorbar.errorbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), ColorChooserDialog.ColorCallback {
@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity(), ColorChooserDialog.ColorCallback {
         ): ColorChooserDialog {
             this.isTitle = isTitle
             this.isExpanded = isExpanded
-            return ColorChooserDialog.Builder(this, title).show(this)
+            return ColorChooserDialog.Builder(this, title).build() // .show(this)
         }
 
         inline fun Context.gravityDialog(
