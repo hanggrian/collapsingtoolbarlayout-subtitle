@@ -16,7 +16,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven("https://dl.bintray.com/hendraanggrian/errorbar") // awaiting jcenter approval
+        maven("https://dl.bintray.com/hendraanggrian/material") // awaiting jcenter approval
     }
     tasks.withType<Javadoc> {
         isEnabled = false

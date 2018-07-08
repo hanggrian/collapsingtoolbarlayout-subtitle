@@ -1,4 +1,4 @@
-package com.hendraanggrian.collapsingtoolbarlayout.subtitle
+package com.hendraanggrian.material.subtitlecollapsingtoolbarlayout
 
 import android.graphics.Color
 import android.graphics.Typeface.createFromAsset
@@ -21,9 +21,10 @@ import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
-import com.hendraanggrian.collapsingtoolbarlayout.subtitle.activity.InstrumentedActivity
-import com.hendraanggrian.errorbar.Errorbar
-import com.hendraanggrian.errorbar.indefiniteErrorbar
+import com.hendraanggrian.material.errorbar.Errorbar
+import com.hendraanggrian.material.errorbar.indefiniteErrorbar
+import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.activity.InstrumentedActivity
+import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.test.R
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

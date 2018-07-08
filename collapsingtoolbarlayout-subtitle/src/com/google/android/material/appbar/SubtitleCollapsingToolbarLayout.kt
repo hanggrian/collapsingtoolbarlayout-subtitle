@@ -56,7 +56,8 @@ import com.google.android.material.appbar.CollapsingToolbarLayout.LayoutParams.C
 import com.google.android.material.appbar.CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PIN
 import com.google.android.material.appbar.CollapsingToolbarLayout.getViewOffsetHelper
 import com.google.android.material.internal.SubtitleCollapsingTextHelper
-import com.hendraanggrian.collapsingtoolbarlayout.subtitle.R
+import com.google.android.material.internal.ThemeEnforcement
+import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.R
 import kotlin.math.abs
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -108,16 +109,16 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
     init {
         collapsingTextHelper.setTextSizeInterpolator(AnimationUtils.DECELERATE_INTERPOLATOR)
 
-        val a = context.obtainStyledAttributes(attrs,
+        val a = ThemeEnforcement.obtainStyledAttributes(context, attrs,
             R.styleable.SubtitleCollapsingToolbarLayout, defStyleAttr,
             R.style.Widget_Design_CollapsingToolbar_Subtitle)
 
-        collapsingTextHelper.expandedTextGravity =
-            a.getInt(R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleGravity,
-                GravityCompat.START or Gravity.BOTTOM)
-        collapsingTextHelper.collapsedTextGravity =
-            a.getInt(R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleGravity,
-                GravityCompat.START or Gravity.CENTER_VERTICAL)
+        collapsingTextHelper.expandedTextGravity = a.getInt(
+            R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleGravity,
+            GravityCompat.START or Gravity.BOTTOM)
+        collapsingTextHelper.collapsedTextGravity = a.getInt(
+            R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleGravity,
+            GravityCompat.START or Gravity.CENTER_VERTICAL)
 
         expandedMarginBottom = a.getDimensionPixelSize(
             R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleMargin, 0)
@@ -144,8 +145,7 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
 
         collapsingTitleEnabled = a.getBoolean(
             R.styleable.SubtitleCollapsingToolbarLayout_titleEnabled, true)
-        collapsingTextHelper.title = a.getText(
-            R.styleable.SubtitleCollapsingToolbarLayout_title)
+        collapsingTextHelper.title = a.getText(R.styleable.SubtitleCollapsingToolbarLayout_title)
         collapsingTextHelper.subtitle = a.getText(
             R.styleable.SubtitleCollapsingToolbarLayout_subtitle)
 
@@ -884,6 +884,7 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
     }
 
     private companion object {
+
         const val DEFAULT_SCRIM_ANIMATION_DURATION = 600
 
         val View.heightWithMargins: Int

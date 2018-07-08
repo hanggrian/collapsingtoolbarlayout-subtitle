@@ -1,4 +1,4 @@
-package com.hendraanggrian.collapsingtoolbarlayout.subtitle
+package com.hendraanggrian.material.subtitlecollapsingtoolbarlayout
 
 import android.view.View
 import androidx.test.espresso.UiController

@@ -49,8 +49,9 @@ dependencies {
     testImplementation(junit())
     testImplementation(truth())
     androidTestImplementation(truth())
-    androidTestImplementation(hendraanggrian("errorbar", "commons", VERSION_ANDROIDX))
+    androidTestImplementation(hendraanggrian("material", "errorbar-commons", VERSION_ANDROIDX))
     androidTestImplementation(androidx("appcompat"))
+    androidTestImplementation(androidx("coordinatorlayout"))
     androidTestImplementation(androidx("test.espresso", "espresso-core", VERSION_ESPRESSO))
     androidTestImplementation(androidx("test", "runner", VERSION_RUNNER))
     androidTestImplementation(androidx("test", "rules", VERSION_RULES))
@@ -95,7 +96,7 @@ publish {
     bintrayUser = bintrayUserEnv
     bintrayKey = bintrayKeyEnv
     dryRun = false
-    repoName = RELEASE_ARTIFACT
+    repoName = RELEASE_REPO
 
     userOrg = RELEASE_USER
     groupId = RELEASE_GROUP

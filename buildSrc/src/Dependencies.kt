@@ -13,10 +13,9 @@ fun androidx(
 
 fun hendraanggrian(
     repository: String,
-    module: String? = null,
+    module: String = repository,
     version: String = VERSION_ANDROIDX
-): String = "com.hendraanggrian.$repository:${module?.let { "$repository-$it" }
-    ?: repository}:$version"
+): String = "com.hendraanggrian.$repository:$module:$version"
 
 fun material() = "com.google.android.material:material:$VERSION_ANDROIDX"
 
