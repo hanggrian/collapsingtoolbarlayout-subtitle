@@ -18,9 +18,6 @@ allprojects {
         jcenter()
         maven("https://dl.bintray.com/hendraanggrian/material") // awaiting jcenter approval
     }
-    tasks.withType<Javadoc> {
-        isEnabled = false
-    }
 }
 
 tasks {

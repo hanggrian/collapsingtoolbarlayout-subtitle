@@ -2,8 +2,7 @@ import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.plugin.use.PluginDependenciesSpec
 
 fun DependencyHandler.android() = "com.android.tools.build:gradle:$VERSION_ANDROID_PLUGIN"
-inline val PluginDependenciesSpec.`android-library` get() = id("com.android.library")
-inline val PluginDependenciesSpec.`android-application` get() = id("com.android.application")
+fun PluginDependenciesSpec.android(submodule: String) = id("com.android.$submodule")
 
 fun androidx(
     repository: String,

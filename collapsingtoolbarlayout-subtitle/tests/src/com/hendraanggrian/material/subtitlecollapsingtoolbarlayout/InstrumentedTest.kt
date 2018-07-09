@@ -43,9 +43,7 @@ class InstrumentedTest {
         })
     }
 
-    @Test
-    @Throws(Exception::class)
-    fun gravity() {
+    @Test fun gravity() {
         turn { }
         turn {
             it.expandedTitleGravity = END
@@ -53,9 +51,7 @@ class InstrumentedTest {
         }
     }
 
-    @Test
-    @Throws(Exception::class)
-    fun typeface() {
+    @Test fun typeface() {
         turn { }
         turn {
             val assets = getTargetContext().assets
