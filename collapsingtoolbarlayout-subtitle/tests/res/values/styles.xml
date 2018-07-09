@@ -5,7 +5,7 @@
         <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="l">true</item>
     </style>
 
-    <style name="CustomTheme" parent="Widget.Design.CollapsingToolbar.Subtitle">
+    <style name="CustomTheme" parent="Widget.Design.SubtitleCollapsingToolbar">
         <item name="expandedSubtitleTextAppearance">@style/TextAppearance.AppCompat.Caption</item>
     </style>
 </resources>

@@ -39,17 +39,12 @@ import com.google.android.material.internal.SubtitleCollapsingTextHelper;
 import com.google.android.material.internal.ThemeEnforcement;
 import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.R;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
-import androidx.annotation.IntDef;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.annotation.RestrictTo;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -59,8 +54,6 @@ import androidx.core.util.ObjectsCompat;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * @see CollapsingToolbarLayout
@@ -225,7 +218,9 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
         final ViewParent parent = getParent();
         if (parent instanceof AppBarLayout) {
             // Copy over from the ABL whether we should fit system windows
-            ViewCompat.setFitsSystemWindows(this, ViewCompat.getFitsSystemWindows((View) parent));
+            setFitsSystemWindows(ViewCompat.getFitsSystemWindows((View) parent));
+            // deprecated: ViewCompat.setFitsSystemWindows(this, ViewCompat.getFitsSystemWindows((View) parent));
+            setFitsSystemWindows(ViewCompat.getFitsSystemWindows((View) parent));
 
             if (onOffsetChangedListener == null) {
                 onOffsetChangedListener = new OffsetUpdateListener();
@@ -1192,51 +1187,9 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
         return new LayoutParams(p);
     }
 
-    public static class LayoutParams extends FrameLayout.LayoutParams {
-
-        private static final float DEFAULT_PARALLAX_MULTIPLIER = 0.5f;
-
-        /**
-         * @hide
-         */
-        @RestrictTo(LIBRARY_GROUP)
-        @IntDef({COLLAPSE_MODE_OFF, COLLAPSE_MODE_PIN, COLLAPSE_MODE_PARALLAX})
-        @Retention(RetentionPolicy.SOURCE)
-        @interface CollapseMode {
-        }
-
-        /**
-         * The view will act as normal with no collapsing behavior.
-         */
-        public static final int COLLAPSE_MODE_OFF = 0;
-
-        /**
-         * The view will pin in place until it reaches the bottom of the {@link
-         * CollapsingToolbarLayout}.
-         */
-        public static final int COLLAPSE_MODE_PIN = 1;
-
-        /**
-         * The view will scroll in a parallax fashion. See {@link #setParallaxMultiplier(float)} to
-         * change the multiplier used.
-         */
-        public static final int COLLAPSE_MODE_PARALLAX = 2;
-
-        int collapseMode = COLLAPSE_MODE_OFF;
-        float parallaxMult = DEFAULT_PARALLAX_MULTIPLIER;
-
+    public static class LayoutParams extends CollapsingToolbarLayout.LayoutParams {
         public LayoutParams(Context c, AttributeSet attrs) {
             super(c, attrs);
-
-            TypedArray a = c.obtainStyledAttributes(attrs, R.styleable.CollapsingToolbarLayout_Layout);
-            collapseMode =
-                    a.getInt(
-                            R.styleable.CollapsingToolbarLayout_Layout_layout_collapseMode, COLLAPSE_MODE_OFF);
-            setParallaxMultiplier(
-                    a.getFloat(
-                            R.styleable.CollapsingToolbarLayout_Layout_layout_collapseParallaxMultiplier,
-                            DEFAULT_PARALLAX_MULTIPLIER));
-            a.recycle();
         }
 
         public LayoutParams(int width, int height) {
@@ -1257,51 +1210,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
 
         @RequiresApi(19)
         public LayoutParams(FrameLayout.LayoutParams source) {
-            // The copy constructor called here only exists on API 19+.
             super(source);
-        }
-
-        /**
-         * Set the collapse mode.
-         *
-         * @param collapseMode one of {@link #COLLAPSE_MODE_OFF}, {@link #COLLAPSE_MODE_PIN} or {@link
-         *                     #COLLAPSE_MODE_PARALLAX}.
-         */
-        public void setCollapseMode(@CollapseMode int collapseMode) {
-            this.collapseMode = collapseMode;
-        }
-
-        /**
-         * Returns the requested collapse mode.
-         *
-         * @return the current mode. One of {@link #COLLAPSE_MODE_OFF}, {@link #COLLAPSE_MODE_PIN} or
-         * {@link #COLLAPSE_MODE_PARALLAX}.
-         */
-        @CollapseMode
-        public int getCollapseMode() {
-            return collapseMode;
-        }
-
-        /**
-         * Set the parallax scroll multiplier used in conjunction with {@link #COLLAPSE_MODE_PARALLAX}.
-         * A value of {@code 0.0} indicates no movement at all, {@code 1.0f} indicates normal scroll
-         * movement.
-         *
-         * @param multiplier the multiplier.
-         * @see #getParallaxMultiplier()
-         */
-        public void setParallaxMultiplier(float multiplier) {
-            parallaxMult = multiplier;
-        }
-
-        /**
-         * Returns the parallax scroll multiplier used in conjunction with {@link
-         * #COLLAPSE_MODE_PARALLAX}.
-         *
-         * @see #setParallaxMultiplier(float)
-         */
-        public float getParallaxMultiplier() {
-            return parallaxMult;
         }
     }
 

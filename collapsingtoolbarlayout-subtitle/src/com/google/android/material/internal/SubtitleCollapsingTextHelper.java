@@ -686,6 +686,7 @@ public final class SubtitleCollapsingTextHelper {
     private void calculateBaseOffsets() {
         final float currentTitleSize = this.currentTitleSize;
         final float currentSubtitleSize = this.currentSubtitleSize;
+        final boolean isTitleOnly = TextUtils.isEmpty(subtitle);
 
         // We then calculate the collapsed title size, using the same logic
         calculateUsingTitleSize(collapsedTitleSize);
@@ -698,19 +699,29 @@ public final class SubtitleCollapsingTextHelper {
                 GravityCompat.getAbsoluteGravity(
                         collapsedTextGravity,
                         isRtl ? ViewCompat.LAYOUT_DIRECTION_RTL : ViewCompat.LAYOUT_DIRECTION_LTR);
-        switch (collapsedAbsGravity & Gravity.VERTICAL_GRAVITY_MASK) {
-            case Gravity.BOTTOM:
-                collapsedTitleY = collapsedBounds.bottom;
-                break;
-            case Gravity.TOP:
-                collapsedTitleY = collapsedBounds.top - titlePaint.ascent();
-                break;
-            case Gravity.CENTER_VERTICAL:
-            default:
-                float textHeight = titlePaint.descent() - titlePaint.ascent();
-                float textOffset = (textHeight / 2) - titlePaint.descent();
-                collapsedTitleY = collapsedBounds.centerY() + textOffset;
-                break;
+        if (isTitleOnly) {
+            switch (collapsedAbsGravity & Gravity.VERTICAL_GRAVITY_MASK) {
+                case Gravity.BOTTOM:
+                    collapsedTitleY = collapsedBounds.bottom;
+                    break;
+                case Gravity.TOP:
+                    collapsedTitleY = collapsedBounds.top - titlePaint.ascent();
+                    break;
+                case Gravity.CENTER_VERTICAL:
+                default:
+                    float textHeight = titlePaint.descent() - titlePaint.ascent();
+                    float textOffset = (textHeight / 2) - titlePaint.descent();
+                    collapsedTitleY = collapsedBounds.centerY() + textOffset;
+                    break;
+            }
+        } else {
+            final float titleHeight = titlePaint.descent() - titlePaint.ascent();
+            final float titleOffset = titleHeight / 2 - titlePaint.descent();
+            final float subtitleHeight = subtitlePaint.descent() - subtitlePaint.ascent();
+            final float subtitleOffset = subtitleHeight / 2 - subtitlePaint.descent();
+            final float offset = (collapsedBounds.height() - (titleHeight + subtitleHeight)) / 3;
+            collapsedTitleY = collapsedBounds.top + offset - titlePaint.ascent();
+            collapsedSubtitleY = collapsedBounds.top + offset * 2 + titleHeight - subtitlePaint.ascent();
         }
         switch (collapsedAbsGravity & GravityCompat.RELATIVE_HORIZONTAL_GRAVITY_MASK) {
             case Gravity.CENTER_HORIZONTAL:
@@ -783,35 +794,41 @@ public final class SubtitleCollapsingTextHelper {
         if (titleToDraw != null && drawTitle) {
             float titleX = currentTitleX;
             float titleY = currentTitleY;
+            float subtitleX = currentSubtitleX;
+            float subtitleY = currentSubtitleY;
 
             final boolean drawTexture = useTexture && expandedTitleTexture != null;
 
-            final float ascent;
-            final float descent;
+            final float titleAscent;
+            final float titleDescent;
+            final float subtitleAscent;
+            final float subtitleDescent;
             if (drawTexture) {
-                ascent = titleTextureAscent * titleScale;
-                descent = titleTextureDescent * titleScale;
+                titleAscent = titleTextureAscent * titleScale;
+                titleDescent = titleTextureDescent * titleScale;
+                subtitleAscent = subtitleTextureAscent * subtitleScale;
+                subtitleDescent = subtitleTextureDescent * subtitleScale;
             } else {
-                ascent = titlePaint.ascent() * titleScale;
-                descent = titlePaint.descent() * titleScale;
+                titleAscent = subtitlePaint.ascent() * subtitleScale;
+                titleDescent = subtitlePaint.descent() * subtitleScale;
+                subtitleAscent = subtitlePaint.ascent() * subtitleScale;
+                subtitleDescent = subtitlePaint.descent() * subtitleScale;
             }
 
             if (DEBUG_DRAW) {
                 // Just a debug tool, which drawn a magenta rect in the title bounds
                 canvas.drawRect(
-                        currentBounds.left, titleY + ascent, currentBounds.right, titleY + descent, DEBUG_DRAW_PAINT);
+                        currentBounds.left, titleY + titleAscent, currentBounds.right, titleY + titleDescent, DEBUG_DRAW_PAINT);
             }
 
             if (drawTexture) {
-                titleY += ascent;
+                titleY += titleAscent;
+                subtitleY += subtitleAscent;
             }
 
             //region IMPORTANT: separate canvas save for subtitle
             final int subtitleSaveCount = canvas.save();
             if (!TextUtils.isEmpty(subtitle)) {
-                float subtitleX = currentTitleX;
-                float subtitleY = currentTitleY;
-
                 if (subtitleScale != 1f) {
                     canvas.scale(subtitleScale, subtitleScale, subtitleX, subtitleY);
                 }
@@ -972,7 +989,7 @@ public final class SubtitleCollapsingTextHelper {
 
         if (useTexture) {
             // Make sure we have an expanded texture if needed
-            ensureExpandedTitleTexture();
+            ensureExpandedSubtitleTexture();
         }
 
         ViewCompat.postInvalidateOnAnimation(view);

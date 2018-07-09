@@ -55,8 +55,8 @@ class InstrumentedTest {
         turn { }
         turn {
             val assets = getTargetContext().assets
-            it.expandedTitleTypeface = createFromAsset(assets, "SourceCodePro-Bold.ttf")
-            it.expandedSubtitleTypeface = createFromAsset(assets, "SourceCodePro-Regular.ttf")
+            it.setExpandedTitleTypeface(createFromAsset(assets, "SourceCodePro-Bold.ttf"))
+            it.setExpandedSubtitleTypeface(createFromAsset(assets, "SourceCodePro-Regular.ttf"))
         }
     }
 

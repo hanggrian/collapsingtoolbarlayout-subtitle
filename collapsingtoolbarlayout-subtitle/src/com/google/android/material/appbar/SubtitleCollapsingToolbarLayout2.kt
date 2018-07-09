@@ -111,7 +111,7 @@ open class SubtitleCollapsingToolbarLayout2 @JvmOverloads constructor(
 
         val a = ThemeEnforcement.obtainStyledAttributes(context, attrs,
             R.styleable.SubtitleCollapsingToolbarLayout, defStyleAttr,
-            R.style.Widget_Design_CollapsingToolbar_Subtitle)
+            R.style.Widget_Design_SubtitleCollapsingToolbar)
 
         collapsingTextHelper.expandedTextGravity = a.getInt(
             R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleGravity,
