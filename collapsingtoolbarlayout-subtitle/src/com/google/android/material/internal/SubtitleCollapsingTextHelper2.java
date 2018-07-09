@@ -46,12 +46,12 @@ import androidx.core.view.ViewCompat;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
- * Helper class for rendering and animating collapsed text.
+ * @see CollapsingTextHelper
  */
 @RestrictTo(LIBRARY_GROUP)
 public final class SubtitleCollapsingTextHelper2 {
 
-    // Pre-JB-MR2 doesn't support HW accelerated canvas scaled text so we will workaround it
+    // Pre-JB-MR2 doesn't support HW accelerated canvas scaled title so we will workaround it
     // by using our own texture
     private static final boolean USE_SCALING_TEXTURE = Build.VERSION.SDK_INT < 18;
 
@@ -76,59 +76,98 @@ public final class SubtitleCollapsingTextHelper2 {
     private final RectF currentBounds;
     private int expandedTextGravity = Gravity.CENTER_VERTICAL;
     private int collapsedTextGravity = Gravity.CENTER_VERTICAL;
-    private float expandedTextSize = 15;
-    private float collapsedTextSize = 15;
-    private ColorStateList expandedTextColor;
-    private ColorStateList collapsedTextColor;
+    private float expandedTitleSize = 15;
+    private float collapsedTitleSize = 15;
+    private ColorStateList expandedTitleColor;
+    private ColorStateList collapsedTitleColor;
 
-    private float expandedDrawY;
-    private float collapsedDrawY;
-    private float expandedDrawX;
-    private float collapsedDrawX;
-    private float currentDrawX;
-    private float currentDrawY;
-    private Typeface collapsedTypeface;
-    private Typeface expandedTypeface;
-    private Typeface currentTypeface;
+    private float expandedSubtitleSize = 15;
+    private float collapsedSubtitleSize = 15;
+    private ColorStateList expandedSubtitleColor;
+    private ColorStateList collapsedSubtitleColor;
 
-    private CharSequence text;
-    private CharSequence textToDraw;
+    private float expandedTitleY;
+    private float collapsedTitleY;
+    private float expandedTitleX;
+    private float collapsedTitleX;
+    private float currentTitleX;
+    private float currentTitleY;
+    private Typeface collapsedTitleTypeface;
+    private Typeface expandedTitleTypeface;
+    private Typeface currentTitleTypeface;
+
+    private float expandedSubtitleY;
+    private float collapsedSubtitleY;
+    private float expandedSubtitleX;
+    private float collapsedSubtitleX;
+    private float currentSubtitleX;
+    private float currentSubtitleY;
+    private Typeface collapsedSubtitleTypeface;
+    private Typeface expandedSubtitleTypeface;
+    private Typeface currentSubtitleTypeface;
+
+    private CharSequence title;
+    private CharSequence titleToDraw;
+    private CharSequence subtitle;
+    private CharSequence subtitleToDraw;
     private boolean isRtl;
 
     private boolean useTexture;
     private Bitmap expandedTitleTexture;
-    private Paint texturePaint;
-    private float textureAscent;
-    private float textureDescent;
+    private Paint titleTexturePaint;
+    private float titleTextureAscent;
+    private float titleTextureDescent;
 
-    private float scale;
-    private float currentTextSize;
+    private Bitmap expandedSubtitleTexture;
+    private Paint subtitleTexturePaint;
+    private float subtitleTextureAscent;
+    private float subtitleTextureDescent;
+
+    private float titleScale;
+    private float currentTitleSize;
+
+    private float subtitleScale;
+    private float currentSubtitleSize;
 
     private int[] state;
 
     private boolean boundsChanged;
 
-    private final TextPaint textPaint;
-    private final TextPaint tmpPaint;
+    private final TextPaint titlePaint;
+    private final TextPaint titleTmpPaint;
+    private final TextPaint subtitlePaint;
+    private final TextPaint subtitleTmpPaint;
 
     private TimeInterpolator positionInterpolator;
     private TimeInterpolator textSizeInterpolator;
 
-    private float collapsedShadowRadius;
-    private float collapsedShadowDx;
-    private float collapsedShadowDy;
-    private int collapsedShadowColor;
+    private float collapsedTitleShadowRadius;
+    private float collapsedTitleShadowDx;
+    private float collapsedTitleShadowDy;
+    private int collapsedTitleShadowColor;
 
-    private float expandedShadowRadius;
-    private float expandedShadowDx;
-    private float expandedShadowDy;
-    private int expandedShadowColor;
+    private float expandedTitleShadowRadius;
+    private float expandedTitleShadowDx;
+    private float expandedTitleShadowDy;
+    private int expandedTitleShadowColor;
+
+    private float collapsedSubtitleShadowRadius;
+    private float collapsedSubtitleShadowDx;
+    private float collapsedSubtitleShadowDy;
+    private int collapsedSubtitleShadowColor;
+
+    private float expandedSubtitleShadowRadius;
+    private float expandedSubtitleShadowDx;
+    private float expandedSubtitleShadowDy;
+    private int expandedSubtitleShadowColor;
 
     public SubtitleCollapsingTextHelper2(View view) {
         this.view = view;
 
-        textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
-        tmpPaint = new TextPaint(textPaint);
+        titlePaint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
+        titleTmpPaint = new TextPaint(titlePaint);
+        subtitlePaint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
+        subtitleTmpPaint = new TextPaint(subtitlePaint);
 
         collapsedBounds = new Rect();
         expandedBounds = new Rect();
@@ -145,30 +184,58 @@ public final class SubtitleCollapsingTextHelper2 {
         recalculate();
     }
 
-    public void setExpandedTextSize(float textSize) {
-        if (expandedTextSize != textSize) {
-            expandedTextSize = textSize;
+    public void setExpandedTitleSize(float size) {
+        if (expandedTitleSize != size) {
+            expandedTitleSize = size;
             recalculate();
         }
     }
 
-    public void setCollapsedTextSize(float textSize) {
-        if (collapsedTextSize != textSize) {
-            collapsedTextSize = textSize;
+    public void setCollapsedTitleSize(float size) {
+        if (collapsedTitleSize != size) {
+            collapsedTitleSize = size;
             recalculate();
         }
     }
 
-    public void setCollapsedTextColor(ColorStateList textColor) {
-        if (collapsedTextColor != textColor) {
-            collapsedTextColor = textColor;
+    public void setCollapsedTitleColor(ColorStateList color) {
+        if (collapsedTitleColor != color) {
+            collapsedTitleColor = color;
             recalculate();
         }
     }
 
-    public void setExpandedTextColor(ColorStateList textColor) {
-        if (expandedTextColor != textColor) {
-            expandedTextColor = textColor;
+    public void setExpandedTitleColor(ColorStateList color) {
+        if (expandedTitleColor != color) {
+            expandedTitleColor = color;
+            recalculate();
+        }
+    }
+
+    public void setExpandedSubtitleSize(float size) {
+        if (expandedSubtitleSize != size) {
+            expandedSubtitleSize = size;
+            recalculate();
+        }
+    }
+
+    public void setCollapsedSubtitleSize(float size) {
+        if (collapsedSubtitleSize != size) {
+            collapsedSubtitleSize = size;
+            recalculate();
+        }
+    }
+
+    public void setCollapsedSubtitleColor(ColorStateList color) {
+        if (collapsedSubtitleColor != color) {
+            collapsedSubtitleColor = color;
+            recalculate();
+        }
+    }
+
+    public void setExpandedSubtitleColor(ColorStateList color) {
+        if (expandedSubtitleColor != color) {
+            expandedSubtitleColor = color;
             recalculate();
         }
     }
@@ -189,33 +256,62 @@ public final class SubtitleCollapsingTextHelper2 {
         }
     }
 
-    public float calculateCollapsedTextWidth() {
-        if (text == null) {
+    public float calculateCollapsedTitleWidth() {
+        if (title == null) {
             return 0;
         }
-        getTextPaintCollapsed(tmpPaint);
-        return tmpPaint.measureText(text, 0, text.length());
+        getTitlePaintCollapsed(titleTmpPaint);
+        return titleTmpPaint.measureText(title, 0, title.length());
     }
 
-    public float getCollapsedTextHeight() {
-        getTextPaintCollapsed(tmpPaint);
+    public float getCollapsedTitleHeight() {
+        getTitlePaintCollapsed(titleTmpPaint);
         // Return collapsed height measured from the baseline.
-        return -tmpPaint.ascent();
+        return -titleTmpPaint.ascent();
     }
 
-    public void getCollapsedTextActualBounds(RectF bounds) {
-        boolean isRtl = calculateIsRtl(text);
+    public void getCollapsedTitleActualBounds(RectF bounds) {
+        boolean isRtl = calculateIsRtl(title);
 
         bounds.left =
-                !isRtl ? collapsedBounds.left : collapsedBounds.right - calculateCollapsedTextWidth();
+                !isRtl ? collapsedBounds.left : collapsedBounds.right - calculateCollapsedTitleWidth();
         bounds.top = collapsedBounds.top;
-        bounds.right = !isRtl ? bounds.left + calculateCollapsedTextWidth() : collapsedBounds.right;
-        bounds.bottom = collapsedBounds.top + getCollapsedTextHeight();
+        bounds.right = !isRtl ? bounds.left + calculateCollapsedTitleWidth() : collapsedBounds.right;
+        bounds.bottom = collapsedBounds.top + getCollapsedTitleHeight();
     }
 
-    private void getTextPaintCollapsed(TextPaint textPaint) {
-        textPaint.setTextSize(collapsedTextSize);
-        textPaint.setTypeface(collapsedTypeface);
+    private void getTitlePaintCollapsed(TextPaint paint) {
+        paint.setTextSize(collapsedTitleSize);
+        paint.setTypeface(collapsedTitleTypeface);
+    }
+
+    public float calculateCollapsedSubtitleWidth() {
+        if (subtitle == null) {
+            return 0;
+        }
+        getSubtitlePaintCollapsed(subtitleTmpPaint);
+        return subtitleTmpPaint.measureText(subtitle, 0, subtitle.length());
+    }
+
+    public float getCollapsedSubtitleHeight() {
+        getSubtitlePaintCollapsed(subtitleTmpPaint);
+        // Return collapsed height measured from the baseline.
+        return -subtitleTmpPaint.ascent();
+    }
+
+    public void getCollapsedSubtitleActualBounds(RectF bounds) {
+        boolean isRtl = calculateIsRtl(subtitle);
+
+        bounds.left =
+                !isRtl ? collapsedBounds.left : collapsedBounds.right - calculateCollapsedSubtitleWidth();
+        bounds.top = collapsedBounds.top;
+        bounds.right = !isRtl ? bounds.left + calculateCollapsedSubtitleWidth() : collapsedBounds.right;
+        bounds.bottom = collapsedBounds.top + getCollapsedSubtitleHeight();
+    }
+
+    private void getSubtitlePaintCollapsed(TextPaint paint) {
+        paint.setTextSize(collapsedSubtitleSize);
+        paint.setTypeface(collapsedSubtitleTypeface);
     }
 
     void onBoundsChanged() {
@@ -248,65 +344,129 @@ public final class SubtitleCollapsingTextHelper2 {
         return collapsedTextGravity;
     }
 
-    public void setCollapsedTextAppearance(int resId) {
+    public void setCollapsedTitleAppearance(int resId) {
         TintTypedArray a =
                 TintTypedArray.obtainStyledAttributes(
                         view.getContext(), resId, androidx.appcompat.R.styleable.TextAppearance);
         if (a.hasValue(androidx.appcompat.R.styleable.TextAppearance_android_textColor)) {
-            collapsedTextColor =
+            collapsedTitleColor =
                     a.getColorStateList(
                             androidx.appcompat.R.styleable.TextAppearance_android_textColor);
         }
         if (a.hasValue(androidx.appcompat.R.styleable.TextAppearance_android_textSize)) {
-            collapsedTextSize =
+            collapsedTitleSize =
                     a.getDimensionPixelSize(
                             androidx.appcompat.R.styleable.TextAppearance_android_textSize,
-                            (int) collapsedTextSize);
+                            (int) collapsedTitleSize);
         }
-        collapsedShadowColor =
+        collapsedTitleShadowColor =
                 a.getInt(androidx.appcompat.R.styleable.TextAppearance_android_shadowColor, 0);
-        collapsedShadowDx =
+        collapsedTitleShadowDx =
                 a.getFloat(androidx.appcompat.R.styleable.TextAppearance_android_shadowDx, 0);
-        collapsedShadowDy =
+        collapsedTitleShadowDy =
                 a.getFloat(androidx.appcompat.R.styleable.TextAppearance_android_shadowDy, 0);
-        collapsedShadowRadius =
+        collapsedTitleShadowRadius =
                 a.getFloat(androidx.appcompat.R.styleable.TextAppearance_android_shadowRadius, 0);
         a.recycle();
 
         if (Build.VERSION.SDK_INT >= 16) {
-            collapsedTypeface = readFontFamilyTypeface(resId);
+            collapsedTitleTypeface = readFontFamilyTypeface(resId);
         }
 
         recalculate();
     }
 
-    public void setExpandedTextAppearance(int resId) {
+    public void setExpandedTitleAppearance(int resId) {
         TintTypedArray a =
                 TintTypedArray.obtainStyledAttributes(
                         view.getContext(), resId, androidx.appcompat.R.styleable.TextAppearance);
         if (a.hasValue(androidx.appcompat.R.styleable.TextAppearance_android_textColor)) {
-            expandedTextColor =
+            expandedTitleColor =
                     a.getColorStateList(
                             androidx.appcompat.R.styleable.TextAppearance_android_textColor);
         }
         if (a.hasValue(androidx.appcompat.R.styleable.TextAppearance_android_textSize)) {
-            expandedTextSize =
+            expandedTitleSize =
                     a.getDimensionPixelSize(
                             androidx.appcompat.R.styleable.TextAppearance_android_textSize,
-                            (int) expandedTextSize);
+                            (int) expandedTitleSize);
         }
-        expandedShadowColor =
+        expandedTitleShadowColor =
                 a.getInt(androidx.appcompat.R.styleable.TextAppearance_android_shadowColor, 0);
-        expandedShadowDx =
+        expandedTitleShadowDx =
                 a.getFloat(androidx.appcompat.R.styleable.TextAppearance_android_shadowDx, 0);
-        expandedShadowDy =
+        expandedTitleShadowDy =
                 a.getFloat(androidx.appcompat.R.styleable.TextAppearance_android_shadowDy, 0);
-        expandedShadowRadius =
+        expandedTitleShadowRadius =
                 a.getFloat(androidx.appcompat.R.styleable.TextAppearance_android_shadowRadius, 0);
         a.recycle();
 
         if (Build.VERSION.SDK_INT >= 16) {
-            expandedTypeface = readFontFamilyTypeface(resId);
+            expandedTitleTypeface = readFontFamilyTypeface(resId);
+        }
+
+        recalculate();
+    }
+
+    public void setCollapsedSubtitleAppearance(int resId) {
+        TintTypedArray a =
+                TintTypedArray.obtainStyledAttributes(
+                        view.getContext(), resId, androidx.appcompat.R.styleable.TextAppearance);
+        if (a.hasValue(androidx.appcompat.R.styleable.TextAppearance_android_textColor)) {
+            collapsedSubtitleColor =
+                    a.getColorStateList(
+                            androidx.appcompat.R.styleable.TextAppearance_android_textColor);
+        }
+        if (a.hasValue(androidx.appcompat.R.styleable.TextAppearance_android_textSize)) {
+            collapsedSubtitleSize =
+                    a.getDimensionPixelSize(
+                            androidx.appcompat.R.styleable.TextAppearance_android_textSize,
+                            (int) collapsedSubtitleSize);
+        }
+        collapsedSubtitleShadowColor =
+                a.getInt(androidx.appcompat.R.styleable.TextAppearance_android_shadowColor, 0);
+        collapsedSubtitleShadowDx =
+                a.getFloat(androidx.appcompat.R.styleable.TextAppearance_android_shadowDx, 0);
+        collapsedSubtitleShadowDy =
+                a.getFloat(androidx.appcompat.R.styleable.TextAppearance_android_shadowDy, 0);
+        collapsedSubtitleShadowRadius =
+                a.getFloat(androidx.appcompat.R.styleable.TextAppearance_android_shadowRadius, 0);
+        a.recycle();
+
+        if (Build.VERSION.SDK_INT >= 16) {
+            collapsedSubtitleTypeface = readFontFamilyTypeface(resId);
+        }
+
+        recalculate();
+    }
+
+    public void setExpandedSubtitleAppearance(int resId) {
+        TintTypedArray a =
+                TintTypedArray.obtainStyledAttributes(
+                        view.getContext(), resId, androidx.appcompat.R.styleable.TextAppearance);
+        if (a.hasValue(androidx.appcompat.R.styleable.TextAppearance_android_textColor)) {
+            expandedSubtitleColor =
+                    a.getColorStateList(
+                            androidx.appcompat.R.styleable.TextAppearance_android_textColor);
+        }
+        if (a.hasValue(androidx.appcompat.R.styleable.TextAppearance_android_textSize)) {
+            expandedSubtitleSize =
+                    a.getDimensionPixelSize(
+                            androidx.appcompat.R.styleable.TextAppearance_android_textSize,
+                            (int) expandedSubtitleSize);
+        }
+        expandedSubtitleShadowColor =
+                a.getInt(androidx.appcompat.R.styleable.TextAppearance_android_shadowColor, 0);
+        expandedSubtitleShadowDx =
+                a.getFloat(androidx.appcompat.R.styleable.TextAppearance_android_shadowDx, 0);
+        expandedSubtitleShadowDy =
+                a.getFloat(androidx.appcompat.R.styleable.TextAppearance_android_shadowDy, 0);
+        expandedSubtitleShadowRadius =
+                a.getFloat(androidx.appcompat.R.styleable.TextAppearance_android_shadowRadius, 0);
+        a.recycle();
+
+        if (Build.VERSION.SDK_INT >= 16) {
+            expandedSubtitleTypeface = readFontFamilyTypeface(resId);
         }
 
         recalculate();
@@ -327,32 +487,61 @@ public final class SubtitleCollapsingTextHelper2 {
     }
 
     @SuppressWarnings("ReferenceEquality") // Matches the Typeface comparison in TextView
-    public void setCollapsedTypeface(Typeface typeface) {
-        if (collapsedTypeface != typeface) {
-            collapsedTypeface = typeface;
+    public void setCollapsedTitleTypeface(Typeface typeface) {
+        if (collapsedTitleTypeface != typeface) {
+            collapsedTitleTypeface = typeface;
             recalculate();
         }
     }
 
     @SuppressWarnings("ReferenceEquality") // Matches the Typeface comparison in TextView
-    public void setExpandedTypeface(Typeface typeface) {
-        if (expandedTypeface != typeface) {
-            expandedTypeface = typeface;
+    public void setExpandedTitleTypeface(Typeface typeface) {
+        if (expandedTitleTypeface != typeface) {
+            expandedTitleTypeface = typeface;
             recalculate();
         }
     }
 
-    public void setTypefaces(Typeface typeface) {
-        collapsedTypeface = expandedTypeface = typeface;
+    public void setTitleTypefaces(Typeface typeface) {
+        collapsedTitleTypeface = expandedTitleTypeface = typeface;
         recalculate();
     }
 
-    public Typeface getCollapsedTypeface() {
-        return collapsedTypeface != null ? collapsedTypeface : Typeface.DEFAULT;
+    public Typeface getCollapsedTitleTypeface() {
+        return collapsedTitleTypeface != null ? collapsedTitleTypeface : Typeface.DEFAULT;
     }
 
-    public Typeface getExpandedTypeface() {
-        return expandedTypeface != null ? expandedTypeface : Typeface.DEFAULT;
+    public Typeface getExpandedTitleTypeface() {
+        return expandedTitleTypeface != null ? expandedTitleTypeface : Typeface.DEFAULT;
+    }
+
+    @SuppressWarnings("ReferenceEquality") // Matches the Typeface comparison in TextView
+    public void setCollapsedSubtitleTypeface(Typeface typeface) {
+        if (collapsedSubtitleTypeface != typeface) {
+            collapsedSubtitleTypeface = typeface;
+            recalculate();
+        }
+    }
+
+    @SuppressWarnings("ReferenceEquality") // Matches the Typeface comparison in TextView
+    public void setExpandedSubtitleTypeface(Typeface typeface) {
+        if (expandedSubtitleTypeface != typeface) {
+            expandedSubtitleTypeface = typeface;
+            recalculate();
+        }
+    }
+
+    public void setSubtitleTypefaces(Typeface typeface) {
+        collapsedSubtitleTypeface = expandedSubtitleTypeface = typeface;
+        recalculate();
+    }
+
+    public Typeface getCollapsedSubtitleTypeface() {
+        return collapsedSubtitleTypeface != null ? collapsedSubtitleTypeface : Typeface.DEFAULT;
+    }
+
+    public Typeface getExpandedSubtitleTypeface() {
+        return expandedSubtitleTypeface != null ? expandedSubtitleTypeface : Typeface.DEFAULT;
     }
 
     /**
@@ -383,20 +572,28 @@ public final class SubtitleCollapsingTextHelper2 {
     }
 
     public final boolean isStateful() {
-        return (collapsedTextColor != null && collapsedTextColor.isStateful())
-                || (expandedTextColor != null && expandedTextColor.isStateful());
+        return (collapsedTitleColor != null && collapsedTitleColor.isStateful())
+                || (expandedTitleColor != null && expandedTitleColor.isStateful());
     }
 
     public float getExpansionFraction() {
         return expandedFraction;
     }
 
-    public float getCollapsedTextSize() {
-        return collapsedTextSize;
+    public float getCollapsedTitleSize() {
+        return collapsedTitleSize;
     }
 
-    public float getExpandedTextSize() {
-        return expandedTextSize;
+    public float getExpandedTitleSize() {
+        return expandedTitleSize;
+    }
+
+    public float getCollapsedSubtitleSize() {
+        return collapsedSubtitleSize;
+    }
+
+    public float getExpandedSubtitleSize() {
+        return expandedSubtitleSize;
     }
 
     private void calculateCurrentOffsets() {
@@ -405,130 +602,175 @@ public final class SubtitleCollapsingTextHelper2 {
 
     private void calculateOffsets(final float fraction) {
         interpolateBounds(fraction);
-        currentDrawX = lerp(expandedDrawX, collapsedDrawX, fraction, positionInterpolator);
-        currentDrawY = lerp(expandedDrawY, collapsedDrawY, fraction, positionInterpolator);
+        currentTitleX = lerp(expandedTitleX, collapsedTitleX, fraction, positionInterpolator);
+        currentTitleY = lerp(expandedTitleY, collapsedTitleY, fraction, positionInterpolator);
+        currentSubtitleX = lerp(expandedSubtitleX, collapsedSubtitleX, fraction, positionInterpolator);
+        currentSubtitleY = lerp(expandedSubtitleY, collapsedSubtitleY, fraction, positionInterpolator);
 
-        setInterpolatedTextSize(
-                lerp(expandedTextSize, collapsedTextSize, fraction, textSizeInterpolator));
+        setInterpolatedTitleSize(
+                lerp(expandedTitleSize, collapsedTitleSize, fraction, textSizeInterpolator));
+        setInterpolatedSubtitleSize(
+                lerp(expandedSubtitleSize, collapsedSubtitleSize, fraction, textSizeInterpolator));
 
-        if (collapsedTextColor != expandedTextColor) {
-            // If the collapsed and expanded text colors are different, blend them based on the
+        if (collapsedTitleColor != expandedTitleColor) {
+            // If the collapsed and expanded title colors are different, blend them based on the
             // fraction
-            textPaint.setColor(
-                    blendColors(getCurrentExpandedTextColor(), getCurrentCollapsedTextColor(), fraction));
+            titlePaint.setColor(
+                    blendColors(getCurrentExpandedTitleColor(), getCurrentCollapsedTitleColor(), fraction));
         } else {
-            textPaint.setColor(getCurrentCollapsedTextColor());
+            titlePaint.setColor(getCurrentCollapsedTitleColor());
         }
 
-        textPaint.setShadowLayer(
-                lerp(expandedShadowRadius, collapsedShadowRadius, fraction, null),
-                lerp(expandedShadowDx, collapsedShadowDx, fraction, null),
-                lerp(expandedShadowDy, collapsedShadowDy, fraction, null),
-                blendColors(expandedShadowColor, collapsedShadowColor, fraction));
+        titlePaint.setShadowLayer(
+                lerp(expandedTitleShadowRadius, collapsedTitleShadowRadius, fraction, null),
+                lerp(expandedTitleShadowDx, collapsedTitleShadowDx, fraction, null),
+                lerp(expandedTitleShadowDy, collapsedTitleShadowDy, fraction, null),
+                blendColors(expandedTitleShadowColor, collapsedTitleShadowColor, fraction));
+
+        if (collapsedSubtitleColor != expandedSubtitleColor) {
+            // If the collapsed and expanded title colors are different, blend them based on the
+            // fraction
+            subtitlePaint.setColor(
+                    blendColors(getCurrentExpandedSubtitleColor(), getCurrentCollapsedSubtitleColor(), fraction));
+        } else {
+            subtitlePaint.setColor(getCurrentCollapsedSubtitleColor());
+        }
+
+        subtitlePaint.setShadowLayer(
+                lerp(expandedSubtitleShadowRadius, collapsedSubtitleShadowRadius, fraction, null),
+                lerp(expandedSubtitleShadowDx, collapsedSubtitleShadowDx, fraction, null),
+                lerp(expandedSubtitleShadowDy, collapsedSubtitleShadowDy, fraction, null),
+                blendColors(expandedSubtitleShadowColor, collapsedSubtitleShadowColor, fraction));
 
         ViewCompat.postInvalidateOnAnimation(view);
     }
 
     @ColorInt
-    private int getCurrentExpandedTextColor() {
+    private int getCurrentExpandedTitleColor() {
         if (state != null) {
-            return expandedTextColor.getColorForState(state, 0);
+            return expandedTitleColor.getColorForState(state, 0);
         } else {
-            return expandedTextColor.getDefaultColor();
+            return expandedTitleColor.getDefaultColor();
         }
     }
 
     @ColorInt
     @VisibleForTesting
-    public int getCurrentCollapsedTextColor() {
+    public int getCurrentCollapsedTitleColor() {
         if (state != null) {
-            return collapsedTextColor.getColorForState(state, 0);
+            return collapsedTitleColor.getColorForState(state, 0);
         } else {
-            return collapsedTextColor.getDefaultColor();
+            return collapsedTitleColor.getDefaultColor();
+        }
+    }
+
+    @ColorInt
+    private int getCurrentExpandedSubtitleColor() {
+        if (state != null) {
+            return expandedSubtitleColor.getColorForState(state, 0);
+        } else {
+            return expandedSubtitleColor.getDefaultColor();
+        }
+    }
+
+    @ColorInt
+    @VisibleForTesting
+    public int getCurrentCollapsedSubtitleColor() {
+        if (state != null) {
+            return collapsedSubtitleColor.getColorForState(state, 0);
+        } else {
+            return collapsedSubtitleColor.getDefaultColor();
         }
     }
 
     private void calculateBaseOffsets() {
-        final float currentTextSize = this.currentTextSize;
+        final float currentTitleSize = this.currentTitleSize;
+        final float currentSubtitleSize = this.currentSubtitleSize;
 
-        // We then calculate the collapsed text size, using the same logic
-        calculateUsingTextSize(collapsedTextSize);
-        float width =
-                textToDraw != null ? textPaint.measureText(textToDraw, 0, textToDraw.length()) : 0;
+        // We then calculate the collapsed title size, using the same logic
+        calculateUsingTitleSize(collapsedTitleSize);
+        calculateUsingSubtitleSize(collapsedSubtitleSize);
+        float titleWidth =
+                titleToDraw != null ? titlePaint.measureText(titleToDraw, 0, titleToDraw.length()) : 0;
+        float subtitleWidth =
+                subtitleToDraw != null ? subtitlePaint.measureText(subtitleToDraw, 0, subtitleToDraw.length()) : 0;
         final int collapsedAbsGravity =
                 GravityCompat.getAbsoluteGravity(
                         collapsedTextGravity,
                         isRtl ? ViewCompat.LAYOUT_DIRECTION_RTL : ViewCompat.LAYOUT_DIRECTION_LTR);
         switch (collapsedAbsGravity & Gravity.VERTICAL_GRAVITY_MASK) {
             case Gravity.BOTTOM:
-                collapsedDrawY = collapsedBounds.bottom;
+                collapsedTitleY = collapsedBounds.bottom;
                 break;
             case Gravity.TOP:
-                collapsedDrawY = collapsedBounds.top - textPaint.ascent();
+                collapsedTitleY = collapsedBounds.top - titlePaint.ascent();
                 break;
             case Gravity.CENTER_VERTICAL:
             default:
-                float textHeight = textPaint.descent() - textPaint.ascent();
-                float textOffset = (textHeight / 2) - textPaint.descent();
-                collapsedDrawY = collapsedBounds.centerY() + textOffset;
+                float textHeight = titlePaint.descent() - titlePaint.ascent();
+                float textOffset = (textHeight / 2) - titlePaint.descent();
+                collapsedTitleY = collapsedBounds.centerY() + textOffset;
                 break;
         }
         switch (collapsedAbsGravity & GravityCompat.RELATIVE_HORIZONTAL_GRAVITY_MASK) {
             case Gravity.CENTER_HORIZONTAL:
-                collapsedDrawX = collapsedBounds.centerX() - (width / 2);
+                collapsedTitleX = collapsedBounds.centerX() - (titleWidth / 2);
                 break;
             case Gravity.RIGHT:
-                collapsedDrawX = collapsedBounds.right - width;
+                collapsedTitleX = collapsedBounds.right - titleWidth;
                 break;
             case Gravity.LEFT:
             default:
-                collapsedDrawX = collapsedBounds.left;
+                collapsedTitleX = collapsedBounds.left;
                 break;
         }
 
-        calculateUsingTextSize(expandedTextSize);
-        width = textToDraw != null ? textPaint.measureText(textToDraw, 0, textToDraw.length()) : 0;
+        calculateUsingTitleSize(expandedTitleSize);
+        calculateUsingSubtitleSize(expandedSubtitleSize);
+        titleWidth = titleToDraw != null ? titlePaint.measureText(titleToDraw, 0, titleToDraw.length()) : 0;
+        subtitleWidth = subtitleToDraw != null ? subtitlePaint.measureText(subtitleToDraw, 0, subtitleToDraw.length()) : 0;
         final int expandedAbsGravity =
                 GravityCompat.getAbsoluteGravity(
                         expandedTextGravity,
                         isRtl ? ViewCompat.LAYOUT_DIRECTION_RTL : ViewCompat.LAYOUT_DIRECTION_LTR);
         switch (expandedAbsGravity & Gravity.VERTICAL_GRAVITY_MASK) {
             case Gravity.BOTTOM:
-                expandedDrawY = expandedBounds.bottom;
+                expandedTitleY = expandedBounds.bottom;
                 break;
             case Gravity.TOP:
-                expandedDrawY = expandedBounds.top - textPaint.ascent();
+                expandedTitleY = expandedBounds.top - titlePaint.ascent();
                 break;
             case Gravity.CENTER_VERTICAL:
             default:
-                float textHeight = textPaint.descent() - textPaint.ascent();
-                float textOffset = (textHeight / 2) - textPaint.descent();
-                expandedDrawY = expandedBounds.centerY() + textOffset;
+                float textHeight = titlePaint.descent() - titlePaint.ascent();
+                float textOffset = (textHeight / 2) - titlePaint.descent();
+                expandedTitleY = expandedBounds.centerY() + textOffset;
                 break;
         }
         switch (expandedAbsGravity & GravityCompat.RELATIVE_HORIZONTAL_GRAVITY_MASK) {
             case Gravity.CENTER_HORIZONTAL:
-                expandedDrawX = expandedBounds.centerX() - (width / 2);
+                expandedTitleX = expandedBounds.centerX() - (titleWidth / 2);
                 break;
             case Gravity.RIGHT:
-                expandedDrawX = expandedBounds.right - width;
+                expandedTitleX = expandedBounds.right - titleWidth;
                 break;
             case Gravity.LEFT:
             default:
-                expandedDrawX = expandedBounds.left;
+                expandedTitleX = expandedBounds.left;
                 break;
         }
 
         // The bounds have changed so we need to clear the texture
         clearTexture();
-        // Now reset the text size back to the original
-        setInterpolatedTextSize(currentTextSize);
+        // Now reset the title size back to the original
+        setInterpolatedTitleSize(currentTitleSize);
+        setInterpolatedSubtitleSize(currentSubtitleSize);
     }
 
     private void interpolateBounds(float fraction) {
         currentBounds.left =
                 lerp(expandedBounds.left, collapsedBounds.left, fraction, positionInterpolator);
-        currentBounds.top = lerp(expandedDrawY, collapsedDrawY, fraction, positionInterpolator);
+        currentBounds.top = lerp(expandedTitleY, collapsedTitleY, fraction, positionInterpolator);
         currentBounds.right =
                 lerp(expandedBounds.right, collapsedBounds.right, fraction, positionInterpolator);
         currentBounds.bottom =
@@ -536,47 +778,67 @@ public final class SubtitleCollapsingTextHelper2 {
     }
 
     public void draw(Canvas canvas) {
-        final int saveCount = canvas.save();
+        final int titleSaveCount = canvas.save();
 
-        if (textToDraw != null && drawTitle) {
-            float x = currentDrawX;
-            float y = currentDrawY;
+        if (titleToDraw != null && drawTitle) {
+            float titleX = currentTitleX;
+            float titleY = currentTitleY;
 
             final boolean drawTexture = useTexture && expandedTitleTexture != null;
 
             final float ascent;
             final float descent;
             if (drawTexture) {
-                ascent = textureAscent * scale;
-                descent = textureDescent * scale;
+                ascent = titleTextureAscent * titleScale;
+                descent = titleTextureDescent * titleScale;
             } else {
-                ascent = textPaint.ascent() * scale;
-                descent = textPaint.descent() * scale;
+                ascent = titlePaint.ascent() * titleScale;
+                descent = titlePaint.descent() * titleScale;
             }
 
             if (DEBUG_DRAW) {
-                // Just a debug tool, which drawn a magenta rect in the text bounds
+                // Just a debug tool, which drawn a magenta rect in the title bounds
                 canvas.drawRect(
-                        currentBounds.left, y + ascent, currentBounds.right, y + descent, DEBUG_DRAW_PAINT);
+                        currentBounds.left, titleY + ascent, currentBounds.right, titleY + descent, DEBUG_DRAW_PAINT);
             }
 
             if (drawTexture) {
-                y += ascent;
+                titleY += ascent;
             }
 
-            if (scale != 1f) {
-                canvas.scale(scale, scale, x, y);
+            //region IMPORTANT: separate canvas save for subtitle
+            final int subtitleSaveCount = canvas.save();
+            if (!TextUtils.isEmpty(subtitle)) {
+                float subtitleX = currentTitleX;
+                float subtitleY = currentTitleY;
+
+                if (subtitleScale != 1f) {
+                    canvas.scale(subtitleScale, subtitleScale, subtitleX, subtitleY);
+                }
+
+                if (drawTexture) {
+                    // If we should use a texture, draw it instead of title
+                    canvas.drawBitmap(expandedSubtitleTexture, subtitleX, subtitleY, subtitleTexturePaint);
+                } else {
+                    canvas.drawText(subtitleToDraw, 0, subtitleToDraw.length(), subtitleX, subtitleY, titlePaint);
+                }
+                canvas.restoreToCount(subtitleSaveCount);
+            }
+            //endregion
+
+            if (titleScale != 1f) {
+                canvas.scale(titleScale, titleScale, titleX, titleY);
             }
 
             if (drawTexture) {
-                // If we should use a texture, draw it instead of text
-                canvas.drawBitmap(expandedTitleTexture, x, y, texturePaint);
+                // If we should use a texture, draw it instead of title
+                canvas.drawBitmap(expandedTitleTexture, titleX, titleY, titleTexturePaint);
             } else {
-                canvas.drawText(textToDraw, 0, textToDraw.length(), x, y, textPaint);
+                canvas.drawText(titleToDraw, 0, titleToDraw.length(), titleX, titleY, titlePaint);
             }
         }
 
-        canvas.restoreToCount(saveCount);
+        canvas.restoreToCount(titleSaveCount);
     }
 
     private boolean calculateIsRtl(CharSequence text) {
@@ -588,23 +850,23 @@ public final class SubtitleCollapsingTextHelper2 {
                 .isRtl(text, 0, text.length());
     }
 
-    private void setInterpolatedTextSize(float textSize) {
-        calculateUsingTextSize(textSize);
+    private void setInterpolatedTitleSize(float size) {
+        calculateUsingTitleSize(size);
 
         // Use our texture if the scale isn't 1.0
-        useTexture = USE_SCALING_TEXTURE && scale != 1f;
+        useTexture = USE_SCALING_TEXTURE && titleScale != 1f;
 
         if (useTexture) {
             // Make sure we have an expanded texture if needed
-            ensureExpandedTexture();
+            ensureExpandedTitleTexture();
         }
 
         ViewCompat.postInvalidateOnAnimation(view);
     }
 
     @SuppressWarnings("ReferenceEquality") // Matches the Typeface comparison in TextView
-    private void calculateUsingTextSize(final float textSize) {
-        if (text == null) {
+    private void calculateUsingTitleSize(final float size) {
+        if (title == null) {
             return;
         }
 
@@ -615,36 +877,36 @@ public final class SubtitleCollapsingTextHelper2 {
         final float newTextSize;
         boolean updateDrawText = false;
 
-        if (isClose(textSize, collapsedTextSize)) {
-            newTextSize = collapsedTextSize;
-            scale = 1f;
-            if (currentTypeface != collapsedTypeface) {
-                currentTypeface = collapsedTypeface;
+        if (isClose(size, collapsedTitleSize)) {
+            newTextSize = collapsedTitleSize;
+            titleScale = 1f;
+            if (currentTitleTypeface != collapsedTitleTypeface) {
+                currentTitleTypeface = collapsedTitleTypeface;
                 updateDrawText = true;
             }
             availableWidth = collapsedWidth;
         } else {
-            newTextSize = expandedTextSize;
-            if (currentTypeface != expandedTypeface) {
-                currentTypeface = expandedTypeface;
+            newTextSize = expandedTitleSize;
+            if (currentTitleTypeface != expandedTitleTypeface) {
+                currentTitleTypeface = expandedTitleTypeface;
                 updateDrawText = true;
             }
-            if (isClose(textSize, expandedTextSize)) {
-                // If we're close to the expanded text size, snap to it and use a scale of 1
-                scale = 1f;
+            if (isClose(size, expandedTitleSize)) {
+                // If we're close to the expanded title size, snap to it and use a scale of 1
+                titleScale = 1f;
             } else {
-                // Else, we'll scale down from the expanded text size
-                scale = textSize / expandedTextSize;
+                // Else, we'll scale down from the expanded title size
+                titleScale = size / expandedTitleSize;
             }
 
-            final float textSizeRatio = collapsedTextSize / expandedTextSize;
+            final float textSizeRatio = collapsedTitleSize / expandedTitleSize;
             // This is the size of the expanded bounds when it is scaled to match the
-            // collapsed text size
+            // collapsed title size
             final float scaledDownWidth = expandedWidth * textSizeRatio;
 
             if (scaledDownWidth > collapsedWidth) {
                 // If the scaled down size is larger than the actual collapsed width, we need to
-                // cap the available width so that when the expanded text scales down, it matches
+                // cap the available width so that when the expanded title scales down, it matches
                 // the collapsed width
                 availableWidth = Math.min(collapsedWidth / textSizeRatio, expandedWidth);
             } else {
@@ -654,38 +916,38 @@ public final class SubtitleCollapsingTextHelper2 {
         }
 
         if (availableWidth > 0) {
-            updateDrawText = (currentTextSize != newTextSize) || boundsChanged || updateDrawText;
-            currentTextSize = newTextSize;
+            updateDrawText = (currentTitleSize != newTextSize) || boundsChanged || updateDrawText;
+            currentTitleSize = newTextSize;
             boundsChanged = false;
         }
 
-        if (textToDraw == null || updateDrawText) {
-            textPaint.setTextSize(currentTextSize);
-            textPaint.setTypeface(currentTypeface);
-            // Use linear text scaling if we're scaling the canvas
-            textPaint.setLinearText(scale != 1f);
+        if (titleToDraw == null || updateDrawText) {
+            titlePaint.setTextSize(currentTitleSize);
+            titlePaint.setTypeface(currentTitleTypeface);
+            // Use linear title scaling if we're scaling the canvas
+            titlePaint.setLinearText(titleScale != 1f);
 
-            // If we don't currently have text to draw, or the text size has changed, ellipsize...
-            final CharSequence title =
-                    TextUtils.ellipsize(text, textPaint, availableWidth, TextUtils.TruncateAt.END);
-            if (!TextUtils.equals(title, textToDraw)) {
-                textToDraw = title;
-                isRtl = calculateIsRtl(textToDraw);
+            // If we don't currently have title to draw, or the title size has changed, ellipsize...
+            final CharSequence text =
+                    TextUtils.ellipsize(this.title, titlePaint, availableWidth, TextUtils.TruncateAt.END);
+            if (!TextUtils.equals(text, titleToDraw)) {
+                titleToDraw = text;
+                isRtl = calculateIsRtl(titleToDraw);
             }
         }
     }
 
-    private void ensureExpandedTexture() {
-        if (expandedTitleTexture != null || expandedBounds.isEmpty() || TextUtils.isEmpty(textToDraw)) {
+    private void ensureExpandedTitleTexture() {
+        if (expandedTitleTexture != null || expandedBounds.isEmpty() || TextUtils.isEmpty(titleToDraw)) {
             return;
         }
 
         calculateOffsets(0f);
-        textureAscent = textPaint.ascent();
-        textureDescent = textPaint.descent();
+        titleTextureAscent = titlePaint.ascent();
+        titleTextureDescent = titlePaint.descent();
 
-        final int w = Math.round(textPaint.measureText(textToDraw, 0, textToDraw.length()));
-        final int h = Math.round(textureDescent - textureAscent);
+        final int w = Math.round(titlePaint.measureText(titleToDraw, 0, titleToDraw.length()));
+        final int h = Math.round(titleTextureDescent - titleTextureAscent);
 
         if (w <= 0 || h <= 0) {
             return; // If the width or height are 0, return
@@ -694,11 +956,125 @@ public final class SubtitleCollapsingTextHelper2 {
         expandedTitleTexture = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
 
         Canvas c = new Canvas(expandedTitleTexture);
-        c.drawText(textToDraw, 0, textToDraw.length(), 0, h - textPaint.descent(), textPaint);
+        c.drawText(titleToDraw, 0, titleToDraw.length(), 0, h - titlePaint.descent(), titlePaint);
 
-        if (texturePaint == null) {
+        if (titleTexturePaint == null) {
             // Make sure we have a paint
-            texturePaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
+            titleTexturePaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
+        }
+    }
+
+    private void setInterpolatedSubtitleSize(float size) {
+        calculateUsingSubtitleSize(size);
+
+        // Use our texture if the scale isn't 1.0
+        useTexture = USE_SCALING_TEXTURE && subtitleScale != 1f;
+
+        if (useTexture) {
+            // Make sure we have an expanded texture if needed
+            ensureExpandedTitleTexture();
+        }
+
+        ViewCompat.postInvalidateOnAnimation(view);
+    }
+
+    @SuppressWarnings("ReferenceEquality") // Matches the Typeface comparison in TextView
+    private void calculateUsingSubtitleSize(final float size) {
+        if (subtitle == null) {
+            return;
+        }
+
+        final float collapsedWidth = collapsedBounds.width();
+        final float expandedWidth = expandedBounds.width();
+
+        final float availableWidth;
+        final float newTextSize;
+        boolean updateDrawText = false;
+
+        if (isClose(size, collapsedSubtitleSize)) {
+            newTextSize = collapsedSubtitleSize;
+            subtitleScale = 1f;
+            if (currentSubtitleTypeface != collapsedSubtitleTypeface) {
+                currentSubtitleTypeface = collapsedSubtitleTypeface;
+                updateDrawText = true;
+            }
+            availableWidth = collapsedWidth;
+        } else {
+            newTextSize = expandedSubtitleSize;
+            if (currentSubtitleTypeface != expandedSubtitleTypeface) {
+                currentSubtitleTypeface = expandedSubtitleTypeface;
+                updateDrawText = true;
+            }
+            if (isClose(size, expandedSubtitleSize)) {
+                // If we're close to the expanded title size, snap to it and use a scale of 1
+                subtitleScale = 1f;
+            } else {
+                // Else, we'll scale down from the expanded title size
+                subtitleScale = size / expandedSubtitleSize;
+            }
+
+            final float textSizeRatio = collapsedSubtitleSize / expandedSubtitleSize;
+            // This is the size of the expanded bounds when it is scaled to match the
+            // collapsed title size
+            final float scaledDownWidth = expandedWidth * textSizeRatio;
+
+            if (scaledDownWidth > collapsedWidth) {
+                // If the scaled down size is larger than the actual collapsed width, we need to
+                // cap the available width so that when the expanded title scales down, it matches
+                // the collapsed width
+                availableWidth = Math.min(collapsedWidth / textSizeRatio, expandedWidth);
+            } else {
+                // Otherwise we'll just use the expanded width
+                availableWidth = expandedWidth;
+            }
+        }
+
+        if (availableWidth > 0) {
+            updateDrawText = (currentSubtitleSize != newTextSize) || boundsChanged || updateDrawText;
+            currentSubtitleSize = newTextSize;
+            boundsChanged = false;
+        }
+
+        if (subtitleToDraw == null || updateDrawText) {
+            subtitlePaint.setTextSize(currentSubtitleSize);
+            subtitlePaint.setTypeface(currentSubtitleTypeface);
+            // Use linear title scaling if we're scaling the canvas
+            subtitlePaint.setLinearText(subtitleScale != 1f);
+
+            // If we don't currently have title to draw, or the title size has changed, ellipsize...
+            final CharSequence text =
+                    TextUtils.ellipsize(this.subtitle, subtitlePaint, availableWidth, TextUtils.TruncateAt.END);
+            if (!TextUtils.equals(text, subtitleToDraw)) {
+                subtitleToDraw = text;
+                isRtl = calculateIsRtl(subtitleToDraw);
+            }
+        }
+    }
+
+    private void ensureExpandedSubtitleTexture() {
+        if (expandedSubtitleTexture != null || expandedBounds.isEmpty() || TextUtils.isEmpty(subtitleToDraw)) {
+            return;
+        }
+
+        calculateOffsets(0f);
+        subtitleTextureAscent = subtitlePaint.ascent();
+        subtitleTextureDescent = subtitlePaint.descent();
+
+        final int w = Math.round(subtitlePaint.measureText(subtitleToDraw, 0, subtitleToDraw.length()));
+        final int h = Math.round(subtitleTextureDescent - subtitleTextureAscent);
+
+        if (w <= 0 || h <= 0) {
+            return; // If the width or height are 0, return
+        }
+
+        expandedSubtitleTexture = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+
+        Canvas c = new Canvas(expandedSubtitleTexture);
+        c.drawText(subtitleToDraw, 0, subtitleToDraw.length(), 0, h - subtitlePaint.descent(), subtitlePaint);
+
+        if (subtitleTexturePaint == null) {
+            // Make sure we have a paint
+            subtitleTexturePaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
         }
     }
 
@@ -714,19 +1090,37 @@ public final class SubtitleCollapsingTextHelper2 {
     /**
      * Set the title to display
      *
-     * @param text
+     * @param title
      */
-    public void setText(CharSequence text) {
-        if (text == null || !text.equals(this.text)) {
-            this.text = text;
-            textToDraw = null;
+    public void setTitle(CharSequence title) {
+        if (title == null || !title.equals(this.title)) {
+            this.title = title;
+            titleToDraw = null;
             clearTexture();
             recalculate();
         }
     }
 
-    public CharSequence getText() {
-        return text;
+    public CharSequence getTitle() {
+        return title;
+    }
+
+    /**
+     * Set the subtitle to display
+     *
+     * @param subtitle
+     */
+    public void setSubtitle(CharSequence subtitle) {
+        if (subtitle == null || !subtitle.equals(this.subtitle)) {
+            this.subtitle = subtitle;
+            subtitleToDraw = null;
+            clearTexture();
+            recalculate();
+        }
+    }
+
+    public CharSequence getSubtitle() {
+        return subtitle;
     }
 
     private void clearTexture() {
@@ -744,12 +1138,12 @@ public final class SubtitleCollapsingTextHelper2 {
         return Math.abs(value - targetValue) < 0.001f;
     }
 
-    public ColorStateList getExpandedTextColor() {
-        return expandedTextColor;
+    public ColorStateList getExpandedTitleColor() {
+        return expandedTitleColor;
     }
 
-    public ColorStateList getCollapsedTextColor() {
-        return collapsedTextColor;
+    public ColorStateList getCollapsedTitleColor() {
+        return collapsedTitleColor;
     }
 
     /**
