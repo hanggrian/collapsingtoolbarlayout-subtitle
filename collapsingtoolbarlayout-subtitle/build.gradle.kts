@@ -38,6 +38,7 @@ android {
 }
 
 dependencies {
+    implementation(kotlin("stdlib", VERSION_KOTLIN)) // will be removed next release
     implementation(material())
     implementation(androidx("appcompat"))
 

@@ -69,7 +69,7 @@ import kotlin.math.roundToInt
  * @see CollapsingTextHelper
  */
 @Suppress("unused")
-class SubtitleCollapsingTextHelper(private val view: View) {
+class SubtitleCollapsingTextHelper2(private val view: View) {
 
     private var drawTitle = false
     private var expandedFraction = 0f

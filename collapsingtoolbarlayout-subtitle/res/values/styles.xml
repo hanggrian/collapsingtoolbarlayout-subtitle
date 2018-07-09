@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Widget.Design.CollapsingToolbar.Subtitle" parent="Widget.Design.CollapsingToolbar">
-        <item name="expandedSubtitleTextAppearance">@style/TextAppearance.AppCompat.Headline</item>
-        <item name="collapsedSubtitleTextAppearance">
-            @style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle
-        </item>
+    <style name="Widget.Design.SubtitleCollapsingToolbar" parent="Widget.Design.CollapsingToolbar" />
+
+    <style name="TextAppearance.Design.SubtitleCollapsingToolbar.Expanded" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
 </resources>

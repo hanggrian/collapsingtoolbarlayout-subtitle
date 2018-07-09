@@ -49,7 +49,7 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
  * @see CollapsingTextHelper
  */
 @RestrictTo(LIBRARY_GROUP)
-public final class SubtitleCollapsingTextHelper2 {
+public final class SubtitleCollapsingTextHelper {
 
     // Pre-JB-MR2 doesn't support HW accelerated canvas scaled title so we will workaround it
     // by using our own texture
@@ -161,7 +161,7 @@ public final class SubtitleCollapsingTextHelper2 {
     private float expandedSubtitleShadowDy;
     private int expandedSubtitleShadowColor;
 
-    public SubtitleCollapsingTextHelper2(View view) {
+    public SubtitleCollapsingTextHelper(View view) {
         this.view = view;
 
         titlePaint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);

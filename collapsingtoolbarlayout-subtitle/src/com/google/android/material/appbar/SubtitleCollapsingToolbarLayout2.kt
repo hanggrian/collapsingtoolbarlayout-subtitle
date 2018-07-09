@@ -55,7 +55,7 @@ import com.google.android.material.animation.AnimationUtils.LINEAR_OUT_SLOW_IN_I
 import com.google.android.material.appbar.CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PARALLAX
 import com.google.android.material.appbar.CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PIN
 import com.google.android.material.appbar.CollapsingToolbarLayout.getViewOffsetHelper
-import com.google.android.material.internal.SubtitleCollapsingTextHelper
+import com.google.android.material.internal.SubtitleCollapsingTextHelper2
 import com.google.android.material.internal.ThemeEnforcement
 import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.R
 import kotlin.math.abs
@@ -70,7 +70,7 @@ import kotlin.math.roundToInt
  * @see CollapsingToolbarLayout
  */
 @Suppress("LeakingThis", "unused")
-open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
+open class SubtitleCollapsingToolbarLayout2 @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -88,7 +88,7 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
     private var expandedMarginBottom: Int
 
     private val tmpRect = Rect()
-    internal val collapsingTextHelper = SubtitleCollapsingTextHelper(this)
+    internal val collapsingTextHelper = SubtitleCollapsingTextHelper2(this)
     private var collapsingTitleEnabled: Boolean
     private var drawCollapsingTitle = false
 
@@ -301,14 +301,14 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
     }
 
     private fun View.isToolbarChild(): Boolean = this == when (toolbarDirectChild) {
-        null, this@SubtitleCollapsingToolbarLayout -> toolbar
+        null, this@SubtitleCollapsingToolbarLayout2 -> toolbar
         else -> toolbarDirectChild
     }
 
     private fun View.findDirectChild(): View {
         var directChild = this
         var p: ViewParent? = parent
-        while (p != this@SubtitleCollapsingToolbarLayout && p != null) {
+        while (p != this@SubtitleCollapsingToolbarLayout2 && p != null) {
             if (p is View) {
                 directChild = p
             }
@@ -851,7 +851,7 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
         get() {
             val offsetHelper = getViewOffsetHelper(this)
             val lp = layoutParams as LayoutParams
-            return this@SubtitleCollapsingToolbarLayout.height -
+            return this@SubtitleCollapsingToolbarLayout2.height -
                 offsetHelper.layoutTop - height - lp.bottomMargin
         }
 
@@ -875,10 +875,10 @@ open class SubtitleCollapsingToolbarLayout @JvmOverloads constructor(
             }
             updateScrimVisibility()
             if (_statusBarScrim != null && insetTop > 0) {
-                ViewCompat.postInvalidateOnAnimation(this@SubtitleCollapsingToolbarLayout)
+                ViewCompat.postInvalidateOnAnimation(this@SubtitleCollapsingToolbarLayout2)
             }
             val expandRange = height -
-                ViewCompat.getMinimumHeight(this@SubtitleCollapsingToolbarLayout) - insetTop
+                ViewCompat.getMinimumHeight(this@SubtitleCollapsingToolbarLayout2) - insetTop
             collapsingTextHelper.expansionFraction = abs(verticalOffset) / expandRange.toFloat()
         }
     }
