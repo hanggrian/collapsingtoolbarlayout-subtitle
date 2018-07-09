@@ -840,6 +840,15 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     }
 
     /**
+     * Sets the text color of the collapsed title.
+     *
+     * @param color The new text color in ARGB format
+     */
+    public void setCollapsedSubtitleTextColor(@ColorInt int color) {
+        setCollapsedSubtitleTextColor(ColorStateList.valueOf(color));
+    }
+
+    /**
      * Sets the text colors of the collapsed title.
      *
      * @param colors ColorStateList containing the new text colors
@@ -892,7 +901,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      *
      * @param color The new text color in ARGB format
      */
-    public void setExpandedTitleColor(@ColorInt int color) {
+    public void setExpandedTitleTextColor(@ColorInt int color) {
         setExpandedTitleTextColor(ColorStateList.valueOf(color));
     }
 
@@ -903,6 +912,15 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      */
     public void setExpandedTitleTextColor(@NonNull ColorStateList colors) {
         helper.setExpandedTitleColor(colors);
+    }
+
+    /**
+     * Sets the text color of the expanded title.
+     *
+     * @param color The new text color in ARGB format
+     */
+    public void setExpandedSubtitleTextColor(@ColorInt int color) {
+        setExpandedSubtitleTextColor(ColorStateList.valueOf(color));
     }
 
     /**

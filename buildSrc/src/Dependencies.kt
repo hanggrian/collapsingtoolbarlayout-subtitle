@@ -18,18 +18,11 @@ fun hendraanggrian(
 
 fun material() = "com.google.android.material:material:$VERSION_ANDROIDX"
 
-fun DependencyHandler.bottomsheet(module: String) = "com.flipboard:bottomsheet-$module:$VERSION_BOTTOMSHEET"
-
-fun DependencyHandler.materialDialogs(module: String) = "com.afollestad.material-dialogs:$module:$VERSION_MATERIAL_DIALOGS"
-
 fun DependencyHandler.truth() = "com.google.truth:truth:$VERSION_TRUTH"
 
 fun DependencyHandler.junit() = "junit:junit:$VERSION_JUNIT"
 
 fun DependencyHandler.ktlint() = "com.github.shyiko:ktlint:$VERSION_KTLINT"
-
-fun DependencyHandler.anko(module: String? = null) = "org.jetbrains.anko:${module?.let { "anko-$it" }
-    ?: "anko"}:$VERSION_ANKO"
 
 fun DependencyHandler.dokka() = "org.jetbrains.dokka:dokka-android-gradle-plugin:$VERSION_DOKKA"
 inline val PluginDependenciesSpec.dokka get() = id("org.jetbrains.dokka-android")

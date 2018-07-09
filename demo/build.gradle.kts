@@ -13,7 +13,7 @@ android {
     defaultConfig {
         minSdkVersion(SDK_MIN)
         targetSdkVersion(SDK_TARGET)
-        applicationId = "com.example.${RELEASE_ARTIFACT.replace('-', '.')}"
+        applicationId = "com.example.subtitlecollapsingtoolbarlayout"
         versionCode = 1
         versionName = VERSION_ANDROIDX
     }
@@ -31,7 +31,7 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
         getByName("release") {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
@@ -42,18 +42,11 @@ android {
 
 dependencies {
     implementation(kotlin("stdlib", VERSION_KOTLIN))
-    implementation(anko("sdk25"))
 
     implementation(project(":$RELEASE_ARTIFACT"))
     implementation(material())
     implementation(androidx("appcompat"))
     implementation(androidx("coordinatorlayout"))
 
-    implementation(bottomsheet("commons")) {
-        exclude("com.android.support")
-    }
-    implementation(materialDialogs("commons")) {
-        exclude("com.android.support")
-    }
-    implementation(hendraanggrian("errorbar", "commons", VERSION_ANDROIDX))
+    implementation(hendraanggrian("material", "errorbar-ktx", VERSION_ANDROIDX))
 }

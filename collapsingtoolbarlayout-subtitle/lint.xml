@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<lint>
+    <!-- Used in `SubtitleCollapsingTextHelper#readFontFamilyTypeface`. -->
+    <issue id="InlinedApi" severity="ignore" />
+
+    <!-- Many private resources from `androidx.appcompat` are intentionally used. -->
+    <issue id="PrivateResource" severity="ignore" />
+
+    <issue id="RtlHardcoded" severity="ignore" />
+</lint>

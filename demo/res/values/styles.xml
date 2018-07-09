@@ -7,8 +7,8 @@
         <item name="errorbarStyle">@style/ErrorbarStyle</item>
     </style>
 
-    <style name="ErrorbarStyle" parent="Widget.Design.Errorbar.Light">
-        <item name="android:background">@drawable/errorbar_bg_cloud_light</item>
+    <style name="ErrorbarStyle" parent="Widget.Design.Errorbar">
+        <item name="android:background">@drawable/errorbar_bg_cloud</item>
         <item name="android:src">@drawable/ic_action_tune</item>
     </style>
 </resources>

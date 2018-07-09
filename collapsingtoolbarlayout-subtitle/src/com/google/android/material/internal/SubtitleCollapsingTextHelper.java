@@ -78,11 +78,10 @@ public final class SubtitleCollapsingTextHelper {
     private int collapsedTextGravity = Gravity.CENTER_VERTICAL;
     private float expandedTitleSize = 15;
     private float collapsedTitleSize = 15;
-    private ColorStateList expandedTitleColor;
-    private ColorStateList collapsedTitleColor;
-
     private float expandedSubtitleSize = 15;
     private float collapsedSubtitleSize = 15;
+    private ColorStateList expandedTitleColor;
+    private ColorStateList collapsedTitleColor;
     private ColorStateList expandedSubtitleColor;
     private ColorStateList collapsedSubtitleColor;
 
@@ -125,7 +124,6 @@ public final class SubtitleCollapsingTextHelper {
 
     private float titleScale;
     private float currentTitleSize;
-
     private float subtitleScale;
     private float currentSubtitleSize;
 
@@ -726,13 +724,16 @@ public final class SubtitleCollapsingTextHelper {
         switch (collapsedAbsGravity & GravityCompat.RELATIVE_HORIZONTAL_GRAVITY_MASK) {
             case Gravity.CENTER_HORIZONTAL:
                 collapsedTitleX = collapsedBounds.centerX() - (titleWidth / 2);
+                collapsedSubtitleX = collapsedBounds.centerX() - (subtitleWidth / 2);
                 break;
             case Gravity.RIGHT:
                 collapsedTitleX = collapsedBounds.right - titleWidth;
+                collapsedSubtitleX = collapsedBounds.right - subtitleWidth;
                 break;
             case Gravity.LEFT:
             default:
                 collapsedTitleX = collapsedBounds.left;
+                collapsedSubtitleX = collapsedBounds.left;
                 break;
         }
 
@@ -744,30 +745,64 @@ public final class SubtitleCollapsingTextHelper {
                 GravityCompat.getAbsoluteGravity(
                         expandedTextGravity,
                         isRtl ? ViewCompat.LAYOUT_DIRECTION_RTL : ViewCompat.LAYOUT_DIRECTION_LTR);
-        switch (expandedAbsGravity & Gravity.VERTICAL_GRAVITY_MASK) {
-            case Gravity.BOTTOM:
-                expandedTitleY = expandedBounds.bottom;
-                break;
-            case Gravity.TOP:
-                expandedTitleY = expandedBounds.top - titlePaint.ascent();
-                break;
-            case Gravity.CENTER_VERTICAL:
-            default:
-                float textHeight = titlePaint.descent() - titlePaint.ascent();
-                float textOffset = (textHeight / 2) - titlePaint.descent();
-                expandedTitleY = expandedBounds.centerY() + textOffset;
-                break;
+        if (isTitleOnly) {
+            switch (expandedAbsGravity & Gravity.VERTICAL_GRAVITY_MASK) {
+                case Gravity.BOTTOM:
+                    expandedTitleY = expandedBounds.bottom;
+                    break;
+                case Gravity.TOP:
+                    expandedTitleY = expandedBounds.top - titlePaint.ascent();
+                    break;
+                case Gravity.CENTER_VERTICAL:
+                default:
+                    float textHeight = titlePaint.descent() - titlePaint.ascent();
+                    float textOffset = (textHeight / 2) - titlePaint.descent();
+                    expandedTitleY = expandedBounds.centerY() + textOffset;
+                    break;
+            }
+        } else {
+            switch (expandedAbsGravity & Gravity.VERTICAL_GRAVITY_MASK) {
+                case Gravity.BOTTOM:
+                    expandedTitleY = expandedBounds.bottom;
+                    break;
+                case Gravity.TOP:
+                    expandedTitleY = expandedBounds.top - titlePaint.ascent();
+                    break;
+                case Gravity.CENTER_VERTICAL:
+                default:
+                    float textHeight = titlePaint.descent() - titlePaint.ascent();
+                    float textOffset = (textHeight / 2) - titlePaint.descent();
+                    expandedTitleY = expandedBounds.centerY() + textOffset;
+                    break;
+            }
+            switch (expandedAbsGravity & Gravity.VERTICAL_GRAVITY_MASK) {
+                case Gravity.BOTTOM:
+                    expandedSubtitleY = expandedBounds.bottom;
+                    break;
+                case Gravity.TOP:
+                    expandedSubtitleY = expandedBounds.top - subtitlePaint.ascent();
+                    break;
+                case Gravity.CENTER_VERTICAL:
+                default:
+                    float textHeight = subtitlePaint.descent() - subtitlePaint.ascent();
+                    float textOffset = (textHeight / 2) - subtitlePaint.descent();
+                    expandedSubtitleY = expandedBounds.centerY() + textOffset;
+                    break;
+            }
         }
         switch (expandedAbsGravity & GravityCompat.RELATIVE_HORIZONTAL_GRAVITY_MASK) {
             case Gravity.CENTER_HORIZONTAL:
                 expandedTitleX = expandedBounds.centerX() - (titleWidth / 2);
+                expandedSubtitleX = expandedBounds.centerX() - (subtitleWidth / 2);
                 break;
             case Gravity.RIGHT:
                 expandedTitleX = expandedBounds.right - titleWidth;
+                expandedSubtitleX = expandedBounds.right - subtitleWidth;
                 break;
             case Gravity.LEFT:
             default:
                 expandedTitleX = expandedBounds.left;
+                expandedSubtitleX = expandedBounds.left;
                 break;
         }
 
@@ -1145,6 +1180,10 @@ public final class SubtitleCollapsingTextHelper {
             expandedTitleTexture.recycle();
             expandedTitleTexture = null;
         }
+        if (expandedSubtitleTexture != null) {
+            expandedSubtitleTexture.recycle();
+            expandedSubtitleTexture = null;
+        }
     }
 
     /**
@@ -1161,6 +1200,14 @@ public final class SubtitleCollapsingTextHelper {
 
     public ColorStateList getCollapsedTitleColor() {
         return collapsedTitleColor;
+    }
+
+    public ColorStateList getExpandedSubtitleColor() {
+        return expandedSubtitleColor;
+    }
+
+    public ColorStateList getCollapsedSubtitleColor() {
+        return collapsedSubtitleColor;
     }
 
     /**
