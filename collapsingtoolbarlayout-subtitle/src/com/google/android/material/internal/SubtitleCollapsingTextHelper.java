@@ -697,6 +697,12 @@ public final class SubtitleCollapsingTextHelper {
                 GravityCompat.getAbsoluteGravity(
                         collapsedTextGravity,
                         isRtl ? ViewCompat.LAYOUT_DIRECTION_RTL : ViewCompat.LAYOUT_DIRECTION_LTR);
+        //region reusable dimension
+        float titleHeight = titlePaint.descent() - titlePaint.ascent();
+        float titleOffset = titleHeight / 2 - titlePaint.descent();
+        float subtitleHeight = subtitlePaint.descent() - subtitlePaint.ascent();
+        float subtitleOffset = subtitleHeight / 2 - subtitlePaint.descent();
+        //endregion
         if (isTitleOnly) {
             switch (collapsedAbsGravity & Gravity.VERTICAL_GRAVITY_MASK) {
                 case Gravity.BOTTOM:
@@ -713,10 +719,6 @@ public final class SubtitleCollapsingTextHelper {
                     break;
             }
         } else {
-            final float titleHeight = titlePaint.descent() - titlePaint.ascent();
-            final float titleOffset = titleHeight / 2 - titlePaint.descent();
-            final float subtitleHeight = subtitlePaint.descent() - subtitlePaint.ascent();
-            final float subtitleOffset = subtitleHeight / 2 - subtitlePaint.descent();
             final float offset = (collapsedBounds.height() - (titleHeight + subtitleHeight)) / 3;
             collapsedTitleY = collapsedBounds.top + offset - titlePaint.ascent();
             collapsedSubtitleY = collapsedBounds.top + offset * 2 + titleHeight - subtitlePaint.ascent();
@@ -741,6 +743,12 @@ public final class SubtitleCollapsingTextHelper {
         calculateUsingSubtitleSize(expandedSubtitleSize);
         titleWidth = titleToDraw != null ? titlePaint.measureText(titleToDraw, 0, titleToDraw.length()) : 0;
         subtitleWidth = subtitleToDraw != null ? subtitlePaint.measureText(subtitleToDraw, 0, subtitleToDraw.length()) : 0;
+        //region dimension modification
+        titleHeight = titlePaint.descent() - titlePaint.ascent();
+        titleOffset = titleHeight / 2 - titlePaint.descent();
+        subtitleHeight = subtitlePaint.descent() - subtitlePaint.ascent();
+        subtitleOffset = subtitleHeight / 2 - subtitlePaint.descent();
+        //endregion
         final int expandedAbsGravity =
                 GravityCompat.getAbsoluteGravity(
                         expandedTextGravity,
