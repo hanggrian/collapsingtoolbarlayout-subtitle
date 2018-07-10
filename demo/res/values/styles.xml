@@ -9,6 +9,5 @@
 
     <style name="ErrorbarStyle" parent="Widget.Design.Errorbar">
         <item name="android:background">@drawable/errorbar_bg_cloud</item>
-        <item name="android:src">@drawable/ic_action_tune</item>
     </style>
 </resources>

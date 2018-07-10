@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <androidx.preference.PreferenceCategory android:title="@string/change_text">
+    <androidx.preference.PreferenceCategory android:title="@string/title">
+
+        <androidx.preference.CheckBoxPreference
+            android:key="title_enabled"
+            android:title="Titled enabled" />
 
         <androidx.preference.EditTextPreference
-            android:icon="@drawable/ic_action_text"
+            android:icon="@drawable/ic_title"
             android:key="title"
             android:title="Title" />
 
         <androidx.preference.EditTextPreference
-            android:icon="@drawable/ic_action_text"
+            android:icon="@drawable/ic_subtitle"
             android:key="subtitle"
             android:title="Subtitle" />
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory android:title="@string/scrims">
+
+        <androidx.preference.CheckBoxPreference
+            android:key="scrims_shown"
+            android:title="@string/scrims_shown"  />
+
+        <androidx.preference.Preference
+            android:key="content_scrim"
+            android:title="@string/content_scrim" />
     </androidx.preference.PreferenceCategory>
 </androidx.preference.PreferenceScreen>
