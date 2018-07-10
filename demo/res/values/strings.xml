@@ -1,13 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <resources>
-
-    <string name="title_expanded_color">Title expanded color</string>
-    <string name="title_collapsed_color">Title collapsed color</string>
-    <string name="subtitle_expanded_color">Subtitle expanded color</string>
-    <string name="subtitle_collapsed_color">Subtitle collapsed color</string>
-
-    <string name="content">Located off the northwest tip of Bird\'s Head Peninsula on the island of New Guinea, in Indonesia\'s West Papua province, Raja Ampat, or the Four Kings, is an archipelago comprising over 1,500 small islands, cays, and shoals surrounding the four main islands of Misool, Salawati, Batanta, and Waigeo, and the smaller island of Kofiau. The Raja Ampat archipelago is the part of Coral Triangle which contains the richest marine biodiversity on earth.
-\n\n
-Raja Ampat Regency is a new regency which separated from Sorong Regency in 2004. The population of the Regency was recently (January 2014) put at 49,048. It encompasses more than 40,000 km² of land and sea, which also contains Cenderawasih Bay, the largest marine national park in Indonesia. It is a part of the newly named West Papua province of Indonesia which was formerly Irian Jaya. Some of the islands are the most northern pieces of land in the Australian continent.
-\n\n
-Raja Ampat is considered the global epicenter of tropical marine bio-diversity and is referred to as The Crown Jewel of the Bird\'s Head Seascape, which also includes Cenderawasih Bay and Triton Bay.</string>
+    <string name="change_text">Change text</string>
 </resources>

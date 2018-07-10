@@ -41,29 +41,10 @@
         </com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="10dp"
-            android:paddingEnd="20dp"
-            android:paddingStart="20dp"
-            android:paddingTop="10dp"
-            android:text="@string/content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-    </androidx.core.widget.NestedScrollView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:onClick="onClick"
-        android:src="@drawable/ic_action_tune"
-        app:fabSize="normal"
-        app:layout_anchor="@id/appbarLayout"
-        app:layout_anchorGravity="bottom|end" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:ignore="PrivateResource" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

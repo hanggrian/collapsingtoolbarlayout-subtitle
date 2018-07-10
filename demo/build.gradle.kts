@@ -47,6 +47,7 @@ dependencies {
     implementation(material())
     implementation(androidx("appcompat"))
     implementation(androidx("coordinatorlayout"))
+    implementation(androidx("preference"))
 
     implementation(hendraanggrian("material", "errorbar-ktx", VERSION_ANDROIDX))
 }

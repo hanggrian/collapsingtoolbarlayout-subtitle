@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/title"
-        android:icon="@drawable/ic_action_title"
+        android:icon="@drawable/ic_action_text"
         android:title="Title"
         app:showAsAction="never" />
 
@@ -22,7 +22,7 @@
 
     <item
         android:id="@+id/subtitle"
-        android:icon="@drawable/ic_action_title"
+        android:icon="@drawable/ic_action_text"
         android:title="Subtitle"
         app:showAsAction="never" />
 

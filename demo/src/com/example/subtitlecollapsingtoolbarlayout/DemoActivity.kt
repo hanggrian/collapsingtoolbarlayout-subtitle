@@ -1,23 +1,36 @@
 package com.example.subtitlecollapsingtoolbarlayout
 
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.hendraanggrian.material.errorbar.errorbar
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.preference.PreferenceManager
+import kotlinx.android.synthetic.main.activity_demo.*
 
-class DemoActivity : AppCompatActivity() {
+class DemoActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_demo)
         setSupportActionBar(toolbar)
-        coordinatorLayout.errorbar("Tap tune button to customize toolbar layout") {
-            setContentMarginLeft(resources.getDimensionPixelOffset(R.dimen.padding_vertical))
-            setContentMarginRight(resources.getDimensionPixelOffset(R.dimen.padding_vertical))
-        }
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, DemoFragment())
+            .commitNow()
+
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        preferences.registerOnSharedPreferenceChangeListener(this)
+        toolbarLayout.title = preferences.getString(PREFERENCE_TITLE, null)
+        toolbarLayout.subtitle = preferences.getString(PREFERENCE_SUBTITLE, null)
     }
 
-    fun onClick(v: View) {
+    override fun onSharedPreferenceChanged(
+        preferences: SharedPreferences,
+        key: String
+    ) = when (key) {
+        PREFERENCE_TITLE -> toolbarLayout.title = preferences.getString(key, null)
+        PREFERENCE_SUBTITLE -> toolbarLayout.subtitle = preferences.getString(key, null)
+        else -> {
+
+        }
     }
 }
