@@ -1,4 +1,4 @@
-package com.example.subtitlecollapsingtoolbarlayout
+package com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.demo
 
 import android.view.Gravity
 

@@ -25,7 +25,7 @@
             android:title="@string/scrims_shown"  />
 
         <androidx.preference.Preference
-            android:key="content_scrim"
-            android:title="@string/content_scrim" />
+            android:key="scrim_color"
+            android:title="@string/scrim_color" />
     </androidx.preference.PreferenceCategory>
 </androidx.preference.PreferenceScreen>

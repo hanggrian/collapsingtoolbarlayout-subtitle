@@ -1,4 +1,4 @@
-package com.example.subtitlecollapsingtoolbarlayout
+package com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.demo
 
 import android.os.Bundle
 import androidx.preference.CheckBoxPreference
@@ -12,8 +12,8 @@ class DemoFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeLi
     lateinit var title: EditTextPreference
     lateinit var subtitle: EditTextPreference
 
-    lateinit var scrimShown: CheckBoxPreference
-    lateinit var scrimContent: Preference
+    lateinit var scrimsShown: CheckBoxPreference
+    lateinit var scrimColor: Preference
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.fragment_demo)
@@ -26,8 +26,8 @@ class DemoFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeLi
             summary = text
             onPreferenceChangeListener = this@DemoFragment
         }
-        scrimShown = find(PREFERENCE_SCRIMS_SHOWN)
-        scrimContent = find(PREFERENCE_CONTENT_SCRIM)
+        scrimsShown = find(PREFERENCE_SCRIMS_SHOWN)
+        scrimColor = find(PREFERENCE_SCRIM_COLOR)
     }
 
     override fun onPreferenceChange(preference: Preference, newValue: Any): Boolean {

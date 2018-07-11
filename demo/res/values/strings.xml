@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
+    <string name="app_name">SubtitleCollapsingToolbarLayout</string>
+
     <string name="title_enabled">Title enabled</string>
     <string name="title">Title</string>
     <string name="subtitle">Subtitle</string>
 
     <string name="scrims">Scrims</string>
     <string name="scrims_shown">Scrims shown</string>
-    <string name="content_scrim">Content scrim</string>
+    <string name="scrim_color">Scrim color</string>
 </resources>
