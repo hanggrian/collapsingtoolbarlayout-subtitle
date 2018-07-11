@@ -2,6 +2,7 @@ package com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.demo
 
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import kotlinx.android.synthetic.main.activity_demo.*
@@ -16,7 +17,6 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
             .beginTransaction()
             .replace(R.id.container, DemoFragment())
             .commitNow()
-
         val preferences = PreferenceManager.getDefaultSharedPreferences(this).apply {
             toolbarLayout.isTitleEnabled = getBoolean(PREFERENCE_TITLE_ENABLED, true)
             toolbarLayout.title = getString(PREFERENCE_TITLE, null)
@@ -24,6 +24,13 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
             toolbarLayout.setScrimsShown(getBoolean(PREFERENCE_SCRIMS_SHOWN, true))
         }
         preferences.registerOnSharedPreferenceChangeListener(this)
+    }
+
+    fun scrollToTop(@Suppress("UNUSED_PARAMETER") view: View) {
+        appbarLayout.setExpanded(true)
+        if (fab.isShown) {
+            fab.hide()
+        }
     }
 
     override fun onSharedPreferenceChanged(
@@ -35,14 +42,10 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
             PREFERENCE_TITLE -> toolbarLayout.title = it.getString(key, null)
             PREFERENCE_SUBTITLE -> toolbarLayout.subtitle = it.getString(key, null)
             PREFERENCE_SCRIMS_SHOWN -> toolbarLayout.setScrimsShown(it.getBoolean(key, true))
-            else -> ColorPickerFragment().run {
-                show(supportFragmentManager, ColorPickerFragment.TAG)
-                dialog.setOnDismissListener {
-                    arguments?.getInt(ColorPickerFragment.TAG)?.let {
-                        toolbarLayout.setContentScrimColor(it)
-                    }
-                }
-            }
+            PREFERENCE_CONTENT_SCRIM ->
+                toolbarLayout.setContentScrimColor(it.getString(key, null).toInt())
+            PREFERENCE_STATUSBAR_SCRIM ->
+                toolbarLayout.setStatusBarScrimColor(it.getString(key, null).toInt())
         }
     }
 }

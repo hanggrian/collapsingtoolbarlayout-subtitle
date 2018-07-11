@@ -45,6 +45,7 @@ dependencies {
 
     implementation(project(":$RELEASE_ARTIFACT"))
     implementation(material())
+    implementation(androidx("core", "core-ktx"))
     implementation(androidx("appcompat"))
     implementation(androidx("coordinatorlayout"))
     implementation(androidx("preference"))

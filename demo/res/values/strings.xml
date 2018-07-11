@@ -2,11 +2,81 @@
 <resources>
     <string name="app_name">SubtitleCollapsingToolbarLayout</string>
 
+    <string name="text">Text</string>
     <string name="title_enabled">Title enabled</string>
     <string name="title">Title</string>
     <string name="subtitle">Subtitle</string>
 
     <string name="scrims">Scrims</string>
     <string name="scrims_shown">Scrims shown</string>
-    <string name="scrim_color">Scrim color</string>
+    <string name="content_scrim">Content scrim</string>
+    <string name="statusbar_scrim">Status bar scrim</string>
+
+    <string name="text_appeareances">Text appeareances</string>
+    <string name="collapsed_title_text_appeareance">Collapsed title text appearance</string>
+    <string name="expanded_title_text_appeareance">Expanded title text appearance</string>
+    <string name="collapsed_subtitle_text_appeareance">Collapsed subtitle text appearance</string>
+    <string name="expanded_subtitle_text_appeareance">Expanded subtitle text appearance</string>
+
+    <string name="text_colors">Text colors</string>
+    <string name="collapsed_title_text_color">Collapsed title text color</string>
+    <string name="expanded_title_text_color">Expanded title text color</string>
+    <string name="collapsed_subtitle_text_color">Collapsed subtitle text color</string>
+    <string name="expanded_subtitle_text_color">Expanded subtitle text color</string>
+
+    <string name="gravity">Gravity</string>
+    <string name="collapsed_gravity">Collapsed gravity</string>
+    <string name="expanded_gravity">Expanded gravity</string>
+
+    <string name="typefaces">Typefaces</string>
+    <string name="title_typeface">Title typeface</string>
+    <string name="subtitle_typeface">Subtitle typeface</string>
+
+    <string name="margin">Margin</string>
+    <string name="top_margin">Top margin</string>
+    <string name="left_margin">Left margin</string>
+    <string name="right_margin">Right margin</string>
+    <string name="bottom_margin">Bottom margin</string>
+
+    <string-array name="colors">
+        <item>Black</item>
+        <item>Blue</item>
+        <item>Cyan</item>
+        <item>Dark gray</item>
+        <item>Gray</item>
+        <item>Green</item>
+        <item>Light gray</item>
+        <item>Magenta</item>
+        <item>Red</item>
+        <item>Transparent</item>
+        <item>White</item>
+        <item>Yellow</item>
+    </string-array>
+
+    <string-array name="color_values">
+        <item>-16777216</item>
+        <item>-16776961</item>
+        <item>-16711681</item>
+        <item>-12303292</item>
+        <item>-7829368</item>
+        <item>-16711936</item>
+        <item>-3355444</item>
+        <item>-65281</item>
+        <item>-65536</item>
+        <item>0</item>
+        <item>-1</item>
+        <item>-256</item>
+    </string-array>
+
+    <string-array name="text_appearances">
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+    </string-array>
+
+    <string-array name="text_appearance_values">
+        <item>small</item>
+        <item>medium</item>
+        <item>large</item>
+    </string-array>
 </resources>
