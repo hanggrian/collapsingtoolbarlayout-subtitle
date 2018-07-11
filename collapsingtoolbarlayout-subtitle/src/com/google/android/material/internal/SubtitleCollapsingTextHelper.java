@@ -771,29 +771,18 @@ public final class SubtitleCollapsingTextHelper {
         } else {
             switch (expandedAbsGravity & Gravity.VERTICAL_GRAVITY_MASK) {
                 case Gravity.BOTTOM:
-                    expandedTitleY = expandedBounds.bottom;
+                    expandedTitleY = expandedBounds.bottom - subtitleHeight - titleOffset;
+                    expandedSubtitleY = expandedBounds.bottom;
                     break;
                 case Gravity.TOP:
                     expandedTitleY = expandedBounds.top - titlePaint.ascent();
+                    expandedSubtitleY = expandedBounds.top - subtitlePaint.ascent();
                     break;
                 case Gravity.CENTER_VERTICAL:
                 default:
                     float textHeight = titlePaint.descent() - titlePaint.ascent();
                     float textOffset = (textHeight / 2) - titlePaint.descent();
                     expandedTitleY = expandedBounds.centerY() + textOffset;
-                    break;
-            }
-            switch (expandedAbsGravity & Gravity.VERTICAL_GRAVITY_MASK) {
-                case Gravity.BOTTOM:
-                    expandedSubtitleY = expandedBounds.bottom;
-                    break;
-                case Gravity.TOP:
-                    expandedSubtitleY = expandedBounds.top - subtitlePaint.ascent();
-                    break;
-                case Gravity.CENTER_VERTICAL:
-                default:
-                    float textHeight = subtitlePaint.descent() - subtitlePaint.ascent();
-                    float textOffset = (textHeight / 2) - subtitlePaint.descent();
                     expandedSubtitleY = expandedBounds.centerY() + textOffset;
                     break;
             }
@@ -880,7 +869,7 @@ public final class SubtitleCollapsingTextHelper {
                     // If we should use a texture, draw it instead of title
                     canvas.drawBitmap(expandedSubtitleTexture, subtitleX, subtitleY, subtitleTexturePaint);
                 } else {
-                    canvas.drawText(subtitleToDraw, 0, subtitleToDraw.length(), subtitleX, subtitleY, titlePaint);
+                    canvas.drawText(subtitleToDraw, 0, subtitleToDraw.length(), subtitleX, subtitleY, subtitlePaint);
                 }
                 canvas.restoreToCount(subtitleSaveCount);
             }

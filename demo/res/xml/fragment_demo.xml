@@ -98,15 +98,15 @@
     </androidx.preference.PreferenceCategory>
 
     <androidx.preference.PreferenceCategory android:title="@string/gravity">
-        <androidx.preference.ListPreference
-            android:entries="@array/colors"
-            android:entryValues="@array/color_values"
+        <androidx.preference.MultiSelectListPreference
+            android:entries="@array/gravities"
+            android:entryValues="@array/gravity_values"
             android:icon="@drawable/ic_collapsed_gravity"
             android:key="collapsed_gravity"
             android:title="@string/collapsed_gravity" />
-        <androidx.preference.ListPreference
-            android:entries="@array/colors"
-            android:entryValues="@array/color_values"
+        <androidx.preference.MultiSelectListPreference
+            android:entries="@array/gravities"
+            android:entryValues="@array/gravity_values"
             android:icon="@drawable/ic_expanded_gravity"
             android:key="expanded_gravity"
             android:title="@string/expanded_gravity" />
@@ -128,25 +128,25 @@
     </androidx.preference.PreferenceCategory>
 
     <androidx.preference.PreferenceCategory android:title="@string/margin">
-        <androidx.preference.ListPreference
+        <androidx.preference.EditTextPreference
             android:entries="@array/colors"
             android:entryValues="@array/color_values"
             android:icon="@drawable/ic_margin_left"
             android:key="left_margin"
             android:title="@string/left_margin" />
-        <androidx.preference.ListPreference
+        <androidx.preference.EditTextPreference
             android:entries="@array/colors"
             android:entryValues="@array/color_values"
             android:icon="@drawable/ic_margin_top"
             android:key="top_margin"
             android:title="@string/top_margin" />
-        <androidx.preference.ListPreference
+        <androidx.preference.EditTextPreference
             android:entries="@array/colors"
             android:entryValues="@array/color_values"
             android:icon="@drawable/ic_margin_right"
             android:key="right_margin"
             android:title="@string/right_margin" />
-        <androidx.preference.ListPreference
+        <androidx.preference.EditTextPreference
             android:entries="@array/colors"
             android:entryValues="@array/color_values"
             android:icon="@drawable/ic_margin_bottom"

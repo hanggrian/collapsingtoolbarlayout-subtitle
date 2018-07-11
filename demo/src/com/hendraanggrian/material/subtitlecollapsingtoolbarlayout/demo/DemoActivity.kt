@@ -9,6 +9,8 @@ import kotlinx.android.synthetic.main.activity_demo.*
 
 class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
 
+    private lateinit var preferences: Preferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_demo)
@@ -17,13 +19,22 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
             .beginTransaction()
             .replace(R.id.container, DemoFragment())
             .commitNow()
-        val preferences = PreferenceManager.getDefaultSharedPreferences(this).apply {
+        preferences = PreferenceManager.getDefaultSharedPreferences(this).apply {
             toolbarLayout.isTitleEnabled = getBoolean(PREFERENCE_TITLE_ENABLED, true)
             toolbarLayout.title = getString(PREFERENCE_TITLE, null)
             toolbarLayout.subtitle = getString(PREFERENCE_SUBTITLE, null)
             toolbarLayout.setScrimsShown(getBoolean(PREFERENCE_SCRIMS_SHOWN, true))
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
         preferences.registerOnSharedPreferenceChangeListener(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        preferences.unregisterOnSharedPreferenceChangeListener(this)
     }
 
     fun scrollToTop(@Suppress("UNUSED_PARAMETER") view: View) {
