@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <lint>
-    <!-- Used in `SubtitleCollapsingTextHelper#readFontFamilyTypeface`. -->
-    <issue id="InlinedApi" severity="ignore" />
+    <issue id="InlinedApi">
+        <!-- Used in `SubtitleCollapsingTextHelper#readFontFamilyTypeface`. -->
+        <ignore
+            path="src/com/google/android/material/internal/SubtitleCollapsingTextHelper.java" />
+    </issue>
 
-    <!-- Many private resources from `androidx.appcompat` are intentionally used. -->
-    <issue id="PrivateResource" severity="ignore" />
+    <issue id="RtlHardcoded">
+        <!-- Operation in `SubtitleCollapsingTextHelper#calculateBaseOffsets()`. -->
+        <ignore
+            path="src/com/google/android/material/internal/SubtitleCollapsingTextHelper.java" />
+    </issue>
 
-    <issue id="RtlHardcoded" severity="ignore" />
+    <issue id="PrivateResource">
+        <!-- Many private resources from `androidx.appcompat` are intentionally used. -->
+        <ignore
+            path="src/com/google/android/material/internal/SubtitleCollapsingTextHelper.java" />
+    </issue>
+
+    <issue id="UnusedResources">
+        <!-- Intentional inverse text appereances for light app bar. -->
+        <ignore path="res/values/styles.xml" />
+    </issue>
 </lint>

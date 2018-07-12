@@ -1,55 +1,148 @@
 package com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.demo
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDialogFragment
+import androidx.core.content.edit
 import androidx.preference.CheckBoxPreference
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
+import androidx.preference.MultiSelectListPreference
 import androidx.preference.Preference
+import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 import androidx.recyclerview.widget.RecyclerView
+import com.jakewharton.processphoenix.ProcessPhoenix.triggerRebirth
 import kotlinx.android.synthetic.main.activity_demo.*
 
-class DemoFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
+class DemoFragment : PreferenceFragmentCompat() {
 
-    lateinit var titleEnabled: CheckBoxPreference
-    lateinit var title: EditTextPreference
-    lateinit var subtitle: EditTextPreference
-
-    lateinit var scrimsShown: CheckBoxPreference
-    lateinit var contentScrim: ListPreference
-    lateinit var statusbarScrim: ListPreference
-
-    /*lateinit var collapsedTitleTextAppeareance : ListPreference
-    lateinit var expandedTitleTextAppeareance : ListPreference
-    lateinit var collapsedSubtitleTextAppeareance : ListPreference
-    lateinit var expandedSubtitleTextAppeareance : ListPreference*/
+    private val stringOnChange = OnPreferenceChangeListener { preference, newValue ->
+        preference.summary = newValue.toString()
+        true
+    }
+    private val colorOnChange = OnPreferenceChangeListener { preference, newValue ->
+        val index = resources.getStringArray(R.array.color_values).indexOf(newValue.toString())
+        preference.summary = resources.getStringArray(R.array.colors)[index]
+        true
+    }
+    private val gravityOnChange = OnPreferenceChangeListener { preference, newValue ->
+        preference.summary = (newValue as Set<*>).joinToString("|")
+        true
+    }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.fragment_demo)
-        titleEnabled = find(PREFERENCE_TITLE_ENABLED)
-        title = find(PREFERENCE_TITLE) {
+        find<EditTextPreference>(PREFERENCE_IMAGE_URL) {
             summary = text
-            onPreferenceChangeListener = this@DemoFragment
+            onPreferenceChangeListener = stringOnChange
         }
-        subtitle = find(PREFERENCE_SUBTITLE) {
-            summary = text
-            onPreferenceChangeListener = this@DemoFragment
-        }
-        scrimsShown = find(PREFERENCE_SCRIMS_SHOWN)
-        contentScrim = find(PREFERENCE_CONTENT_SCRIM) {
-            summary = value
-            onPreferenceChangeListener = this@DemoFragment
-        }
-        statusbarScrim = find(PREFERENCE_STATUSBAR_SCRIM) {
-            summary = value
-            onPreferenceChangeListener = this@DemoFragment
-        }
-    }
 
-    override fun onPreferenceChange(preference: Preference, newValue: Any): Boolean {
-        preference.summary = newValue.toString()
-        return true
+        find<EditTextPreference>(PREFERENCE_TITLE) {
+            summary = text
+            onPreferenceChangeListener = stringOnChange
+        }
+        find<EditTextPreference>(PREFERENCE_SUBTITLE) {
+            summary = text
+            onPreferenceChangeListener = stringOnChange
+        }
+        find<CheckBoxPreference>(PREFERENCE_SCRIMS_SHOWN)
+
+        find<ListPreference>(PREFERENCE_CONTENT_SCRIM) {
+            summary = value
+            onPreferenceChangeListener = colorOnChange
+        }
+        find<ListPreference>(PREFERENCE_STATUSBAR_SCRIM) {
+            summary = value
+            onPreferenceChangeListener = colorOnChange
+        }
+
+        find<ListPreference>(PREFERENCE_COLLAPSED_TITLE_TEXT_APPEARANCE) {
+            summary = value
+            onPreferenceChangeListener = stringOnChange
+        }
+        find<ListPreference>(PREFERENCE_EXPANDED_TITLE_TEXT_APPEARANCE) {
+            summary = value
+            onPreferenceChangeListener = stringOnChange
+        }
+        find<ListPreference>(PREFERENCE_COLLAPSED_SUBTITLE_TEXT_APPEARANCE) {
+            summary = value
+            onPreferenceChangeListener = stringOnChange
+        }
+        find<ListPreference>(PREFERENCE_EXPANDED_SUBTITLE_TEXT_APPEARANCE) {
+            summary = value
+            onPreferenceChangeListener = stringOnChange
+        }
+
+        find<ListPreference>(PREFERENCE_COLLAPSED_TITLE_TEXT_COLOR) {
+            summary = value
+            onPreferenceChangeListener = colorOnChange
+        }
+        find<ListPreference>(PREFERENCE_EXPANDED_TITLE_TEXT_COLOR) {
+            summary = value
+            onPreferenceChangeListener = colorOnChange
+        }
+        find<ListPreference>(PREFERENCE_COLLAPSED_SUBTITLE_TEXT_COLOR) {
+            summary = value
+            onPreferenceChangeListener = colorOnChange
+        }
+        find<ListPreference>(PREFERENCE_EXPANDED_SUBTITLE_TEXT_COLOR) {
+            summary = value
+            onPreferenceChangeListener = colorOnChange
+        }
+
+        find<MultiSelectListPreference>(PREFERENCE_COLLAPSED_GRAVITY) {
+            summary = values.joinToString("|")
+            onPreferenceChangeListener = gravityOnChange
+        }
+        find<MultiSelectListPreference>(PREFERENCE_EXPANDED_GRAVITY) {
+            summary = values.joinToString("|")
+            onPreferenceChangeListener = gravityOnChange
+        }
+
+        find<ListPreference>(PREFERENCE_COLLAPSED_TITLE_TYPEFACE) {
+            summary = value
+            onPreferenceChangeListener = stringOnChange
+        }
+        find<ListPreference>(PREFERENCE_EXPANDED_TITLE_TYPEFACE) {
+            summary = value
+            onPreferenceChangeListener = stringOnChange
+        }
+        find<ListPreference>(PREFERENCE_COLLAPSED_SUBTITLE_TYPEFACE) {
+            summary = value
+            onPreferenceChangeListener = stringOnChange
+        }
+        find<ListPreference>(PREFERENCE_EXPANDED_SUBTITLE_TYPEFACE) {
+            summary = value
+            onPreferenceChangeListener = stringOnChange
+        }
+
+        find<EditTextPreference>(PREFERENCE_LEFT_MARGIN) {
+            summary = text
+            onPreferenceChangeListener = stringOnChange
+        }
+        find<EditTextPreference>(PREFERENCE_TOP_MARGIN) {
+            summary = text
+            onPreferenceChangeListener = stringOnChange
+        }
+        find<EditTextPreference>(PREFERENCE_RIGHT_MARGIN) {
+            summary = text
+            onPreferenceChangeListener = stringOnChange
+        }
+        find<EditTextPreference>(PREFERENCE_BOTTOM_MARGIN) {
+            summary = text
+            onPreferenceChangeListener = stringOnChange
+        }
+
+        find<Preference>(PREFERENCE_RESET) {
+            setOnPreferenceClickListener {
+                ConfirmDialogFragment().show(childFragmentManager, null)
+                true
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -81,4 +174,16 @@ class DemoFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeLi
 
     private inline fun <T : Preference> find(key: CharSequence, block: T.() -> Unit): T =
         find<T>(key).apply(block)
+
+    class ConfirmDialogFragment : AppCompatDialogFragment() {
+        override fun onCreateDialog(state: Bundle?): Dialog = AlertDialog.Builder(context!!)
+            .setTitle("Reset")
+            .setMessage("Are you sure?")
+            .setPositiveButton(android.R.string.yes) { _, _ ->
+                getDefaultSharedPreferences(context).edit(true) { clear() }
+                triggerRebirth(context)
+            }
+            .setNegativeButton(android.R.string.cancel) { _, _ -> }
+            .create()
+    }
 }

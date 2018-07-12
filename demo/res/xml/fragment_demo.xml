@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <androidx.preference.PreferenceCategory android:title="@string/general">
+        <androidx.preference.CheckBoxPreference
+            android:key="show_back_button"
+            android:title="@string/show_back_button" />
+
+        <androidx.preference.EditTextPreference
+            android:key="image_url"
+            android:title="@string/image_url" />
+    </androidx.preference.PreferenceCategory>
+
     <androidx.preference.PreferenceCategory android:title="@string/text">
         <androidx.preference.CheckBoxPreference
+            android:defaultValue="true"
             android:key="title_enabled"
-            android:title="Titled enabled" />
+            android:title="@string/title_enabled" />
 
         <androidx.preference.EditTextPreference
             android:icon="@drawable/ic_title"
             android:key="title"
-            android:title="Title" />
+            android:title="@string/title" />
 
         <androidx.preference.EditTextPreference
             android:icon="@drawable/ic_subtitle"
             android:key="subtitle"
-            android:title="Subtitle" />
+            android:title="@string/subtitle" />
     </androidx.preference.PreferenceCategory>
 
     <androidx.preference.PreferenceCategory android:title="@string/scrims">
         <androidx.preference.CheckBoxPreference
+            android:defaultValue="true"
             android:key="scrims_shown"
             android:title="@string/scrims_shown" />
 
@@ -114,17 +126,31 @@
 
     <androidx.preference.PreferenceCategory android:title="@string/typefaces">
         <androidx.preference.ListPreference
-            android:entries="@array/colors"
-            android:entryValues="@array/color_values"
+            android:entries="@array/typefaces"
+            android:entryValues="@array/typeface_values"
             android:icon="@drawable/ic_title_typeface"
-            android:key="title_typeface"
-            android:title="@string/title_typeface" />
+            android:key="collapsed_title_typeface"
+            android:title="@string/collapsed_title_typeface" />
+
         <androidx.preference.ListPreference
-            android:entries="@array/colors"
-            android:entryValues="@array/color_values"
+            android:entries="@array/typefaces"
+            android:entryValues="@array/typeface_values"
+            android:icon="@drawable/ic_title_typeface"
+            android:key="expanded_title_typeface"
+            android:title="@string/expanded_title_typeface" />
+
+        <androidx.preference.ListPreference
+            android:entries="@array/typefaces"
+            android:entryValues="@array/typeface_values"
             android:icon="@drawable/ic_subtitle_typeface"
-            android:key="subtitle_typeface"
-            android:title="@string/subtitle_typeface" />
+            android:key="collapsed_subtitle_typeface"
+            android:title="@string/collapsed_subtitle_typeface" />
+        <androidx.preference.ListPreference
+            android:entries="@array/typefaces"
+            android:entryValues="@array/typeface_values"
+            android:icon="@drawable/ic_subtitle_typeface"
+            android:key="expanded_subtitle_typeface"
+            android:title="@string/expanded_subtitle_typeface" />
     </androidx.preference.PreferenceCategory>
 
     <androidx.preference.PreferenceCategory android:title="@string/margin">
@@ -153,4 +179,11 @@
             android:key="bottom_margin"
             android:title="@string/bottom_margin" />
     </androidx.preference.PreferenceCategory>
+
+    <com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.demo.TintedPreferenceCategory android:title="@string/danger_zone">
+        <androidx.preference.Preference
+            android:key="reset"
+            android:summary="@string/clear_all_settings_and_restart"
+            android:title="@string/reset" />
+    </com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.demo.TintedPreferenceCategory>
 </androidx.preference.PreferenceScreen>

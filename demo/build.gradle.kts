@@ -21,6 +21,7 @@ android {
         getByName("main") {
             manifest.srcFile("AndroidManifest.xml")
             java.srcDirs("src")
+            assets.srcDirs("assets")
             res.srcDir("res")
             resources.srcDir("src")
         }
@@ -51,4 +52,6 @@ dependencies {
     implementation(androidx("preference"))
 
     implementation(hendraanggrian("material", "errorbar-ktx", VERSION_ANDROIDX))
+    implementation(hendraanggrian("pikasso", "pikasso-commons", VERSION_PIKASSO))
+    implementation("com.jakewharton:process-phoenix:2.0.0")
 }

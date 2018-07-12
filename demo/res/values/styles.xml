@@ -1,13 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.App" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
         <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="l">true</item>
 
-        <item name="errorbarStyle">@style/ErrorbarStyle</item>
+        <item name="errorbarStyle">@style/Theme.Errorbar</item>
     </style>
 
-    <style name="ErrorbarStyle" parent="Widget.Design.Errorbar">
+    <style name="Theme.Errorbar" parent="Widget.Design.Errorbar">
         <item name="android:background">@drawable/errorbar_bg_cloud</item>
     </style>
 </resources>

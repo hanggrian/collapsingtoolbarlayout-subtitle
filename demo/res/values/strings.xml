@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">SubtitleCollapsingToolbarLayout</string>
 
+    <string name="general">General</string>
+    <string name="show_back_button">Show back button</string>
+    <string name="image_url">Image URL</string>
+
     <string name="text">Text</string>
     <string name="title_enabled">Title enabled</string>
     <string name="title">Title</string>
@@ -29,8 +33,10 @@
     <string name="expanded_gravity">Expanded gravity</string>
 
     <string name="typefaces">Typefaces</string>
-    <string name="title_typeface">Title typeface</string>
-    <string name="subtitle_typeface">Subtitle typeface</string>
+    <string name="collapsed_title_typeface">Collapsed title typeface</string>
+    <string name="expanded_title_typeface">Expanded title typeface</string>
+    <string name="collapsed_subtitle_typeface">Collapsed subtitle typeface</string>
+    <string name="expanded_subtitle_typeface">Expanded subtitle typeface</string>
 
     <string name="margin">Margin</string>
     <string name="top_margin">Top margin</string>
@@ -38,65 +44,7 @@
     <string name="right_margin">Right margin</string>
     <string name="bottom_margin">Bottom margin</string>
 
-    <string-array name="colors">
-        <item>Black</item>
-        <item>Blue</item>
-        <item>Cyan</item>
-        <item>Dark gray</item>
-        <item>Gray</item>
-        <item>Green</item>
-        <item>Light gray</item>
-        <item>Magenta</item>
-        <item>Red</item>
-        <item>Transparent</item>
-        <item>White</item>
-        <item>Yellow</item>
-    </string-array>
-
-    <string-array name="color_values">
-        <item>-16777216</item>
-        <item>-16776961</item>
-        <item>-16711681</item>
-        <item>-12303292</item>
-        <item>-7829368</item>
-        <item>-16711936</item>
-        <item>-3355444</item>
-        <item>-65281</item>
-        <item>-65536</item>
-        <item>0</item>
-        <item>-1</item>
-        <item>-256</item>
-    </string-array>
-
-    <string-array name="text_appearances">
-        <item>Small</item>
-        <item>Medium</item>
-        <item>Large</item>
-    </string-array>
-
-    <string-array name="text_appearance_values">
-        <item>small</item>
-        <item>medium</item>
-        <item>large</item>
-    </string-array>
-
-    <string-array name="gravities">
-        <item>Left</item>
-        <item>Top</item>
-        <item>Right</item>
-        <item>Bottom</item>
-        <item>Center</item>
-        <item>Center horizontal</item>
-        <item>Center vertical</item>
-    </string-array>
-
-    <string-array name="gravity_values">
-        <item>3</item>
-        <item>48</item>
-        <item>5</item>
-        <item>80</item>
-        <item>17</item>
-        <item>1</item>
-        <item>16</item>
-    </string-array>
+    <string name="danger_zone">Danger zone</string>
+    <string name="reset">Reset</string>
+    <string name="clear_all_settings_and_restart">Clear all settings and restart</string>
 </resources>

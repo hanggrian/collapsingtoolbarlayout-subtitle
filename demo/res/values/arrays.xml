@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- All the ``-->
+    <string-array name="colors">
+        <item>Red</item>
+        <item>Pink</item>
+        <item>Purple</item>
+        <item>Deep purple</item>
+        <item>Indigo</item>
+        <item>Blue</item>
+        <item>Light blue</item>
+        <item>Cyan</item>
+        <item>Teal</item>
+        <item>Green</item>
+        <item>Light green</item>
+        <item>Lime</item>
+        <item>Yellow</item>
+        <item>Amber</item>
+        <item>Orange</item>
+        <item>Deep orange</item>
+        <item>Brown</item>
+        <item>Grey</item>
+        <item>Blue grey</item>
+    </string-array>
+
+    <string-array name="color_values">
+        <item>#f44336</item>
+        <item>#e91e63</item>
+        <item>#9c27b0</item>
+        <item>#673ab7</item>
+        <item>#3f51b5</item>
+        <item>#2196f3</item>
+        <item>#03a9f4</item>
+        <item>#00bcd4</item>
+        <item>#009688</item>
+        <item>#4caf50</item>
+        <item>#8bc34a</item>
+        <item>#cddc39</item>
+        <item>#ffeb3b</item>
+        <item>#ffc107</item>
+        <item>#ff9800</item>
+        <item>#ff5722</item>
+        <item>#795548</item>
+        <item>#9e9e9e</item>
+        <item>#607d8b</item>
+    </string-array>
+
+    <string-array name="text_appearances">
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+    </string-array>
+
+    <string-array name="text_appearance_values">
+        <item>small</item>
+        <item>medium</item>
+        <item>large</item>
+    </string-array>
+
+    <string-array name="gravities">
+        <item>Left</item>
+        <item>Top</item>
+        <item>Right</item>
+        <item>Bottom</item>
+        <item>Center</item>
+        <item>Center horizontal</item>
+        <item>Center vertical</item>
+    </string-array>
+
+    <string-array name="gravity_values">
+        <item>3</item>
+        <item>48</item>
+        <item>5</item>
+        <item>80</item>
+        <item>17</item>
+        <item>1</item>
+        <item>16</item>
+    </string-array>
+
+    <string-array name="typefaces">
+        <item>Roboto</item>
+        <item>Open Sans</item>
+    </string-array>
+
+    <string-array name="typeface_values">
+        <item>OpenSans-Regular.ttf</item>
+        <item>Roboto-Regular.ttf</item>
+    </string-array>
+</resources>

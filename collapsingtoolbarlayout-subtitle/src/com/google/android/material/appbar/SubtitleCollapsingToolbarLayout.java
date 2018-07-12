@@ -153,7 +153,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
 
         // First load the default text appearances
         helper.setExpandedTitleAppearance(
-                R.style.TextAppearance_Design_CollapsingToolbar_Expanded);
+                R.style.TextAppearance_Design_SubtitleCollapsingToolbar_ExpandedTitle);
         helper.setCollapsedTitleAppearance(
                 androidx.appcompat.R.style.TextAppearance_AppCompat_Widget_ActionBar_Title);
 
@@ -169,7 +169,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
 
         // First load the default text appearances
         helper.setExpandedSubtitleAppearance(
-                R.style.TextAppearance_Design_SubtitleCollapsingToolbar_Expanded);
+                R.style.TextAppearance_Design_SubtitleCollapsingToolbar_ExpandedSubtitle);
         helper.setCollapsedSubtitleAppearance(
                 androidx.appcompat.R.style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle);
 
