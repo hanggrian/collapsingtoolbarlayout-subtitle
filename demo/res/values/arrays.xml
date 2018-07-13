@@ -93,7 +93,7 @@
     </string-array>
 
     <string-array name="typeface_values">
-        <item>OpenSans-Regular.ttf</item>
         <item>Roboto-Regular.ttf</item>
+        <item>OpenSans-Regular.ttf</item>
     </string-array>
 </resources>

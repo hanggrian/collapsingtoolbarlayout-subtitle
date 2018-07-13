@@ -6,7 +6,6 @@ import android.view.View
 import androidx.annotation.ArrayRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
-import androidx.preference.CheckBoxPreference
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.MultiSelectListPreference
@@ -19,160 +18,87 @@ import kotlinx.android.synthetic.main.activity_demo.*
 class DemoFragment : PreferenceFragmentCompat() {
 
     private companion object {
-        const val SEPARATOR_LINE = "|"
+        const val SEPARATOR_LINE = " | "
         const val SEPARATOR_COMMA = ", "
-    }
-
-    private val stringOnChange = OnPreferenceChangeListener { preference, newValue ->
-        preference.summary = newValue.toString()
-        true
-    }
-    private val colorOnChange = OnPreferenceChangeListener { preference, newValue ->
-        preference.summary = getActualString(newValue.toString(), R.array.color_values,
-            R.array.colors)
-        true
-    }
-    private val textAppearanceOnChange = OnPreferenceChangeListener { preference, newValue ->
-        preference.summary = getActualString(newValue.toString(), R.array.text_appearance_values,
-            R.array.text_appearances)
-        true
-    }
-    private val gravityOnChange = OnPreferenceChangeListener { preference, newValue ->
-        preference.summary = (newValue as Set<*>).joinToString(SEPARATOR_LINE)
-        true
-    }
-
-    private fun Preference.bindSummary(
-        initial: Preference.() -> String,
-        getter: Preference.(Any) -> String
-    ) {
-        summary = initial()
-        onPreferenceChangeListener = OnPreferenceChangeListener { preference, newValue ->
-            preference.summary = preference.getter(newValue)
-            true
-        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.fragment_demo)
-        find<MultiSelectListPreference>(PREFERENCE_SHOW_BUTTONS) {
-            val actual: Set<*>.() -> String = {
-                joinToString(SEPARATOR_COMMA) {
-                    getActualString(it.toString(), R.array.button_values, R.array.buttons)
-                }
-            }
-            summary = values.actual()
-            onPreferenceChangeListener = OnPreferenceChangeListener { preference, newValue ->
-                preference.summary = (newValue as Set<*>).actual()
-                true
+        find<MultiSelectListPreference>(PREFERENCE_SHOW_BUTTONS).bindSummary({ values }) {
+            it.joinToString(SEPARATOR_COMMA) {
+                getActualString(it, R.array.button_values, R.array.buttons)
             }
         }
-        find<EditTextPreference>(PREFERENCE_IMAGE_URL) {
-            summary = text
-            onPreferenceChangeListener = stringOnChange
+        find<EditTextPreference>(PREFERENCE_IMAGE_URL).bindSummary({ text })
+
+        find<EditTextPreference>(PREFERENCE_TITLE).bindSummary({ text })
+        find<EditTextPreference>(PREFERENCE_SUBTITLE).bindSummary({ text })
+
+        find<ListPreference>(PREFERENCE_CONTENT_SCRIM).bindSummary({ value }) {
+            getActualString(it, R.array.color_values, R.array.colors)
+        }
+        find<ListPreference>(PREFERENCE_STATUSBAR_SCRIM).bindSummary({ value }) {
+            getActualString(it, R.array.color_values, R.array.colors)
         }
 
-        find<EditTextPreference>(PREFERENCE_TITLE) {
-            summary = text
-            onPreferenceChangeListener = stringOnChange
+        find<ListPreference>(PREFERENCE_COLLAPSED_TITLE_TEXT_APPEARANCE).bindSummary({ value }) {
+            getActualString(it, R.array.text_appearance_values, R.array.text_appearances)
         }
-        find<EditTextPreference>(PREFERENCE_SUBTITLE) {
-            summary = text
-            onPreferenceChangeListener = stringOnChange
+        find<ListPreference>(PREFERENCE_EXPANDED_TITLE_TEXT_APPEARANCE).bindSummary({ value }) {
+            getActualString(it, R.array.text_appearance_values, R.array.text_appearances)
         }
-        find<CheckBoxPreference>(PREFERENCE_SCRIMS_SHOWN)
-
-        find<ListPreference>(PREFERENCE_CONTENT_SCRIM) {
-            summary = value
-            onPreferenceChangeListener = colorOnChange
+        find<ListPreference>(PREFERENCE_COLLAPSED_SUBTITLE_TEXT_APPEARANCE).bindSummary({ value }) {
+            getActualString(it, R.array.text_appearance_values, R.array.text_appearances)
         }
-        find<ListPreference>(PREFERENCE_STATUSBAR_SCRIM) {
-            summary = value
-            onPreferenceChangeListener = colorOnChange
+        find<ListPreference>(PREFERENCE_EXPANDED_SUBTITLE_TEXT_APPEARANCE).bindSummary({ value }) {
+            getActualString(it, R.array.text_appearance_values, R.array.text_appearances)
         }
 
-        find<ListPreference>(PREFERENCE_COLLAPSED_TITLE_TEXT_APPEARANCE) {
-            summary = value
-            onPreferenceChangeListener = textAppearanceOnChange
+        find<ListPreference>(PREFERENCE_COLLAPSED_TITLE_TEXT_COLOR).bindSummary({ value }) {
+            getActualString(it, R.array.color_values, R.array.colors)
         }
-        find<ListPreference>(PREFERENCE_EXPANDED_TITLE_TEXT_APPEARANCE) {
-            summary = value
-            onPreferenceChangeListener = textAppearanceOnChange
+        find<ListPreference>(PREFERENCE_EXPANDED_TITLE_TEXT_COLOR).bindSummary({ value }) {
+            getActualString(it, R.array.color_values, R.array.colors)
         }
-        find<ListPreference>(PREFERENCE_COLLAPSED_SUBTITLE_TEXT_APPEARANCE) {
-            summary = value
-            onPreferenceChangeListener = textAppearanceOnChange
+        find<ListPreference>(PREFERENCE_COLLAPSED_SUBTITLE_TEXT_COLOR).bindSummary({ value }) {
+            getActualString(it, R.array.color_values, R.array.colors)
         }
-        find<ListPreference>(PREFERENCE_EXPANDED_SUBTITLE_TEXT_APPEARANCE) {
-            summary = value
-            onPreferenceChangeListener = textAppearanceOnChange
+        find<ListPreference>(PREFERENCE_EXPANDED_SUBTITLE_TEXT_COLOR).bindSummary({ value }) {
+            getActualString(it, R.array.color_values, R.array.colors)
         }
 
-        find<ListPreference>(PREFERENCE_COLLAPSED_TITLE_TEXT_COLOR) {
-            summary = value
-            onPreferenceChangeListener = colorOnChange
-        }
-        find<ListPreference>(PREFERENCE_EXPANDED_TITLE_TEXT_COLOR) {
-            summary = value
-            onPreferenceChangeListener = colorOnChange
-        }
-        find<ListPreference>(PREFERENCE_COLLAPSED_SUBTITLE_TEXT_COLOR) {
-            summary = value
-            onPreferenceChangeListener = colorOnChange
-        }
-        find<ListPreference>(PREFERENCE_EXPANDED_SUBTITLE_TEXT_COLOR) {
-            summary = value
-            onPreferenceChangeListener = colorOnChange
-        }
-
-        find<MultiSelectListPreference>(PREFERENCE_COLLAPSED_GRAVITY) {
-            summary = values.joinToString(SEPARATOR_LINE)
-            onPreferenceChangeListener = gravityOnChange
-        }
-        find<MultiSelectListPreference>(PREFERENCE_EXPANDED_GRAVITY) {
-            summary = values.joinToString(SEPARATOR_LINE)
-            onPreferenceChangeListener = gravityOnChange
-        }
-
-        find<ListPreference>(PREFERENCE_COLLAPSED_TITLE_TYPEFACE) {
-            summary = value
-            onPreferenceChangeListener = stringOnChange
-        }
-        find<ListPreference>(PREFERENCE_EXPANDED_TITLE_TYPEFACE) {
-            summary = value
-            onPreferenceChangeListener = stringOnChange
-        }
-        find<ListPreference>(PREFERENCE_COLLAPSED_SUBTITLE_TYPEFACE) {
-            summary = value
-            onPreferenceChangeListener = stringOnChange
-        }
-        find<ListPreference>(PREFERENCE_EXPANDED_SUBTITLE_TYPEFACE) {
-            summary = value
-            onPreferenceChangeListener = stringOnChange
-        }
-
-        find<EditTextPreference>(PREFERENCE_LEFT_MARGIN) {
-            summary = text
-            onPreferenceChangeListener = stringOnChange
-        }
-        find<EditTextPreference>(PREFERENCE_TOP_MARGIN) {
-            summary = text
-            onPreferenceChangeListener = stringOnChange
-        }
-        find<EditTextPreference>(PREFERENCE_RIGHT_MARGIN) {
-            summary = text
-            onPreferenceChangeListener = stringOnChange
-        }
-        find<EditTextPreference>(PREFERENCE_BOTTOM_MARGIN) {
-            summary = text
-            onPreferenceChangeListener = stringOnChange
-        }
-
-        find<Preference>(PREFERENCE_RESET) {
-            setOnPreferenceClickListener {
-                ConfirmDialogFragment().show(childFragmentManager, null)
-                true
+        find<MultiSelectListPreference>(PREFERENCE_COLLAPSED_GRAVITY).bindSummary({ values }) {
+            it.joinToString(SEPARATOR_LINE) {
+                getActualString(it, R.array.gravity_values, R.array.gravities)
             }
+        }
+        find<MultiSelectListPreference>(PREFERENCE_EXPANDED_GRAVITY).bindSummary({ values }) {
+            it.joinToString(SEPARATOR_LINE) {
+                getActualString(it, R.array.gravity_values, R.array.gravities)
+            }
+        }
+
+        find<ListPreference>(PREFERENCE_COLLAPSED_TITLE_TYPEFACE).bindSummary({ value }) {
+            getActualString(it, R.array.typeface_values, R.array.typefaces)
+        }
+        find<ListPreference>(PREFERENCE_EXPANDED_TITLE_TYPEFACE).bindSummary({ value }) {
+            getActualString(it, R.array.typeface_values, R.array.typefaces)
+        }
+        find<ListPreference>(PREFERENCE_COLLAPSED_SUBTITLE_TYPEFACE).bindSummary({ value }) {
+            getActualString(it, R.array.typeface_values, R.array.typefaces)
+        }
+        find<ListPreference>(PREFERENCE_EXPANDED_SUBTITLE_TYPEFACE).bindSummary({ value }) {
+            getActualString(it, R.array.typeface_values, R.array.typefaces)
+        }
+
+        find<EditTextPreference>(PREFERENCE_LEFT_MARGIN).bindSummary({ text })
+        find<EditTextPreference>(PREFERENCE_TOP_MARGIN).bindSummary({ text })
+        find<EditTextPreference>(PREFERENCE_RIGHT_MARGIN).bindSummary({ text })
+        find<EditTextPreference>(PREFERENCE_BOTTOM_MARGIN).bindSummary({ text })
+
+        find<Preference>(PREFERENCE_RESET).setOnPreferenceClickListener {
+            ConfirmDialogFragment().show(childFragmentManager, null)
+            true
         }
     }
 
@@ -206,13 +132,30 @@ class DemoFragment : PreferenceFragmentCompat() {
     private inline fun <T : Preference> find(key: CharSequence, block: T.() -> Unit): T =
         find<T>(key).apply(block)
 
+    /**
+     * @param initial starting value can be obtained from its value, text, etc.
+     * @param convert its preference value to representable summary text.
+     */
+    private fun <P : Preference, T> P.bindSummary(
+        initial: P.() -> T?,
+        convert: (T) -> CharSequence? = { it?.toString() }
+    ) {
+        initial()?.let { summary = convert(it) }
+        onPreferenceChangeListener = OnPreferenceChangeListener { preference, newValue ->
+            @Suppress("UNCHECKED_CAST")
+            preference.summary = convert(newValue as T)
+            true
+        }
+    }
+
     private fun getActualString(
-        s: String,
-        @ArrayRes arrayValues: Int,
-        @ArrayRes arrays: Int
-    ): String {
-        val index = resources.getStringArray(arrayValues).indexOf(s)
-        return resources.getStringArray(arrays)[index]
+        s: CharSequence,
+        @ArrayRes arrayValuesRes: Int,
+        @ArrayRes arraysRes: Int
+    ): CharSequence {
+        val arrayValues = resources.getStringArray(arrayValuesRes)
+        val arrays = resources.getStringArray(arraysRes)
+        return arrays[arrayValues.indexOf(s)]
     }
 
     class ConfirmDialogFragment : AppCompatDialogFragment() {

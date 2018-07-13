@@ -4,9 +4,6 @@
     <issue id="AllowBackup" severity="ignore" />
     <issue id="GoogleAppIndexingWarning" severity="ignore" />
 
-    <issue id="HardcodedText" severity="ignore" />
-    <issue id="AlwaysShowAction" severity="ignore" />
-
     <!-- Handled by `android-ktx`. -->
-    <issue id="CommitPrefEdits" severity="ignore"/>
+    <issue id="CommitPrefEdits" severity="ignore" />
 </lint>
