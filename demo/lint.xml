@@ -6,7 +6,6 @@
 
     <issue id="HardcodedText" severity="ignore" />
     <issue id="AlwaysShowAction" severity="ignore" />
-    <issue id="UnusedResources" severity="ignore" />
 
     <!-- Handled by `android-ktx`. -->
     <issue id="CommitPrefEdits" severity="ignore"/>

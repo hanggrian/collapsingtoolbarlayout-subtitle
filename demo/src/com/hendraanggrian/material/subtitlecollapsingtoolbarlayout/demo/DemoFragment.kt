@@ -3,9 +3,9 @@ package com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.demo
 import android.app.Dialog
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.ArrayRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
-import androidx.core.content.edit
 import androidx.preference.CheckBoxPreference
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
@@ -13,29 +13,60 @@ import androidx.preference.MultiSelectListPreference
 import androidx.preference.Preference
 import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 import androidx.recyclerview.widget.RecyclerView
-import com.jakewharton.processphoenix.ProcessPhoenix.triggerRebirth
 import kotlinx.android.synthetic.main.activity_demo.*
 
 class DemoFragment : PreferenceFragmentCompat() {
+
+    private companion object {
+        const val SEPARATOR_LINE = "|"
+        const val SEPARATOR_COMMA = ", "
+    }
 
     private val stringOnChange = OnPreferenceChangeListener { preference, newValue ->
         preference.summary = newValue.toString()
         true
     }
     private val colorOnChange = OnPreferenceChangeListener { preference, newValue ->
-        val index = resources.getStringArray(R.array.color_values).indexOf(newValue.toString())
-        preference.summary = resources.getStringArray(R.array.colors)[index]
+        preference.summary = getActualString(newValue.toString(), R.array.color_values,
+            R.array.colors)
+        true
+    }
+    private val textAppearanceOnChange = OnPreferenceChangeListener { preference, newValue ->
+        preference.summary = getActualString(newValue.toString(), R.array.text_appearance_values,
+            R.array.text_appearances)
         true
     }
     private val gravityOnChange = OnPreferenceChangeListener { preference, newValue ->
-        preference.summary = (newValue as Set<*>).joinToString("|")
+        preference.summary = (newValue as Set<*>).joinToString(SEPARATOR_LINE)
         true
+    }
+
+    private fun Preference.bindSummary(
+        initial: Preference.() -> String,
+        getter: Preference.(Any) -> String
+    ) {
+        summary = initial()
+        onPreferenceChangeListener = OnPreferenceChangeListener { preference, newValue ->
+            preference.summary = preference.getter(newValue)
+            true
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.fragment_demo)
+        find<MultiSelectListPreference>(PREFERENCE_SHOW_BUTTONS) {
+            val actual: Set<*>.() -> String = {
+                joinToString(SEPARATOR_COMMA) {
+                    getActualString(it.toString(), R.array.button_values, R.array.buttons)
+                }
+            }
+            summary = values.actual()
+            onPreferenceChangeListener = OnPreferenceChangeListener { preference, newValue ->
+                preference.summary = (newValue as Set<*>).actual()
+                true
+            }
+        }
         find<EditTextPreference>(PREFERENCE_IMAGE_URL) {
             summary = text
             onPreferenceChangeListener = stringOnChange
@@ -62,19 +93,19 @@ class DemoFragment : PreferenceFragmentCompat() {
 
         find<ListPreference>(PREFERENCE_COLLAPSED_TITLE_TEXT_APPEARANCE) {
             summary = value
-            onPreferenceChangeListener = stringOnChange
+            onPreferenceChangeListener = textAppearanceOnChange
         }
         find<ListPreference>(PREFERENCE_EXPANDED_TITLE_TEXT_APPEARANCE) {
             summary = value
-            onPreferenceChangeListener = stringOnChange
+            onPreferenceChangeListener = textAppearanceOnChange
         }
         find<ListPreference>(PREFERENCE_COLLAPSED_SUBTITLE_TEXT_APPEARANCE) {
             summary = value
-            onPreferenceChangeListener = stringOnChange
+            onPreferenceChangeListener = textAppearanceOnChange
         }
         find<ListPreference>(PREFERENCE_EXPANDED_SUBTITLE_TEXT_APPEARANCE) {
             summary = value
-            onPreferenceChangeListener = stringOnChange
+            onPreferenceChangeListener = textAppearanceOnChange
         }
 
         find<ListPreference>(PREFERENCE_COLLAPSED_TITLE_TEXT_COLOR) {
@@ -95,11 +126,11 @@ class DemoFragment : PreferenceFragmentCompat() {
         }
 
         find<MultiSelectListPreference>(PREFERENCE_COLLAPSED_GRAVITY) {
-            summary = values.joinToString("|")
+            summary = values.joinToString(SEPARATOR_LINE)
             onPreferenceChangeListener = gravityOnChange
         }
         find<MultiSelectListPreference>(PREFERENCE_EXPANDED_GRAVITY) {
-            summary = values.joinToString("|")
+            summary = values.joinToString(SEPARATOR_LINE)
             onPreferenceChangeListener = gravityOnChange
         }
 
@@ -174,6 +205,15 @@ class DemoFragment : PreferenceFragmentCompat() {
 
     private inline fun <T : Preference> find(key: CharSequence, block: T.() -> Unit): T =
         find<T>(key).apply(block)
+
+    private fun getActualString(
+        s: String,
+        @ArrayRes arrayValues: Int,
+        @ArrayRes arrays: Int
+    ): String {
+        val index = resources.getStringArray(arrayValues).indexOf(s)
+        return resources.getStringArray(arrays)[index]
+    }
 
     class ConfirmDialogFragment : AppCompatDialogFragment() {
         override fun onCreateDialog(state: Bundle?): Dialog = AlertDialog.Builder(context!!)

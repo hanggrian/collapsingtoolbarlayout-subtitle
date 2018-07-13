@@ -3,7 +3,7 @@
     <string name="app_name">SubtitleCollapsingToolbarLayout</string>
 
     <string name="general">General</string>
-    <string name="show_back_button">Show back button</string>
+    <string name="show_buttons">Show buttons</string>
     <string name="image_url">Image URL</string>
 
     <string name="text">Text</string>

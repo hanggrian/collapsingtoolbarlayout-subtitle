@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- All the ``-->
+    <string-array name="buttons">
+        <item>Navigation icon</item>
+        <item>Menu item</item>
+    </string-array>
+
+    <string-array name="button_values">
+        <item>navigation</item>
+        <item>menu</item>
+    </string-array>
+
+    <!-- All the `500` colors from Material Design Guideline 2018. -->
     <string-array name="colors">
         <item>Red</item>
         <item>Pink</item>

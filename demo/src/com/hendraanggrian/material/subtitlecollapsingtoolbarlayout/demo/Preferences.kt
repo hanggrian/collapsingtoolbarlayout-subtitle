@@ -2,7 +2,7 @@ package com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.demo
 
 typealias Preferences = android.content.SharedPreferences
 
-const val PREFERENCE_SHOW_BACK_BUTTON = "show_back_button"
+const val PREFERENCE_SHOW_BUTTONS = "show_buttons"
 const val PREFERENCE_IMAGE_URL = "image_url"
 
 const val PREFERENCE_TITLE_ENABLED = "title_enabled"

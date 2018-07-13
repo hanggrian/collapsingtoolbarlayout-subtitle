@@ -2,9 +2,11 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <androidx.preference.PreferenceCategory android:title="@string/general">
-        <androidx.preference.CheckBoxPreference
-            android:key="show_back_button"
-            android:title="@string/show_back_button" />
+        <androidx.preference.MultiSelectListPreference
+            android:entries="@array/buttons"
+            android:entryValues="@array/button_values"
+            android:key="show_buttons"
+            android:title="@string/show_buttons" />
 
         <androidx.preference.EditTextPreference
             android:key="image_url"

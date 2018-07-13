@@ -9,6 +9,8 @@ import android.os.Bundle
 import android.text.TextUtils.isDigitsOnly
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.Px
@@ -17,19 +19,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.view.GravityCompat
-import androidx.core.widget.toast
+import androidx.core.view.get
 import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 import com.google.android.material.snackbar.Snackbar
 import com.hendraanggrian.material.errorbar.indefiniteErrorbar
 import com.hendraanggrian.pikasso.palette.PaletteCallbackBuilder
 import com.hendraanggrian.pikasso.palette.palette
 import com.hendraanggrian.pikasso.picasso
-import com.jakewharton.processphoenix.ProcessPhoenix.triggerRebirth
 import kotlinx.android.synthetic.main.activity_demo.*
 
 class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
 
     private lateinit var preferences: Preferences
+    private lateinit var menuItem: MenuItem
     private val paletteBuilder: PaletteCallbackBuilder.() -> Unit = {
         onSuccess {
             preferences.edit {
@@ -48,18 +50,28 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
             .beginTransaction()
             .replace(R.id.container, DemoFragment())
             .commitNow()
-        preferences = getDefaultSharedPreferences(this).apply {
-            doIfContains(PREFERENCE_SHOW_BACK_BUTTON) {
-                toolbar.navigationIcon = when {
-                    getBoolean(it, false) -> navigationIconDrawable
-                    else -> null
-                }
+        preferences = getDefaultSharedPreferences(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        preferences.registerOnSharedPreferenceChangeListener(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        preferences.unregisterOnSharedPreferenceChangeListener(this)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.activity_demo, menu)
+        menuItem = menu[0]
+        preferences.run {
+            doIfContains(PREFERENCE_SHOW_BUTTONS) {
+                updateButtons(getStringSet(it, null))
             }
             doIfContains(PREFERENCE_IMAGE_URL) {
-                picasso.load(getStringNotNull(it))
-                    .placeholder(R.drawable.bg)
-                    .error(R.drawable.bg)
-                    .palette(image, builder = paletteBuilder)
+                picasso.load(getStringNotNull(it)).palette(image, builder = paletteBuilder)
             }
             doIfContains(PREFERENCE_TITLE_ENABLED) {
                 toolbarLayout.isTitleEnabled = getBoolean(it, false)
@@ -134,16 +146,7 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
                 toolbarLayout.expandedTitleMarginBottom = getStringNotNull(it).toMargin()
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        preferences.registerOnSharedPreferenceChangeListener(this)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        preferences.unregisterOnSharedPreferenceChangeListener(this)
+        return true
     }
 
     fun scrollToTop(@Suppress("UNUSED_PARAMETER") view: View) {
@@ -158,13 +161,8 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         key: String
     ) = preferences.let {
         when (key) {
-            PREFERENCE_SHOW_BACK_BUTTON -> toolbar.navigationIcon = when {
-                it.getBoolean(key, false) -> navigationIconDrawable
-                else -> null
-            }
+            PREFERENCE_SHOW_BUTTONS -> updateButtons(it.getStringSet(key, null))
             PREFERENCE_IMAGE_URL -> picasso.load(it.getStringNotNull(key))
-                .placeholder(R.drawable.bg)
-                .error(R.drawable.bg)
                 .palette(image, builder = paletteBuilder)
             PREFERENCE_TITLE_ENABLED -> toolbarLayout.isTitleEnabled = it.getBoolean(key, false)
             PREFERENCE_TITLE -> toolbarLayout.title = it.getStringNotNull(key)
@@ -215,6 +213,15 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         }
     }
 
+    private fun updateButtons(set: Set<String>) {
+        val values = resources.getStringArray(R.array.button_values)
+        toolbar.navigationIcon = when {
+            set.contains(values[0]) -> navigationIconDrawable
+            else -> null
+        }
+        menuItem.isVisible = set.contains(values[1])
+    }
+
     private val navigationIconDrawable: Drawable
         get() {
             val typedValue = TypedValue()
@@ -228,9 +235,7 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         isDigitsOnly(this) -> toInt()
         else -> {
             toolbarLayout.indefiniteErrorbar("Wrong margin input.") {
-                setAction(R.string.reset) {
-                    reset(preferences)
-                }
+                setAction(R.string.reset) { reset(preferences) }
             }
             Int.MIN_VALUE
         }
