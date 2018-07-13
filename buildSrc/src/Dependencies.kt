@@ -4,19 +4,24 @@ import org.gradle.plugin.use.PluginDependenciesSpec
 fun DependencyHandler.android() = "com.android.tools.build:gradle:$VERSION_ANDROID_PLUGIN"
 fun PluginDependenciesSpec.android(submodule: String) = id("com.android.$submodule")
 
-fun androidx(
+fun DependencyHandler.androidx(
     repository: String,
     module: String = repository,
     version: String = VERSION_ANDROIDX
 ): String = "androidx.$repository:$module:$version"
 
-fun hendraanggrian(
+fun DependencyHandler.hendraanggrian(
     repository: String,
     module: String = repository,
-    version: String = VERSION_ANDROIDX
+    version: String
 ): String = "com.hendraanggrian.$repository:$module:$version"
 
-fun material() = "com.google.android.material:material:$VERSION_ANDROIDX"
+fun DependencyHandler.jakeWharton(
+    module: String,
+    version: String
+): String = "com.jakewharton:$module:$version"
+
+fun DependencyHandler.material() = "com.google.android.material:material:$VERSION_ANDROIDX"
 
 fun DependencyHandler.truth() = "com.google.truth:truth:$VERSION_TRUTH"
 

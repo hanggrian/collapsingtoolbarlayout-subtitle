@@ -12,6 +12,7 @@ const val VERSION_RUNNER = "1.1.0-alpha3"
 const val VERSION_RULES = "1.1.0-alpha3"
 
 const val VERSION_PIKASSO = "0.2"
+const val VERSION_PROCESS_PHOENIX = "2.0.0"
 
 internal const val VERSION_TRUTH = "0.41"
 internal const val VERSION_JUNIT = "4.12"

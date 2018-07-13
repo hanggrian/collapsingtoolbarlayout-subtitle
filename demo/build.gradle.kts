@@ -36,15 +36,12 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
-    lintOptions {
-        isAbortOnError = false
-    }
 }
 
 dependencies {
     implementation(kotlin("stdlib", VERSION_KOTLIN))
-
     implementation(project(":$RELEASE_ARTIFACT"))
+
     implementation(material())
     implementation(androidx("core", "core-ktx"))
     implementation(androidx("appcompat"))
@@ -52,6 +49,6 @@ dependencies {
     implementation(androidx("preference"))
 
     implementation(hendraanggrian("material", "errorbar-ktx", VERSION_ANDROIDX))
-    implementation(hendraanggrian("pikasso", "pikasso-commons", VERSION_PIKASSO))
-    implementation("com.jakewharton:process-phoenix:2.0.0")
+    implementation(hendraanggrian("pikasso", version = VERSION_PIKASSO))
+    implementation(jakeWharton("process-phoenix", VERSION_PROCESS_PHOENIX))
 }

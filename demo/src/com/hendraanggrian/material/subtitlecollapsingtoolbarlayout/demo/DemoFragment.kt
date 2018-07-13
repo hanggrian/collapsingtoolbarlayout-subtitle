@@ -179,10 +179,7 @@ class DemoFragment : PreferenceFragmentCompat() {
         override fun onCreateDialog(state: Bundle?): Dialog = AlertDialog.Builder(context!!)
             .setTitle("Reset")
             .setMessage("Are you sure?")
-            .setPositiveButton(android.R.string.yes) { _, _ ->
-                getDefaultSharedPreferences(context).edit(true) { clear() }
-                triggerRebirth(context)
-            }
+            .setPositiveButton(android.R.string.yes) { _, _ -> context!!.reset() }
             .setNegativeButton(android.R.string.cancel) { _, _ -> }
             .create()
     }

@@ -17,8 +17,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.view.GravityCompat
+import androidx.core.widget.toast
 import androidx.preference.PreferenceManager.getDefaultSharedPreferences
+import com.google.android.material.snackbar.Snackbar
 import com.hendraanggrian.material.errorbar.indefiniteErrorbar
+import com.hendraanggrian.pikasso.palette.PaletteCallbackBuilder
+import com.hendraanggrian.pikasso.palette.palette
 import com.hendraanggrian.pikasso.picasso
 import com.jakewharton.processphoenix.ProcessPhoenix.triggerRebirth
 import kotlinx.android.synthetic.main.activity_demo.*
@@ -26,6 +30,15 @@ import kotlinx.android.synthetic.main.activity_demo.*
 class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
 
     private lateinit var preferences: Preferences
+    private val paletteBuilder: PaletteCallbackBuilder.() -> Unit = {
+        onSuccess {
+            preferences.edit {
+                useVibrant { putString(PREFERENCE_EXPANDED_TITLE_TEXT_COLOR, it.toHex()) }
+                useMuted { putString(PREFERENCE_EXPANDED_SUBTITLE_TEXT_COLOR, it.toHex()) }
+            }
+        }
+        onError { Snackbar.make(container, it.message.toString(), Snackbar.LENGTH_SHORT).show() }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +59,7 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
                 picasso.load(getStringNotNull(it))
                     .placeholder(R.drawable.bg)
                     .error(R.drawable.bg)
-                    .into(image)
+                    .palette(image, builder = paletteBuilder)
             }
             doIfContains(PREFERENCE_TITLE_ENABLED) {
                 toolbarLayout.isTitleEnabled = getBoolean(it, false)
@@ -67,16 +80,16 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
                 toolbarLayout.setStatusBarScrimColor(parseColor(getStringNotNull(it)))
             }
             doIfContains(PREFERENCE_COLLAPSED_TITLE_TEXT_APPEARANCE) {
-                toolbarLayout.setCollapsedTitleTextAppearance(getStringNotNull(it).toSyle())
+                toolbarLayout.setCollapsedTitleTextAppearance(getStringNotNull(it).toStyle())
             }
             doIfContains(PREFERENCE_EXPANDED_TITLE_TEXT_APPEARANCE) {
-                toolbarLayout.setExpandedTitleTextAppearance(getStringNotNull(it).toSyle())
+                toolbarLayout.setExpandedTitleTextAppearance(getStringNotNull(it).toStyle())
             }
             doIfContains(PREFERENCE_COLLAPSED_SUBTITLE_TEXT_APPEARANCE) {
-                toolbarLayout.setCollapsedSubtitleTextAppearance(getStringNotNull(it).toSyle())
+                toolbarLayout.setCollapsedSubtitleTextAppearance(getStringNotNull(it).toStyle())
             }
             doIfContains(PREFERENCE_EXPANDED_SUBTITLE_TEXT_APPEARANCE) {
-                toolbarLayout.setExpandedSubtitleTextAppearance(getStringNotNull(it).toSyle())
+                toolbarLayout.setExpandedSubtitleTextAppearance(getStringNotNull(it).toStyle())
             }
             doIfContains(PREFERENCE_COLLAPSED_TITLE_TEXT_COLOR) {
                 toolbarLayout.setCollapsedTitleTextColor(getStringNotNull(it).toColor())
@@ -152,7 +165,7 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
             PREFERENCE_IMAGE_URL -> picasso.load(it.getStringNotNull(key))
                 .placeholder(R.drawable.bg)
                 .error(R.drawable.bg)
-                .into(image)
+                .palette(image, builder = paletteBuilder)
             PREFERENCE_TITLE_ENABLED -> toolbarLayout.isTitleEnabled = it.getBoolean(key, false)
             PREFERENCE_TITLE -> toolbarLayout.title = it.getStringNotNull(key)
             PREFERENCE_SUBTITLE -> toolbarLayout.subtitle = it.getStringNotNull(key)
@@ -162,13 +175,13 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
             PREFERENCE_STATUSBAR_SCRIM -> toolbarLayout
                 .setStatusBarScrimColor(it.getStringNotNull(key).toColor())
             PREFERENCE_COLLAPSED_TITLE_TEXT_APPEARANCE -> toolbarLayout
-                .setCollapsedTitleTextAppearance(it.getStringNotNull(key).toSyle())
+                .setCollapsedTitleTextAppearance(it.getStringNotNull(key).toStyle())
             PREFERENCE_EXPANDED_TITLE_TEXT_APPEARANCE -> toolbarLayout
-                .setExpandedTitleTextAppearance(it.getStringNotNull(key).toSyle())
+                .setExpandedTitleTextAppearance(it.getStringNotNull(key).toStyle())
             PREFERENCE_COLLAPSED_SUBTITLE_TEXT_APPEARANCE -> toolbarLayout
-                .setCollapsedSubtitleTextAppearance(it.getStringNotNull(key).toSyle())
+                .setCollapsedSubtitleTextAppearance(it.getStringNotNull(key).toStyle())
             PREFERENCE_EXPANDED_SUBTITLE_TEXT_APPEARANCE -> toolbarLayout
-                .setExpandedSubtitleTextAppearance(it.getStringNotNull(key).toSyle())
+                .setExpandedSubtitleTextAppearance(it.getStringNotNull(key).toStyle())
             PREFERENCE_COLLAPSED_TITLE_TEXT_COLOR -> toolbarLayout
                 .setCollapsedTitleTextColor(it.getStringNotNull(key).toColor())
             PREFERENCE_EXPANDED_TITLE_TEXT_COLOR -> toolbarLayout
@@ -216,8 +229,7 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         else -> {
             toolbarLayout.indefiniteErrorbar("Wrong margin input.") {
                 setAction(R.string.reset) {
-                    preferences.edit(true) { clear() }
-                    triggerRebirth(this@DemoActivity)
+                    reset(preferences)
                 }
             }
             Int.MIN_VALUE
@@ -234,7 +246,9 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
 
         @ColorInt fun String.toColor(): Int = parseColor(this)
 
-        @StyleRes fun String.toSyle(): Int = when (this) {
+        fun @receiver:ColorInt Int.toHex(): String = "#%06X".format(0xFFFFFF and this)
+
+        @StyleRes fun String.toStyle(): Int = when (this) {
             "small" -> R.style.TextAppearance_AppCompat_Small
             "medium" -> R.style.TextAppearance_AppCompat_Medium
             else -> R.style.TextAppearance_AppCompat_Large
@@ -243,7 +257,7 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         fun Set<String>.toGravity(): Int {
             val iterator = iterator()
             var gravity: Int? = null
-            if (iterator.hasNext()) {
+            while (iterator.hasNext()) {
                 val next = iterator.next().toInt()
                 gravity = when (gravity) {
                     null -> next
