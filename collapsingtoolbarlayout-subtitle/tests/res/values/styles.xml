@@ -1,11 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.Test" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
         <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="l">true</item>
     </style>
 
-    <style name="CustomTheme" parent="Widget.Design.SubtitleCollapsingToolbar">
+    <style name="Theme.Test.Custom" parent="Widget.Design.SubtitleCollapsingToolbar">
         <item name="expandedSubtitleTextAppearance">@style/TextAppearance.AppCompat.Caption</item>
     </style>
 </resources>

@@ -100,11 +100,12 @@ class InstrumentedTest {
             BOTTOM_CENTER,
             FINGER))
 
-        fun translate(coords: CoordinatesProvider, dx: Float, dy: Float) = CoordinatesProvider { view ->
-            val xy = coords.calculateCoordinates(view)
-            xy[0] += dx * view.width
-            xy[1] += dy * view.height
-            xy
-        }
+        fun translate(coords: CoordinatesProvider, dx: Float, dy: Float) =
+            CoordinatesProvider { view ->
+                val xy = coords.calculateCoordinates(view)
+                xy[0] += dx * view.width
+                xy[1] += dy * view.height
+                xy
+            }
     }
 }

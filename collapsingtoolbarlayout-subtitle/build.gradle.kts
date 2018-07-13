@@ -39,7 +39,6 @@ android {
 
 dependencies {
     implementation(material())
-    implementation(androidx("appcompat"))
 
     testImplementation(junit())
     androidTestImplementation(truth())

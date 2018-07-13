@@ -9,7 +9,9 @@
         <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
     </style>
 
-    <style name="TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedSubtitle" parent="TextAppearance.AppCompat.Subhead" />
+    <style name="TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedSubtitle" parent="TextAppearance.AppCompat.Headline" />
 
-    <style name="TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedSubtitle.Inverse" parent="TextAppearance.AppCompat.Subhead.Inverse" />
+    <style name="TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedSubtitle.Inverse" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
+    </style>
 </resources>
