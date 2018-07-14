@@ -776,14 +776,12 @@ public final class SubtitleCollapsingTextHelper {
                     break;
                 case Gravity.TOP:
                     expandedTitleY = expandedBounds.top - titlePaint.ascent();
-                    expandedSubtitleY = expandedBounds.top - subtitlePaint.ascent();
+                    expandedSubtitleY = expandedTitleY + subtitleHeight + titleOffset;
                     break;
                 case Gravity.CENTER_VERTICAL:
                 default:
-                    float textHeight = titlePaint.descent() - titlePaint.ascent();
-                    float textOffset = (textHeight / 2) - titlePaint.descent();
-                    expandedTitleY = expandedBounds.centerY() + textOffset;
-                    expandedSubtitleY = expandedBounds.centerY() + textOffset;
+                    expandedTitleY = expandedBounds.centerY() + titleOffset;
+                    expandedSubtitleY = expandedTitleY + subtitleHeight + titleOffset;
                     break;
             }
         }

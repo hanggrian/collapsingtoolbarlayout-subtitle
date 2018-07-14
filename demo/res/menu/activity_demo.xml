@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <item
-        android:id="@+id/asd"
-        android:icon="@drawable/ic_scroll_to_top"
-        android:title="@string/app_name"
+        android:id="@+id/info"
+        android:icon="@drawable/ic_info"
+        android:title="@string/info"
         android:visible="false"
         app:showAsAction="always"
         tools:ignore="AppCompatResource" />

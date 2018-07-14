@@ -163,7 +163,7 @@ class DemoFragment : PreferenceFragmentCompat() {
             .setTitle("Reset")
             .setMessage("Are you sure?")
             .setPositiveButton(android.R.string.yes) { _, _ -> context!!.reset() }
-            .setNegativeButton(android.R.string.cancel) { _, _ -> }
+            .setNegativeButton(android.R.string.cancel, null)
             .create()
     }
 }

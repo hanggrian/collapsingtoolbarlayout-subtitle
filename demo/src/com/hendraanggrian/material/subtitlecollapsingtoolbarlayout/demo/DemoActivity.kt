@@ -119,7 +119,7 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
                 toolbarLayout.collapsedTitleGravity = getStringSet(it, null).toGravity()
             }
             doIfContains(PREFERENCE_EXPANDED_GRAVITY) {
-                toolbarLayout.collapsedTitleGravity = getStringSet(it, null).toGravity()
+                toolbarLayout.expandedTitleGravity = getStringSet(it, null).toGravity()
             }
             doIfContains(PREFERENCE_COLLAPSED_TITLE_TYPEFACE) {
                 toolbarLayout.setCollapsedTitleTypeface(getStringNotNull(it).toTypeface())
@@ -149,6 +149,14 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> finish()
+            R.id.info -> AboutDialogFragment().show(supportFragmentManager, null)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     fun scrollToTop(@Suppress("UNUSED_PARAMETER") view: View) {
         appbarLayout.setExpanded(true)
         if (fab.isShown) {
@@ -159,57 +167,55 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     override fun onSharedPreferenceChanged(
         preferences: Preferences,
         key: String
-    ) = preferences.let {
+    ) = preferences.run {
         when (key) {
-            PREFERENCE_SHOW_BUTTONS -> updateButtons(it.getStringSet(key, null))
-            PREFERENCE_IMAGE_URL -> picasso.load(it.getStringNotNull(key))
+            PREFERENCE_SHOW_BUTTONS -> updateButtons(getStringSet(key, null))
+            PREFERENCE_IMAGE_URL -> picasso.load(getStringNotNull(key))
                 .palette(image, builder = paletteBuilder)
-            PREFERENCE_TITLE_ENABLED -> toolbarLayout.isTitleEnabled = it.getBoolean(key, false)
-            PREFERENCE_TITLE -> toolbarLayout.title = it.getStringNotNull(key)
-            PREFERENCE_SUBTITLE -> toolbarLayout.subtitle = it.getStringNotNull(key)
-            PREFERENCE_SCRIMS_SHOWN -> toolbarLayout.setScrimsShown(it.getBoolean(key, false))
+            PREFERENCE_TITLE_ENABLED -> toolbarLayout.isTitleEnabled = getBoolean(key, false)
+            PREFERENCE_TITLE -> toolbarLayout.title = getStringNotNull(key)
+            PREFERENCE_SUBTITLE -> toolbarLayout.subtitle = getStringNotNull(key)
+            PREFERENCE_SCRIMS_SHOWN -> toolbarLayout.setScrimsShown(getBoolean(key, false))
             PREFERENCE_CONTENT_SCRIM -> toolbarLayout
-                .setContentScrimColor(it.getStringNotNull(key).toColor())
+                .setContentScrimColor(getStringNotNull(key).toColor())
             PREFERENCE_STATUSBAR_SCRIM -> toolbarLayout
-                .setStatusBarScrimColor(it.getStringNotNull(key).toColor())
+                .setStatusBarScrimColor(getStringNotNull(key).toColor())
             PREFERENCE_COLLAPSED_TITLE_TEXT_APPEARANCE -> toolbarLayout
-                .setCollapsedTitleTextAppearance(it.getStringNotNull(key).toStyle())
+                .setCollapsedTitleTextAppearance(getStringNotNull(key).toStyle())
             PREFERENCE_EXPANDED_TITLE_TEXT_APPEARANCE -> toolbarLayout
-                .setExpandedTitleTextAppearance(it.getStringNotNull(key).toStyle())
+                .setExpandedTitleTextAppearance(getStringNotNull(key).toStyle())
             PREFERENCE_COLLAPSED_SUBTITLE_TEXT_APPEARANCE -> toolbarLayout
-                .setCollapsedSubtitleTextAppearance(it.getStringNotNull(key).toStyle())
+                .setCollapsedSubtitleTextAppearance(getStringNotNull(key).toStyle())
             PREFERENCE_EXPANDED_SUBTITLE_TEXT_APPEARANCE -> toolbarLayout
-                .setExpandedSubtitleTextAppearance(it.getStringNotNull(key).toStyle())
+                .setExpandedSubtitleTextAppearance(getStringNotNull(key).toStyle())
             PREFERENCE_COLLAPSED_TITLE_TEXT_COLOR -> toolbarLayout
-                .setCollapsedTitleTextColor(it.getStringNotNull(key).toColor())
+                .setCollapsedTitleTextColor(getStringNotNull(key).toColor())
             PREFERENCE_EXPANDED_TITLE_TEXT_COLOR -> toolbarLayout
-                .setExpandedTitleTextColor(it.getStringNotNull(key).toColor())
+                .setExpandedTitleTextColor(getStringNotNull(key).toColor())
             PREFERENCE_COLLAPSED_SUBTITLE_TEXT_COLOR -> toolbarLayout
-                .setCollapsedSubtitleTextColor(it.getStringNotNull(key).toColor())
+                .setCollapsedSubtitleTextColor(getStringNotNull(key).toColor())
             PREFERENCE_EXPANDED_SUBTITLE_TEXT_COLOR -> toolbarLayout
-                .setExpandedSubtitleTextColor(it.getStringNotNull(key).toColor())
+                .setExpandedSubtitleTextColor(getStringNotNull(key).toColor())
             PREFERENCE_COLLAPSED_GRAVITY -> toolbarLayout
-                .collapsedTitleGravity =
-                it.getStringSet(key, null).toGravity()
+                .collapsedTitleGravity = getStringSet(key, null).toGravity()
             PREFERENCE_EXPANDED_GRAVITY -> toolbarLayout
-                .expandedTitleGravity =
-                it.getStringSet(key, null).toGravity()
+                .expandedTitleGravity = getStringSet(key, null).toGravity()
             PREFERENCE_COLLAPSED_TITLE_TYPEFACE -> toolbarLayout
-                .setCollapsedTitleTypeface(it.getStringNotNull(key).toTypeface())
+                .setCollapsedTitleTypeface(getStringNotNull(key).toTypeface())
             PREFERENCE_EXPANDED_TITLE_TYPEFACE -> toolbarLayout
-                .setExpandedTitleTypeface(it.getStringNotNull(key).toTypeface())
+                .setExpandedTitleTypeface(getStringNotNull(key).toTypeface())
             PREFERENCE_COLLAPSED_SUBTITLE_TYPEFACE -> toolbarLayout
-                .setCollapsedSubtitleTypeface(it.getStringNotNull(key).toTypeface())
+                .setCollapsedSubtitleTypeface(getStringNotNull(key).toTypeface())
             PREFERENCE_EXPANDED_SUBTITLE_TYPEFACE -> toolbarLayout
-                .setExpandedSubtitleTypeface(it.getStringNotNull(key).toTypeface())
+                .setExpandedSubtitleTypeface(getStringNotNull(key).toTypeface())
             PREFERENCE_LEFT_MARGIN -> toolbarLayout
-                .expandedTitleMarginStart = it.getStringNotNull(key).toMargin()
+                .expandedTitleMarginStart = getStringNotNull(key).toMargin()
             PREFERENCE_TOP_MARGIN -> toolbarLayout
-                .expandedTitleMarginTop = it.getStringNotNull(key).toMargin()
+                .expandedTitleMarginTop = getStringNotNull(key).toMargin()
             PREFERENCE_BOTTOM_MARGIN -> toolbarLayout
-                .expandedTitleMarginBottom = it.getStringNotNull(key).toMargin()
+                .expandedTitleMarginBottom = getStringNotNull(key).toMargin()
             PREFERENCE_RIGHT_MARGIN -> toolbarLayout
-                .expandedTitleMarginEnd = it.getStringNotNull(key).toMargin()
+                .expandedTitleMarginEnd = getStringNotNull(key).toMargin()
         }
     }
 
@@ -231,7 +237,8 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
 
     private fun String.toTypeface(): Typeface = Typeface.createFromAsset(assets, this)
 
-    @Px private fun String.toMargin(): Int = when {
+    @Px
+    private fun String.toMargin(): Int = when {
         isDigitsOnly(this) -> toInt()
         else -> {
             toolbarLayout.indefiniteErrorbar("Wrong margin input.") {
@@ -249,11 +256,13 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
             }
         }
 
-        @ColorInt fun String.toColor(): Int = parseColor(this)
+        @ColorInt
+        fun String.toColor(): Int = parseColor(this)
 
         fun @receiver:ColorInt Int.toHex(): String = "#%06X".format(0xFFFFFF and this)
 
-        @StyleRes fun String.toStyle(): Int = when (this) {
+        @StyleRes
+        fun String.toStyle(): Int = when (this) {
             "small" -> R.style.TextAppearance_AppCompat_Small
             "medium" -> R.style.TextAppearance_AppCompat_Medium
             else -> R.style.TextAppearance_AppCompat_Large

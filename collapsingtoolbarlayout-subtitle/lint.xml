@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <lint>
     <issue id="InlinedApi">
-        <!-- Used in `SubtitleCollapsingTextHelper#readFontFamilyTypeface`. -->
-        <ignore
-            path="src/com/google/android/material/internal/SubtitleCollapsingTextHelper.java" />
+        <ignore path="src/com/google/android/material/internal/SubtitleCollapsingTextHelper.java" />
     </issue>
 
     <issue id="RtlHardcoded">
-        <!-- Operation in `SubtitleCollapsingTextHelper#calculateBaseOffsets()`. -->
-        <ignore
-            path="src/com/google/android/material/internal/SubtitleCollapsingTextHelper.java" />
+        <ignore path="src/com/google/android/material/internal/SubtitleCollapsingTextHelper.java" />
     </issue>
 
     <issue id="PrivateResource">
-        <!-- Many private resources from `androidx.appcompat` are intentionally used. -->
-        <ignore
-            path="src/com/google/android/material/internal/SubtitleCollapsingTextHelper.java" />
+        <ignore path="src/com/google/android/material/internal/SubtitleCollapsingTextHelper.java" />
+    </issue>
+
+    <issue id="RestrictedApi">
+        <ignore path="src/com/google/android/material/appbar/SubtitleCollapsingToolbarLayout.java" />
+        <ignore path="src/com/google/android/material/internal/SubtitleCollapsingTextHelper.java" />
     </issue>
 
     <issue id="UnusedResources">

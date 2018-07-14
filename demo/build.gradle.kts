@@ -27,6 +27,10 @@ android {
         }
     }
     buildTypes {
+        all {
+            buildConfigField("String", "RELEASE_WEBSITE", "\"$RELEASE_WEBSITE\"")
+            buildConfigField("String", "RELEASE_ARTIFACT", "\"$RELEASE_ARTIFACT\"")
+        }
         getByName("debug") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")

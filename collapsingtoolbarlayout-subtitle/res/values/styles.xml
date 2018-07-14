@@ -12,6 +12,6 @@
     <style name="TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedSubtitle" parent="TextAppearance.AppCompat.Headline" />
 
     <style name="TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedSubtitle.Inverse" parent="TextAppearance.AppCompat.Headline">
-        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
+        <item name="android:textColor">?android:attr/textColorSecondaryInverse</item>
     </style>
 </resources>

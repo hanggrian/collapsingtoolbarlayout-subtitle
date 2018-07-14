@@ -1,5 +1,6 @@
 package com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.demo
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.TextView
@@ -11,8 +12,10 @@ import androidx.preference.PreferenceViewHolder
 class TintedPreferenceCategory @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleRes: Int = TypedArrayUtils.getAttr(context, R.attr.preferenceCategoryStyle,
-        android.R.attr.preferenceCategoryStyle),
+    @SuppressLint("RestrictedApi") defStyleRes: Int = TypedArrayUtils.getAttr(
+        context, R.attr.preferenceCategoryStyle,
+        android.R.attr.preferenceCategoryStyle
+    ),
     defStyleAttr: Int = 0
 ) : PreferenceCategory(context, attrs, defStyleRes, defStyleAttr) {
 

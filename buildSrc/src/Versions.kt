@@ -3,7 +3,7 @@ const val VERSION_KOTLIN = "1.2.51"
 
 const val SDK_MIN = 14
 const val SDK_TARGET = 28
-const val BUILD_TOOLS = "28.0.0-rc2"
+const val BUILD_TOOLS = "28.0.1"
 
 internal const val VERSION_ANDROID_PLUGIN = "3.1.3"
 const val VERSION_ANDROIDX = "1.0.0-beta01"

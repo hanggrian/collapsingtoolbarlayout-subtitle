@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">SubtitleCollapsingToolbarLayout</string>
 
+    <string name="info">Info</string>
+
     <string name="general">General</string>
     <string name="show_buttons">Show buttons</string>
     <string name="image_url">Image URL</string>

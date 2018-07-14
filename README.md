@@ -4,7 +4,8 @@ SubtitleCollapsingToolbarLayout
 [![Build Status](https://travis-ci.com/hendraanggrian/collapsingtoolbarlayout-subtitle.svg)](https://travis-ci.com/hendraanggrian/collapsingtoolbarlayout-subtitle)
 [![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
 
-![demo][demo]
+![demo1][demo1]
+![demo2][demo2]
 
 Standard `CollapsingToolbarLayout` with subtitle support. Using internal
 components of support design library allows it to behave similarly to its
@@ -12,7 +13,7 @@ sibling `CollapsingToolbarLayout`, while also ensuring minimum library size.
 
 Download
 --------
-This library follows [Android's support library revisions][support-revisions].
+This library follows [AndroidX's revisions][androidx-rn].
 
 ```gradle
 repositories {
@@ -22,7 +23,7 @@ repositories {
 
 dependencies {
     implementation "com.google.android.material:material:$version"
-    implementation "com.hendraanggrian.collapsingtoolbarlayout:collapsingtoolbarlayout-subtitle:$version"
+    implementation "com.hendraanggrian.material:subtitlecollapsingtoolbarlayout:$version"
 }
 ```
 
@@ -87,5 +88,6 @@ License
     See the License for the specific language governing permissions and
     limitations under the License.
     
-[demo]: /art/demo.gif
-[support-revisions]: https://developer.android.com/topic/libraries/support-library/revisions.html
+[demo1]: /art/demo1.gif
+[demo2]: /art/demo2.gif
+[androidx-rn]: https://developer.android.com/topic/libraries/support-library/androidx-rn
