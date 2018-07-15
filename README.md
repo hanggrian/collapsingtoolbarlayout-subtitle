@@ -23,7 +23,7 @@ repositories {
 
 dependencies {
     implementation "com.google.android.material:material:$version"
-    implementation "com.hendraanggrian.material:subtitlecollapsingtoolbarlayout:$version"
+    implementation "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:$version"
 }
 ```
 
