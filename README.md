@@ -27,6 +27,13 @@ dependencies {
 }
 ```
 
+For older support library, use legacy artifact.
+
+```gradle
+implementation "com.android.support:design:$version"
+implementation "com.hendraanggrian:collapsingtoolbarlayout-subtitle:$version"
+```
+
 Usage
 -----
 Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLayout`.
