@@ -1,6 +1,6 @@
 SubtitleCollapsingToolbarLayout
 ===============================
-[![Download](https://api.bintray.com/packages/hendraanggrian/collapsingtoolbarlayout-subtitle/collapsingtoolbarlayout-subtitle/images/download.svg) ](https://bintray.com/hendraanggrian/collapsingtoolbarlayout-subtitle/collapsingtoolbarlayout-subtitle/_latestVersion)
+[![Download](https://api.bintray.com/packages/hendraanggrian/material/collapsingtoolbarlayout-subtitle/images/download.svg) ](https://bintray.com/hendraanggrian/material/collapsingtoolbarlayout-subtitle/_latestVersion)
 [![Build Status](https://travis-ci.com/hendraanggrian/collapsingtoolbarlayout-subtitle.svg)](https://travis-ci.com/hendraanggrian/collapsingtoolbarlayout-subtitle)
 [![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
 
@@ -66,6 +66,9 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
 ```
 
 #### Attributes
+`SubtitleCollapsingToolbarLayout` has all the attributes of `CollapsingToolbarLayout`,
+and a few extras.
+
 | Attribute                         | Description                                | Default value/behavior                               |
 |-----------------------------------|--------------------------------------------|------------------------------------------------------|
 | `subtitle`                        | subtitle text                              | disabled                                             |

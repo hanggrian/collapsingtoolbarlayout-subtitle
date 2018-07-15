@@ -32,6 +32,9 @@ android {
             resources.srcDir("tests/src")
         }
     }
+    lintOptions {
+        isCheckTestSources = true
+    }
     libraryVariants.all {
         generateBuildConfig?.enabled = false
     }
@@ -41,6 +44,7 @@ dependencies {
     implementation(material())
 
     testImplementation(junit())
+    testImplementation(truth())
     androidTestImplementation(truth())
     androidTestImplementation(kotlin("stdlib", VERSION_KOTLIN))
     androidTestImplementation(hendraanggrian("material", "errorbar-ktx", VERSION_ANDROIDX))

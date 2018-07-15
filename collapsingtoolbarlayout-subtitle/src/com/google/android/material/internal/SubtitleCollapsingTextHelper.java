@@ -46,7 +46,7 @@ import androidx.core.view.ViewCompat;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
- * @see CollapsingTextHelper
+ * Helper class for {@link com.google.android.material.appbar.SubtitleCollapsingToolbarLayout}.
  */
 @RestrictTo(LIBRARY_GROUP)
 public final class SubtitleCollapsingTextHelper {
