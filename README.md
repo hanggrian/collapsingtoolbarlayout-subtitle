@@ -1,6 +1,6 @@
 SubtitleCollapsingToolbarLayout
 ===============================
-[![jcenter](https://img.shields.io/badge/jcenter-material-brightgreen.svg)](https://bintray.com/hendraanggrian/material)
+[![bintray](https://img.shields.io/badge/bintray-material-brightgreen.svg)](https://bintray.com/hendraanggrian/material)
 [![download](https://api.bintray.com/packages/hendraanggrian/material/collapsingtoolbarlayout-subtitle/images/download.svg)](https://bintray.com/hendraanggrian/material/collapsingtoolbarlayout-subtitle/_latestVersion)
 [![build](https://travis-ci.com/hendraanggrian/collapsingtoolbarlayout-subtitle.svg)](https://travis-ci.com/hendraanggrian/collapsingtoolbarlayout-subtitle)
 [![license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
