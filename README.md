@@ -1,6 +1,7 @@
 SubtitleCollapsingToolbarLayout
 ===============================
-[![Download](https://api.bintray.com/packages/hendraanggrian/material/collapsingtoolbarlayout-subtitle/images/download.svg) ](https://bintray.com/hendraanggrian/material/collapsingtoolbarlayout-subtitle/_latestVersion)
+[![Repository](https://img.shields.io/badge/Repository-material-brightgreen.svg)](https://bintray.com/hendraanggrian/material)
+[![Download](https://api.bintray.com/packages/hendraanggrian/material/collapsingtoolbarlayout-subtitle/images/download.svg)](https://bintray.com/hendraanggrian/material/collapsingtoolbarlayout-subtitle/_latestVersion)
 [![Build Status](https://travis-ci.com/hendraanggrian/collapsingtoolbarlayout-subtitle.svg)](https://travis-ci.com/hendraanggrian/collapsingtoolbarlayout-subtitle)
 [![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
 
@@ -97,7 +98,7 @@ License
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-    
+
 [demo1]: /art/demo1.gif
 [demo2]: /art/demo2.gif
 [androidx-rn]: https://developer.android.com/topic/libraries/support-library/androidx-rn
