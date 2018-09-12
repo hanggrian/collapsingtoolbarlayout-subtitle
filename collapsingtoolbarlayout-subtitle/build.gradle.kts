@@ -5,6 +5,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 plugins {
     android("library")
     kotlin("android")
+    bintray
     `bintray-release`
 }
 
