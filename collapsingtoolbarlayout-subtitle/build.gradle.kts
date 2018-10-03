@@ -1,7 +1,3 @@
-import org.gradle.kotlin.dsl.kotlin
-import org.gradle.language.base.plugins.LifecycleBasePlugin.*
-import org.jetbrains.dokka.gradle.DokkaTask
-
 plugins {
     android("library")
     kotlin("android")
