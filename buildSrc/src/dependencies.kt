@@ -27,9 +27,6 @@ fun DependencyHandler.truth() = "com.google.truth:truth:$VERSION_TRUTH"
 
 fun DependencyHandler.junit() = "junit:junit:$VERSION_JUNIT"
 
-fun DependencyHandler.gitPublish() = "org.ajoberstar:gradle-git-publish:$VERSION_GIT_PUBLISH"
-inline val PluginDependenciesSpec.`git-publish` get() = id("org.ajoberstar.git-publish")
-
 fun DependencyHandler.bintray() = "com.jfrog.bintray.gradle:gradle-bintray-plugin:$VERSION_BINTRAY"
 inline val PluginDependenciesSpec.bintray get() = id("com.jfrog.bintray")
 
