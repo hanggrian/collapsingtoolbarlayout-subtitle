@@ -68,7 +68,7 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         menuItem = menu[0]
         preferences.run {
             doIfContains(PREFERENCE_SHOW_BUTTONS) {
-                updateButtons(getStringSet(it, null))
+                updateButtons(getStringSet(it, null)!!)
             }
             doIfContains(PREFERENCE_IMAGE_URL) {
                 picasso.load(getStringNotNull(it)).palette(image, builder = paletteBuilder)
@@ -116,10 +116,10 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
                 toolbarLayout.setExpandedSubtitleTextColor(getStringNotNull(it).toColor())
             }
             doIfContains(PREFERENCE_COLLAPSED_GRAVITY) {
-                toolbarLayout.collapsedTitleGravity = getStringSet(it, null).toGravity()
+                toolbarLayout.collapsedTitleGravity = getStringSet(it, null)!!.toGravity()
             }
             doIfContains(PREFERENCE_EXPANDED_GRAVITY) {
-                toolbarLayout.expandedTitleGravity = getStringSet(it, null).toGravity()
+                toolbarLayout.expandedTitleGravity = getStringSet(it, null)!!.toGravity()
             }
             doIfContains(PREFERENCE_COLLAPSED_TITLE_TYPEFACE) {
                 toolbarLayout.setCollapsedTitleTypeface(getStringNotNull(it).toTypeface())
@@ -169,7 +169,7 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         key: String
     ) = preferences.run {
         when (key) {
-            PREFERENCE_SHOW_BUTTONS -> updateButtons(getStringSet(key, null))
+            PREFERENCE_SHOW_BUTTONS -> updateButtons(getStringSet(key, null)!!)
             PREFERENCE_IMAGE_URL -> picasso.load(getStringNotNull(key))
                 .palette(image, builder = paletteBuilder)
             PREFERENCE_TITLE_ENABLED -> toolbarLayout.isTitleEnabled = getBoolean(key, false)
@@ -197,9 +197,9 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
             PREFERENCE_EXPANDED_SUBTITLE_TEXT_COLOR -> toolbarLayout
                 .setExpandedSubtitleTextColor(getStringNotNull(key).toColor())
             PREFERENCE_COLLAPSED_GRAVITY -> toolbarLayout
-                .collapsedTitleGravity = getStringSet(key, null).toGravity()
+                .collapsedTitleGravity = getStringSet(key, null)!!.toGravity()
             PREFERENCE_EXPANDED_GRAVITY -> toolbarLayout
-                .expandedTitleGravity = getStringSet(key, null).toGravity()
+                .expandedTitleGravity = getStringSet(key, null)!!.toGravity()
             PREFERENCE_COLLAPSED_TITLE_TYPEFACE -> toolbarLayout
                 .setCollapsedTitleTypeface(getStringNotNull(key).toTypeface())
             PREFERENCE_EXPANDED_TITLE_TYPEFACE -> toolbarLayout

@@ -2,6 +2,7 @@ package com.hendraanggrian.material.subtitlecollapsingtoolbarlayout
 
 import android.graphics.Color
 import android.graphics.Typeface.createFromAsset
+import android.graphics.drawable.ColorDrawable
 import android.view.Gravity.CENTER
 import android.view.Gravity.END
 import android.widget.FrameLayout
@@ -79,7 +80,7 @@ class InstrumentedTest {
             swipeDown(),
             swipeDown(),
             viewActionOf<Toolbar> {
-                errorbar.setImage(Color.TRANSPARENT)
+                errorbar.setImage(ColorDrawable(Color.TRANSPARENT))
                 errorbar.setText("Done")
             })
     }
