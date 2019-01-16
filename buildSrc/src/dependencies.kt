@@ -8,20 +8,22 @@ fun DependencyHandler.androidx(
     repository: String,
     module: String = repository,
     version: String = VERSION_ANDROIDX
-): String = "androidx.$repository:$module:$version"
+) = "androidx.$repository:$module:$version"
+
+fun DependencyHandler.material(
+    version: String = VERSION_ANDROIDX
+) = "com.google.android.material:material:$version"
 
 fun DependencyHandler.hendraanggrian(
     repository: String,
     module: String = repository,
     version: String
-): String = "com.hendraanggrian.$repository:$module:$version"
+) = "com.hendraanggrian.$repository:$module:$version"
 
 fun DependencyHandler.jakeWharton(
     module: String,
     version: String
-): String = "com.jakewharton:$module:$version"
-
-fun DependencyHandler.material() = "com.google.android.material:material:$VERSION_ANDROIDX"
+) = "com.jakewharton:$module:$version"
 
 fun DependencyHandler.truth() = "com.google.truth:truth:$VERSION_TRUTH"
 

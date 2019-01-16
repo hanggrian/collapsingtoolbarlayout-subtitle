@@ -46,13 +46,13 @@ dependencies {
     implementation(kotlin("stdlib", VERSION_KOTLIN))
     implementation(project(":$RELEASE_ARTIFACT"))
 
-    implementation(material())
-    implementation(androidx("core", "core-ktx"))
-    implementation(androidx("appcompat"))
-    implementation(androidx("coordinatorlayout"))
-    implementation(androidx("preference"))
+    implementation(material("$VERSION_ANDROIDX-alpha02"))
+    implementation(androidx("core", "core-ktx", "$VERSION_ANDROIDX-alpha03"))
+    implementation(androidx("appcompat", version = "$VERSION_ANDROIDX-alpha01"))
+    implementation(androidx("coordinatorlayout", version = "$VERSION_ANDROIDX-alpha01"))
+    implementation(androidx("preference", version = "$VERSION_ANDROIDX-alpha01"))
 
-    implementation(hendraanggrian("material", "errorbar-ktx", VERSION_ANDROIDX))
+    implementation(hendraanggrian("material", "errorbar-ktx", "$VERSION_ANDROIDX-alpha02"))
     implementation(hendraanggrian("pikasso", version = VERSION_PIKASSO))
     implementation(jakeWharton("process-phoenix", VERSION_PROCESS_PHOENIX))
 }
