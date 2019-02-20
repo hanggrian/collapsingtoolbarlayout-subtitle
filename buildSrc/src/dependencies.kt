@@ -27,8 +27,6 @@ fun DependencyHandler.jakeWharton(
 
 fun DependencyHandler.truth() = "com.google.truth:truth:$VERSION_TRUTH"
 
-fun DependencyHandler.junit() = "junit:junit:$VERSION_JUNIT"
-
 fun DependencyHandler.bintray() = "com.jfrog.bintray.gradle:gradle-bintray-plugin:$VERSION_BINTRAY"
 inline val PluginDependenciesSpec.bintray get() = id("com.jfrog.bintray")
 

@@ -1,5 +1,4 @@
 import com.android.build.gradle.ProguardFiles.getDefaultProguardFile
-import org.gradle.kotlin.dsl.kotlin
 
 plugins {
     android("application")

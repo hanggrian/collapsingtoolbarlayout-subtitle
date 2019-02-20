@@ -28,7 +28,7 @@ dependencies {
 }
 ```
 
-For older support library, use legacy artifact.
+For older support library, use [legacy artifacts](https://bintray.com/hendraanggrian/maven/collapsingtoolbarlayout-subtitle).
 
 ```gradle
 implementation "com.android.support:design:$version"

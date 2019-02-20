@@ -42,11 +42,9 @@ android {
 dependencies {
     implementation(material("$VERSION_ANDROIDX-alpha02"))
 
-    testImplementation(junit())
-    testImplementation(truth())
     androidTestImplementation(truth())
     androidTestImplementation(kotlin("stdlib", VERSION_KOTLIN))
-    androidTestImplementation(kotlin("test", VERSION_KOTLIN))
+    androidTestImplementation(kotlin("test-junit", VERSION_KOTLIN))
     androidTestImplementation(hendraanggrian("material", "errorbar-ktx", "$VERSION_ANDROIDX-alpha02"))
     androidTestImplementation(androidx("appcompat", version = "1.0.0"))
     androidTestImplementation(androidx("coordinatorlayout", version = "1.0.0"))
