@@ -7,7 +7,6 @@ plugins {
 
 android {
     compileSdkVersion(SDK_TARGET)
-    buildToolsVersion(BUILD_TOOLS)
     defaultConfig {
         minSdkVersion(SDK_MIN)
         targetSdkVersion(SDK_TARGET)
@@ -40,14 +39,14 @@ android {
 }
 
 dependencies {
-    implementation(material("$VERSION_ANDROIDX-alpha02"))
+    implementation(material("$VERSION_ANDROIDX-alpha07"))
 
-    androidTestImplementation(truth())
+    testImplementation(truth())
     androidTestImplementation(kotlin("stdlib", VERSION_KOTLIN))
     androidTestImplementation(kotlin("test-junit", VERSION_KOTLIN))
     androidTestImplementation(hendraanggrian("material", "errorbar-ktx", "$VERSION_ANDROIDX-alpha02"))
-    androidTestImplementation(androidx("appcompat", version = "1.0.0"))
-    androidTestImplementation(androidx("coordinatorlayout", version = "1.0.0"))
+    androidTestImplementation(androidx("appcompat", version = "$VERSION_ANDROIDX-alpha05"))
+    androidTestImplementation(androidx("coordinatorlayout", version = "$VERSION_ANDROIDX-alpha01"))
     androidTestImplementation(androidx("test.espresso", "espresso-core", VERSION_ESPRESSO))
     androidTestImplementation(androidx("test", "runner", VERSION_RUNNER))
     androidTestImplementation(androidx("test", "rules", VERSION_RULES))

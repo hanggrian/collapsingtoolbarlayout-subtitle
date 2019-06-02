@@ -1,5 +1,3 @@
-import com.android.build.gradle.ProguardFiles.getDefaultProguardFile
-
 plugins {
     android("application")
     kotlin("android")
@@ -8,7 +6,6 @@ plugins {
 
 android {
     compileSdkVersion(SDK_TARGET)
-    buildToolsVersion(BUILD_TOOLS)
     defaultConfig {
         minSdkVersion(SDK_MIN)
         targetSdkVersion(SDK_TARGET)
@@ -46,10 +43,10 @@ dependencies {
     implementation(project(":$RELEASE_ARTIFACT"))
 
     implementation(material("$VERSION_ANDROIDX-alpha02"))
-    implementation(androidx("core", "core-ktx", "$VERSION_ANDROIDX-alpha03"))
-    implementation(androidx("appcompat", version = "$VERSION_ANDROIDX-alpha01"))
+    implementation(androidx("core", "core-ktx", "$VERSION_ANDROIDX-alpha05"))
+    implementation(androidx("appcompat", version = "$VERSION_ANDROIDX-alpha05"))
     implementation(androidx("coordinatorlayout", version = "$VERSION_ANDROIDX-alpha01"))
-    implementation(androidx("preference", version = "$VERSION_ANDROIDX-alpha01"))
+    implementation(androidx("preference", "preference-ktx", version = "$VERSION_ANDROIDX-alpha05"))
 
     implementation(hendraanggrian("material", "errorbar-ktx", "$VERSION_ANDROIDX-alpha02"))
     implementation(hendraanggrian("pikasso", version = VERSION_PIKASSO))

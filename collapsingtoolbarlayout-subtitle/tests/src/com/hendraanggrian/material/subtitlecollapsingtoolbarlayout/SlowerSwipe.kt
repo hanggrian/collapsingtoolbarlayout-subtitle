@@ -10,7 +10,7 @@ import androidx.test.espresso.action.MotionEvents.sendUp
 import androidx.test.espresso.action.Swiper
 import androidx.test.espresso.action.Swiper.Status.FAILURE
 import androidx.test.espresso.action.Swiper.Status.SUCCESS
-import com.google.common.base.Preconditions.checkElementIndex
+import androidx.test.espresso.core.internal.deps.guava.base.Preconditions
 
 /**
  * @see androidx.test.espresso.action.Swipe
@@ -69,8 +69,8 @@ class SlowerSwipe : Swiper {
         }
 
         fun interpolate(start: FloatArray, end: FloatArray, steps: Int): Array<FloatArray> {
-            checkElementIndex(1, start.size)
-            checkElementIndex(1, end.size)
+            Preconditions.checkElementIndex(1, start.size)
+            Preconditions.checkElementIndex(1, end.size)
             val res = Array(steps) { FloatArray(2) }
             for (i in 1 until steps + 1) {
                 res[i - 1][0] = start[0] + (end[0] - start[0]) * i / (steps + 2f)
