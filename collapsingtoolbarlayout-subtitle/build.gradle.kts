@@ -44,7 +44,7 @@ dependencies {
     androidTestImplementation(kotlin("stdlib", VERSION_KOTLIN))
     androidTestImplementation(kotlin("test-junit", VERSION_KOTLIN))
     androidTestImplementation(hendraanggrian("material", "errorbar-ktx", "$VERSION_ANDROIDX-beta01"))
-    androidTestImplementation(androidx("appcompat", version = VERSION_ANDROIDX))
+    androidTestImplementation(androidx("appcompat"))
     androidTestImplementation(androidx("coordinatorlayout", version = "$VERSION_ANDROIDX-beta01"))
     androidTestImplementation(androidx("test.espresso", "espresso-core", VERSION_ESPRESSO))
     androidTestImplementation(androidx("test", "runner", VERSION_RUNNER))

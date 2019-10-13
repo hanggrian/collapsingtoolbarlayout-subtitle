@@ -1,4 +1,4 @@
-package com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.demo
+package com.example.subtitlecollapsingtoolbarlayout
 
 import android.app.Dialog
 import android.os.Bundle
@@ -97,7 +97,8 @@ class DemoFragment : PreferenceFragmentCompat() {
         find<EditTextPreference>(PREFERENCE_BOTTOM_MARGIN).bindSummary({ text })
 
         find<Preference>(PREFERENCE_RESET).setOnPreferenceClickListener {
-            ConfirmDialogFragment().show(childFragmentManager, null)
+            ConfirmDialogFragment()
+                .show(childFragmentManager, null)
             true
         }
     }

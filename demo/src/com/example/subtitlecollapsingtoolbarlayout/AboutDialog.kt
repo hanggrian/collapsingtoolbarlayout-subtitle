@@ -1,4 +1,4 @@
-package com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.demo
+package com.example.subtitlecollapsingtoolbarlayout
 
 import android.annotation.SuppressLint
 import android.app.Dialog

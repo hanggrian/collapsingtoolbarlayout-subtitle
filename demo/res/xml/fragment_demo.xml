@@ -182,10 +182,10 @@
             android:title="@string/bottom_margin" />
     </androidx.preference.PreferenceCategory>
 
-    <com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.demo.TintedPreferenceCategory android:title="@string/danger_zone">
+    <com.example.subtitlecollapsingtoolbarlayout.TintedPreferenceCategory android:title="@string/danger_zone">
         <androidx.preference.Preference
             android:key="reset"
             android:summary="@string/clear_all_settings_and_restart"
             android:title="@string/reset" />
-    </com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.demo.TintedPreferenceCategory>
+    </com.example.subtitlecollapsingtoolbarlayout.TintedPreferenceCategory>
 </androidx.preference.PreferenceScreen>
