@@ -1,3 +1,5 @@
+import org.gradle.model.internal.core.ModelNodes.all
+
 plugins {
     android("application")
     kotlin("android")
@@ -36,19 +38,22 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
+    lintOptions {
+        isAbortOnError = false
+    }
 }
 
 dependencies {
     implementation(kotlin("stdlib", VERSION_KOTLIN))
     implementation(project(":$RELEASE_ARTIFACT"))
 
-    implementation(material("$VERSION_ANDROIDX-alpha02"))
-    implementation(androidx("core", "core-ktx", "$VERSION_ANDROIDX-alpha05"))
-    implementation(androidx("appcompat", version = "$VERSION_ANDROIDX-alpha05"))
-    implementation(androidx("coordinatorlayout", version = "$VERSION_ANDROIDX-alpha01"))
-    implementation(androidx("preference", "preference-ktx", version = "$VERSION_ANDROIDX-alpha05"))
+    implementation(material("$VERSION_ANDROIDX-beta01"))
+    implementation(androidx("core", "core-ktx", VERSION_ANDROIDX))
+    implementation(androidx("appcompat", version = VERSION_ANDROIDX))
+    implementation(androidx("coordinatorlayout", version = "$VERSION_ANDROIDX-beta01"))
+    implementation(androidx("preference", "preference-ktx", VERSION_ANDROIDX))
 
-    implementation(hendraanggrian("material", "errorbar-ktx", "$VERSION_ANDROIDX-alpha02"))
-    implementation(hendraanggrian("pikasso", version = VERSION_PIKASSO))
-    implementation(jakeWharton("process-phoenix", VERSION_PROCESS_PHOENIX))
+    implementation(hendraanggrian("material", "errorbar-ktx", "$VERSION_ANDROIDX-beta01"))
+    implementation(hendraanggrian("pikasso", "pikasso", version = VERSION_PIKASSO))
+    implementation(jakewharton("process-phoenix", VERSION_PROCESSPHOENIX))
 }

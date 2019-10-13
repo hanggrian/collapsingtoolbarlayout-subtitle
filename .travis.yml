@@ -1,49 +1,42 @@
-sudo: true
-
 language: android
-
+sudo: required
 jdk: oraclejdk8
 
 env:
   global:
-    - GRADLE_OPTS='-Dorg.gradle.daemon=false -Dorg.gradle.parallel=false -Dkotlin.incremental=false -DdisablePreDex'
-    - ANDROID_TARGET=android-28
+    - ANDROID_API_LEVEL=28
     - ANDROID_BUILD_TOOLS_VERSION=28.0.3
     - ANDROID_ABI=armeabi-v7a
-    - ANDROID_EMULATOR_TARGET=android-22
 
 android:
   components:
     - tools
-    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
-    - $ANDROID_TARGET
-    - $ANDROID_EMULATOR_TARGET
-    - extra-google-google_play_services
-    - extra-android-support
-    - extra
-    - sys-img-$ANDROID_ABI-$ANDROID_EMULATOR_TARGET
-
-licenses:
-  - 'android-sdk-license-.+'
+    - platform-tools
+    - tools
+    - extra-android-m2repository
+  licenses:
+    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
 
 before_install:
-  - echo yes | sdkmanager "platforms;$ANDROID_TARGET" "build-tools;$ANDROID_BUILD_TOOLS_VERSION"
+  - touch $HOME/.android/repositories.cfg
+  - yes | sdkmanager "platforms;android-28"
+  - yes | sdkmanager "build-tools;28.0.3"
+
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+    - $HOME/.android/build-cache
 
 before_script:
-  - sudo service postgresql stop || true
-  - sudo service mysql stop || true
-  - sudo service memcached stop || true
-  - sudo service bootlogd stop || true
-  - sudo service elasticsearch stop || true
-  - sudo service mongodb stop || true
-  - sudo service cassandra stop || true
-  - sudo service rsync stop || true
-  - sudo service x11-common stop || true
+  - chmod +x gradlew
 
 script:
-  - echo no | android create avd --force -n test -t $ANDROID_EMULATOR_TARGET --abi $ANDROID_ABI
-  - emulator -avd test -no-window &
-  - ./gradlew check
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
-  - ./gradlew :collapsingtoolbarlayout-subtitle:connectedAndroidTest
+  - ./gradlew clean build
+  - ./gradlew test

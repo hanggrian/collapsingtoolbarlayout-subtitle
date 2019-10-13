@@ -1,7 +1,6 @@
 plugins {
     android("library")
     kotlin("android")
-    bintray
     `bintray-release`
 }
 
@@ -39,14 +38,14 @@ android {
 }
 
 dependencies {
-    implementation(material("$VERSION_ANDROIDX-alpha07"))
+    implementation(material("$VERSION_ANDROIDX-beta01"))
 
-    testImplementation(truth())
+    testImplementation(google("truth", "truth", VERSION_TRUTH))
     androidTestImplementation(kotlin("stdlib", VERSION_KOTLIN))
     androidTestImplementation(kotlin("test-junit", VERSION_KOTLIN))
-    androidTestImplementation(hendraanggrian("material", "errorbar-ktx", "$VERSION_ANDROIDX-alpha02"))
-    androidTestImplementation(androidx("appcompat", version = "$VERSION_ANDROIDX-alpha05"))
-    androidTestImplementation(androidx("coordinatorlayout", version = "$VERSION_ANDROIDX-alpha01"))
+    androidTestImplementation(hendraanggrian("material", "errorbar-ktx", "$VERSION_ANDROIDX-beta01"))
+    androidTestImplementation(androidx("appcompat", version = VERSION_ANDROIDX))
+    androidTestImplementation(androidx("coordinatorlayout", version = "$VERSION_ANDROIDX-beta01"))
     androidTestImplementation(androidx("test.espresso", "espresso-core", VERSION_ESPRESSO))
     androidTestImplementation(androidx("test", "runner", VERSION_RUNNER))
     androidTestImplementation(androidx("test", "rules", VERSION_RULES))

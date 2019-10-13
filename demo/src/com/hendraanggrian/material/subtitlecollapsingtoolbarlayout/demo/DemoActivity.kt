@@ -241,8 +241,8 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     private fun String.toMargin(): Int = when {
         isDigitsOnly(this) -> toInt()
         else -> {
-            toolbarLayout.indefiniteErrorbar("Wrong margin input.") {
-                setAction(R.string.reset) { reset(preferences) }
+            toolbarLayout.indefiniteErrorbar("Wrong margin input.", getText(R.string.reset)) {
+                reset(preferences)
             }
             Int.MIN_VALUE
         }
