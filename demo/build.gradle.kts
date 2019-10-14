@@ -9,8 +9,7 @@ android {
     defaultConfig {
         minSdkVersion(SDK_MIN)
         targetSdkVersion(SDK_TARGET)
-        applicationId = "$RELEASE_GROUP.demo"
-        versionCode = 1
+        applicationId = "com.example.subtitlecollapsingtoolbarlayout"
         versionName = VERSION_ANDROIDX
     }
     sourceSets {
