@@ -8,6 +8,9 @@ SubtitleCollapsingToolbarLayout
 ![demo2][demo2]
 
 Standard CollapsingToolbarLayout with subtitle support.
+* Just like the title, subtitle text will have to be **1 line**.
+* When collapsed, a subtitle would still appear as Toolbar's.
+* Separate configuration for title and subtitle: text color, gravity, etc.
 
 ### Caveats
 Since it uses a lot of CollapsingToolbarLayout resources and API, there are a few: 
@@ -15,9 +18,9 @@ Since it uses a lot of CollapsingToolbarLayout resources and API, there are a fe
 * Deceptive package name.
 
 ### Also...
-It is still detabable if we even need this library.
+It is detabable if we even need this library.
 If the material guidelines says it's ok to have a multiline text in toolbar layout,
-then they surely would've implemented such feature.
+then they surely would've already implemented such feature.
 If it doesn't say anything about subtitle (which is odds because Toolbar has it),
 then we probably shouldn't use it out of respect to the guidelines.
 
@@ -82,7 +85,7 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 ```
 
-#### Attributes
+### Attributes
 `SubtitleCollapsingToolbarLayout` has all the attributes of `CollapsingToolbarLayout`,
 and a few extras.
 
@@ -111,3 +114,5 @@ License
 [demo1]: /art/demo1.gif
 [demo2]: /art/demo2.gif
 [androidx-rn]: https://developer.android.com/topic/libraries/support-library/androidx-rn
+n
+
