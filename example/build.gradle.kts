@@ -10,7 +10,7 @@ android {
         minSdkVersion(SDK_MIN)
         targetSdkVersion(SDK_TARGET)
         applicationId = "com.example.subtitlecollapsingtoolbarlayout"
-        versionName = VERSION_ANDROIDX
+        versionName = RELEASE_VERSION
     }
     sourceSets {
         getByName("main") {
@@ -44,13 +44,13 @@ dependencies {
     implementation(kotlin("stdlib", VERSION_KOTLIN))
     implementation(project(":$RELEASE_ARTIFACT"))
 
-    implementation(material("$VERSION_ANDROIDX-beta01"))
+    implementation(material())
     implementation(androidx("core", "core-ktx"))
     implementation(androidx("appcompat"))
-    implementation(androidx("coordinatorlayout", version = "$VERSION_ANDROIDX-beta01"))
+    implementation(androidx("coordinatorlayout"))
     implementation(androidx("preference", "preference-ktx"))
 
-    implementation(hendraanggrian("material", "errorbar-ktx", "$VERSION_ANDROIDX-beta01"))
+    implementation(hendraanggrian("material", "errorbar-ktx", VERSION_ANDROIDX))
     implementation(hendraanggrian("pikasso", "pikasso", version = VERSION_PIKASSO))
     implementation(jakewharton("process-phoenix", VERSION_PROCESSPHOENIX))
 }

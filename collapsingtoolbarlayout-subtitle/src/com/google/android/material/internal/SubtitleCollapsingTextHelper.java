@@ -268,7 +268,7 @@ public final class SubtitleCollapsingTextHelper {
         setCollapsedBounds(bounds.left, bounds.top, bounds.right, bounds.bottom);
     }
 
-    public void getCollapsedTitleActualBounds(RectF bounds) {
+    public void getCollapsedTitleActualBounds(@NonNull RectF bounds) {
         boolean isRtl = calculateIsRtl(title);
 
         bounds.left = !isRtl
@@ -286,7 +286,7 @@ public final class SubtitleCollapsingTextHelper {
         return titleTmpPaint.measureText(title, 0, title.length());
     }
 
-    public void getCollapsedSubtitleActualBounds(RectF bounds) {
+    public void getCollapsedSubtitleActualBounds(@NonNull RectF bounds) {
         boolean isRtl = calculateIsRtl(subtitle);
 
         bounds.left = !isRtl

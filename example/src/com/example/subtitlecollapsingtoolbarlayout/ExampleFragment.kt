@@ -13,9 +13,9 @@ import androidx.preference.Preference
 import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.PreferenceFragmentCompat
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_demo.*
+import kotlinx.android.synthetic.main.activity_example.*
 
-class DemoFragment : PreferenceFragmentCompat() {
+class ExampleFragment : PreferenceFragmentCompat() {
 
     private companion object {
         const val SEPARATOR_LINE = " | "

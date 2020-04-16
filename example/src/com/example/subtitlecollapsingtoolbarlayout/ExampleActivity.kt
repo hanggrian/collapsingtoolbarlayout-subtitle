@@ -26,9 +26,9 @@ import com.hendraanggrian.material.errorbar.indefiniteErrorbar
 import com.hendraanggrian.pikasso.palette.PaletteCallbackBuilder
 import com.hendraanggrian.pikasso.palette.palette
 import com.hendraanggrian.pikasso.picasso
-import kotlinx.android.synthetic.main.activity_demo.*
+import kotlinx.android.synthetic.main.activity_example.*
 
-class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
+class ExampleActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
 
     private lateinit var preferences: Preferences
     private lateinit var menuItem: MenuItem
@@ -44,11 +44,11 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_demo)
+        setContentView(R.layout.activity_example)
         setSupportActionBar(toolbar)
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.container, DemoFragment())
+            .replace(R.id.container, ExampleFragment())
             .commitNow()
         preferences = getDefaultSharedPreferences(this)
     }
@@ -64,7 +64,7 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.activity_demo, menu)
+        menuInflater.inflate(R.menu.activity_example, menu)
         menuItem = menu[0]
         preferences.run {
             doIfContains(PREFERENCE_SHOW_BUTTONS) {
@@ -237,11 +237,10 @@ class DemoActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
 
     private fun String.toTypeface(): Typeface = Typeface.createFromAsset(assets, this)
 
-    @Px
-    private fun String.toMargin(): Int = when {
+    @Px private fun String.toMargin(): Int = when {
         isDigitsOnly(this) -> toInt()
         else -> {
-            toolbarLayout.indefiniteErrorbar("Wrong margin input.", getText(R.string.reset)) {
+            container.indefiniteErrorbar("Wrong margin input.", getText(R.string.reset)) {
                 reset(preferences)
             }
             Int.MIN_VALUE

@@ -18,27 +18,26 @@ import androidx.test.espresso.action.Press.FINGER
 import androidx.test.espresso.action.ViewActions.actionWithAssertions
 import androidx.test.espresso.action.ViewActions.swipeDown
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
-import androidx.test.runner.AndroidJUnit4
 import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
 import com.hendraanggrian.material.errorbar.Errorbar
 import com.hendraanggrian.material.errorbar.indefiniteErrorbar
 import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.activity.InstrumentedActivity
 import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.test.R
-import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.test.BeforeTest
+import kotlin.test.Test
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 class InstrumentedTest {
-
     @Rule @JvmField val rule = ActivityTestRule(InstrumentedActivity::class.java)
     private lateinit var errorbar: Errorbar
 
-    @Before fun errorbarInit() {
+    @BeforeTest fun errorbarInit() {
         onView(withId(R.id.frameLayout)).perform(viewActionOf<FrameLayout> {
             errorbar = it.indefiniteErrorbar("Initializing ...")
         })
@@ -68,7 +67,8 @@ class InstrumentedTest {
                 errorbar.setImage(R.drawable.up)
                 errorbar.setText("Swiping up...")
             },
-            slowerSwipeUp())
+            slowerSwipeUp()
+        )
         onView(withId(R.id.toolbar)).perform(
             viewActionOf<Toolbar> {
                 errorbar.setImage(R.drawable.down)
@@ -89,17 +89,23 @@ class InstrumentedTest {
         private val SLOWER_SWIPE = SlowerSwipe()
         const val EDGE_FUZZ_FACTOR = 0.083f
 
-        fun slowerSwipeUp(): ViewAction = actionWithAssertions(GeneralSwipeAction(
-            SLOWER_SWIPE,
-            translate(BOTTOM_CENTER, 0f, -EDGE_FUZZ_FACTOR),
-            TOP_CENTER,
-            FINGER))
+        fun slowerSwipeUp(): ViewAction = actionWithAssertions(
+            GeneralSwipeAction(
+                SLOWER_SWIPE,
+                translate(BOTTOM_CENTER, 0f, -EDGE_FUZZ_FACTOR),
+                TOP_CENTER,
+                FINGER
+            )
+        )
 
-        fun slowerSwipeDown(): ViewAction = actionWithAssertions(GeneralSwipeAction(
-            androidx.test.espresso.action.Swipe.SLOW,
-            translate(TOP_CENTER, 0f, EDGE_FUZZ_FACTOR),
-            BOTTOM_CENTER,
-            FINGER))
+        fun slowerSwipeDown(): ViewAction = actionWithAssertions(
+            GeneralSwipeAction(
+                androidx.test.espresso.action.Swipe.SLOW,
+                translate(TOP_CENTER, 0f, EDGE_FUZZ_FACTOR),
+                BOTTOM_CENTER,
+                FINGER
+            )
+        )
 
         fun translate(coords: CoordinatesProvider, dx: Float, dy: Float) =
             CoordinatesProvider { view ->

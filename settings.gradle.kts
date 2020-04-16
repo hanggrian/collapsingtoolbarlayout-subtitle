@@ -1,2 +1,2 @@
-include(RELEASE_ARTIFACT)
-include("demo")
+include("collapsingtoolbarlayout-subtitle")
+include("example")
