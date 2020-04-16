@@ -37,5 +37,3 @@ const val PREFERENCE_RIGHT_MARGIN = "right_margin"
 const val PREFERENCE_BOTTOM_MARGIN = "bottom_margin"
 
 const val PREFERENCE_RESET = "reset"
-
-fun Preferences.getStringNotNull(key: String): String = checkNotNull(getString(key, null))

@@ -7,9 +7,19 @@ SubtitleCollapsingToolbarLayout
 ![demo1][demo1]
 ![demo2][demo2]
 
-Standard `CollapsingToolbarLayout` with subtitle support. Using internal
-components of support design library allows it to behave similarly to its
-sibling `CollapsingToolbarLayout`, while also ensuring minimum library size.
+Standard CollapsingToolbarLayout with subtitle support.
+
+### Caveats
+Since it uses a lot of CollapsingToolbarLayout resources and API, there are a few: 
+* Only safe to use with the same version of material components.
+* Deceptive package name.
+
+### Also...
+It is still detabable if we even need this library.
+If the material guidelines says it's ok to have a multiline text in toolbar layout,
+then they surely would've implemented such feature.
+If it doesn't say anything about subtitle (which is odds because Toolbar has it),
+then we probably shouldn't use it out of respect to the guidelines.
 
 Download
 --------

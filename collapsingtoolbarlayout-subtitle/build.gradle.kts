@@ -15,16 +15,14 @@ android {
     sourceSets {
         getByName("main") {
             manifest.srcFile("AndroidManifest.xml")
-            java.srcDirs("src")
+            java.srcDir("src")
             res.srcDir("res")
-            resources.srcDir("src")
         }
         getByName("androidTest") {
             setRoot("tests")
             manifest.srcFile("tests/AndroidManifest.xml")
             java.srcDir("tests/src")
             res.srcDir("tests/res")
-            resources.srcDir("tests/src")
         }
     }
     lintOptions {
@@ -43,7 +41,7 @@ dependencies {
     testImplementation(google("truth", "truth", VERSION_TRUTH))
     androidTestImplementation(kotlin("stdlib", VERSION_KOTLIN))
     androidTestImplementation(kotlin("test-junit", VERSION_KOTLIN))
-    androidTestImplementation(hendraanggrian("material", "errorbar-ktx", VERSION_ANDROIDX))
+    androidTestImplementation(hendraanggrian("material", "bannerbar-ktx", VERSION_ANDROIDX))
     androidTestImplementation(androidx("appcompat"))
     androidTestImplementation(androidx("coordinatorlayout"))
     androidTestImplementation(androidx("test", "core-ktx", VERSION_ANDROIDX_TEST))

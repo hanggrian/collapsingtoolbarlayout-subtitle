@@ -22,9 +22,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
-import com.hendraanggrian.material.errorbar.Errorbar
-import com.hendraanggrian.material.errorbar.indefiniteErrorbar
-import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.activity.InstrumentedActivity
+import com.google.android.material.snackbar.Bannerbar
+import com.google.android.material.snackbar.bannerbar
 import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.test.R
 import org.junit.Rule
 import org.junit.runner.RunWith
@@ -34,12 +33,12 @@ import kotlin.test.Test
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 class InstrumentedTest {
-    @Rule @JvmField val rule = ActivityTestRule(InstrumentedActivity::class.java)
-    private lateinit var errorbar: Errorbar
+    @Rule @JvmField val rule = ActivityTestRule(TestActivity::class.java)
+    private lateinit var bannerbar: Bannerbar
 
     @BeforeTest fun errorbarInit() {
         onView(withId(R.id.frameLayout)).perform(viewActionOf<FrameLayout> {
-            errorbar = it.indefiniteErrorbar("Initializing ...")
+            bannerbar = it.bannerbar("Please wait") { }
         })
     }
 
@@ -64,15 +63,15 @@ class InstrumentedTest {
         onView(withId(R.id.toolbarLayout)).perform(
             viewActionOf<SubtitleCollapsingToolbarLayout> {
                 perform(it)
-                errorbar.setImage(R.drawable.up)
-                errorbar.setText("Swiping up...")
+                bannerbar.setIcon(R.drawable.up)
+                bannerbar.setSubtitle("Swiping up...")
             },
             slowerSwipeUp()
         )
         onView(withId(R.id.toolbar)).perform(
             viewActionOf<Toolbar> {
-                errorbar.setImage(R.drawable.down)
-                errorbar.setText("Swiping down...")
+                bannerbar.setIcon(R.drawable.down)
+                bannerbar.setSubtitle("Swiping down...")
             },
             swipeDown(),
             swipeDown(),
@@ -80,8 +79,8 @@ class InstrumentedTest {
             swipeDown(),
             swipeDown(),
             viewActionOf<Toolbar> {
-                errorbar.setImage(ColorDrawable(Color.TRANSPARENT))
-                errorbar.setText("Done")
+                bannerbar.setIcon(ColorDrawable(Color.TRANSPARENT))
+                bannerbar.setSubtitle("Done")
             })
     }
 

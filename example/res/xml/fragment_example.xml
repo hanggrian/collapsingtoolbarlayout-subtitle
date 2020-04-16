@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.preference.PreferenceCategory android:title="General">
+        <androidx.preference.SwitchPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_title"
+            android:key="showTitle"
+            android:title="Show title" />
+
+        <androidx.preference.SwitchPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_subtitle"
+            android:key="showSubtitle"
+            android:title="Show subtitle" />
+
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:defaultValue="@android:color/transparent"
+            android:icon="@drawable/ic_color"
+            android:key="statusbarColor"
+            android:title="Status bar color" />
+
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:defaultValue="@android:color/transparent"
+            android:key="scrimsColor"
+            android:title="Scrims color" />
+
+        <androidx.preference.MultiSelectListPreference
+            android:entries="@array/gravities"
+            android:entryValues="@array/gravity_values"
+            android:key="collapsedGravity"
+            android:title="Collapsed gravity" />
+
+        <androidx.preference.MultiSelectListPreference
+            android:entries="@array/gravities"
+            android:entryValues="@array/gravity_values"
+            android:key="expandedGravity"
+            android:title="Expanded gravity" />
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory android:title="Text styling">
+        <androidx.preference.ListPreference
+            android:entries="@array/text_appearances"
+            android:entryValues="@array/text_appearance_values"
+            android:key="collapsedTitleTextAppeareance"
+            android:title="Collapsed title text appearance" />
+
+        <androidx.preference.ListPreference
+            android:entries="@array/text_appearances"
+            android:entryValues="@array/text_appearance_values"
+            android:key="expandedTitleTextAppeareance"
+            android:title="Expanded title text appearance" />
+
+        <androidx.preference.ListPreference
+            android:entries="@array/text_appearances"
+            android:entryValues="@array/text_appearance_values"
+            android:key="collapsedSubtitleTextAppeareance"
+            android:title="Collapsed subtitle text appearance" />
+
+        <androidx.preference.ListPreference
+            android:entries="@array/text_appearances"
+            android:entryValues="@array/text_appearance_values"
+            android:key="expandedSubtitleTextAppeareance"
+            android:title="Expanded subtitle text appearance" />
+
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:defaultValue="@android:color/transparent"
+            android:key="collapsedTitleColor"
+            android:title="Collapsed title text color" />
+
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:defaultValue="@android:color/transparent"
+            android:key="expandedTitleColor"
+            android:title="Expanded title text color" />
+
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:defaultValue="@android:color/transparent"
+            android:key="collapsedSubtitleColor"
+            android:title="Collapsed subtitle text color" />
+
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:defaultValue="@android:color/transparent"
+            android:key="expandedSubtitleColor"
+            android:title="Expanded subtitle text color" />
+
+        <androidx.preference.ListPreference
+            android:entries="@array/typefaces"
+            android:entryValues="@array/typeface_values"
+            android:key="collapsedTitleTypeface"
+            android:title="Collapsed title typeface" />
+
+        <androidx.preference.ListPreference
+            android:entries="@array/typefaces"
+            android:entryValues="@array/typeface_values"
+            android:key="expandedTitleTypeface"
+            android:title="Expanded title typeface" />
+
+        <androidx.preference.ListPreference
+            android:entries="@array/typefaces"
+            android:entryValues="@array/typeface_values"
+            android:key="collapsedSubtitleTypeface"
+            android:title="Collapsed subtitle typeface" />
+
+        <androidx.preference.ListPreference
+            android:entries="@array/typefaces"
+            android:entryValues="@array/typeface_values"
+            android:key="expandedSubtitleTypeface"
+            android:title="Expanded subtitle typeface" />
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory android:title="Positioning">
+        <androidx.preference.EditTextPreference
+            android:key="marginLeft"
+            android:title="Left margin" />
+
+        <androidx.preference.EditTextPreference
+            android:key="marginTop"
+            android:title="Top margin" />
+
+        <androidx.preference.EditTextPreference
+            android:key="marginRight"
+            android:title="Right margin" />
+
+        <androidx.preference.EditTextPreference
+            android:key="marginBottom"
+            android:title="Bottom margin" />
+    </androidx.preference.PreferenceCategory>
+</androidx.preference.PreferenceScreen>

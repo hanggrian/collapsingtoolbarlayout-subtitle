@@ -14,6 +14,8 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven("https://jitpack.io")
+        maven("https://dl.bintray.com/hendraanggrian/material")
     }
 }
 

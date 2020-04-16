@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ExampleActivity"
-    tools:ignore="ContentDescription">
+    tools:context=".ExampleActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbarLayout"
@@ -21,7 +20,6 @@
             android:layout_height="@dimen/expanded_height"
             android:animateLayoutChanges="true"
             android:fitsSystemWindows="true"
-            app:contentScrim="?colorPrimary"
             app:expandedSubtitleTextAppearance="@style/TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedSubtitle.Inverse"
             app:expandedTitleTextAppearance="@style/TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedTitle.Inverse"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
@@ -55,9 +53,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
-        android:onClick="scrollToTop"
-        android:src="@drawable/ic_scroll_to_top"
-        android:visibility="invisible"
+        android:layout_margin="24dp"
+        android:src="@drawable/baseline_arrow_upward_24"
+        android:tint="@android:color/white"
         app:fabSize="normal" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

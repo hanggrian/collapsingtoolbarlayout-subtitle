@@ -2,12 +2,13 @@ plugins {
     android("application")
     kotlin("android")
     kotlin("android.extensions")
+    kotlin("kapt")
 }
 
 android {
     compileSdkVersion(SDK_TARGET)
     defaultConfig {
-        minSdkVersion(SDK_MIN)
+        minSdkVersion(21)
         targetSdkVersion(SDK_TARGET)
         applicationId = "com.example.subtitlecollapsingtoolbarlayout"
         versionName = RELEASE_VERSION
@@ -15,10 +16,9 @@ android {
     sourceSets {
         getByName("main") {
             manifest.srcFile("AndroidManifest.xml")
-            java.srcDirs("src")
-            assets.srcDirs("assets")
+            java.srcDir("src")
+            assets.srcDir("assets")
             res.srcDir("res")
-            resources.srcDir("src")
         }
     }
     buildTypes {
@@ -50,7 +50,11 @@ dependencies {
     implementation(androidx("coordinatorlayout"))
     implementation(androidx("preference", "preference-ktx"))
 
-    implementation(hendraanggrian("material", "errorbar-ktx", VERSION_ANDROIDX))
+    implementation(hendraanggrian("prefy", "prefy-android", VERSION_PREFY))
+    kapt(hendraanggrian("prefy", "prefy-compiler", VERSION_PREFY))
+    implementation(hendraanggrian("material", "bannerbar-ktx", VERSION_ANDROIDX))
     implementation(hendraanggrian("pikasso", "pikasso", version = VERSION_PIKASSO))
-    implementation(jakewharton("process-phoenix", VERSION_PROCESSPHOENIX))
+    implementation(processPhoenix())
+    implementation(colorPreference("core"))
+    implementation(colorPreference("support"))
 }
