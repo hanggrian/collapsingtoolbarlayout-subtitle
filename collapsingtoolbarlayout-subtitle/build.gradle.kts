@@ -16,7 +16,7 @@ android {
         getByName("main") {
             manifest.srcFile("AndroidManifest.xml")
             java.srcDir("src")
-            res.srcDir("res")
+            res.srcDirs("res", "res-public")
         }
         getByName("androidTest") {
             setRoot("tests")

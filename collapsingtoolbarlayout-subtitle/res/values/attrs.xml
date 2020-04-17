@@ -1,27 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="SubtitleCollapsingToolbarLayout">
-        <!--  Specifies extra space on the start, top, end and bottom
-              sides of the the expanded title text. Margin values should be positive. -->
+        <!-- Specifies extra space on the start, top, end and bottom
+             sides of the the expanded title text. Margin values should be positive,
+             subtitle will also be affected. -->
         <attr name="expandedTitleMargin" />
-        <!--  Specifies extra space on the start side of the the expanded title text.
-              Margin values should be positive. -->
+        <!-- Specifies extra space on the start side of the the expanded title text.
+             Margin values should be positive,
+             subtitle will also be affected. -->
         <attr name="expandedTitleMarginStart" />
-        <!--  Specifies extra space on the top side of the the expanded title text.
-              Margin values should be positive. -->
+        <!-- Specifies extra space on the top side of the the expanded title text.
+             Margin values should be positive,
+             subtitle will also be affected. -->
         <attr name="expandedTitleMarginTop" />
-        <!--  Specifies extra space on the end side of the the expanded title text.
-              Margin values should be positive. -->
+        <!-- Specifies extra space on the end side of the the expanded title text.
+             Margin values should be positive,
+             subtitle will also be affected. -->
         <attr name="expandedTitleMarginEnd" />
-        <!--  Specifies extra space on the bottom side of the the expanded title text.
-              Margin values should be positive. -->
+        <!-- Specifies extra space on the bottom side of the the expanded title text.
+             Margin values should be positive,
+             subtitle will also be affected. -->
         <attr name="expandedTitleMarginBottom" />
+
         <!-- The text appearance of the CollapsingToolbarLayout's title when it is fully
              'expanded' -->
         <attr name="expandedTitleTextAppearance" />
         <!-- The text appearance of the CollapsingToolbarLayouts title when it is fully
              'collapsed' -->
         <attr name="collapsedTitleTextAppearance" />
+        <!-- The text appearance of the CollapsingToolbarLayout's subtitle when it is fully
+             'expanded' -->
+        <attr name="expandedSubtitleTextAppearance" format="reference" />
+        <!-- The text appearance of the CollapsingToolbarLayouts subtitle when it is fully
+             'collapsed' -->
+        <attr name="collapsedSubtitleTextAppearance" format="reference" />
+
         <!-- The drawable to use as a scrim on top of the CollapsingToolbarLayouts content when
              it has been scrolled sufficiently off screen. -->
         <attr name="contentScrim" />
@@ -39,10 +52,11 @@
         <!-- Specifies the duration used for scrim visibility animations. -->
         <attr name="scrimAnimationDuration" />
 
-        <!-- Specifies how the title should be positioned when collapsed. -->
+        <!-- Specifies how the title should be positioned when collapsed,
+             subtitle will also be affected. -->
         <attr name="collapsedTitleGravity" />
-
-        <!-- Specifies how the title should be positioned when expanded. -->
+        <!-- Specifies how the title should be positioned when expanded,
+             subtitle will also be affected. -->
         <attr name="expandedTitleGravity" />
 
         <!-- Whether the CollapsingToolbarLayout should draw its own shrinking/growing title. -->
@@ -51,12 +65,5 @@
         <attr name="title" />
         <!-- The subtitle to show when titleEnabled is set to true. -->
         <attr name="subtitle" />
-
-        <!-- The text appearance of the CollapsingToolbarLayout's subtitle when it is fully
-             'expanded' -->
-        <attr name="expandedSubtitleTextAppearance" format="reference" />
-        <!-- The text appearance of the CollapsingToolbarLayouts subtitle when it is fully
-             'collapsed' -->
-        <attr name="collapsedSubtitleTextAppearance" format="reference" />
     </declare-styleable>
 </resources>

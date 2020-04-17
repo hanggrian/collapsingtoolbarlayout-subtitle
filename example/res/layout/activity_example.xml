@@ -20,8 +20,6 @@
             android:layout_height="@dimen/expanded_height"
             android:animateLayoutChanges="true"
             android:fitsSystemWindows="true"
-            app:expandedSubtitleTextAppearance="@style/TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedSubtitle.Inverse"
-            app:expandedTitleTextAppearance="@style/TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedTitle.Inverse"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView

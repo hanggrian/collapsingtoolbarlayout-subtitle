@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <lint>
-    <issue id="InlinedApi">
-        <ignore path="src/com/google/android/material/internal/SubtitleCollapsingTextHelper.java" />
-    </issue>
-
-    <issue id="RtlHardcoded">
-        <ignore path="src/com/google/android/material/internal/SubtitleCollapsingTextHelper.java" />
-    </issue>
-
     <issue id="PrivateResource">
         <ignore path="src/com/google/android/material/internal/SubtitleCollapsingTextHelper.java" />
     </issue>
@@ -17,8 +9,11 @@
         <ignore path="src/com/google/android/material/internal/SubtitleCollapsingTextHelper.java" />
     </issue>
 
-    <issue id="UnusedResources">
-        <!-- Intentional inverse text appereances for light app bar. -->
-        <ignore path="res/values/styles.xml" />
+    <issue id="InlinedApi">
+        <ignore path="src/com/google/android/material/internal/SubtitleCollapsingTextHelper.java" />
+    </issue>
+
+    <issue id="RtlHardcoded">
+        <ignore path="src/com/google/android/material/internal/SubtitleCollapsingTextHelper.java" />
     </issue>
 </lint>

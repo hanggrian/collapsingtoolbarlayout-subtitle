@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.hendraanggrian.material.subtitlecollapsingtoolbarlayout">
 
-    <uses-sdk
-        android:targetSdkVersion="29"
-        tools:overrideLibrary="androidx.test, android.app, androidx.test.rule, androidx.test.espresso, androidx.test.espresso.idling" />
+    <uses-sdk tools:overrideLibrary="androidx.test, android.app, androidx.test.rule, androidx.test.espresso, androidx.test.espresso.idling" />
 
     <application android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
         <uses-library android:name="android.test.runner" />

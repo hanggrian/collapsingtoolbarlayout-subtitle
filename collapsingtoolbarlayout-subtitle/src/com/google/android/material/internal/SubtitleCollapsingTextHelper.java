@@ -59,91 +59,55 @@ public final class SubtitleCollapsingTextHelper {
     @NonNull private final RectF currentBounds;
     private int expandedTextGravity = Gravity.CENTER_VERTICAL;
     private int collapsedTextGravity = Gravity.CENTER_VERTICAL;
-    private float expandedTitleSize = 15;
-    private float collapsedTitleSize = 15;
-    private float expandedSubtitleSize = 15;
-    private float collapsedSubtitleSize = 15;
-    private ColorStateList expandedTitleColor;
-    private ColorStateList collapsedTitleColor;
-    private ColorStateList expandedSubtitleColor;
-    private ColorStateList collapsedSubtitleColor;
+    private float expandedTitleSize, expandedSubtitleSize = 15;
+    private float collapsedTitleSize, collapsedSubtitleSize = 15;
+    private ColorStateList expandedTitleColor, expandedSubtitleColor;
+    private ColorStateList collapsedTitleColor, collapsedSubtitleColor;
 
-    private float expandedTitleY;
-    private float collapsedTitleY;
-    private float expandedTitleX;
-    private float collapsedTitleX;
-    private float currentTitleX;
-    private float currentTitleY;
-    private Typeface collapsedTitleTypeface;
-    private Typeface expandedTitleTypeface;
-    private Typeface currentTitleTypeface;
-    private CancelableFontCallback expandedTitleFontCallback;
-    private CancelableFontCallback collapsedTitleFontCallback;
+    private float expandedTitleY, expandedSubtitleY;
+    private float collapsedTitleY, collapsedSubtitleY;
+    private float expandedTitleX, expandedSubtitleX;
+    private float collapsedTitleX, collapsedSubtitleX;
+    private float currentTitleX, currentSubtitleX;
+    private float currentTitleY, currentSubtitleY;
+    private Typeface collapsedTitleTypeface, collapsedSubtitleTypeface;
+    private Typeface expandedTitleTypeface, expandedSubtitleTypeface;
+    private Typeface currentTitleTypeface, currentSubtitleTypeface;
+    private CancelableFontCallback expandedTitleFontCallback, expandedSubtitleFontCallback;
+    private CancelableFontCallback collapsedTitleFontCallback, collapsedSubtitleFontCallback;
 
-    private float expandedSubtitleY;
-    private float collapsedSubtitleY;
-    private float expandedSubtitleX;
-    private float collapsedSubtitleX;
-    private float currentSubtitleX;
-    private float currentSubtitleY;
-    private Typeface collapsedSubtitleTypeface;
-    private Typeface expandedSubtitleTypeface;
-    private Typeface currentSubtitleTypeface;
-    private CancelableFontCallback expandedSubtitleFontCallback;
-    private CancelableFontCallback collapsedSubtitleFontCallback;
-
-    @Nullable private CharSequence title;
-    @Nullable private CharSequence titleToDraw;
-    @Nullable private CharSequence subtitle;
-    @Nullable private CharSequence subtitleToDraw;
+    @Nullable private CharSequence title, subtitle;
+    @Nullable private CharSequence titleToDraw, subtitleToDraw;
     private boolean isRtl;
 
     private boolean useTexture;
-    @Nullable private Bitmap expandedTitleTexture;
-    private Paint titleTexturePaint;
-    private float titleTextureAscent;
-    private float titleTextureDescent;
-    @Nullable private Bitmap expandedSubtitleTexture;
-    private Paint subtitleTexturePaint;
-    private float subtitleTextureAscent;
-    private float subtitleTextureDescent;
+    @Nullable private Bitmap expandedTitleTexture, expandedSubtitleTexture;
+    private Paint titleTexturePaint, subtitleTexturePaint;
+    private float titleTextureAscent, subtitleTextureAscent;
+    private float titleTextureDescent, subtitleTextureDescent;
 
-    private float titleScale;
-    private float currentTitleSize;
-    private float subtitleScale;
-    private float currentSubtitleSize;
+    private float titleScale, subtitleScale;
+    private float currentTitleSize, currentSubtitleSize;
 
     private int[] state;
 
     private boolean boundsChanged;
 
-    @NonNull private final TextPaint titlePaint;
-    @NonNull private final TextPaint titleTmpPaint;
-    @NonNull private final TextPaint subtitlePaint;
-    @NonNull private final TextPaint subtitleTmpPaint;
+    @NonNull private final TextPaint titlePaint, subtitlePaint;
+    @NonNull private final TextPaint titleTmpPaint, subtitleTmpPaint;
 
     private TimeInterpolator positionInterpolator;
     private TimeInterpolator textSizeInterpolator;
 
-    private float collapsedTitleShadowRadius;
-    private float collapsedTitleShadowDx;
-    private float collapsedTitleShadowDy;
-    private ColorStateList collapsedTitleShadowColor;
+    private float collapsedTitleShadowRadius, collapsedSubtitleShadowRadius;
+    private float collapsedTitleShadowDx, collapsedSubtitleShadowDx;
+    private float collapsedTitleShadowDy, collapsedSubtitleShadowDy;
+    private ColorStateList collapsedTitleShadowColor, collapsedSubtitleShadowColor;
 
-    private float expandedTitleShadowRadius;
-    private float expandedTitleShadowDx;
-    private float expandedTitleShadowDy;
-    private ColorStateList expandedTitleShadowColor;
-
-    private float collapsedSubtitleShadowRadius;
-    private float collapsedSubtitleShadowDx;
-    private float collapsedSubtitleShadowDy;
-    private ColorStateList collapsedSubtitleShadowColor;
-
-    private float expandedSubtitleShadowRadius;
-    private float expandedSubtitleShadowDx;
-    private float expandedSubtitleShadowDy;
-    private ColorStateList expandedSubtitleShadowColor;
+    private float expandedTitleShadowRadius, expandedSubtitleShadowRadius;
+    private float expandedTitleShadowDx, expandedSubtitleShadowDx;
+    private float expandedTitleShadowDy, expandedSubtitleShadowDy;
+    private ColorStateList expandedTitleShadowColor, expandedSubtitleShadowColor;
 
     public SubtitleCollapsingTextHelper(View view) {
         this.view = view;

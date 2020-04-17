@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <public name="expandedSubtitleTextAppearance" type="attr" />
+    <public name="collapsedSubtitleTextAppearance" type="attr" />
     <public name="Widget.Design.SubtitleCollapsingToolbar" type="style" />
-
     <public name="TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedTitle" type="style" />
-    <public name="TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedTitle.Inverse" type="style" />
     <public name="TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedSubtitle" type="style" />
-    <public name="TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedSubtitle.Inverse" type="style" />
 </resources>
