@@ -4,26 +4,20 @@
     <androidx.preference.PreferenceCategory android:title="General">
         <androidx.preference.SwitchPreference
             android:defaultValue="false"
-            android:icon="@drawable/ic_title"
-            android:key="showTitle"
-            android:title="Show title" />
-
-        <androidx.preference.SwitchPreference
-            android:defaultValue="false"
-            android:icon="@drawable/ic_subtitle"
+            android:icon="@drawable/ic_text"
             android:key="showSubtitle"
             android:title="Show subtitle" />
 
         <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
             android:defaultValue="@android:color/transparent"
             android:icon="@drawable/ic_color"
-            android:key="statusbarColor"
-            android:title="Status bar color" />
+            android:key="statusBarScrim"
+            android:title="Status bar scrim" />
 
         <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
             android:defaultValue="@android:color/transparent"
-            android:key="scrimsColor"
-            android:title="Scrims color" />
+            android:key="contentScrim"
+            android:title="Content scrim" />
 
         <androidx.preference.MultiSelectListPreference
             android:entries="@array/gravities"
@@ -36,6 +30,36 @@
             android:entryValues="@array/gravity_values"
             android:key="expandedGravity"
             android:title="Expanded gravity" />
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory android:title="Expanded title margin">
+        <androidx.preference.SeekBarPreference
+            android:defaultValue="0"
+            android:icon="@drawable/ic_arrow_left"
+            android:key="marginLeft"
+            android:max="10"
+            android:title="Left margin" />
+
+        <androidx.preference.SeekBarPreference
+            android:defaultValue="0"
+            android:icon="@drawable/ic_arrow_top"
+            android:key="marginTop"
+            android:max="10"
+            android:title="Top margin" />
+
+        <androidx.preference.SeekBarPreference
+            android:defaultValue="0"
+            android:icon="@drawable/ic_arrow_right"
+            android:key="marginRight"
+            android:max="10"
+            android:title="Right margin" />
+
+        <androidx.preference.SeekBarPreference
+            android:defaultValue="0"
+            android:icon="@drawable/ic_arrow_bottom"
+            android:key="marginBottom"
+            android:max="10"
+            android:title="Bottom margin" />
     </androidx.preference.PreferenceCategory>
 
     <androidx.preference.PreferenceCategory android:title="Text styling">
@@ -106,23 +130,5 @@
             android:entryValues="@array/typeface_values"
             android:key="expandedSubtitleTypeface"
             android:title="Expanded subtitle typeface" />
-    </androidx.preference.PreferenceCategory>
-
-    <androidx.preference.PreferenceCategory android:title="Positioning">
-        <androidx.preference.EditTextPreference
-            android:key="marginLeft"
-            android:title="Left margin" />
-
-        <androidx.preference.EditTextPreference
-            android:key="marginTop"
-            android:title="Top margin" />
-
-        <androidx.preference.EditTextPreference
-            android:key="marginRight"
-            android:title="Right margin" />
-
-        <androidx.preference.EditTextPreference
-            android:key="marginBottom"
-            android:title="Bottom margin" />
     </androidx.preference.PreferenceCategory>
 </androidx.preference.PreferenceScreen>

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <lint>
     <issue id="PrivateResource">
-        <ignore path="src/com/google/android/material/internal/SubtitleCollapsingTextHelper.java" />
+        <ignore path="src/com/google/android/material/internal/CollapsingTextHelper2.java" />
     </issue>
 
     <issue id="RestrictedApi">
         <ignore path="src/com/google/android/material/appbar/SubtitleCollapsingToolbarLayout.java" />
-        <ignore path="src/com/google/android/material/internal/SubtitleCollapsingTextHelper.java" />
+        <ignore path="src/com/google/android/material/internal/CollapsingTextHelper2.java" />
     </issue>
 
     <issue id="InlinedApi">
-        <ignore path="src/com/google/android/material/internal/SubtitleCollapsingTextHelper.java" />
+        <ignore path="src/com/google/android/material/internal/CollapsingTextHelper2.java" />
     </issue>
 
     <issue id="RtlHardcoded">
-        <ignore path="src/com/google/android/material/internal/SubtitleCollapsingTextHelper.java" />
+        <ignore path="src/com/google/android/material/internal/CollapsingTextHelper2.java" />
     </issue>
 </lint>

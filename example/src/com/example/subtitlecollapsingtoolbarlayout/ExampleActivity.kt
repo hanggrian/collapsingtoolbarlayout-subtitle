@@ -1,11 +1,19 @@
 package com.example.subtitlecollapsingtoolbarlayout
 
+import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.annotation.ColorInt
+import androidx.annotation.Px
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.GravityCompat
+import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
 import com.hendraanggrian.prefy.BindPreference
 import com.hendraanggrian.prefy.PreferencesSaver
 import com.hendraanggrian.prefy.Prefy
@@ -18,8 +26,18 @@ import kotlinx.android.synthetic.main.activity_example.*
 class ExampleActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
 
     @JvmField @BindPreference("theme") var theme2 = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+    @JvmField @BindPreference var showSubtitle = false
+    @JvmField @BindPreference var statusBarScrim = 0
+    @JvmField @BindPreference var contentScrim = 0
+    @JvmField @BindPreference var marginLeft = 0
+    @JvmField @BindPreference var marginTop = 0
+    @JvmField @BindPreference var marginRight = 0
+    @JvmField @BindPreference var marginBottom = 0
+
     private lateinit var preferences: AndroidPreferences
     private lateinit var saver: PreferencesSaver
+
+    @Px private var marginScale = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,17 +48,18 @@ class ExampleActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
             .replace(R.id.container, ExampleFragment())
             .commitNow()
         preferences = Prefy[this]
-        saver = preferences.bind(this)
+        marginScale = resources.getDimensionPixelSize(R.dimen.margin_scale)
+        onSharedPreferenceChanged(preferences, "")
     }
 
     override fun onResume() {
         super.onResume()
-        preferences.setChangeListener(this)
+        preferences.registerOnSharedPreferenceChangeListener(this)
     }
 
     override fun onPause() {
         super.onPause()
-        preferences.removeChangeListener(this)
+        preferences.unregisterOnSharedPreferenceChangeListener(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -74,6 +93,33 @@ class ExampleActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onSharedPreferenceChanged(preferences: Preferences, key: String) {
+    override fun onSharedPreferenceChanged(p: SharedPreferences, key: String) {
+        preferences.bind(this)
+        toolbarLayout.subtitle = if (showSubtitle) SubtitleCollapsingToolbarLayout::class.java.simpleName else null
+        toolbarLayout.statusBarScrim = if (statusBarScrim.isConfigured()) ColorDrawable(statusBarScrim) else null
+        toolbarLayout.contentScrim = if (contentScrim.isConfigured()) ColorDrawable(contentScrim) else null
+        toolbarLayout.collapsedTitleGravity = preferences.getStringSet("collapsedGravity", emptySet())!!.toGravity()
+        toolbarLayout.expandedTitleGravity = preferences.getStringSet("expandedGravity", emptySet())!!.toGravity()
+        if (marginLeft != 0) toolbarLayout.expandedTitleMarginStart = marginLeft * marginScale
+        if (marginTop != 0) toolbarLayout.expandedTitleMarginTop = marginTop * marginScale
+        if (marginRight != 0) toolbarLayout.expandedTitleMarginEnd = marginRight * marginScale
+        if (marginBottom != 0) toolbarLayout.expandedTitleMarginBottom = marginBottom * marginScale
+    }
+
+    private companion object {
+        fun Set<String>.toGravity(): Int {
+            val iterator = iterator()
+            var gravity: Int? = null
+            while (iterator.hasNext()) {
+                val next = iterator.next().toInt()
+                gravity = when (gravity) {
+                    null -> next
+                    else -> gravity or next
+                }
+            }
+            return gravity ?: Gravity.BOTTOM or GravityCompat.START
+        }
+
+        fun @receiver:ColorInt Int.isConfigured() = this != Color.TRANSPARENT
     }
 }
