@@ -24,7 +24,6 @@ import com.jakewharton.processphoenix.ProcessPhoenix
 import kotlinx.android.synthetic.main.activity_example.*
 
 class ExampleActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
-
     @JvmField @BindPreference("theme") var theme2 = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
     @JvmField @BindPreference var showSubtitle = false
     @JvmField @BindPreference var statusBarScrim = 0
@@ -33,6 +32,10 @@ class ExampleActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     @JvmField @BindPreference var marginTop = 0
     @JvmField @BindPreference var marginRight = 0
     @JvmField @BindPreference var marginBottom = 0
+    @JvmField @BindPreference var collapsedTitleColor = 0
+    @JvmField @BindPreference var collapsedSubtitleColor = 0
+    @JvmField @BindPreference var expandedTitleColor = 0
+    @JvmField @BindPreference var expandedSubtitleColor = 0
 
     private lateinit var preferences: AndroidPreferences
     private lateinit var saver: PreferencesSaver
@@ -49,6 +52,8 @@ class ExampleActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
             .commitNow()
         preferences = Prefy[this]
         marginScale = resources.getDimensionPixelSize(R.dimen.margin_scale)
+
+        fab.setOnClickListener { appbar.setExpanded(true) }
         onSharedPreferenceChanged(preferences, "")
     }
 
@@ -94,21 +99,27 @@ class ExampleActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     }
 
     override fun onSharedPreferenceChanged(p: SharedPreferences, key: String) {
-        preferences.bind(this)
+        saver = preferences.bind(this)
         toolbarLayout.subtitle = if (showSubtitle) SubtitleCollapsingToolbarLayout::class.java.simpleName else null
         toolbarLayout.statusBarScrim = if (statusBarScrim.isConfigured()) ColorDrawable(statusBarScrim) else null
         toolbarLayout.contentScrim = if (contentScrim.isConfigured()) ColorDrawable(contentScrim) else null
-        toolbarLayout.collapsedTitleGravity = preferences.getStringSet("collapsedGravity", emptySet())!!.toGravity()
-        toolbarLayout.expandedTitleGravity = preferences.getStringSet("expandedGravity", emptySet())!!.toGravity()
+        toolbarLayout.collapsedTitleGravity =
+            preferences.getGravity("collapsedGravity", GravityCompat.START or Gravity.CENTER_VERTICAL)
+        toolbarLayout.expandedTitleGravity =
+            preferences.getGravity("expandedGravity", GravityCompat.START or Gravity.BOTTOM)
         if (marginLeft != 0) toolbarLayout.expandedTitleMarginStart = marginLeft * marginScale
         if (marginTop != 0) toolbarLayout.expandedTitleMarginTop = marginTop * marginScale
         if (marginRight != 0) toolbarLayout.expandedTitleMarginEnd = marginRight * marginScale
         if (marginBottom != 0) toolbarLayout.expandedTitleMarginBottom = marginBottom * marginScale
+        if (collapsedTitleColor.isConfigured()) toolbarLayout.setCollapsedTitleTextColor(collapsedTitleColor)
+        if (collapsedSubtitleColor.isConfigured()) toolbarLayout.setCollapsedSubtitleTextColor(collapsedSubtitleColor)
+        if (expandedTitleColor.isConfigured()) toolbarLayout.setExpandedTitleTextColor(collapsedTitleColor)
+        if (expandedSubtitleColor.isConfigured()) toolbarLayout.setExpandedSubtitleTextColor(collapsedSubtitleColor)
     }
 
     private companion object {
-        fun Set<String>.toGravity(): Int {
-            val iterator = iterator()
+        fun AndroidPreferences.getGravity(key: String, def: Int): Int {
+            val iterator = getStringSet(key, emptySet())!!.iterator()
             var gravity: Int? = null
             while (iterator.hasNext()) {
                 val next = iterator.next().toInt()
@@ -117,7 +128,7 @@ class ExampleActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
                     else -> gravity or next
                 }
             }
-            return gravity ?: Gravity.BOTTOM or GravityCompat.START
+            return gravity ?: def
         }
 
         fun @receiver:ColorInt Int.isConfigured() = this != Color.TRANSPARENT

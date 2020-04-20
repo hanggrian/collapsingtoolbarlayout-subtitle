@@ -63,39 +63,10 @@
     </androidx.preference.PreferenceCategory>
 
     <androidx.preference.PreferenceCategory android:title="Text styling">
-        <androidx.preference.ListPreference
-            android:entries="@array/text_appearances"
-            android:entryValues="@array/text_appearance_values"
-            android:key="collapsedTitleTextAppeareance"
-            android:title="Collapsed title text appearance" />
-
-        <androidx.preference.ListPreference
-            android:entries="@array/text_appearances"
-            android:entryValues="@array/text_appearance_values"
-            android:key="expandedTitleTextAppeareance"
-            android:title="Expanded title text appearance" />
-
-        <androidx.preference.ListPreference
-            android:entries="@array/text_appearances"
-            android:entryValues="@array/text_appearance_values"
-            android:key="collapsedSubtitleTextAppeareance"
-            android:title="Collapsed subtitle text appearance" />
-
-        <androidx.preference.ListPreference
-            android:entries="@array/text_appearances"
-            android:entryValues="@array/text_appearance_values"
-            android:key="expandedSubtitleTextAppeareance"
-            android:title="Expanded subtitle text appearance" />
-
         <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
             android:defaultValue="@android:color/transparent"
             android:key="collapsedTitleColor"
             android:title="Collapsed title text color" />
-
-        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
-            android:defaultValue="@android:color/transparent"
-            android:key="expandedTitleColor"
-            android:title="Expanded title text color" />
 
         <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
             android:defaultValue="@android:color/transparent"
@@ -104,31 +75,12 @@
 
         <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
             android:defaultValue="@android:color/transparent"
+            android:key="expandedTitleColor"
+            android:title="Expanded title text color" />
+
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:defaultValue="@android:color/transparent"
             android:key="expandedSubtitleColor"
             android:title="Expanded subtitle text color" />
-
-        <androidx.preference.ListPreference
-            android:entries="@array/typefaces"
-            android:entryValues="@array/typeface_values"
-            android:key="collapsedTitleTypeface"
-            android:title="Collapsed title typeface" />
-
-        <androidx.preference.ListPreference
-            android:entries="@array/typefaces"
-            android:entryValues="@array/typeface_values"
-            android:key="expandedTitleTypeface"
-            android:title="Expanded title typeface" />
-
-        <androidx.preference.ListPreference
-            android:entries="@array/typefaces"
-            android:entryValues="@array/typeface_values"
-            android:key="collapsedSubtitleTypeface"
-            android:title="Collapsed subtitle typeface" />
-
-        <androidx.preference.ListPreference
-            android:entries="@array/typefaces"
-            android:entryValues="@array/typeface_values"
-            android:key="expandedSubtitleTypeface"
-            android:title="Expanded subtitle typeface" />
     </androidx.preference.PreferenceCategory>
 </androidx.preference.PreferenceScreen>

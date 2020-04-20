@@ -20,10 +20,10 @@
 
         <!-- The text appearance of the CollapsingToolbarLayout's title when it is fully 'expanded' -->
         <attr name="expandedTitleTextAppearance" />
-        <!-- The text appearance of the CollapsingToolbarLayouts title when it is fully 'collapsed' -->
-        <attr name="collapsedTitleTextAppearance" />
         <!-- The text appearance of the CollapsingToolbarLayout's subtitle when it is fully 'expanded' -->
         <attr name="expandedSubtitleTextAppearance" format="reference" />
+        <!-- The text appearance of the CollapsingToolbarLayouts title when it is fully 'collapsed' -->
+        <attr name="collapsedTitleTextAppearance" />
         <!-- The text appearance of the CollapsingToolbarLayouts subtitle when it is fully 'collapsed' -->
         <attr name="collapsedSubtitleTextAppearance" format="reference" />
 

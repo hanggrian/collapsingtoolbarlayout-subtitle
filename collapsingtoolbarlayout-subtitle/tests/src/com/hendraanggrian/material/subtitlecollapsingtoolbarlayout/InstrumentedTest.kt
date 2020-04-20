@@ -30,15 +30,15 @@ import org.junit.runner.RunWith
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
-@RunWith(AndroidJUnit4::class)
 @LargeTest
+@RunWith(AndroidJUnit4::class)
 class InstrumentedTest {
     @Rule @JvmField val rule = ActivityTestRule(TestActivity::class.java)
     private lateinit var bannerbar: Bannerbar
 
-    @BeforeTest fun errorbarInit() {
+    @BeforeTest fun initBannerbar() {
         onView(withId(R.id.frameLayout)).perform(viewActionOf<FrameLayout> {
-            bannerbar = it.bannerbar("Please wait") { }
+            bannerbar = it.bannerbar("Please wait")
         })
     }
 

@@ -34,8 +34,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.animation.AnimationUtils;
-import com.google.android.material.internal.CollapsingTextHelper2;
 import com.google.android.material.internal.DescendantOffsetUtils;
+import com.google.android.material.internal.SubtitleCollapsingTextHelper;
 import com.google.android.material.internal.ThemeEnforcement;
 import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.R;
 
@@ -58,7 +58,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     private int expandedMarginBottom;
 
     private final Rect tmpRect = new Rect();
-    @NonNull final CollapsingTextHelper2 collapsingTextHelper;
+    @NonNull final SubtitleCollapsingTextHelper collapsingTextHelper;
     private boolean collapsingTitleEnabled;
     private boolean drawCollapsingTitle;
 
@@ -87,32 +87,25 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     public SubtitleCollapsingToolbarLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        collapsingTextHelper = new CollapsingTextHelper2(this);
+        collapsingTextHelper = new SubtitleCollapsingTextHelper(this);
         collapsingTextHelper.setTextSizeInterpolator(AnimationUtils.DECELERATE_INTERPOLATOR);
 
-        TypedArray a =
-            ThemeEnforcement.obtainStyledAttributes(
-                context,
-                attrs,
-                R.styleable.SubtitleCollapsingToolbarLayout,
-                defStyleAttr,
-                R.style.Widget_Design_SubtitleCollapsingToolbar);
+        TypedArray a = ThemeEnforcement.obtainStyledAttributes(
+            context,
+            attrs,
+            R.styleable.SubtitleCollapsingToolbarLayout,
+            defStyleAttr,
+            R.style.Widget_Design_SubtitleCollapsingToolbar);
 
-        collapsingTextHelper.setExpandedTextGravity(
-            a.getInt(
-                R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleGravity,
-                GravityCompat.START | Gravity.BOTTOM));
-        collapsingTextHelper.setCollapsedTextGravity(
-            a.getInt(
-                R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleGravity,
-                GravityCompat.START | Gravity.CENTER_VERTICAL));
+        collapsingTextHelper.setExpandedTextGravity(a.getInt(
+            R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleGravity,
+            GravityCompat.START | Gravity.BOTTOM));
+        collapsingTextHelper.setCollapsedTextGravity(a.getInt(
+            R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleGravity,
+            GravityCompat.START | Gravity.CENTER_VERTICAL));
 
-        expandedMarginStart =
-            expandedMarginTop =
-                expandedMarginEnd =
-                    expandedMarginBottom =
-                        a.getDimensionPixelSize(
-                            R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleMargin, 0);
+        expandedMarginStart = expandedMarginTop = expandedMarginEnd = expandedMarginBottom =
+            a.getDimensionPixelSize(R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleMargin, 0);
 
         if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleMarginStart)) {
             expandedMarginStart =
@@ -136,44 +129,39 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
         setSubtitle(a.getText(R.styleable.SubtitleCollapsingToolbarLayout_subtitle));
 
         // First load the default text appearances
-        collapsingTextHelper.setExpandedTextAppearance(
+        collapsingTextHelper.setExpandedTitleTextAppearance(
             R.style.TextAppearance_Design_SubtitleCollapsingToolbar_ExpandedTitle);
-        collapsingTextHelper.setCollapsedTextAppearance(
+        collapsingTextHelper.setCollapsedTitleTextAppearance(
             androidx.appcompat.R.style.TextAppearance_AppCompat_Widget_ActionBar_Title);
-
-        // Now overlay any custom text appearances
-        if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleTextAppearance)) {
-            collapsingTextHelper.setExpandedTextAppearance(
-                a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleTextAppearance, 0));
-        }
-        if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleTextAppearance)) {
-            collapsingTextHelper.setCollapsedTextAppearance(
-                a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleTextAppearance, 0));
-        }
-
-        // First load the default text appearances
-        collapsingTextHelper.setExpandedTextAppearance2(
+        collapsingTextHelper.setExpandedSubtitleTextAppearance(
             R.style.TextAppearance_Design_SubtitleCollapsingToolbar_ExpandedSubtitle);
-        collapsingTextHelper.setCollapsedTextAppearance2(
+        collapsingTextHelper.setCollapsedSubtitleTextAppearance(
             androidx.appcompat.R.style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle);
 
         // Now overlay any custom text appearances
+        if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleTextAppearance)) {
+            collapsingTextHelper.setExpandedTitleTextAppearance(
+                a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleTextAppearance, 0));
+        }
+        if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleTextAppearance)) {
+            collapsingTextHelper.setCollapsedTitleTextAppearance(
+                a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleTextAppearance, 0));
+        }
         if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_expandedSubtitleTextAppearance)) {
-            collapsingTextHelper.setExpandedTextAppearance2(
+            collapsingTextHelper.setExpandedSubtitleTextAppearance(
                 a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_expandedSubtitleTextAppearance, 0));
         }
         if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_collapsedSubtitleTextAppearance)) {
-            collapsingTextHelper.setCollapsedTextAppearance2(
+            collapsingTextHelper.setCollapsedSubtitleTextAppearance(
                 a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_collapsedSubtitleTextAppearance, 0));
         }
 
         scrimVisibleHeightTrigger = a
             .getDimensionPixelSize(R.styleable.SubtitleCollapsingToolbarLayout_scrimVisibleHeightTrigger, -1);
 
-        scrimAnimationDuration =
-            a.getInt(
-                R.styleable.SubtitleCollapsingToolbarLayout_scrimAnimationDuration,
-                DEFAULT_SCRIM_ANIMATION_DURATION);
+        scrimAnimationDuration = a.getInt(
+            R.styleable.SubtitleCollapsingToolbarLayout_scrimAnimationDuration,
+            DEFAULT_SCRIM_ANIMATION_DURATION);
 
         setContentScrim(a.getDrawable(R.styleable.SubtitleCollapsingToolbarLayout_contentScrim));
         setStatusBarScrim(a.getDrawable(R.styleable.SubtitleCollapsingToolbarLayout_statusBarScrim));
@@ -226,7 +214,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
         super.onDetachedFromWindow();
     }
 
-    WindowInsetsCompat onWindowInsetChanged(final WindowInsetsCompat insets) {
+    WindowInsetsCompat onWindowInsetChanged(@NonNull final WindowInsetsCompat insets) {
         WindowInsetsCompat newInsets = null;
 
         if (ViewCompat.getFitsSystemWindows(this)) {
@@ -340,7 +328,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      * Returns the direct child of this layout, which itself is the ancestor of the given view.
      */
     @NonNull
-    private View findDirectChild(final View descendant) {
+    private View findDirectChild(@NonNull final View descendant) {
         View directChild = descendant;
         for (ViewParent p = descendant.getParent(); p != this && p != null; p = p.getParent()) {
             if (p instanceof View) {
@@ -378,8 +366,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
         if (mode == MeasureSpec.UNSPECIFIED && topInset > 0) {
             // If we have a top inset and we're set to wrap_content height we need to make sure
             // we add the top inset to our height, therefore we re-measure
-            heightMeasureSpec =
-                MeasureSpec.makeMeasureSpec(getMeasuredHeight() + topInset, MeasureSpec.EXACTLY);
+            heightMeasureSpec = MeasureSpec.makeMeasureSpec(getMeasuredHeight() + topInset, MeasureSpec.EXACTLY);
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
     }
@@ -412,12 +399,10 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
         if (collapsingTitleEnabled && dummyView != null) {
             // We only draw the title if the dummy view is being displayed (Toolbar removes
             // views if there is no space)
-            drawCollapsingTitle =
-                ViewCompat.isAttachedToWindow(dummyView) && dummyView.getVisibility() == VISIBLE;
+            drawCollapsingTitle = ViewCompat.isAttachedToWindow(dummyView) && dummyView.getVisibility() == VISIBLE;
 
             if (drawCollapsingTitle) {
-                final boolean isRtl =
-                    ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL;
+                final boolean isRtl = ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL;
 
                 // Update the collapsed bounds
                 final int maxOffset =
@@ -442,9 +427,10 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
 
         // Set our minimum height to enable proper AppBarLayout collapsing
         if (toolbar != null) {
-            if (collapsingTitleEnabled && TextUtils.isEmpty(collapsingTextHelper.getText())) {
+            if (collapsingTitleEnabled && TextUtils.isEmpty(collapsingTextHelper.getTitle())) {
                 // If we do not currently have a title, try and grab it from the Toolbar
                 setTitle(toolbar.getTitle());
+                setSubtitle(toolbar.getSubtitle());
             }
             if (toolbarDirectChild == null || toolbarDirectChild == this) {
                 setMinimumHeight(getHeightWithMargins(toolbar));
@@ -482,49 +468,57 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     /**
      * Sets the title to be displayed by this view, if enabled.
      *
+     * @attr ref R.styleable#SubtitleCollapsingToolbarLayout_title
      * @see #setTitleEnabled(boolean)
      * @see #getTitle()
      */
     public void setTitle(@Nullable CharSequence title) {
-        collapsingTextHelper.setText(title);
+        collapsingTextHelper.setTitle(title);
         updateContentDescriptionFromTitle();
     }
 
     /**
      * Returns the title currently being displayed by this view. If the title is not enabled, then
      * this will return {@code null}.
+     *
+     * @attr ref R.styleable#SubtitleCollapsingToolbarLayout_title
      */
     @Nullable
     public CharSequence getTitle() {
-        return collapsingTitleEnabled ? collapsingTextHelper.getText() : null;
+        return collapsingTitleEnabled ? collapsingTextHelper.getTitle() : null;
     }
 
     /**
-     * Sets the title to be displayed by this view, if enabled.
+     * Sets the subtitle to be displayed by this view, if enabled.
      *
+     * @attr ref R.styleable#SubtitleCollapsingToolbarLayout_subtitle
      * @see #setTitleEnabled(boolean)
-     * @see #getTitle()
+     * @see #getSubtitle()
      */
     public void setSubtitle(@Nullable CharSequence subtitle) {
-        collapsingTextHelper.setText2(subtitle);
+        collapsingTextHelper.setSubtitle(subtitle);
         updateContentDescriptionFromTitle();
     }
 
     /**
-     * Returns the title currently being displayed by this view. If the title is not enabled, then
+     * Returns the subtitle currently being displayed by this view. If the title is not enabled, then
      * this will return {@code null}.
+     *
+     * @attr ref R.styleable#SubtitleCollapsingToolbarLayout_subtitle
      */
     @Nullable
     public CharSequence getSubtitle() {
-        return collapsingTitleEnabled ? collapsingTextHelper.getText2() : null;
+        return collapsingTitleEnabled ? collapsingTextHelper.getSubtitle() : null;
     }
 
     /**
-     * Sets whether this view should display its own title.
+     * Sets whether this view should display its own title and subtitle.
      * <p>
-     * <p>The title displayed by this view will shrink and grow based on the scroll offset.
+     * <p>The title and subtitle displayed by this view will shrink and grow based on the scroll offset.
      *
+     * @attr ref R.styleable#SubtitleCollapsingToolbarLayout_titleEnabled
      * @see #setTitle(CharSequence)
+     * @see #setSubtitle(CharSequence)
      * @see #isTitleEnabled()
      */
     public void setTitleEnabled(boolean enabled) {
@@ -537,8 +531,9 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     }
 
     /**
-     * Returns whether this view is currently displaying its own title.
+     * Returns whether this view is currently displaying its own title and subtitle.
      *
+     * @attr ref R.styleable#SubtitleCollapsingToolbarLayout_titleEnabled
      * @see #setTitleEnabled(boolean)
      */
     public boolean isTitleEnabled() {
@@ -583,17 +578,15 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
         if (scrimAnimator == null) {
             scrimAnimator = new ValueAnimator();
             scrimAnimator.setDuration(scrimAnimationDuration);
-            scrimAnimator.setInterpolator(
-                targetAlpha > scrimAlpha
-                    ? AnimationUtils.FAST_OUT_LINEAR_IN_INTERPOLATOR
-                    : AnimationUtils.LINEAR_OUT_SLOW_IN_INTERPOLATOR);
-            scrimAnimator.addUpdateListener(
-                new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator animator) {
-                        setScrimAlpha((int) animator.getAnimatedValue());
-                    }
-                });
+            scrimAnimator.setInterpolator(targetAlpha > scrimAlpha
+                ? AnimationUtils.FAST_OUT_LINEAR_IN_INTERPOLATOR
+                : AnimationUtils.LINEAR_OUT_SLOW_IN_INTERPOLATOR);
+            scrimAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animator) {
+                    setScrimAlpha((int) animator.getAnimatedValue());
+                }
+            });
         } else if (scrimAnimator.isRunning()) {
             scrimAnimator.cancel();
         }
@@ -622,6 +615,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      * scrim functionality.
      *
      * @param drawable the drawable to display
+     * @attr ref R.styleable#SubtitleCollapsingToolbarLayout_contentScrim
      * @see #getContentScrim()
      */
     public void setContentScrim(@Nullable Drawable drawable) {
@@ -643,6 +637,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      * Set the color to use for the content scrim.
      *
      * @param color the color to display
+     * @attr ref R.styleable#SubtitleCollapsingToolbarLayout_contentScrim
      * @see #getContentScrim()
      */
     public void setContentScrimColor(@ColorInt int color) {
@@ -653,6 +648,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      * Set the drawable to use for the content scrim from resources.
      *
      * @param resId drawable resource id
+     * @attr ref R.styleable#SubtitleCollapsingToolbarLayout_contentScrim
      * @see #getContentScrim()
      */
     public void setContentScrimResource(@DrawableRes int resId) {
@@ -662,6 +658,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     /**
      * Returns the drawable which is used for the foreground scrim.
      *
+     * @attr ref R.styleable#SubtitleCollapsingToolbarLayout_contentScrim
      * @see #setContentScrim(Drawable)
      */
     @Nullable
@@ -676,6 +673,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      * <p>This scrim is only shown when we have been given a top system inset.
      *
      * @param drawable the drawable to display
+     * @attr ref R.styleable#SubtitleCollapsingToolbarLayout_statusBarScrim
      * @see #getStatusBarScrim()
      */
     public void setStatusBarScrim(@Nullable Drawable drawable) {
@@ -746,6 +744,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      * <p>This scrim is only shown when we have been given a top system inset.
      *
      * @param color the color to display
+     * @attr ref R.styleable#SubtitleCollapsingToolbarLayout_statusBarScrim
      * @see #getStatusBarScrim()
      */
     public void setStatusBarScrimColor(@ColorInt int color) {
@@ -756,6 +755,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      * Set the drawable to use for the content scrim from resources.
      *
      * @param resId drawable resource id
+     * @attr ref R.styleable#SubtitleCollapsingToolbarLayout_statusBarScrim
      * @see #getStatusBarScrim()
      */
     public void setStatusBarScrimResource(@DrawableRes int resId) {
@@ -765,6 +765,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     /**
      * Returns the drawable which is used for the status bar scrim.
      *
+     * @attr ref R.styleable#SubtitleCollapsingToolbarLayout_statusBarScrim
      * @see #setStatusBarScrim(Drawable)
      */
     @Nullable
@@ -775,17 +776,11 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     /**
      * Sets the text color and size for the collapsed title from the specified TextAppearance
      * resource.
+     *
+     * @attr ref com.google.android.material.R.styleable#SubtitleCollapsingToolbarLayout_collapsedTitleTextAppearance
      */
     public void setCollapsedTitleTextAppearance(@StyleRes int resId) {
-        collapsingTextHelper.setCollapsedTextAppearance(resId);
-    }
-
-    /**
-     * Sets the text color and size for the collapsed title from the specified TextAppearance
-     * resource.
-     */
-    public void setCollapsedSubtitleTextAppearance(@StyleRes int resId) {
-        collapsingTextHelper.setCollapsedTextAppearance2(resId);
+        collapsingTextHelper.setCollapsedTitleTextAppearance(resId);
     }
 
     /**
@@ -803,11 +798,21 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      * @param colors ColorStateList containing the new text colors
      */
     public void setCollapsedTitleTextColor(@NonNull ColorStateList colors) {
-        collapsingTextHelper.setCollapsedTextColor(colors);
+        collapsingTextHelper.setCollapsedTitleTextColor(colors);
     }
 
     /**
-     * Sets the text color of the collapsed title.
+     * Sets the text color and size for the collapsed subtitle from the specified TextAppearance
+     * resource.
+     *
+     * @attr ref com.google.android.material.R.styleable#SubtitleCollapsingToolbarLayout_collapsedSubtitleTextAppearance
+     */
+    public void setCollapsedSubtitleTextAppearance(@StyleRes int resId) {
+        collapsingTextHelper.setCollapsedSubtitleTextAppearance(resId);
+    }
+
+    /**
+     * Sets the text color of the collapsed subtitle.
      *
      * @param color The new text color in ARGB format
      */
@@ -816,17 +821,19 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     }
 
     /**
-     * Sets the text colors of the collapsed title.
+     * Sets the text colors of the collapsed subtitle.
      *
      * @param colors ColorStateList containing the new text colors
      */
     public void setCollapsedSubtitleTextColor(@NonNull ColorStateList colors) {
-        collapsingTextHelper.setCollapsedTextColor2(colors);
+        collapsingTextHelper.setCollapsedSubtitleTextColor(colors);
     }
 
     /**
      * Sets the horizontal alignment of the collapsed title and the vertical gravity that will be used
      * when there is extra space in the collapsed bounds beyond what is required for the title itself.
+     *
+     * @attr ref com.google.android.material.R.styleable#SubtitleCollapsingToolbarLayout_collapsedTitleGravity
      */
     public void setCollapsedTitleGravity(int gravity) {
         collapsingTextHelper.setCollapsedTextGravity(gravity);
@@ -834,6 +841,8 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
 
     /**
      * Returns the horizontal and vertical alignment for title when collapsed.
+     *
+     * @attr ref com.google.android.material.R.styleable#SubtitleCollapsingToolbarLayout_collapsedTitleGravity
      */
     public int getCollapsedTitleGravity() {
         return collapsingTextHelper.getCollapsedTextGravity();
@@ -841,16 +850,11 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
 
     /**
      * Sets the text color and size for the expanded title from the specified TextAppearance resource.
+     *
+     * @attr ref com.google.android.material.R.styleable#SubtitleCollapsingToolbarLayout_expandedTitleTextAppearance
      */
     public void setExpandedTitleTextAppearance(@StyleRes int resId) {
-        collapsingTextHelper.setExpandedTextAppearance(resId);
-    }
-
-    /**
-     * Sets the text color and size for the expanded title from the specified TextAppearance resource.
-     */
-    public void setExpandedSubtitleTextAppearance(@StyleRes int resId) {
-        collapsingTextHelper.setExpandedTextAppearance2(resId);
+        collapsingTextHelper.setExpandedTitleTextAppearance(resId);
     }
 
     /**
@@ -868,11 +872,20 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      * @param colors ColorStateList containing the new text colors
      */
     public void setExpandedTitleTextColor(@NonNull ColorStateList colors) {
-        collapsingTextHelper.setExpandedTextColor(colors);
+        collapsingTextHelper.setExpandedTitleTextColor(colors);
     }
 
     /**
-     * Sets the text color of the expanded title.
+     * Sets the text color and size for the expanded subtitle from the specified TextAppearance resource.
+     *
+     * @attr ref com.google.android.material.R.styleable#SubtitleCollapsingToolbarLayout_expandedSubtitleTextAppearance
+     */
+    public void setExpandedSubtitleTextAppearance(@StyleRes int resId) {
+        collapsingTextHelper.setExpandedSubtitleTextAppearance(resId);
+    }
+
+    /**
+     * Sets the text color of the expanded subtitle.
      *
      * @param color The new text color in ARGB format
      */
@@ -881,17 +894,19 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     }
 
     /**
-     * Sets the text colors of the expanded title.
+     * Sets the text colors of the expanded subtitle.
      *
      * @param colors ColorStateList containing the new text colors
      */
     public void setExpandedSubtitleTextColor(@NonNull ColorStateList colors) {
-        collapsingTextHelper.setExpandedTextColor2(colors);
+        collapsingTextHelper.setExpandedSubtitleTextColor(colors);
     }
 
     /**
      * Sets the horizontal alignment of the expanded title and the vertical gravity that will be used
      * when there is extra space in the expanded bounds beyond what is required for the title itself.
+     *
+     * @attr ref com.google.android.material.R.styleable#SubtitleCollapsingToolbarLayout_expandedTitleGravity
      */
     public void setExpandedTitleGravity(int gravity) {
         collapsingTextHelper.setExpandedTextGravity(gravity);
@@ -899,6 +914,8 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
 
     /**
      * Returns the horizontal and vertical alignment for title when expanded.
+     *
+     * @attr ref com.google.android.material.R.styleable#SubtitleCollapsingToolbarLayout_expandedTitleGravity
      */
     public int getExpandedTitleGravity() {
         return collapsingTextHelper.getExpandedTextGravity();
@@ -910,7 +927,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      * @param typeface typeface to use, or {@code null} to use the default.
      */
     public void setCollapsedTitleTypeface(@Nullable Typeface typeface) {
-        collapsingTextHelper.setCollapsedTypeface(typeface);
+        collapsingTextHelper.setCollapsedTitleTypeface(typeface);
     }
 
     /**
@@ -918,7 +935,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      */
     @NonNull
     public Typeface getCollapsedTitleTypeface() {
-        return collapsingTextHelper.getCollapsedTypeface();
+        return collapsingTextHelper.getCollapsedTitleTypeface();
     }
 
     /**
@@ -927,7 +944,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      * @param typeface typeface to use, or {@code null} to use the default.
      */
     public void setExpandedTitleTypeface(@Nullable Typeface typeface) {
-        collapsingTextHelper.setExpandedTypeface(typeface);
+        collapsingTextHelper.setExpandedTitleTypeface(typeface);
     }
 
     /**
@@ -935,7 +952,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      */
     @NonNull
     public Typeface getExpandedTitleTypeface() {
-        return collapsingTextHelper.getExpandedTypeface();
+        return collapsingTextHelper.getExpandedTitleTypeface();
     }
 
     /**
@@ -944,7 +961,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      * @param typeface typeface to use, or {@code null} to use the default.
      */
     public void setCollapsedSubtitleTypeface(@Nullable Typeface typeface) {
-        collapsingTextHelper.setCollapsedTypeface2(typeface);
+        collapsingTextHelper.setCollapsedSubtitleTypeface(typeface);
     }
 
     /**
@@ -952,7 +969,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      */
     @NonNull
     public Typeface getCollapsedSubtitleTypeface() {
-        return collapsingTextHelper.getCollapsedTypeface2();
+        return collapsingTextHelper.getCollapsedSubtitleTypeface();
     }
 
     /**
@@ -961,7 +978,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      * @param typeface typeface to use, or {@code null} to use the default.
      */
     public void setExpandedSubtitleTypeface(@Nullable Typeface typeface) {
-        collapsingTextHelper.setExpandedTypeface2(typeface);
+        collapsingTextHelper.setExpandedSubtitleTypeface(typeface);
     }
 
     /**
@@ -969,7 +986,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      */
     @NonNull
     public Typeface getExpandedSubtitleTypeface() {
-        return collapsingTextHelper.getExpandedTypeface2();
+        return collapsingTextHelper.getExpandedSubtitleTypeface();
     }
 
     /**
@@ -979,6 +996,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      * @param top    the top title margin in pixels
      * @param end    the ending title margin in pixels
      * @param bottom the bottom title margin in pixels
+     * @attr ref com.google.android.material.R.styleable#SubtitleCollapsingToolbarLayout_expandedTitleMargin
      * @see #getExpandedTitleMarginStart()
      * @see #getExpandedTitleMarginTop()
      * @see #getExpandedTitleMarginEnd()
@@ -994,6 +1012,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
 
     /**
      * @return the starting expanded title margin in pixels
+     * @attr ref com.google.android.material.R.styleable#SubtitleCollapsingToolbarLayout_expandedTitleMarginStart
      * @see #setExpandedTitleMarginStart(int)
      */
     public int getExpandedTitleMarginStart() {
@@ -1004,6 +1023,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      * Sets the starting expanded title margin in pixels.
      *
      * @param margin the starting title margin in pixels
+     * @attr ref com.google.android.material.R.styleable#SubtitleCollapsingToolbarLayout_expandedTitleMarginStart
      * @see #getExpandedTitleMarginStart()
      */
     public void setExpandedTitleMarginStart(int margin) {
@@ -1013,6 +1033,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
 
     /**
      * @return the top expanded title margin in pixels
+     * @attr ref com.google.android.material.R.styleable#SubtitleCollapsingToolbarLayout_expandedTitleMarginTop
      * @see #setExpandedTitleMarginTop(int)
      */
     public int getExpandedTitleMarginTop() {
@@ -1023,6 +1044,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      * Sets the top expanded title margin in pixels.
      *
      * @param margin the top title margin in pixels
+     * @attr ref com.google.android.material.R.styleable#SubtitleCollapsingToolbarLayout_expandedTitleMarginTop
      * @see #getExpandedTitleMarginTop()
      */
     public void setExpandedTitleMarginTop(int margin) {
@@ -1032,6 +1054,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
 
     /**
      * @return the ending expanded title margin in pixels
+     * @attr ref com.google.android.material.R.styleable#SubtitleCollapsingToolbarLayout_expandedTitleMarginEnd
      * @see #setExpandedTitleMarginEnd(int)
      */
     public int getExpandedTitleMarginEnd() {
@@ -1042,6 +1065,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      * Sets the ending expanded title margin in pixels.
      *
      * @param margin the ending title margin in pixels
+     * @attr ref com.google.android.material.R.styleable#SubtitleCollapsingToolbarLayout_expandedTitleMarginEnd
      * @see #getExpandedTitleMarginEnd()
      */
     public void setExpandedTitleMarginEnd(int margin) {
@@ -1051,6 +1075,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
 
     /**
      * @return the bottom expanded title margin in pixels
+     * @attr ref com.google.android.material.R.styleable#SubtitleCollapsingToolbarLayout_expandedTitleMarginBottom
      * @see #setExpandedTitleMarginBottom(int)
      */
     public int getExpandedTitleMarginBottom() {
@@ -1061,6 +1086,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      * Sets the bottom expanded title margin in pixels.
      *
      * @param margin the bottom title margin in pixels
+     * @attr ref com.google.android.material.R.styleable#SubtitleCollapsingToolbarLayout_expandedTitleMarginBottom
      * @see #getExpandedTitleMarginBottom()
      */
     public void setExpandedTitleMarginBottom(int margin) {
@@ -1076,6 +1102,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      * visible, otherwise they are hidden.
      *
      * @param height value in pixels used to define when to trigger a scrim visibility change
+     * @attr ref com.google.android.material.R.styleable#SubtitleCollapsingToolbarLayout_expandedTitleMarginEnd
      */
     public void setScrimVisibleHeightTrigger(@IntRange(from = 0) final int height) {
         if (scrimVisibleHeightTrigger != height) {
@@ -1115,6 +1142,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      * Set the duration used for scrim visibility animations.
      *
      * @param duration the duration to use in milliseconds
+     * @attr ref com.google.android.material.R.styleable#SubtitleCollapsingToolbarLayout_scrimAnimationDuration
      */
     public void setScrimAnimationDuration(@IntRange(from = 0) final long duration) {
         scrimAnimationDuration = duration;
@@ -1230,8 +1258,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
             }
 
             // Update the collapsing text's fraction
-            final int expandRange =
-                getHeight() - ViewCompat.getMinimumHeight(SubtitleCollapsingToolbarLayout.this) - insetTop;
+            final int expandRange = getHeight() - ViewCompat.getMinimumHeight(SubtitleCollapsingToolbarLayout.this) - insetTop;
             collapsingTextHelper.setExpansionFraction(Math.abs(verticalOffset) / (float) expandRange);
         }
     }
