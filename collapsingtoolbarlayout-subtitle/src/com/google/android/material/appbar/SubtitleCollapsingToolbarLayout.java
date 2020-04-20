@@ -172,9 +172,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
 
         setWillNotDraw(false);
 
-        ViewCompat.setOnApplyWindowInsetsListener(
-            this,
-            new androidx.core.view.OnApplyWindowInsetsListener() {
+        ViewCompat.setOnApplyWindowInsetsListener(this, new androidx.core.view.OnApplyWindowInsetsListener() {
                 @Override
                 public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
                     return onWindowInsetChanged(insets);
@@ -686,8 +684,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
                 if (statusBarScrim.isStateful()) {
                     statusBarScrim.setState(getDrawableState());
                 }
-                DrawableCompat.setLayoutDirection(
-                    statusBarScrim, ViewCompat.getLayoutDirection(this));
+                DrawableCompat.setLayoutDirection(statusBarScrim, ViewCompat.getLayoutDirection(this));
                 statusBarScrim.setVisible(getVisibility() == VISIBLE, false);
                 statusBarScrim.setCallback(this);
                 statusBarScrim.setAlpha(scrimAlpha);
@@ -1258,7 +1255,9 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
             }
 
             // Update the collapsing text's fraction
-            final int expandRange = getHeight() - ViewCompat.getMinimumHeight(SubtitleCollapsingToolbarLayout.this) - insetTop;
+            final int expandRange = getHeight()
+                - ViewCompat.getMinimumHeight(SubtitleCollapsingToolbarLayout.this)
+                - insetTop;
             collapsingTextHelper.setExpansionFraction(Math.abs(verticalOffset) / (float) expandRange);
         }
     }

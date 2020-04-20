@@ -26,16 +26,16 @@ import kotlinx.android.synthetic.main.activity_example.*
 class ExampleActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     @JvmField @BindPreference("theme") var theme2 = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
     @JvmField @BindPreference var showSubtitle = false
-    @JvmField @BindPreference var statusBarScrim = 0
-    @JvmField @BindPreference var contentScrim = 0
+    @JvmField @BindPreference var statusBarScrim = Color.TRANSPARENT
+    @JvmField @BindPreference var contentScrim = Color.TRANSPARENT
     @JvmField @BindPreference var marginLeft = 0
     @JvmField @BindPreference var marginTop = 0
     @JvmField @BindPreference var marginRight = 0
     @JvmField @BindPreference var marginBottom = 0
-    @JvmField @BindPreference var collapsedTitleColor = 0
-    @JvmField @BindPreference var collapsedSubtitleColor = 0
-    @JvmField @BindPreference var expandedTitleColor = 0
-    @JvmField @BindPreference var expandedSubtitleColor = 0
+    @JvmField @BindPreference var collapsedTitleColor = Color.TRANSPARENT
+    @JvmField @BindPreference var collapsedSubtitleColor = Color.TRANSPARENT
+    @JvmField @BindPreference @ColorInt var expandedTitleColor = Color.TRANSPARENT
+    @JvmField @BindPreference @ColorInt var expandedSubtitleColor = Color.TRANSPARENT
 
     private lateinit var preferences: AndroidPreferences
     private lateinit var saver: PreferencesSaver
@@ -111,10 +111,10 @@ class ExampleActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         if (marginTop != 0) toolbarLayout.expandedTitleMarginTop = marginTop * marginScale
         if (marginRight != 0) toolbarLayout.expandedTitleMarginEnd = marginRight * marginScale
         if (marginBottom != 0) toolbarLayout.expandedTitleMarginBottom = marginBottom * marginScale
-        if (collapsedTitleColor.isConfigured()) toolbarLayout.setCollapsedTitleTextColor(collapsedTitleColor)
-        if (collapsedSubtitleColor.isConfigured()) toolbarLayout.setCollapsedSubtitleTextColor(collapsedSubtitleColor)
-        if (expandedTitleColor.isConfigured()) toolbarLayout.setExpandedTitleTextColor(collapsedTitleColor)
-        if (expandedSubtitleColor.isConfigured()) toolbarLayout.setExpandedSubtitleTextColor(collapsedSubtitleColor)
+        collapsedTitleColor.ifConfigured { toolbarLayout.setCollapsedTitleTextColor(it) }
+        collapsedSubtitleColor.ifConfigured { toolbarLayout.setCollapsedSubtitleTextColor(it) }
+        expandedTitleColor.ifConfigured { toolbarLayout.setExpandedTitleTextColor(it) }
+        expandedSubtitleColor.ifConfigured { toolbarLayout.setExpandedSubtitleTextColor(it) }
     }
 
     private companion object {
@@ -131,6 +131,10 @@ class ExampleActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
             return gravity ?: def
         }
 
-        fun @receiver:ColorInt Int.isConfigured() = this != Color.TRANSPARENT
+        fun @receiver:ColorInt Int.isConfigured(): Boolean = this != Color.TRANSPARENT
+
+        fun @receiver:ColorInt Int.ifConfigured(action: (Int) -> Unit) {
+            if (isConfigured()) action(this)
+        }
     }
 }

@@ -4,8 +4,8 @@
 
 SubtitleCollapsingToolbarLayout
 ===============================
-![demo1][demo1]
-![demo2][demo2]
+![example_light][example_light]
+![example_dark][example_dark]
 
 Standard CollapsingToolbarLayout with subtitle support.
 * Just like the title, subtitle text will have to be **1 line**.
@@ -111,8 +111,7 @@ License
     See the License for the specific language governing permissions and
     limitations under the License.
 
-[demo1]: /art/demo1.gif
-[demo2]: /art/demo2.gif
+[example_light]: /art/example_light.gif
+[example_dark]: /art/example_dark.gif
 [androidx-rn]: https://developer.android.com/topic/libraries/support-library/androidx-rn
-n
 
