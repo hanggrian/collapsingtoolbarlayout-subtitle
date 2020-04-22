@@ -42,6 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="24dp"
+        android:onClick="expand"
         android:src="@drawable/round_expand_more_24"
         app:fabSize="normal"
         app:layout_anchor="@id/container"

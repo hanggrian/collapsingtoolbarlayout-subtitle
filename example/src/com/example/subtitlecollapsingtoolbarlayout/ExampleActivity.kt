@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.Px
 import androidx.appcompat.app.AppCompatActivity
@@ -52,8 +53,6 @@ class ExampleActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
             .commitNow()
         preferences = Prefy[this]
         marginScale = resources.getDimensionPixelSize(R.dimen.margin_scale)
-
-        fab.setOnClickListener { appbar.setExpanded(true) }
         onSharedPreferenceChanged(preferences, "")
     }
 
@@ -116,6 +115,8 @@ class ExampleActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         expandedTitleColor.ifConfigured { toolbarLayout.setExpandedTitleTextColor(it) }
         expandedSubtitleColor.ifConfigured { toolbarLayout.setExpandedSubtitleTextColor(it) }
     }
+
+    fun expand(view: View) = appbar.setExpanded(true)
 
     private companion object {
         fun AndroidPreferences.getGravity(key: String, def: Int): Int {
