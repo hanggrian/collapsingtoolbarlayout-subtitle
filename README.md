@@ -1,6 +1,6 @@
-[![bintray](https://img.shields.io/badge/bintray-material-brightgreen.svg)](https://bintray.com/hendraanggrian/material)
 [![download](https://api.bintray.com/packages/hendraanggrian/material/collapsingtoolbarlayout-subtitle/images/download.svg)](https://bintray.com/hendraanggrian/material/collapsingtoolbarlayout-subtitle/_latestVersion)
 [![build](https://travis-ci.com/hendraanggrian/collapsingtoolbarlayout-subtitle.svg)](https://travis-ci.com/hendraanggrian/collapsingtoolbarlayout-subtitle)
+[![license](https://img.shields.io/github/license/hendraanggrian/collapsingtoolbarlayout-subtitle)](http://www.apache.org/licenses/LICENSE-2.0)
 
 SubtitleCollapsingToolbarLayout
 ===============================
@@ -95,23 +95,6 @@ and a few extras.
 | `collapsedSubtitleTextAppearance` | text appearance of subtitle when collapsed | `TextAppearance.AppCompat.Widget.ActionBar.Subtitle` |
 | `expandedSubtitleTextAppearance`  | text appearance of subtitle when expanded  | `TextAppearance.AppCompat.Headline`                  |
 
-License
--------
-    Copyright 2017 Hendra Anggrian
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
 [example_light]: /art/example_light.gif
 [example_dark]: /art/example_dark.gif
 [androidx-rn]: https://developer.android.com/topic/libraries/support-library/androidx-rn
-
