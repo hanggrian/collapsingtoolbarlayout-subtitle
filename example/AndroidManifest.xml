@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Demo">
         <activity
-            android:name=".ExampleActivity"
+            android:name=".MainActivity"
             tools:targetApi="q"
             android:forceDarkAllowed="true">
             <intent-filter>

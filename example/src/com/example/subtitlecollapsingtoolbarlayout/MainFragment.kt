@@ -6,20 +6,15 @@ import androidx.preference.MultiSelectListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 
-class ExampleFragment : PreferenceFragmentCompat() {
-
-    private companion object {
-        const val SEPARATOR_LINE = " | "
-        const val SEPARATOR_COMMA = ", "
-    }
+class MainFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        addPreferencesFromResource(R.xml.fragment_example)
+        addPreferencesFromResource(R.xml.fragment_main)
         findPreference<MultiSelectListPreference>("collapsedGravity")!!.bindSummary({ values }) {
-            it.joinToString(SEPARATOR_LINE) { getActualString(it, R.array.gravity_values, R.array.gravities) }
+            it.joinToString(" | ") { getActualString(it, R.array.gravity_values, R.array.gravities) }
         }
         findPreference<MultiSelectListPreference>("expandedGravity")!!.bindSummary({ values }) {
-            it.joinToString(SEPARATOR_LINE) { getActualString(it, R.array.gravity_values, R.array.gravities) }
+            it.joinToString(" | ") { getActualString(it, R.array.gravity_values, R.array.gravities) }
         }
     }
 

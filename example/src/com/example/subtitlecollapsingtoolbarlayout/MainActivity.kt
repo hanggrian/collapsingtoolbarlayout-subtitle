@@ -22,9 +22,9 @@ import com.hendraanggrian.prefy.android.AndroidPreferences
 import com.hendraanggrian.prefy.android.get
 import com.hendraanggrian.prefy.bind
 import com.jakewharton.processphoenix.ProcessPhoenix
-import kotlinx.android.synthetic.main.activity_example.*
+import kotlinx.android.synthetic.main.activity_main.*
 
-class ExampleActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
+class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     @JvmField @BindPreference("theme") var theme2 = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
     @JvmField @BindPreference var showSubtitle = false
     @JvmField @BindPreference var statusBarScrim = Color.TRANSPARENT
@@ -45,11 +45,11 @@ class ExampleActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_example)
+        setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.container, ExampleFragment())
+            .replace(R.id.container, MainFragment())
             .commitNow()
         preferences = Prefy[this]
         marginScale = resources.getDimensionPixelSize(R.dimen.margin_scale)
@@ -67,7 +67,7 @@ class ExampleActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.activity_example, menu)
+        menuInflater.inflate(R.menu.activity_main, menu)
         menu.findItem(
             when (theme2) {
                 AppCompatDelegate.MODE_NIGHT_NO -> R.id.lightThemeItem
@@ -119,7 +119,7 @@ class ExampleActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     fun expand(view: View) = appbar.setExpanded(true)
 
     private companion object {
-        fun AndroidPreferences.getGravity(key: String, def: Int): Int {
+        fun SharedPreferences.getGravity(key: String, def: Int): Int {
             val iterator = getStringSet(key, emptySet())!!.iterator()
             var gravity: Int? = null
             while (iterator.hasNext()) {
