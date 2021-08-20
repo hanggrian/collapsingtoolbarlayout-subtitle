@@ -1,46 +1,49 @@
 plugins {
     android("library")
     kotlin("android")
-    `bintray-release`
+    `maven-publish`
+    signing
 }
 
 android {
-    compileSdkVersion(SDK_TARGET)
+    compileSdk = SDK_TARGET
     defaultConfig {
-        minSdkVersion(SDK_MIN)
-        targetSdkVersion(SDK_TARGET)
-        versionName = RELEASE_VERSION
+        minSdk = SDK_MIN
+        targetSdk = SDK_TARGET
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
     }
     sourceSets {
-        getByName("main") {
+        named("main") {
             manifest.srcFile("AndroidManifest.xml")
             java.srcDir("src")
-            res.srcDirs("res", "res-public")
+            res.srcDir("res")
+            resources.srcDir("src")
         }
-        getByName("androidTest") {
+        named("androidTest") {
             setRoot("tests")
             manifest.srcFile("tests/AndroidManifest.xml")
             java.srcDir("tests/src")
             res.srcDir("tests/res")
+            resources.srcDir("tests/src")
         }
     }
     libraryVariants.all {
-        generateBuildConfigProvider?.configure {
-            enabled = false
-        }
+        generateBuildConfigProvider.orNull?.enabled = false
     }
 }
 
 dependencies {
     implementation(material())
-
-    testImplementation(google("truth", "truth", VERSION_TRUTH))
+    runtimeOnly(androidx("appcompat")) // TODO: investigate why this is necessary
     androidTestImplementation(kotlin("stdlib", VERSION_KOTLIN))
     androidTestImplementation(kotlin("test-junit", VERSION_KOTLIN))
-    androidTestImplementation(hendraanggrian("material", "bannerbar-ktx", VERSION_ANDROIDX))
+    androidTestImplementation(hendraanggrian("material", "bannerbar-ktx", "$VERSION_ANDROIDX-SNAPSHOT"))
+    androidTestImplementation(material())
+    androidTestImplementation(androidx("multidex", version = VERSION_MULTIDEX))
+    androidTestImplementation(androidx("core", "core-ktx"))
     androidTestImplementation(androidx("appcompat"))
-    androidTestImplementation(androidx("coordinatorlayout"))
+    androidTestImplementation(androidx("coordinatorlayout", version = "1.1.0"))
     androidTestImplementation(androidx("test", "core-ktx", VERSION_ANDROIDX_TEST))
     androidTestImplementation(androidx("test", "runner", VERSION_ANDROIDX_TEST))
     androidTestImplementation(androidx("test", "rules", VERSION_ANDROIDX_TEST))
@@ -49,23 +52,12 @@ dependencies {
     androidTestImplementation(androidx("test.espresso", "espresso-core", VERSION_ESPRESSO))
 }
 
-tasks.withType<Javadoc> {
-    (options as CoreJavadocOptions).run {
-        addStringOption("Xdoclint:none", "-quiet")
-        addStringOption("encoding", "utf-8")
+tasks {
+    val javadoc by registering(Javadoc::class) {
+        isFailOnError = false
+        source = android.sourceSets["main"].java.getSourceFiles()
+        classpath += project.files(android.bootClasspath.joinToString(File.pathSeparator))
     }
 }
 
-publish {
-    bintrayUser = BINTRAY_USER
-    bintrayKey = BINTRAY_KEY
-    dryRun = false
-    repoName = RELEASE_REPO
-
-    userOrg = RELEASE_USER
-    groupId = RELEASE_GROUP
-    artifactId = RELEASE_ARTIFACT
-    publishVersion = RELEASE_VERSION
-    desc = RELEASE_DESC
-    website = RELEASE_WEBSITE
-}
+mavenPublishAndroid(sources = android.sourceSets["main"].java.srcDirs)

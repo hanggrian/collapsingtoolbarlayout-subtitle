@@ -15,12 +15,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
 import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
-import com.hendraanggrian.prefy.BindPreference
-import com.hendraanggrian.prefy.PreferencesSaver
-import com.hendraanggrian.prefy.Prefy
-import com.hendraanggrian.prefy.android.AndroidPreferences
-import com.hendraanggrian.prefy.android.get
-import com.hendraanggrian.prefy.bind
+import com.hendraanggrian.prefs.BindPreference
+import com.hendraanggrian.prefs.PreferencesSaver
+import com.hendraanggrian.prefs.Prefs
+import com.hendraanggrian.prefs.android.AndroidPreferences
+import com.hendraanggrian.prefs.android.preferences
 import com.jakewharton.processphoenix.ProcessPhoenix
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -38,7 +37,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     @JvmField @BindPreference @ColorInt var expandedTitleColor = Color.TRANSPARENT
     @JvmField @BindPreference @ColorInt var expandedSubtitleColor = Color.TRANSPARENT
 
-    private lateinit var preferences: AndroidPreferences
+    private lateinit var prefs: AndroidPreferences
     private lateinit var saver: PreferencesSaver
 
     @Px private var marginScale = 0
@@ -51,19 +50,19 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
             .beginTransaction()
             .replace(R.id.container, MainFragment())
             .commitNow()
-        preferences = Prefy[this]
+        prefs = preferences
         marginScale = resources.getDimensionPixelSize(R.dimen.margin_scale)
-        onSharedPreferenceChanged(preferences, "")
+        onSharedPreferenceChanged(prefs, "")
     }
 
     override fun onResume() {
         super.onResume()
-        preferences.registerOnSharedPreferenceChangeListener(this)
+        prefs.registerOnSharedPreferenceChangeListener(this)
     }
 
     override fun onPause() {
         super.onPause()
-        preferences.unregisterOnSharedPreferenceChangeListener(this)
+        prefs.unregisterOnSharedPreferenceChangeListener(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -90,7 +89,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
                 AppCompatDelegate.setDefaultNightMode(theme2)
             }
             R.id.resetItem -> {
-                preferences.edit { clear() }
+                prefs.edit { clear() }
                 ProcessPhoenix.triggerRebirth(this)
             }
         }
@@ -98,14 +97,14 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     }
 
     override fun onSharedPreferenceChanged(p: SharedPreferences, key: String) {
-        saver = preferences.bind(this)
+        saver = Prefs.bind(prefs, this)
         toolbarLayout.subtitle = if (showSubtitle) SubtitleCollapsingToolbarLayout::class.java.simpleName else null
         toolbarLayout.statusBarScrim = if (statusBarScrim.isConfigured()) ColorDrawable(statusBarScrim) else null
         toolbarLayout.contentScrim = if (contentScrim.isConfigured()) ColorDrawable(contentScrim) else null
         toolbarLayout.collapsedTitleGravity =
-            preferences.getGravity("collapsedGravity", GravityCompat.START or Gravity.CENTER_VERTICAL)
+            prefs.getGravity("collapsedGravity", GravityCompat.START or Gravity.CENTER_VERTICAL)
         toolbarLayout.expandedTitleGravity =
-            preferences.getGravity("expandedGravity", GravityCompat.START or Gravity.BOTTOM)
+            prefs.getGravity("expandedGravity", GravityCompat.START or Gravity.BOTTOM)
         if (marginLeft != 0) toolbarLayout.expandedTitleMarginStart = marginLeft * marginScale
         if (marginTop != 0) toolbarLayout.expandedTitleMarginTop = marginTop * marginScale
         if (marginRight != 0) toolbarLayout.expandedTitleMarginEnd = marginRight * marginScale

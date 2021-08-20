@@ -36,13 +36,15 @@ class InstrumentedTest {
     @Rule @JvmField val rule = ActivityTestRule(TestActivity::class.java)
     private lateinit var bannerbar: Bannerbar
 
-    @BeforeTest fun initBannerbar() {
+    @BeforeTest
+    fun initBannerbar() {
         onView(withId(R.id.frameLayout)).perform(viewActionOf<FrameLayout> {
             bannerbar = it.bannerbar("Please wait")
         })
     }
 
-    @Test fun gravity() {
+    @Test
+    fun gravity() {
         turn { }
         turn {
             it.expandedTitleGravity = END
@@ -50,7 +52,8 @@ class InstrumentedTest {
         }
     }
 
-    @Test fun typeface() {
+    @Test
+    fun typeface() {
         turn { }
         turn {
             val assets = getTargetContext().assets

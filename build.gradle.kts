@@ -1,24 +1,21 @@
 buildscript {
     repositories {
+        mavenCentral()
+        gradlePluginPortal()
         google()
-        jcenter()
     }
     dependencies {
-        classpath(android())
         classpath(kotlin("gradle-plugin", VERSION_KOTLIN))
-        classpath(bintrayRelease())
+        classpath(android)
+        classpath(`git-publish`)
     }
 }
 
 allprojects {
     repositories {
+        mavenCentral()
         google()
-        jcenter()
+        maven(REPOSITORIES_OSSRH_SNAPSHOTS)
         maven("https://jitpack.io")
-        maven("https://dl.bintray.com/hendraanggrian/material")
     }
-}
-
-tasks.register<Delete>("clean") {
-    delete(buildDir)
 }

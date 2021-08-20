@@ -1,8 +1,11 @@
-const val RELEASE_USER = "hendraanggrian"
-const val RELEASE_REPO = "material"
-const val RELEASE_GROUP = "com.$RELEASE_USER.$RELEASE_REPO"
-const val RELEASE_ARTIFACT = "collapsingtoolbarlayout-subtitle"
-const val RELEASE_VERSION = VERSION_ANDROIDX
-const val RELEASE_DESC = "Standard CollapsingToolbarLayout with subtitle support"
-const val RELEASE_WEBSITE = "https://github.com/$RELEASE_USER/$RELEASE_ARTIFACT"
+const val SDK_MIN = 14
+const val SDK_TARGET = 30
 
+const val RELEASE_GROUP = "com.hendraanggrian.material"
+const val RELEASE_ARTIFACT = "collapsingtoolbarlayout-subtitle"
+const val RELEASE_VERSION = "$VERSION_ANDROIDX-SNAPSHOT"
+const val RELEASE_DESCRIPTION = "Standard CollapsingToolbarLayout with subtitle support"
+const val RELEASE_GITHUB = "https://github.com/hendraanggrian/$RELEASE_ARTIFACT"
+
+fun getGithubRemoteUrl(artifact: String = RELEASE_ARTIFACT) =
+    `java.net`.URL("$RELEASE_GITHUB/tree/main/$artifact/src")
