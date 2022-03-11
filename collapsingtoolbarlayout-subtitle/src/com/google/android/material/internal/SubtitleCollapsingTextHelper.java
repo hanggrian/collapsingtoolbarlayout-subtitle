@@ -323,11 +323,11 @@ public final class SubtitleCollapsingTextHelper {
     public void setCollapsedTitleTextAppearance(int resId) {
         TextAppearance textAppearance = new TextAppearance(view.getContext(), resId);
 
-        if (textAppearance.textColor != null) {
-            collapsedTitleTextColor = textAppearance.textColor;
+        if (textAppearance.getTextColor() != null) {
+            collapsedTitleTextColor = textAppearance.getTextColor();
         }
-        if (textAppearance.textSize != 0) {
-            collapsedTitleTextSize = textAppearance.textSize;
+        if (textAppearance.getTextSize() != 0) {
+            collapsedTitleTextSize = textAppearance.getTextSize();
         }
         if (textAppearance.shadowColor != null) {
             collapsedTitleShadowColor = textAppearance.shadowColor;
@@ -353,11 +353,11 @@ public final class SubtitleCollapsingTextHelper {
 
     public void setExpandedTitleTextAppearance(int resId) {
         TextAppearance textAppearance = new TextAppearance(view.getContext(), resId);
-        if (textAppearance.textColor != null) {
-            expandedTitleTextColor = textAppearance.textColor;
+        if (textAppearance.getTextColor() != null) {
+            expandedTitleTextColor = textAppearance.getTextColor();
         }
-        if (textAppearance.textSize != 0) {
-            expandedTitleTextSize = textAppearance.textSize;
+        if (textAppearance.getTextSize() != 0) {
+            expandedTitleTextSize = textAppearance.getTextSize();
         }
         if (textAppearance.shadowColor != null) {
             expandedTitleShadowColor = textAppearance.shadowColor;
@@ -384,11 +384,11 @@ public final class SubtitleCollapsingTextHelper {
     public void setCollapsedSubtitleTextAppearance(int resId) {
         TextAppearance textAppearance = new TextAppearance(view.getContext(), resId);
 
-        if (textAppearance.textColor != null) {
-            collapsedSubtitleTextColor = textAppearance.textColor;
+        if (textAppearance.getTextColor() != null) {
+            collapsedSubtitleTextColor = textAppearance.getTextColor();
         }
-        if (textAppearance.textSize != 0) {
-            collapsedSubtitleTextSize = textAppearance.textSize;
+        if (textAppearance.getTextSize() != 0) {
+            collapsedSubtitleTextSize = textAppearance.getTextSize();
         }
         if (textAppearance.shadowColor != null) {
             collapsedSubtitleShadowColor = textAppearance.shadowColor;
@@ -414,11 +414,11 @@ public final class SubtitleCollapsingTextHelper {
 
     public void setExpandedSubtitleTextAppearance(int resId) {
         TextAppearance textAppearance = new TextAppearance(view.getContext(), resId);
-        if (textAppearance.textColor != null) {
-            expandedSubtitleTextColor = textAppearance.textColor;
+        if (textAppearance.getTextColor() != null) {
+            expandedSubtitleTextColor = textAppearance.getTextColor();
         }
-        if (textAppearance.textSize != 0) {
-            expandedSubtitleTextSize = textAppearance.textSize;
+        if (textAppearance.getTextSize() != 0) {
+            expandedSubtitleTextSize = textAppearance.getTextSize();
         }
         if (textAppearance.shadowColor != null) {
             expandedSubtitleShadowColor = textAppearance.shadowColor;

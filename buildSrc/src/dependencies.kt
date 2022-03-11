@@ -2,7 +2,7 @@ internal typealias Plugins = org.gradle.plugin.use.PluginDependenciesSpec
 internal typealias Dependencies = org.gradle.api.artifacts.dsl.DependencyHandler
 
 const val VERSION_MULTIDEX = "2.0.1"
-const val VERSION_ANDROIDX = "1.3.0"
+const val VERSION_ANDROIDX = "1.5.0"
 const val VERSION_ANDROIDX_TEST = "1.4.0"
 const val VERSION_ANDROIDX_JUNIT = "1.1.3"
 const val VERSION_ANDROIDX_TRUTH = "1.4.0"
