@@ -34,3 +34,4 @@ fun Dependencies.processPhoenix() = "com.jakewharton:process-phoenix:$VERSION_PR
 
 fun colorPreference(module: String, version: String = VERSION_ANDROIDX) =
     "com.github.kizitonwose.colorpreference:$module:$version"
+    

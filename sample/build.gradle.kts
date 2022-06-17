@@ -25,7 +25,7 @@ android {
     }
     buildTypes {
         all {
-            buildConfigField("String", "RELEASE_GITHUB", "\"$RELEASE_GITHUB\"")
+            buildConfigField("String", "RELEASE_URL", "\"$RELEASE_URL\"")
             buildConfigField("String", "RELEASE_ARTIFACT", "\"$RELEASE_ARTIFACT\"")
         }
         named("debug") {

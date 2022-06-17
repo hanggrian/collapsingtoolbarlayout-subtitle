@@ -1,13 +1,13 @@
-[![version](https://img.shields.io/maven-central/v/com.hendraanggrian/collapsingtoolbarlayout-subtitle)](https://search.maven.org/artifact/com.hendraanggrian/collapsingtoolbarlayout-subtitle)
-[![build](https://img.shields.io/travis/com/hendraanggrian/collapsingtoolbarlayout-subtitle)](https://www.travis-ci.com/github/hendraanggrian/collapsingtoolbarlayout-subtitle)
+[![Travis CI](https://img.shields.io/travis/com/hendraanggrian/collapsingtoolbarlayout-subtitle)](https://www.travis-ci.com/github/hendraanggrian/collapsingtoolbarlayout-subtitle/)
+[![Maven Central](https://img.shields.io/maven-central/v/com.hendraanggrian/collapsingtoolbarlayout-subtitle)](https://search.maven.org/artifact/com.hendraanggrian/collapsingtoolbarlayout-subtitle/)
 
-SubtitleCollapsingToolbarLayout
-===============================
+# SubtitleCollapsingToolbarLayout
 
-![](images/example_light.gif)
-![](images/example_dark.gif)
+![Light example](images/example_light.gif)
+![Dark example](images/example_dark.gif)
 
 Standard CollapsingToolbarLayout with subtitle support.
+
 - Just like the title, subtitle text will have to be **1 line**.
 - When collapsed, a subtitle would still appear as Toolbar's.
 - Separate configuration for title and subtitle: text color, gravity, etc.
@@ -15,6 +15,7 @@ Standard CollapsingToolbarLayout with subtitle support.
 ### Caveats
 
 Since it uses a lot of CollapsingToolbarLayout resources and API, there are a few:
+
 - Only safe to use with the same version of material components.
 - Deceptive package name.
 
@@ -24,27 +25,24 @@ It is detabable if we even need this library.
 If the material guidelines says it's ok to have a multiline text in toolbar layout, then they surely would've already implemented such feature.
 If it doesn't say anything about subtitle (which is odds because Toolbar has it), then we probably shouldn't use it out of respect to the guidelines.
 
-Download
---------
+## Download
 
-This library follows [AndroidX's revisions](https://developer.android.com/topic/libraries/support-library/androidx-rn).
+This library follows [AndroidX's revisions](https://developer.android.com/topic/libraries/support-library/androidx-rn/).
 
 ```gradle
 repositories {
     mavenCentral()
     google()
 }
-
 dependencies {
     implementation "com.google.android.material:material:$version"
     implementation "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:$version"
 }
 ```
 
-Snapshots of the development version are available in [Sonatype's snapshots repository](https://s01.oss.sonatype.org/content/repositories/snapshots).
+Snapshots of the development version are available in [Sonatype's snapshots repository](https://s01.oss.sonatype.org/content/repositories/snapshots/).
 
-Usage
------
+## Usage
 
 Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLayout`.
 
