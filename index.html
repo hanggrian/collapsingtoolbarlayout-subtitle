@@ -1,0 +1,189 @@
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta content="chrome=1" http-equiv="X-UA-Compatible">
+        <title>collapsingtoolbarlayout-subtitle by Hendra Anggrian</title>
+        <link href="styles/main.css" rel="stylesheet">
+        <link href="styles/pygment_trac.css" rel="stylesheet">
+        <meta content="width=device-width" name="viewport">
+        <script src="scripts/theme.js"></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <h1>collapsingtoolbarlayout-subtitle</h1>
+                <p>Standard CollapsingToolbarLayout with subtitle support</p>
+                <p class="view">
+                    <a href="https://github.com/hendraanggrian/collapsingtoolbarlayout-subtitle">View the Project on GitHub <small>hendraanggrian/collapsingtoolbarlayout-subtitle</small></a>
+                </p>
+            </header>
+            <section>
+                <p>
+                    <a href="https://www.travis-ci.com/github/hendraanggrian/collapsingtoolbarlayout-subtitle/"><img alt="Travis CI" src="https://img.shields.io/travis/com/hendraanggrian/collapsingtoolbarlayout-subtitle"></a>
+<a href="https://app.codecov.io/gh/hendraanggrian/collapsingtoolbarlayout-subtitle/"><img alt="Codecov" src="https://img.shields.io/codecov/c/github/hendraanggrian/collapsingtoolbarlayout-subtitle"></a>
+<a href="https://search.maven.org/artifact/com.hendraanggrian/collapsingtoolbarlayout-subtitle/"><img alt="Maven Central" src="https://img.shields.io/maven-central/v/com.hendraanggrian/collapsingtoolbarlayout-subtitle"></a>
+                </p>
+                
+                <h1>SubtitleCollapsingToolbarLayout</h1>
+                
+                <p>
+                    <img alt="Light example" src="images/example_light.gif">
+<img alt="Dark example" src="images/example_dark.gif">
+                </p>
+                
+                <p>Standard CollapsingToolbarLayout with subtitle support.</p>
+                
+                <ul>
+                    
+                    <li>
+                        Just like the title, subtitle text will have to be <strong>1 line</strong>.
+                    </li>
+                    
+                    <li>When collapsed, a subtitle would still appear as Toolbar's.</li>
+                    
+                    <li>Separate configuration for title and subtitle: text color, gravity, etc.</li>
+                    
+                </ul>
+                
+                <h3>Caveats</h3>
+                
+                <p>Since it uses a lot of CollapsingToolbarLayout resources and API, there are a few:</p>
+                
+                <ul>
+                    
+                    <li>Only safe to use with the same version of material components.</li>
+                    
+                    <li>Deceptive package name.</li>
+                    
+                </ul>
+                
+                <h3>Also...</h3>
+                
+                <p>It is detabable if we even need this library.
+If the material guidelines says it's ok to have a multiline text in toolbar layout, then they surely would've already implemented such feature.
+If it doesn't say anything about subtitle (which is odds because Toolbar has it), then we probably shouldn't use it out of respect to the guidelines.</p>
+                
+                <h2>Download</h2>
+                
+                <p>
+                    This library follows <a href="https://developer.android.com/topic/libraries/support-library/androidx-rn/">AndroidX's revisions</a>.
+                </p>
+                
+                <pre><code class="language-gradle">repositories {
+    mavenCentral()
+    google()
+}
+dependencies {
+    implementation "com.google.android.material:material:$version"
+    implementation "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:$version"
+}
+</code></pre>
+                
+                <p>
+                    Snapshots of the development version are available in <a href="https://s01.oss.sonatype.org/content/repositories/snapshots/">Sonatype's snapshots repository</a>.
+                </p>
+                
+                <h2>Usage</h2>
+                
+                <p>
+                    Treat <code>SubtitleCollapsingToolbarLayout</code> just like a regular <code>CollapsingToolbarLayout</code>.
+                </p>
+                
+                <pre><code class="language-xml">&lt;androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"&gt;
+
+    &lt;com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"&gt;
+
+        &lt;com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
+            android:id="@+id/subtitlecollapsingtoolbarlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentScrim="?colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:subtitle="Papua, Indonesia"
+            app:title="Raja Ampat"&gt;
+
+            &lt;!-- collapsing toolbar content goes here --&gt;
+
+            &lt;androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:layout_collapseMode="pin"/&gt;
+        &lt;/android.support.design.widget.SubtitleCollapsingToolbarLayout&gt;
+    &lt;/com.google.android.material.appbar.AppBarLayout&gt;
+
+    &lt;!-- content goes here --&gt;
+
+&lt;/androidx.coordinatorlayout.widget.CoordinatorLayout&gt;
+</code></pre>
+                
+                <h3>Attributes</h3>
+                
+                <p>
+                    <code>SubtitleCollapsingToolbarLayout</code> has all the attributes of <code>CollapsingToolbarLayout</code>, and a few extras.
+                </p>
+                
+                <table>
+                    
+                    <thead>
+                        
+                        <tr>
+                            
+                            <th>Attribute</th>
+<th>Description</th>
+<th>Default value/behavior</th>
+
+                        </tr>
+                        
+                    </thead>
+                    
+                    <tbody>
+                        
+                        <tr>
+                            
+                            <td><code>subtitle</code></td>
+<td>subtitle text</td>
+<td>disabled</td>
+
+                        </tr>
+                        
+                        <tr>
+                            
+                            <td><code>collapsedSubtitleTextAppearance</code></td>
+<td>text appearance of subtitle when collapsed</td>
+<td><code>TextAppearance.AppCompat.Widget.ActionBar.Subtitle</code></td>
+
+                        </tr>
+                        
+                        <tr>
+                            
+                            <td><code>expandedSubtitleTextAppearance</code></td>
+<td>text appearance of subtitle when expanded</td>
+<td><code>TextAppearance.AppCompat.Headline</code></td>
+
+                        </tr>
+                        
+                    </tbody>
+                    
+                </table>
+                
+            </section>
+            <footer>
+                <p>
+                    <button onclick="toggleDarkMode()" title="Toggle dark mode"><span id="theme-toggle"></span></button>
+                </p>
+                <p>
+                    This project is maintained by <a href="https://github.com/hendraanggrian">Hendra Anggrian</a>
+                </p>
+                <small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/hendraanggrian/minimal-theme">minimal</a></small>
+            </footer>
+        </div>
+        <script src="scripts/scale.fix.js"></script>
+    </body>
+</html>
