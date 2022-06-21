@@ -1,4 +1,5 @@
 [![Travis CI](https://img.shields.io/travis/com/hendraanggrian/collapsingtoolbarlayout-subtitle)](https://www.travis-ci.com/github/hendraanggrian/collapsingtoolbarlayout-subtitle/)
+[![Codecov](https://img.shields.io/codecov/c/github/hendraanggrian/collapsingtoolbarlayout-subtitle)](https://app.codecov.io/gh/hendraanggrian/collapsingtoolbarlayout-subtitle/)
 [![Maven Central](https://img.shields.io/maven-central/v/com.hendraanggrian/collapsingtoolbarlayout-subtitle)](https://search.maven.org/artifact/com.hendraanggrian/collapsingtoolbarlayout-subtitle/)
 
 # SubtitleCollapsingToolbarLayout

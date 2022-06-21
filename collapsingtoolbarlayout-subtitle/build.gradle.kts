@@ -1,63 +1,57 @@
+import com.vanniktech.maven.publish.AndroidLibrary
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
-    android("library")
-    kotlin("android")
-    `maven-publish`
-    signing
+    id("com.android.library")
+    id("com.diffplug.spotless")
+    id("com.vanniktech.maven.publish.base")
 }
 
 android {
-    compileSdk = SDK_TARGET
-    defaultConfig {
-        minSdk = SDK_MIN
-        targetSdk = SDK_TARGET
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled = true
-    }
-    sourceSets {
-        named("main") {
-            manifest.srcFile("AndroidManifest.xml")
-            java.srcDir("src")
-            res.srcDir("res")
-            resources.srcDir("src")
-        }
-        named("androidTest") {
-            setRoot("tests")
-            manifest.srcFile("tests/AndroidManifest.xml")
-            java.srcDir("tests/src")
-            res.srcDir("tests/res")
-            resources.srcDir("tests/src")
+    buildTypes {
+        debug {
+            isTestCoverageEnabled = true
         }
     }
-    libraryVariants.all {
-        generateBuildConfigProvider.orNull?.enabled = false
+    buildFeatures {
+        buildConfig = false
     }
+}
+
+spotless.java { googleJavaFormat() }
+
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.S01)
+    signAllPublications()
+    pom {
+        name.set(project.name)
+        description.set(RELEASE_DESCRIPTION)
+        url.set(RELEASE_URL)
+        licenses {
+            license {
+                name.set("The Apache License, Version 2.0")
+                url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                distribution.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+            }
+        }
+        scm {
+            connection.set("scm:git:https://github.com/$DEVELOPER_ID/$RELEASE_ARTIFACT.git")
+            developerConnection.set("scm:git:ssh://git@github.com/$DEVELOPER_ID/$RELEASE_ARTIFACT.git")
+            url.set(RELEASE_URL)
+        }
+        developers {
+            developer {
+                id.set(DEVELOPER_ID)
+                name.set(DEVELOPER_NAME)
+                url.set(DEVELOPER_URL)
+            }
+        }
+    }
+    configure(AndroidLibrary(javadocJar = JavadocJar.Javadoc()))
 }
 
 dependencies {
-    implementation(material())
-    runtimeOnly(androidx("appcompat")) // TODO: investigate why this is necessary
-    androidTestImplementation(kotlin("stdlib", VERSION_KOTLIN))
-    androidTestImplementation(kotlin("test-junit", VERSION_KOTLIN))
-    androidTestImplementation(hendraanggrian("material", "bannerbar-ktx", "$VERSION_ANDROIDX-SNAPSHOT"))
-    androidTestImplementation(material())
-    androidTestImplementation(androidx("multidex", version = VERSION_MULTIDEX))
-    androidTestImplementation(androidx("core", "core-ktx"))
-    androidTestImplementation(androidx("appcompat"))
-    androidTestImplementation(androidx("coordinatorlayout", version = "1.1.0"))
-    androidTestImplementation(androidx("test", "core-ktx", VERSION_ANDROIDX_TEST))
-    androidTestImplementation(androidx("test", "runner", VERSION_ANDROIDX_TEST))
-    androidTestImplementation(androidx("test", "rules", VERSION_ANDROIDX_TEST))
-    androidTestImplementation(androidx("test.ext", "junit-ktx", VERSION_ANDROIDX_JUNIT))
-    androidTestImplementation(androidx("test.ext", "truth", VERSION_ANDROIDX_TRUTH))
-    androidTestImplementation(androidx("test.espresso", "espresso-core", VERSION_ESPRESSO))
+    implementation(libs.material)
+    androidTestImplementation(testLibs.bundles.androidx)
 }
-
-tasks {
-    val javadoc by registering(Javadoc::class) {
-        isFailOnError = false
-        source = android.sourceSets["main"].java.getSourceFiles()
-        classpath += project.files(android.bootClasspath.joinToString(File.pathSeparator))
-    }
-}
-
-mavenPublishAndroid(sources = android.sourceSets["main"].java.srcDirs)

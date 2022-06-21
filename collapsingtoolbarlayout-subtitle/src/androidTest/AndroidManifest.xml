@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.hendraanggrian.material.subtitlecollapsingtoolbarlayout">
+
+    <uses-sdk tools:overrideLibrary="androidx.test, android.app, androidx.test.rule, androidx.test.espresso, androidx.test.espresso.idling" />
+
+    <application android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+        <uses-library android:name="android.test.runner" />
+        <activity android:name="com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.TestActivity" />
+    </application>
+</manifest>
