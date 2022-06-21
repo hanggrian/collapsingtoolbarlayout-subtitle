@@ -36,7 +36,7 @@ public class SwipeTest {
 
     @Before
     public void initSnackbar() {
-        onView(withId(R.id.frameLayout)).perform(Views.perform(FrameLayout.class, "Initiating snackbar", frameLayout -> {
+        onView(withId(R.id.frameLayout)).perform(Views.perform(FrameLayout.class, frameLayout -> {
             snackbar = Snackbar.make(frameLayout, "Please Wait", Snackbar.LENGTH_INDEFINITE);
             snackbar.show();
         }));
@@ -45,17 +45,17 @@ public class SwipeTest {
     @Test
     public void swipe() {
         onView(withId(R.id.toolbarLayout)).perform(
-            Views.perform(SubtitleCollapsingToolbarLayout.class, null, view -> {
+            Views.perform(SubtitleCollapsingToolbarLayout.class, view -> {
                 snackbar.setText("Swiping up...");
             }),
             swipeUp()
         );
         onView(withId(R.id.toolbar)).perform(
-            Views.perform(Toolbar.class, null, toolbar -> snackbar.setText("Swiping down...")),
+            Views.perform(Toolbar.class, toolbar -> snackbar.setText("Swiping down...")),
             swipeDown(),
             swipeDown(),
             swipeDown(),
-            Views.perform(Toolbar.class, null, toolbar -> snackbar.setText("Done"))
+            Views.perform(Toolbar.class, toolbar -> snackbar.setText("Done"))
         );
     }
 

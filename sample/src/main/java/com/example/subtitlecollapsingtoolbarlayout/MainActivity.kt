@@ -1,5 +1,6 @@
 package com.example.subtitlecollapsingtoolbarlayout
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.graphics.Color
@@ -92,6 +93,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
                 prefs.edit { clear() }
                 ProcessPhoenix.triggerRebirth(this)
             }
+            R.id.compareToRegularItem -> startActivity(Intent(this, MainActivity2::class.java))
         }
         return super.onOptionsItemSelected(item)
     }

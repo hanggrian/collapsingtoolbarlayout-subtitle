@@ -7,7 +7,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import android.content.res.AssetManager;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -30,7 +33,7 @@ public class InstrumentedTest {
     @Test
     public void title() {
         onView(withId(R.id.toolbarLayout))
-            .perform(Views.perform(SubtitleCollapsingToolbarLayout.class, null, view -> {
+            .perform(Views.perform(SubtitleCollapsingToolbarLayout.class, view -> {
                 view.setTitle("Title");
                 view.setSubtitle("Subtitle");
             }))
@@ -38,14 +41,32 @@ public class InstrumentedTest {
                 assertEquals("Title", view.getTitle());
                 assertEquals("Subtitle", view.getSubtitle());
             }))
-            .perform(Views.perform(SubtitleCollapsingToolbarLayout.class, null, view -> view.setTitleEnabled(false)))
+            .perform(Views.perform(SubtitleCollapsingToolbarLayout.class, view -> view.setTitleEnabled(false)))
             .check(Views.<SubtitleCollapsingToolbarLayout>check(view -> assertFalse(view.isTitleEnabled())));
+    }
+
+    @Test
+    public void contentScrim() {
+        final Drawable drawable = new ColorDrawable(Color.RED);
+        onView(withId(R.id.toolbarLayout))
+            .perform(Views.perform(SubtitleCollapsingToolbarLayout.class, view -> view.setContentScrim(drawable)))
+            .check(Views.<SubtitleCollapsingToolbarLayout>check(view ->
+                assertEquals(drawable, view.getContentScrim())));
+    }
+
+    @Test
+    public void statusScrim() {
+        final Drawable drawable = new ColorDrawable(Color.GREEN);
+        onView(withId(R.id.toolbarLayout))
+            .perform(Views.perform(SubtitleCollapsingToolbarLayout.class, view -> view.setStatusBarScrim(drawable)))
+            .check(Views.<SubtitleCollapsingToolbarLayout>check(view ->
+                assertEquals(drawable, view.getStatusBarScrim())));
     }
 
     @Test
     public void gravity() {
         onView(withId(R.id.toolbarLayout))
-            .perform(Views.perform(SubtitleCollapsingToolbarLayout.class, null, view -> {
+            .perform(Views.perform(SubtitleCollapsingToolbarLayout.class, view -> {
                 view.setCollapsedTitleGravity(Gravity.TOP);
                 view.setExpandedTitleGravity(Gravity.BOTTOM);
             }))
@@ -63,7 +84,7 @@ public class InstrumentedTest {
         Typeface bold2 = Typeface.createFromAsset(assets, "Lato-Bold.ttf");
         Typeface regular2 = Typeface.createFromAsset(assets, "Lato-Regular.ttf");
         onView(withId(R.id.toolbarLayout))
-            .perform(Views.perform(SubtitleCollapsingToolbarLayout.class, null, view -> {
+            .perform(Views.perform(SubtitleCollapsingToolbarLayout.class, view -> {
                 view.setCollapsedTitleTypeface(bold1);
                 view.setCollapsedSubtitleTypeface(regular1);
                 view.setExpandedTitleTypeface(bold2);
@@ -80,16 +101,15 @@ public class InstrumentedTest {
     @Test
     public void margins() {
         onView(withId(R.id.toolbarLayout))
-            .perform(Views.perform(SubtitleCollapsingToolbarLayout.class, null, view -> {
-                view.setExpandedTitleMargin(1, 2, 3, 4);
-            }))
+            .perform(Views.perform(SubtitleCollapsingToolbarLayout.class, view ->
+                view.setExpandedTitleMargin(1, 2, 3, 4)))
             .check(Views.<SubtitleCollapsingToolbarLayout>check(view -> {
                 assertEquals(1, view.getExpandedTitleMarginStart());
                 assertEquals(2, view.getExpandedTitleMarginTop());
                 assertEquals(3, view.getExpandedTitleMarginEnd());
                 assertEquals(4, view.getExpandedTitleMarginBottom());
             }))
-            .perform(Views.perform(SubtitleCollapsingToolbarLayout.class, null, view -> {
+            .perform(Views.perform(SubtitleCollapsingToolbarLayout.class, view -> {
                 view.setExpandedTitleMarginStart(5);
                 view.setExpandedTitleMarginTop(6);
                 view.setExpandedTitleMarginEnd(7);
@@ -106,11 +126,10 @@ public class InstrumentedTest {
     @Test
     public void scrims() {
         onView(withId(R.id.toolbarLayout))
-            .perform(Views.perform(
-                SubtitleCollapsingToolbarLayout.class, null, view -> {
-                    view.setScrimVisibleHeightTrigger(10);
-                    view.setScrimAnimationDuration(20);
-                }))
+            .perform(Views.perform(SubtitleCollapsingToolbarLayout.class, view -> {
+                view.setScrimVisibleHeightTrigger(10);
+                view.setScrimAnimationDuration(20);
+            }))
             .check(Views.<SubtitleCollapsingToolbarLayout>check(view -> {
                 assertEquals(10, view.getScrimVisibleHeightTrigger());
                 assertEquals(20, view.getScrimAnimationDuration());

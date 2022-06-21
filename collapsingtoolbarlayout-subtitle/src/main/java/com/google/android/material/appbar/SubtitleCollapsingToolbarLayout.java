@@ -88,22 +88,29 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
         collapsingTextHelper = new CollapsingTextHelper2(this);
         collapsingTextHelper.setTextSizeInterpolator(AnimationUtils.DECELERATE_INTERPOLATOR);
 
-        TypedArray a = ThemeEnforcement.obtainStyledAttributes(
-            context,
-            attrs,
-            R.styleable.SubtitleCollapsingToolbarLayout,
-            defStyleAttr,
-            R.style.Widget_Design_SubtitleCollapsingToolbar);
+        TypedArray a =
+            ThemeEnforcement.obtainStyledAttributes(
+                context,
+                attrs,
+                R.styleable.SubtitleCollapsingToolbarLayout,
+                defStyleAttr,
+                R.style.Widget_Design_SubtitleCollapsingToolbar);
 
-        collapsingTextHelper.setExpandedTextGravity(a.getInt(
-            R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleGravity,
-            GravityCompat.START | Gravity.BOTTOM));
-        collapsingTextHelper.setCollapsedTextGravity(a.getInt(
-            R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleGravity,
-            GravityCompat.START | Gravity.CENTER_VERTICAL));
+        collapsingTextHelper.setExpandedTextGravity(
+            a.getInt(
+                R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleGravity,
+                GravityCompat.START | Gravity.BOTTOM));
+        collapsingTextHelper.setCollapsedTextGravity(
+            a.getInt(
+                R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleGravity,
+                GravityCompat.START | Gravity.CENTER_VERTICAL));
 
-        expandedMarginStart = expandedMarginTop = expandedMarginEnd = expandedMarginBottom =
-            a.getDimensionPixelSize(R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleMargin, 0);
+        expandedMarginStart =
+            expandedMarginTop =
+                expandedMarginEnd =
+                    expandedMarginBottom =
+                        a.getDimensionPixelSize(
+                            R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleMargin, 0);
 
         if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleMarginStart)) {
             expandedMarginStart =
@@ -126,40 +133,39 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
         setTitle(a.getText(R.styleable.SubtitleCollapsingToolbarLayout_title));
         setSubtitle(a.getText(R.styleable.SubtitleCollapsingToolbarLayout_subtitle));
 
-        // First load the default text appearances
         collapsingTextHelper.setExpandedTextAppearance(
             R.style.TextAppearance_Design_SubtitleCollapsingToolbar_ExpandedTitle);
-        collapsingTextHelper.setCollapsedTextAppearance(
-            androidx.appcompat.R.style.TextAppearance_AppCompat_Widget_ActionBar_Title);
         collapsingTextHelper.setExpandedTextAppearance2(
             R.style.TextAppearance_Design_SubtitleCollapsingToolbar_ExpandedSubtitle);
+        collapsingTextHelper.setCollapsedTextAppearance(
+            androidx.appcompat.R.style.TextAppearance_AppCompat_Widget_ActionBar_Title);
         collapsingTextHelper.setCollapsedTextAppearance2(
             androidx.appcompat.R.style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle);
 
-        // Now overlay any custom text appearances
         if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleTextAppearance)) {
             collapsingTextHelper.setExpandedTextAppearance(
                 a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleTextAppearance, 0));
         }
-        if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleTextAppearance)) {
-            collapsingTextHelper.setCollapsedTextAppearance(
-                a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleTextAppearance, 0));
-        }
         if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_expandedSubtitleTextAppearance)) {
             collapsingTextHelper.setExpandedTextAppearance2(
                 a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_expandedSubtitleTextAppearance, 0));
+        }
+        if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleTextAppearance)) {
+            collapsingTextHelper.setCollapsedTextAppearance(
+                a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleTextAppearance, 0));
         }
         if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_collapsedSubtitleTextAppearance)) {
             collapsingTextHelper.setCollapsedTextAppearance2(
                 a.getResourceId(R.styleable.SubtitleCollapsingToolbarLayout_collapsedSubtitleTextAppearance, 0));
         }
 
-        scrimVisibleHeightTrigger = a
-            .getDimensionPixelSize(R.styleable.SubtitleCollapsingToolbarLayout_scrimVisibleHeightTrigger, -1);
+        scrimVisibleHeightTrigger =
+            a.getDimensionPixelSize(R.styleable.SubtitleCollapsingToolbarLayout_scrimVisibleHeightTrigger, -1);
 
-        scrimAnimationDuration = a.getInt(
-            R.styleable.SubtitleCollapsingToolbarLayout_scrimAnimationDuration,
-            DEFAULT_SCRIM_ANIMATION_DURATION);
+        scrimAnimationDuration =
+            a.getInt(
+                R.styleable.SubtitleCollapsingToolbarLayout_scrimAnimationDuration,
+                DEFAULT_SCRIM_ANIMATION_DURATION);
 
         setContentScrim(a.getDrawable(R.styleable.SubtitleCollapsingToolbarLayout_contentScrim));
         setStatusBarScrim(a.getDrawable(R.styleable.SubtitleCollapsingToolbarLayout_statusBarScrim));
@@ -170,13 +176,15 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
 
         setWillNotDraw(false);
 
-        ViewCompat.setOnApplyWindowInsetsListener(this, new androidx.core.view.OnApplyWindowInsetsListener() {
+        ViewCompat.setOnApplyWindowInsetsListener(
+            this,
+            new androidx.core.view.OnApplyWindowInsetsListener() {
                 @Override
-                public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
+                public WindowInsetsCompat onApplyWindowInsets(
+                    View v, @NonNull WindowInsetsCompat insets) {
                     return onWindowInsetChanged(insets);
                 }
-            }
-        );
+            });
     }
 
     @Override
@@ -301,9 +309,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
             : child == toolbarDirectChild;
     }
 
-    /**
-     * Returns the direct child of this layout, which itself is the ancestor of the given view.
-     */
+    /** Returns the direct child of this layout, which itself is the ancestor of the given view. */
     @NonNull
     private View findDirectChild(@NonNull final View descendant) {
         View directChild = descendant;
@@ -340,7 +346,8 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
         final int mode = MeasureSpec.getMode(heightMeasureSpec);
         final int topInset = lastInsets != null ? lastInsets.getSystemWindowInsetTop() : 0;
         if (mode == MeasureSpec.UNSPECIFIED && topInset > 0) {
-            heightMeasureSpec = MeasureSpec.makeMeasureSpec(getMeasuredHeight() + topInset, MeasureSpec.EXACTLY);
+            heightMeasureSpec =
+                MeasureSpec.makeMeasureSpec(getMeasuredHeight() + topInset, MeasureSpec.EXACTLY);
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
     }
@@ -366,10 +373,12 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
         }
 
         if (collapsingTitleEnabled && dummyView != null) {
-            drawCollapsingTitle = ViewCompat.isAttachedToWindow(dummyView) && dummyView.getVisibility() == VISIBLE;
+            drawCollapsingTitle =
+                ViewCompat.isAttachedToWindow(dummyView) && dummyView.getVisibility() == VISIBLE;
 
             if (drawCollapsingTitle) {
-                final boolean isRtl = ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL;
+                final boolean isRtl =
+                    ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL;
 
                 final int maxOffset =
                     getMaxOffsetForPinChild(toolbarDirectChild != null ? toolbarDirectChild : toolbar);
@@ -417,6 +426,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
         return view.getHeight();
     }
 
+    @NonNull
     static ViewOffsetHelper getViewOffsetHelper(View view) {
         ViewOffsetHelper offsetHelper = (ViewOffsetHelper) view.getTag(R.id.view_offset_helper);
         if (offsetHelper == null) {
@@ -443,7 +453,6 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
      */
     public void setSubtitle(@Nullable CharSequence subtitle) {
         collapsingTextHelper.setText2(subtitle);
-        updateContentDescriptionFromTitle();
     }
 
     /**
@@ -465,9 +474,9 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     }
 
     /**
-     * Sets whether this view should display its own title and subtitle.
-     * <p>
-     * <p>The title and subtitle displayed by this view will shrink and grow based on the scroll offset.
+     * Sets whether this view should display its own title.
+     *
+     * <p>The title displayed by this view will shrink and grow based on the scroll offset.
      * @see #setTitle(CharSequence)
      * @see #setSubtitle(CharSequence)
      * @see #isTitleEnabled()
@@ -504,7 +513,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     /**
      * Set whether the content scrim and/or status bar scrim should be shown or not. Any change in the
      * vertical scroll may overwrite this value.
-     * @param shown   whether the scrims should be shown
+     * @param shown whether the scrims should be shown
      * @param animate whether to animate the visibility change
      * @see #getStatusBarScrim()
      * @see #getContentScrim()
@@ -525,15 +534,17 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
         if (scrimAnimator == null) {
             scrimAnimator = new ValueAnimator();
             scrimAnimator.setDuration(scrimAnimationDuration);
-            scrimAnimator.setInterpolator(targetAlpha > scrimAlpha
-                ? AnimationUtils.FAST_OUT_LINEAR_IN_INTERPOLATOR
-                : AnimationUtils.LINEAR_OUT_SLOW_IN_INTERPOLATOR);
-            scrimAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animator) {
-                    setScrimAlpha((int) animator.getAnimatedValue());
-                }
-            });
+            scrimAnimator.setInterpolator(
+                targetAlpha > scrimAlpha
+                    ? AnimationUtils.FAST_OUT_LINEAR_IN_INTERPOLATOR
+                    : AnimationUtils.LINEAR_OUT_SLOW_IN_INTERPOLATOR);
+            scrimAnimator.addUpdateListener(
+                new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(@NonNull ValueAnimator animator) {
+                        setScrimAlpha((int) animator.getAnimatedValue());
+                    }
+                });
         } else if (scrimAnimator.isRunning()) {
             scrimAnimator.cancel();
         }
@@ -608,7 +619,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     /**
      * Set the drawable to use for the status bar scrim from resources. Providing null will disable
      * the scrim functionality.
-     * <p>
+     *
      * <p>This scrim is only shown when we have been given a top system inset.
      * @param drawable the drawable to display
      * @see #getStatusBarScrim()
@@ -657,7 +668,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     }
 
     @Override
-    protected boolean verifyDrawable(Drawable who) {
+    protected boolean verifyDrawable(@NonNull Drawable who) {
         return super.verifyDrawable(who) || who == contentScrim || who == statusBarScrim;
     }
 
@@ -676,7 +687,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
 
     /**
      * Set the color to use for the status bar scrim.
-     * <p>
+     *
      * <p>This scrim is only shown when we have been given a top system inset.
      * @param color the color to display
      * @see #getStatusBarScrim()
@@ -977,7 +988,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     /**
      * Set the amount of visible height in pixels used to define when to trigger a scrim visibility
      * change.
-     * <p>
+     *
      * <p>If the visible height of this view is less than the given value, the scrims will be made
      * visible, otherwise they are hidden.
      * @param height value in pixels used to define when to trigger a scrim visibility change
@@ -1120,9 +1131,8 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
                 ViewCompat.postInvalidateOnAnimation(SubtitleCollapsingToolbarLayout.this);
             }
 
-            final int expandRange = getHeight()
-                - ViewCompat.getMinimumHeight(SubtitleCollapsingToolbarLayout.this)
-                - insetTop;
+            final int expandRange =
+                getHeight() - ViewCompat.getMinimumHeight(SubtitleCollapsingToolbarLayout.this) - insetTop;
             collapsingTextHelper.setExpansionFraction(Math.abs(verticalOffset) / (float) expandRange);
         }
     }

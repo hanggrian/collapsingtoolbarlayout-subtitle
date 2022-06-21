@@ -34,5 +34,15 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@android:color/holo_red_dark"
+            app:subtitle="Example"
+            app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Title"
+            app:title="Example"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Title" />
+    </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

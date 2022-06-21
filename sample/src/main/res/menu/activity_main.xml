@@ -25,4 +25,9 @@
         android:id="@+id/resetItem"
         android:title="Reset"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/compareToRegularItem"
+        android:title="Compare to Regular"
+        app:showAsAction="never" />
 </menu>

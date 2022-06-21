@@ -7,7 +7,7 @@ dependencyResolutionManagement {
         val kotlinVersion = "1.6.21"
         val androidxVersion = "1.1.0"
         register("sdk") {
-            version("jdk", "8")
+            version("jdk", "11")
             version("androidMin", "14")
             version("androidTarget", "32")
         }

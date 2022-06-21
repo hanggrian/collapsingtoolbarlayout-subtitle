@@ -41,4 +41,4 @@ cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
-    - $HOME/.android/build-cache
+    - $HOME/.android/build-cache/
