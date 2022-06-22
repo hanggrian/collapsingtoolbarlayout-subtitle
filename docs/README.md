@@ -9,7 +9,6 @@
 
 Standard CollapsingToolbarLayout with subtitle support.
 
-- Just like the title, subtitle text will have to be **1 line**.
 - When collapsed, a subtitle would still appear as Toolbar's.
 - Separate configuration for title and subtitle: text color, gravity, etc.
 
@@ -17,6 +16,7 @@ Standard CollapsingToolbarLayout with subtitle support.
 
 Since it uses a lot of CollapsingToolbarLayout resources and API, there are a few:
 
+- Doesn't support multiline text, even though `CollapsingToolbarLayout` supports multiline since version `1.2.0`.
 - Only safe to use with the same version of material components.
 - Deceptive package name.
 

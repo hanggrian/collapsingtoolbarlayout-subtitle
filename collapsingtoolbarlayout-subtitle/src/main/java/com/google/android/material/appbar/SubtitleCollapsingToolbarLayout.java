@@ -1,5 +1,7 @@
 package com.google.android.material.appbar;
 
+import static com.google.android.material.theme.overlay.MaterialThemeOverlay.wrap;
+
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -39,9 +41,13 @@ import com.google.android.material.internal.DescendantOffsetUtils;
 import com.google.android.material.internal.ThemeEnforcement;
 import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.R;
 
-/** A regular {@link CollapsingToolbarLayout} with subtitle support. */
+/**
+ * A hacked collapsing toolbar layout to display title along with subtitle.
+ * @see CollapsingToolbarLayout
+ */
 public class SubtitleCollapsingToolbarLayout extends FrameLayout {
 
+    private static final int DEF_STYLE_RES = R.style.Widget_Design_SubtitleCollapsingToolbar;
     private static final int DEFAULT_SCRIM_ANIMATION_DURATION = 600;
 
     private boolean refreshToolbar = true;
@@ -83,7 +89,8 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     }
 
     public SubtitleCollapsingToolbarLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+        super(wrap(context, attrs, defStyleAttr, DEF_STYLE_RES), attrs, defStyleAttr);
+        context = getContext();
 
         collapsingTextHelper = new CollapsingTextHelper2(this);
         collapsingTextHelper.setTextSizeInterpolator(AnimationUtils.DECELERATE_INTERPOLATOR);
@@ -94,7 +101,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
                 attrs,
                 R.styleable.SubtitleCollapsingToolbarLayout,
                 defStyleAttr,
-                R.style.Widget_Design_SubtitleCollapsingToolbar);
+                DEF_STYLE_RES);
 
         collapsingTextHelper.setExpandedTextGravity(
             a.getInt(
