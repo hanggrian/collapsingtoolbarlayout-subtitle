@@ -1,22 +1,22 @@
 [![Travis CI](https://img.shields.io/travis/com/hendraanggrian/collapsingtoolbarlayout-subtitle)](https://www.travis-ci.com/github/hendraanggrian/collapsingtoolbarlayout-subtitle/)
 [![Codecov](https://img.shields.io/codecov/c/github/hendraanggrian/collapsingtoolbarlayout-subtitle)](https://app.codecov.io/gh/hendraanggrian/collapsingtoolbarlayout-subtitle/)
-[![Maven Central](https://img.shields.io/maven-central/v/com.hendraanggrian/collapsingtoolbarlayout-subtitle)](https://search.maven.org/artifact/com.hendraanggrian/collapsingtoolbarlayout-subtitle/)
+[![Maven Central](https://img.shields.io/maven-central/v/com.hendraanggrian.material/collapsingtoolbarlayout-subtitle)](https://search.maven.org/artifact/com.hendraanggrian.material/collapsingtoolbarlayout-subtitle/)
+[![API Level](https://img.shields.io/badge/api-14%2B-informational)](https://developer.android.com/studio/releases/platforms/#4.0)
 
 # SubtitleCollapsingToolbarLayout
 
 ![Light example](images/example_light.gif)
 ![Dark example](images/example_dark.gif)
 
-Standard CollapsingToolbarLayout with subtitle support.
+Standard [CollapsingToolbarLayout](https://developer.android.com/reference/com/google/android/material/appbar/CollapsingToolbarLayout/) with subtitle support.
 
 - When collapsed, a subtitle would still appear as Toolbar's.
-- Separate configuration for title and subtitle: text color, gravity, etc.
+- Separate configuration for title and subtitle (text color, gravity, etc.).
 
 ### Caveats
 
 Since it uses a lot of CollapsingToolbarLayout resources and API, there are a few:
 
-- Doesn't support multiline text, even though `CollapsingToolbarLayout` supports multiline since version `1.2.0`.
 - Only safe to use with the same version of material components.
 - Deceptive package name.
 
@@ -28,7 +28,7 @@ If it doesn't say anything about subtitle (which is odds because Toolbar has it)
 
 ## Download
 
-This library follows [AndroidX's revisions](https://developer.android.com/topic/libraries/support-library/androidx-rn/).
+This library's versioning follows [Material Components's releases](https://github.com/material-components/material-components-android/releases/).
 
 ```gradle
 repositories {

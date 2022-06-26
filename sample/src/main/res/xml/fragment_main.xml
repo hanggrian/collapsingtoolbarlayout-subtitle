@@ -7,24 +7,24 @@
             android:icon="@drawable/ic_text"
             android:key="showSubtitle"
             android:title="Show subtitle" />
-
+        <androidx.preference.SwitchPreference
+            android:defaultValue="false"
+            android:key="isMultiline"
+            android:title="Multiline" />
         <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
             android:defaultValue="@android:color/transparent"
             android:icon="@drawable/ic_color"
             android:key="statusBarScrim"
             android:title="Status bar scrim" />
-
         <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
             android:defaultValue="@android:color/transparent"
             android:key="contentScrim"
             android:title="Content scrim" />
-
         <androidx.preference.MultiSelectListPreference
             android:entries="@array/gravities"
             android:entryValues="@array/gravity_values"
             android:key="collapsedGravity"
             android:title="Collapsed gravity" />
-
         <androidx.preference.MultiSelectListPreference
             android:entries="@array/gravities"
             android:entryValues="@array/gravity_values"
@@ -39,21 +39,18 @@
             android:key="marginLeft"
             android:max="10"
             android:title="Left margin" />
-
         <androidx.preference.SeekBarPreference
             android:defaultValue="0"
             android:icon="@drawable/ic_arrow_top"
             android:key="marginTop"
             android:max="10"
             android:title="Top margin" />
-
         <androidx.preference.SeekBarPreference
             android:defaultValue="0"
             android:icon="@drawable/ic_arrow_right"
             android:key="marginRight"
             android:max="10"
             android:title="Right margin" />
-
         <androidx.preference.SeekBarPreference
             android:defaultValue="0"
             android:icon="@drawable/ic_arrow_bottom"
@@ -67,17 +64,14 @@
             android:defaultValue="@android:color/transparent"
             android:key="collapsedTitleColor"
             android:title="Collapsed title text color" />
-
         <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
             android:defaultValue="@android:color/transparent"
             android:key="collapsedSubtitleColor"
             android:title="Collapsed subtitle text color" />
-
         <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
             android:defaultValue="@android:color/transparent"
             android:key="expandedTitleColor"
             android:title="Expanded title text color" />
-
         <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
             android:defaultValue="@android:color/transparent"
             android:key="expandedSubtitleColor"

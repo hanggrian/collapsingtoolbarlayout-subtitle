@@ -40,7 +40,9 @@ public class InstrumentedTest {
                 assertEquals("Subtitle", view.getSubtitle());
             }))
             .perform(Views.perform(SubtitleCollapsingToolbarLayout.class, view -> view.setTitleEnabled(false)))
-            .check(Views.<SubtitleCollapsingToolbarLayout>check(view -> assertFalse(view.isTitleEnabled())));
+            .check(Views.<SubtitleCollapsingToolbarLayout>check(view -> assertFalse(view.isTitleEnabled())))
+            .perform(Views.perform(SubtitleCollapsingToolbarLayout.class, view -> view.setMaxLines(2)))
+            .check(Views.<SubtitleCollapsingToolbarLayout>check(view -> assertEquals(2, view.getMaxLines())));
     }
 
     @Test

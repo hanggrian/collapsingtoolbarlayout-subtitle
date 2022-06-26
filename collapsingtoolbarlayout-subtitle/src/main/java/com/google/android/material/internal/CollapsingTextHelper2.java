@@ -45,6 +45,7 @@ public final class CollapsingTextHelper2 {
   // by using our own texture
   private static final boolean USE_SCALING_TEXTURE = Build.VERSION.SDK_INT < 18;
   private static final String TAG = "CollapsingTextHelper2";
+  private static final String ELLIPSIS_NORMAL = "\u2026"; // HORIZONTAL ELLIPSIS (…)
 
   private static final boolean DEBUG_DRAW = false;
   @NonNull private static final Paint DEBUG_DRAW_PAINT;
@@ -113,7 +114,11 @@ public final class CollapsingTextHelper2 {
   private float expandedShadowDy, expandedShadowDy2;
   private ColorStateList expandedShadowColor, expandedShadowColor2;
   private StaticLayout textLayout, textLayout2;
+  private float collapsedTextBlend, collapsedTextBlend2;
+  private float expandedTextBlend, expandedTextBlend2;
+  private float expandedFirstLineDrawX, expandedFirstLineDrawX2;
   private CharSequence textToDrawCollapsed, textToDrawCollapsed2;
+  private int maxLines = 1;
 
   public CollapsingTextHelper2(View view) {
     this.view = view;
@@ -693,6 +698,13 @@ public final class CollapsingTextHelper2 {
     setInterpolatedTextSize2(
         lerp(expandedTextSize2, collapsedTextSize2, fraction, textSizeInterpolator));
 
+    setCollapsedTextBlend(
+        1 - lerp(0, 1, 1 - fraction, AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR));
+    setCollapsedTextBlend2(
+        1 - lerp(0, 1, 1 - fraction, AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR));
+    setExpandedTextBlend(lerp(1, 0, fraction, AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR));
+    setExpandedTextBlend2(lerp(1, 0, fraction, AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR));
+
     if (collapsedTextColor != expandedTextColor) {
       // If the collapsed and expanded text colors are different, blend them based on the
       // fraction
@@ -757,14 +769,13 @@ public final class CollapsingTextHelper2 {
     return colorStateList.getDefaultColor();
   }
 
-  // When the vertical gravity is:
-  // - Top: clip title at topmost, then adjust the subtitle below it.
-  // - Bottom: clip subtitle at bottommost, then adjust the subtitle above it.
-  // - Center: clip title at center minus distance, then adjust the subtitle below it.
+  // Y CONDITION:
+  // - TOP: CLIP TITLE AT TOPMOST, THEN ADJUST THE SUBTITLE BELOW IT.
+  // - BOTTOM: CLIP SUBTITLE AT BOTTOMMOST, THEN ADJUST THE SUBTITLE ABOVE IT.
+  // - CENTER: CLIP TITLE AT CENTER MINUS DISTANCE, THEN ADJUST THE SUBTITLE BELOW IT.
   private void calculateBaseOffsets() {
     final float currentTextSize = this.currentTextSize;
     final float currentTextSize2 = this.currentTextSize2;
-
     final boolean isTitleOnly = TextUtils.isEmpty(text2);
 
     // We then calculate the collapsed text size, using the same logic
@@ -846,8 +857,15 @@ public final class CollapsingTextHelper2 {
     float expandedTextHeight = textLayout != null ? textLayout.getHeight() : 0;
     float expandedTextHeight2 = textLayout2 != null ? textLayout2.getHeight() : 0;
 
-    width = textToDraw != null ? textPaint.measureText(textToDraw, 0, textToDraw.length()) : 0;
-    width2 = textToDraw2 != null ? textPaint2.measureText(textToDraw2, 0, textToDraw2.length()) : 0;
+    float measuredWidth =
+        textToDraw != null ? textPaint.measureText(textToDraw, 0, textToDraw.length()) : 0;
+    float measuredWidth2 =
+        textToDraw2 != null ? textPaint2.measureText(textToDraw2, 0, textToDraw2.length()) : 0;
+    width = textLayout != null && maxLines > 1 && !isRtl ? textLayout.getWidth() : measuredWidth;
+    width2 =
+        textLayout2 != null && maxLines > 1 && !isRtl ? textLayout2.getWidth() : measuredWidth2;
+    expandedFirstLineDrawX = textLayout != null ? textLayout.getLineLeft(0) : 0;
+    expandedFirstLineDrawX2 = textLayout2 != null ? textLayout2.getLineLeft(0) : 0;
 
     final int expandedAbsGravity =
         GravityCompat.getAbsoluteGravity(
@@ -921,10 +939,33 @@ public final class CollapsingTextHelper2 {
         lerp(expandedBounds.bottom, collapsedBounds.bottom, fraction, positionInterpolator);
   }
 
+  private void setCollapsedTextBlend(float blend) {
+    collapsedTextBlend = blend;
+    ViewCompat.postInvalidateOnAnimation(view);
+  }
+
+  private void setCollapsedTextBlend2(float blend) {
+    collapsedTextBlend2 = blend;
+    ViewCompat.postInvalidateOnAnimation(view);
+  }
+
+  private void setExpandedTextBlend(float blend) {
+    expandedTextBlend = blend;
+    ViewCompat.postInvalidateOnAnimation(view);
+  }
+
+  private void setExpandedTextBlend2(float blend) {
+    expandedTextBlend2 = blend;
+    ViewCompat.postInvalidateOnAnimation(view);
+  }
+
   public void draw(@NonNull Canvas canvas) {
     final int saveCount = canvas.save();
     // Compute where to draw textLayout for this frame
     if (textToDraw != null && drawTitle) {
+      final float currentExpandedX =
+          currentDrawX + textLayout.getLineLeft(0) - expandedFirstLineDrawX * 2;
+
       textPaint.setTextSize(currentTextSize);
       float x = currentDrawX;
       float y = currentDrawY;
@@ -940,39 +981,6 @@ public final class CollapsingTextHelper2 {
             DEBUG_DRAW_PAINT);
       }
 
-      // SCALE AND SAVE CANVAS FOR SUBTITLE BEFORE TITLE
-      if (textToDraw2 != null) {
-        final int saveCount2 = canvas.save();
-        textPaint2.setTextSize(currentTextSize2);
-        float x2 = currentDrawX2;
-        float y2 = currentDrawY2;
-        final boolean drawTexture2 = useTexture && expandedTitleTexture2 != null;
-
-        if (DEBUG_DRAW) {
-          canvas.drawRect(
-              currentBounds.left,
-              y2,
-              currentBounds.right,
-              y2 + textLayout2.getHeight() * scale2,
-              DEBUG_DRAW_PAINT);
-        }
-
-        if (scale2 != 1f) {
-          canvas.scale(scale2, scale2, x2, y2);
-        }
-
-        if (drawTexture2) {
-          // If we should use a texture, draw it instead of text
-          canvas.drawBitmap(expandedTitleTexture2, x2, y2, texturePaint2);
-          canvas.restoreToCount(saveCount2);
-        }
-
-        canvas.translate(x2, y2);
-        textLayout2.draw(canvas);
-
-        canvas.restoreToCount(saveCount2);
-      }
-
       if (scale != 1f) {
         canvas.scale(scale, scale, x, y);
       }
@@ -981,13 +989,134 @@ public final class CollapsingTextHelper2 {
         // If we should use a texture, draw it instead of text
         canvas.drawBitmap(expandedTitleTexture, x, y, texturePaint);
         canvas.restoreToCount(saveCount);
+        return;
       }
 
-      canvas.translate(x, y);
-      textLayout.draw(canvas);
-    }
+      if (shouldDrawMultiline()) {
+        drawMultinlineTransition(canvas, currentExpandedX, y);
+      } else {
+        canvas.translate(x, y);
+        textLayout.draw(canvas);
+      }
 
-    canvas.restoreToCount(saveCount);
+      canvas.restoreToCount(saveCount);
+    }
+  }
+
+  public void draw2(@NonNull Canvas canvas) {
+    final int saveCount = canvas.save();
+    // Compute where to draw textLayout for this frame
+    if (textToDraw2 != null && drawTitle) {
+      final float currentExpandedX =
+          currentDrawX2 + textLayout2.getLineLeft(0) - expandedFirstLineDrawX2 * 2;
+
+      textPaint2.setTextSize(currentTextSize2);
+      float x = currentDrawX2;
+      float y = currentDrawY2;
+      final boolean drawTexture = useTexture && expandedTitleTexture2 != null;
+
+      if (DEBUG_DRAW) {
+        // Just a debug tool, which drawn a magenta rect in the text bounds
+        canvas.drawRect(
+            currentBounds.left,
+            y,
+            currentBounds.right,
+            y + textLayout2.getHeight() * scale2,
+            DEBUG_DRAW_PAINT);
+      }
+
+      if (scale2 != 1f) {
+        canvas.scale(scale2, scale2, x, y);
+      }
+
+      if (drawTexture) {
+        // If we should use a texture, draw it instead of text
+        canvas.drawBitmap(expandedTitleTexture2, x, y, texturePaint2);
+        canvas.restoreToCount(saveCount);
+        return;
+      }
+
+      if (shouldDrawMultiline()) {
+        drawMultinlineTransition2(canvas, currentExpandedX, y);
+      } else {
+        canvas.translate(x, y);
+        textLayout2.draw(canvas);
+      }
+
+      canvas.restoreToCount(saveCount);
+    }
+  }
+
+  private boolean shouldDrawMultiline() {
+    return maxLines > 1 && !isRtl && !useTexture;
+  }
+
+  private void drawMultinlineTransition(@NonNull Canvas canvas, float currentExpandedX, float y) {
+    int originalAlpha = textPaint.getAlpha();
+    // positon expanded text appropriately
+    canvas.translate(currentExpandedX, y);
+    // Expanded text
+    textPaint.setAlpha((int) (expandedTextBlend * originalAlpha));
+    textLayout.draw(canvas);
+
+    // Collapsed text
+    textPaint.setAlpha((int) (collapsedTextBlend * originalAlpha));
+    int lineBaseline = textLayout.getLineBaseline(0);
+    canvas.drawText(
+        textToDrawCollapsed,
+        /* start = */ 0,
+        textToDrawCollapsed.length(),
+        /* x = */ 0,
+        lineBaseline,
+        textPaint);
+    // Remove ellipsis for Cross-section animation
+    String tmp = textToDrawCollapsed.toString().trim();
+    if (tmp.endsWith(ELLIPSIS_NORMAL)) {
+      tmp = tmp.substring(0, tmp.length() - 1);
+    }
+    // Cross-section between both texts (should stay at original alpha)
+    textPaint.setAlpha(originalAlpha);
+    canvas.drawText(
+        tmp,
+        /* start = */ 0,
+        min(textLayout.getLineEnd(0), tmp.length()),
+        /* x = */ 0,
+        lineBaseline,
+        textPaint);
+  }
+
+  private void drawMultinlineTransition2(@NonNull Canvas canvas, float currentExpandedX, float y) {
+    int originalAlpha = textPaint2.getAlpha();
+    // positon expanded text appropriately
+    canvas.translate(currentExpandedX, y);
+    // Expanded text
+    textPaint2.setAlpha((int) (expandedTextBlend2 * originalAlpha));
+    textLayout2.draw(canvas);
+
+    // Collapsed text
+    textPaint2.setAlpha((int) (collapsedTextBlend2 * originalAlpha));
+    int lineBaseline = textLayout2.getLineBaseline(0);
+    canvas.drawText(
+        textToDrawCollapsed2,
+        /* start = */ 0,
+        textToDrawCollapsed2.length(),
+        /* x = */ 0,
+        lineBaseline,
+        textPaint2);
+    // Remove ellipsis for Cross-section animation
+    String tmp = textToDrawCollapsed2.toString().trim();
+    if (tmp.endsWith(ELLIPSIS_NORMAL)) {
+      tmp = tmp.substring(0, tmp.length() - 1);
+    }
+    // Cross-section between both texts (should stay at original alpha)
+    textPaint2.setAlpha(originalAlpha);
+    canvas.drawText(
+        tmp,
+        /* start = */ 0,
+        min(textLayout2.getLineEnd(0), tmp.length()),
+        /* x = */ 0,
+        lineBaseline,
+        textPaint2);
   }
 
   private boolean calculateIsRtl(@NonNull CharSequence text) {
@@ -1092,7 +1221,7 @@ public final class CollapsingTextHelper2 {
       textPaint.setLinearText(scale != 1f);
 
       isRtl = calculateIsRtl(text);
-      textLayout = createStaticLayout(availableWidth, isRtl);
+      textLayout = createStaticLayout(shouldDrawMultiline() ? maxLines : 1, availableWidth, isRtl);
       textToDraw = textLayout.getText();
     }
   }
@@ -1161,12 +1290,13 @@ public final class CollapsingTextHelper2 {
       textPaint2.setLinearText(scale2 != 1f);
 
       isRtl = calculateIsRtl(text2);
-      textLayout2 = createStaticLayout2(availableWidth, isRtl);
+      textLayout2 =
+          createStaticLayout2(shouldDrawMultiline() ? maxLines : 1, availableWidth, isRtl);
       textToDraw2 = textLayout2.getText();
     }
   }
 
-  private StaticLayout createStaticLayout(float availableWidth, boolean isRtl) {
+  private StaticLayout createStaticLayout(int maxLines, float availableWidth, boolean isRtl) {
     StaticLayout textLayout = null;
     try {
       textLayout =
@@ -1175,7 +1305,7 @@ public final class CollapsingTextHelper2 {
               .setIsRtl(isRtl)
               .setAlignment(ALIGN_NORMAL)
               .setIncludePad(false)
-              .setMaxLines(1)
+              .setMaxLines(maxLines)
               .build();
     } catch (StaticLayoutBuilderCompatException e) {
       Log.e(TAG, e.getCause().getMessage(), e);
@@ -1184,7 +1314,7 @@ public final class CollapsingTextHelper2 {
     return checkNotNull(textLayout);
   }
 
-  private StaticLayout createStaticLayout2(float availableWidth, boolean isRtl) {
+  private StaticLayout createStaticLayout2(int maxLines, float availableWidth, boolean isRtl) {
     StaticLayout textLayout = null;
     try {
       textLayout =
@@ -1193,7 +1323,7 @@ public final class CollapsingTextHelper2 {
               .setIsRtl(isRtl)
               .setAlignment(ALIGN_NORMAL)
               .setIncludePad(false)
-              .setMaxLines(1)
+              .setMaxLines(maxLines)
               .build();
     } catch (StaticLayoutBuilderCompatException e) {
       Log.e(TAG, e.getCause().getMessage(), e);
@@ -1306,6 +1436,18 @@ public final class CollapsingTextHelper2 {
       expandedTitleTexture2.recycle();
       expandedTitleTexture2 = null;
     }
+  }
+
+  public void setMaxLines(int maxLines) {
+    if (maxLines != this.maxLines) {
+      this.maxLines = maxLines;
+      clearTexture();
+      recalculate();
+    }
+  }
+
+  public int getMaxLines() {
+    return maxLines;
   }
 
   /**

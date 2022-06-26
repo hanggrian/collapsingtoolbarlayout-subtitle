@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     @JvmField @BindPreference("theme") var theme2 = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
     @JvmField @BindPreference var showSubtitle = false
+    @JvmField @BindPreference var isMultiline = false
     @JvmField @BindPreference var statusBarScrim = Color.TRANSPARENT
     @JvmField @BindPreference var contentScrim = Color.TRANSPARENT
     @JvmField @BindPreference var marginLeft = 0
@@ -100,7 +101,16 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
 
     override fun onSharedPreferenceChanged(p: SharedPreferences, key: String) {
         saver = Prefs.bind(prefs, this)
-        toolbarLayout.subtitle = if (showSubtitle) SubtitleCollapsingToolbarLayout::class.java.simpleName else null
+        if (isMultiline) {
+            toolbarLayout.maxLines = 2
+            val longText = "Hello, my name is Hendra Anggrian"
+            toolbarLayout.title = longText
+            toolbarLayout.subtitle = if (showSubtitle) longText else null
+        } else {
+            toolbarLayout.maxLines = 1
+            toolbarLayout.title = "Example"
+            toolbarLayout.subtitle = if (showSubtitle) SubtitleCollapsingToolbarLayout::class.java.simpleName else null
+        }
         toolbarLayout.statusBarScrim = if (statusBarScrim.isConfigured()) ColorDrawable(statusBarScrim) else null
         toolbarLayout.contentScrim = if (contentScrim.isConfigured()) ColorDrawable(contentScrim) else null
         toolbarLayout.collapsedTitleGravity =

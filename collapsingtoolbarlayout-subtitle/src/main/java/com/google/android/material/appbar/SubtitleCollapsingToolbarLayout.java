@@ -182,6 +182,11 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
         a.getDimensionPixelSize(
             R.styleable.SubtitleCollapsingToolbarLayout_scrimVisibleHeightTrigger, -1);
 
+    if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_maxLines)) {
+      collapsingTextHelper.setMaxLines(
+          a.getInt(R.styleable.SubtitleCollapsingToolbarLayout_maxLines, 1));
+    }
+
     scrimAnimationDuration =
         a.getInt(
             R.styleable.SubtitleCollapsingToolbarLayout_scrimAnimationDuration,
@@ -272,6 +277,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     // Let the collapsing text helper draw its text
     if (collapsingTitleEnabled && drawCollapsingTitle) {
       collapsingTextHelper.draw(canvas);
+      collapsingTextHelper.draw2(canvas);
     }
 
     // Now draw the status bar scrim
@@ -482,7 +488,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   }
 
   @NonNull
-  static ViewOffsetHelper getViewOffsetHelper(View view) {
+  static ViewOffsetHelper getViewOffsetHelper(@NonNull View view) {
     ViewOffsetHelper offsetHelper = (ViewOffsetHelper) view.getTag(R.id.view_offset_helper);
     if (offsetHelper == null) {
       offsetHelper = new ViewOffsetHelper(view);
@@ -1068,6 +1074,16 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     requestLayout();
   }
 
+  /** Sets the maximum number of lines to display in the expanded state. Experimental Feature. */
+  public void setMaxLines(int maxLines) {
+    collapsingTextHelper.setMaxLines(maxLines);
+  }
+
+  /** Gets the maximum number of lines to display in the expanded state. Experimental Feature. */
+  public int getMaxLines() {
+    return collapsingTextHelper.getMaxLines();
+  }
+
   /**
    * Set the amount of visible height in pixels used to define when to trigger a scrim visibility
    * change.
@@ -1158,16 +1174,16 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
       super(width, height, gravity);
     }
 
-    public LayoutParams(ViewGroup.LayoutParams p) {
+    public LayoutParams(@NonNull ViewGroup.LayoutParams p) {
       super(p);
     }
 
-    public LayoutParams(MarginLayoutParams source) {
+    public LayoutParams(@NonNull MarginLayoutParams source) {
       super(source);
     }
 
     @RequiresApi(19)
-    public LayoutParams(FrameLayout.LayoutParams source) {
+    public LayoutParams(@NonNull FrameLayout.LayoutParams source) {
       // The copy constructor called here only exists on API 19+.
       super(source);
     }

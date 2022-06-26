@@ -17,6 +17,7 @@
         <attr name="collapsedTitleGravity" />
         <attr name="expandedTitleGravity" />
         <attr name="titleEnabled" />
+        <attr name="maxLines" />
 
         <!-- Inherited from appcompat -->
         <attr name="title" />
