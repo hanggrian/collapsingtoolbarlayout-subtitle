@@ -1,6 +1,5 @@
 package com.hendraanggrian.material.subtitlecollapsingtoolbarlayout;
 
-
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.assertEquals;
@@ -12,15 +11,12 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.Gravity;
-
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-
 import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout;
 import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.test.R;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +24,9 @@ import org.junit.runner.RunWith;
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class InstrumentedTest {
-    @Rule public ActivityTestRule<TestActivity> rule = new ActivityTestRule(TestActivity.class, false, true);
+    @Rule
+    public ActivityTestRule<TestActivity> rule =
+        new ActivityTestRule(TestActivity.class, false, true);
 
     @Test
     public void title() {
@@ -50,8 +48,7 @@ public class InstrumentedTest {
         final Drawable drawable = new ColorDrawable(Color.RED);
         onView(withId(R.id.toolbarLayout))
             .perform(Views.perform(SubtitleCollapsingToolbarLayout.class, view -> view.setContentScrim(drawable)))
-            .check(Views.<SubtitleCollapsingToolbarLayout>check(view ->
-                assertEquals(drawable, view.getContentScrim())));
+            .check(Views.<SubtitleCollapsingToolbarLayout>check(view -> assertEquals(drawable, view.getContentScrim())));
     }
 
     @Test
@@ -59,8 +56,7 @@ public class InstrumentedTest {
         final Drawable drawable = new ColorDrawable(Color.GREEN);
         onView(withId(R.id.toolbarLayout))
             .perform(Views.perform(SubtitleCollapsingToolbarLayout.class, view -> view.setStatusBarScrim(drawable)))
-            .check(Views.<SubtitleCollapsingToolbarLayout>check(view ->
-                assertEquals(drawable, view.getStatusBarScrim())));
+            .check(Views.<SubtitleCollapsingToolbarLayout>check(view -> assertEquals(drawable, view.getStatusBarScrim())));
     }
 
     @Test

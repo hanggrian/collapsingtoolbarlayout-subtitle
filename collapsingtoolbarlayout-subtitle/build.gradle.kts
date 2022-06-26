@@ -4,8 +4,8 @@ import com.vanniktech.maven.publish.SonatypeHost
 
 plugins {
     id("com.android.library")
-    id("com.diffplug.spotless")
-    id("com.vanniktech.maven.publish.base")
+    alias(plugs.plugins.spotless)
+    alias(plugs.plugins.mvn.publish)
 }
 
 android {
@@ -19,7 +19,10 @@ android {
     }
 }
 
-spotless.java { googleJavaFormat() }
+spotless.java {
+    target("src/main/java/**/*.java")
+    googleJavaFormat()
+}
 
 mavenPublishing {
     publishToMavenCentral(SonatypeHost.S01)

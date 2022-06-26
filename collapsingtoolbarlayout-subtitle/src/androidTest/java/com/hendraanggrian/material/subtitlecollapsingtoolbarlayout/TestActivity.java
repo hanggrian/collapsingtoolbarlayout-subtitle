@@ -1,10 +1,8 @@
 package com.hendraanggrian.material.subtitlecollapsingtoolbarlayout;
 
 import android.os.Bundle;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.test.R;
 
 public class TestActivity extends AppCompatActivity {

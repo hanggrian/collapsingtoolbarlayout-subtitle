@@ -8,20 +8,24 @@ dependencyResolutionManagement {
         val androidxVersion = "1.2.0"
         register("sdk") {
             version("jdk", "11")
+            version("androidJdk", "8")
             version("androidMin", "14")
             version("androidTarget", "32")
         }
         register("plugs") {
             library("android", "com.android.tools.build:gradle:7.2.1")
-            library("kotlin", "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
-            library("dokka", "org.jetbrains.dokka:dokka-gradle-plugin:$kotlinVersion")
-            library("spotless", "com.diffplug.spotless:spotless-plugin-gradle:6.7.2")
-            library("maven-publish", "com.vanniktech:gradle-maven-publish-plugin:0.20.0")
+            plugin("kotlin-android", "org.jetbrains.kotlin.android").version(kotlinVersion)
+            plugin("kotlin-android-extensions", "org.jetbrains.kotlin.android.extensions").version(kotlinVersion)
+            plugin("kotlin-kapt", "org.jetbrains.kotlin.kapt").version(kotlinVersion)
+            plugin("kotlinx-kover", "org.jetbrains.kotlinx.kover").version("0.5.1")
+            plugin("dokka", "org.jetbrains.dokka").version(kotlinVersion)
+            plugin("spotless", "com.diffplug.spotless").version("6.7.2")
+            plugin("mvn-publish", "com.vanniktech.maven.publish.base").version("0.20.0")
+            plugin("git-publish", "org.ajoberstar.git-publish").version("3.0.1")
             library("pages", "com.hendraanggrian:pages-gradle-plugin:0.1")
-            library("git-publish", "org.ajoberstar.git-publish:gradle-git-publish:3.0.1")
         }
         register("libs") {
-            library("kotlinx-coroutines", "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
+            library("kotlinx-coroutines", "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
             library("material", "com.google.android.material:material:$androidxVersion")
             library("androidx-appcompat", "androidx.appcompat:appcompat:$androidxVersion")
             library("androidx-core-ktx", "androidx.core:core-ktx:$androidxVersion")
