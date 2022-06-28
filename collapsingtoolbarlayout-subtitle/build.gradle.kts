@@ -6,6 +6,7 @@ plugins {
     id("com.android.library")
     alias(plugs.plugins.spotless)
     alias(plugs.plugins.mvn.publish)
+    alias(plugs.plugins.jacoco)
 }
 
 android {
@@ -14,9 +15,8 @@ android {
             isTestCoverageEnabled = true
         }
     }
-    buildFeatures {
-        buildConfig = false
-    }
+    buildFeatures.buildConfig = false
+    testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 spotless.java {
@@ -56,5 +56,9 @@ mavenPublishing {
 
 dependencies {
     implementation(libs.material)
-    androidTestImplementation(testLibs.bundles.androidx)
+    testImplementation(testLibs.junit)
+    testImplementation(testLibs.androidx.core)
+    testImplementation(testLibs.androidx.runner)
+    testImplementation(testLibs.robolectric)
+    testImplementation(testLibs.truth)
 }

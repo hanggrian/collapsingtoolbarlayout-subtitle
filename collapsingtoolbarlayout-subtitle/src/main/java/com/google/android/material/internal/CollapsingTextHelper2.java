@@ -13,7 +13,8 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
-import android.os.Build;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -43,7 +44,7 @@ public final class CollapsingTextHelper2 {
 
   // Pre-JB-MR2 doesn't support HW accelerated canvas scaled text so we will workaround it
   // by using our own texture
-  private static final boolean USE_SCALING_TEXTURE = Build.VERSION.SDK_INT < 18;
+  private static final boolean USE_SCALING_TEXTURE = VERSION.SDK_INT < 18;
   private static final String TAG = "CollapsingTextHelper2";
   private static final String ELLIPSIS_NORMAL = "\u2026"; // HORIZONTAL ELLIPSIS (…)
 
@@ -113,6 +114,8 @@ public final class CollapsingTextHelper2 {
   private float expandedShadowDx, expandedShadowDx2;
   private float expandedShadowDy, expandedShadowDy2;
   private ColorStateList expandedShadowColor, expandedShadowColor2;
+  private float collapsedLetterSpacing, collapsedLetterSpacing2;
+  private float expandedLetterSpacing, expandedLetterSpacing2;
   private StaticLayout textLayout, textLayout2;
   private float collapsedTextBlend, collapsedTextBlend2;
   private float expandedTextBlend, expandedTextBlend2;
@@ -335,21 +338,33 @@ public final class CollapsingTextHelper2 {
   private void getTextPaintExpanded(@NonNull TextPaint textPaint) {
     textPaint.setTextSize(expandedTextSize);
     textPaint.setTypeface(expandedTypeface);
+    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+      textPaint.setLetterSpacing(expandedLetterSpacing);
+    }
   }
 
   private void getTextPaintExpanded2(@NonNull TextPaint textPaint) {
     textPaint.setTextSize(expandedTextSize2);
     textPaint.setTypeface(expandedTypeface2);
+    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+      textPaint.setLetterSpacing(expandedLetterSpacing2);
+    }
   }
 
   private void getTextPaintCollapsed(@NonNull TextPaint textPaint) {
     textPaint.setTextSize(collapsedTextSize);
     textPaint.setTypeface(collapsedTypeface);
+    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+      textPaint.setLetterSpacing(collapsedLetterSpacing);
+    }
   }
 
   private void getTextPaintCollapsed2(@NonNull TextPaint textPaint) {
     textPaint.setTextSize(collapsedTextSize2);
     textPaint.setTypeface(collapsedTypeface2);
+    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+      textPaint.setLetterSpacing(collapsedLetterSpacing2);
+    }
   }
 
   void onBoundsChanged() {
@@ -397,6 +412,7 @@ public final class CollapsingTextHelper2 {
     collapsedShadowDx = textAppearance.shadowDx;
     collapsedShadowDy = textAppearance.shadowDy;
     collapsedShadowRadius = textAppearance.shadowRadius;
+    collapsedLetterSpacing = textAppearance.letterSpacing;
 
     // Cancel pending async fetch, if any, and replace with a new one.
     if (collapsedFontCallback != null) {
@@ -431,6 +447,7 @@ public final class CollapsingTextHelper2 {
     collapsedShadowDx2 = textAppearance.shadowDx;
     collapsedShadowDy2 = textAppearance.shadowDy;
     collapsedShadowRadius2 = textAppearance.shadowRadius;
+    collapsedLetterSpacing2 = textAppearance.letterSpacing;
 
     // Cancel pending async fetch, if any, and replace with a new one.
     if (collapsedFontCallback2 != null) {
@@ -464,6 +481,7 @@ public final class CollapsingTextHelper2 {
     expandedShadowDx = textAppearance.shadowDx;
     expandedShadowDy = textAppearance.shadowDy;
     expandedShadowRadius = textAppearance.shadowRadius;
+    expandedLetterSpacing = textAppearance.letterSpacing;
 
     // Cancel pending async fetch, if any, and replace with a new one.
     if (expandedFontCallback != null) {
@@ -497,6 +515,7 @@ public final class CollapsingTextHelper2 {
     expandedShadowDx2 = textAppearance.shadowDx;
     expandedShadowDy2 = textAppearance.shadowDy;
     expandedShadowRadius2 = textAppearance.shadowRadius;
+    expandedLetterSpacing2 = textAppearance.letterSpacing;
 
     // Cancel pending async fetch, if any, and replace with a new one.
     if (expandedFontCallback2 != null) {
@@ -718,6 +737,29 @@ public final class CollapsingTextHelper2 {
           blendColors(getCurrentExpandedTextColor2(), getCurrentCollapsedTextColor2(), fraction));
     } else {
       textPaint2.setColor(getCurrentCollapsedTextColor2());
+    }
+
+    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+      if (collapsedLetterSpacing != expandedLetterSpacing) {
+        textPaint.setLetterSpacing(
+            lerp(
+                expandedLetterSpacing,
+                collapsedLetterSpacing,
+                fraction,
+                AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR));
+      } else {
+        textPaint.setLetterSpacing(collapsedLetterSpacing);
+      }
+      if (collapsedLetterSpacing2 != expandedLetterSpacing2) {
+        textPaint2.setLetterSpacing(
+            lerp(
+                expandedLetterSpacing2,
+                collapsedLetterSpacing2,
+                fraction,
+                AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR));
+      } else {
+        textPaint2.setLetterSpacing(collapsedLetterSpacing2);
+      }
     }
 
     textPaint.setShadowLayer(

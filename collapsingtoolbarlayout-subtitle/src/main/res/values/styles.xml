@@ -13,4 +13,6 @@
     <style name="TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedSubtitle" parent="TextAppearance.AppCompat.Headline">
         <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
+
+    <style name="Widget.MaterialComponents.SubtitleCollapsingToolbar" parent="Widget.Design.CollapsingToolbar"/>
 </resources>

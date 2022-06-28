@@ -5,7 +5,7 @@ include("website")
 dependencyResolutionManagement {
     versionCatalogs {
         val kotlinVersion = "1.6.21"
-        val androidxVersion = "1.2.0"
+        val androidxVersion = "1.3.0"
         register("sdk") {
             version("jdk", "11")
             version("androidJdk", "8")
@@ -17,10 +17,10 @@ dependencyResolutionManagement {
             plugin("kotlin-android", "org.jetbrains.kotlin.android").version(kotlinVersion)
             plugin("kotlin-android-extensions", "org.jetbrains.kotlin.android.extensions").version(kotlinVersion)
             plugin("kotlin-kapt", "org.jetbrains.kotlin.kapt").version(kotlinVersion)
-            plugin("kotlinx-kover", "org.jetbrains.kotlinx.kover").version("0.5.1")
             plugin("dokka", "org.jetbrains.dokka").version(kotlinVersion)
             plugin("spotless", "com.diffplug.spotless").version("6.7.2")
             plugin("mvn-publish", "com.vanniktech.maven.publish.base").version("0.20.0")
+            plugin("jacoco", "com.vanniktech.android.junit.jacoco").version("0.16.0")
             plugin("git-publish", "org.ajoberstar.git-publish").version("3.0.1")
             library("pages", "com.hendraanggrian:pages-gradle-plugin:0.1")
         }
@@ -38,24 +38,18 @@ dependencyResolutionManagement {
             library("process-phoenix", "com.jakewharton:process-phoenix:2.1.2")
             val colorPreferenceVersion = "1.1.0"
             library("color-preference-core", "com.github.kizitonwose.colorpreference:core:$colorPreferenceVersion")
-            library("color-preference-support", "com.github.kizitonwose.colorpreference:support:$colorPreferenceVersion")
+            library(
+                "color-preference-support",
+                "com.github.kizitonwose.colorpreference:support:$colorPreferenceVersion"
+            )
             bundle("color-preference", listOf("color-preference-core", "color-preference-support"))
         }
         register("testLibs") {
-            library("kotlin-junit", "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
-            library("androidx-core-ktx", "androidx.test:core-ktx:$androidxVersion")
+            library("junit", "androidx.test.ext:junit:1.1.3")
+            library("androidx-core", "androidx.test:core:$androidxVersion")
             library("androidx-runner", "androidx.test:runner:$androidxVersion")
-            library("androidx-rules", "androidx.test:rules:$androidxVersion")
-            library("androidx-junit-ktx", "androidx.test.ext:junit-ktx:1.1.3")
-            library("androidx-truth", "androidx.test.ext:truth:1.4.0")
-            library("androidx-espresso-core", "androidx.test.espresso:espresso-core:3.4.0")
-            bundle(
-                "androidx",
-                listOf(
-                    "androidx-core-ktx", "androidx-runner", "androidx-rules",
-                    "androidx-junit-ktx", "androidx-truth", "androidx-espresso-core"
-                )
-            )
+            library("robolectric", "org.robolectric:robolectric:4.8.1")
+            library("truth", "com.google.truth:truth:1.1.3")
         }
     }
 }
