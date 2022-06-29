@@ -69,8 +69,8 @@ public final class CollapsingTextHelper2 {
   @NonNull private final RectF currentBounds;
   private int expandedTextGravity = Gravity.CENTER_VERTICAL;
   private int collapsedTextGravity = Gravity.CENTER_VERTICAL;
-  private float expandedTextSize, expandedTextSize2 = 15;
-  private float collapsedTextSize, collapsedTextSize2 = 15;
+  private float expandedTextSize = 15, expandedTextSize2 = 15;
+  private float collapsedTextSize = 15, collapsedTextSize2 = 15;
   private ColorStateList expandedTextColor, expandedTextColor2;
   private ColorStateList collapsedTextColor, collapsedTextColor2;
   private float expandedDrawY, expandedDrawY2;

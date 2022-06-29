@@ -10,10 +10,12 @@ import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build.VERSION_CODES;
+import android.util.TypedValue;
 import android.view.Gravity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout;
 import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.test.R;
 import org.junit.Before;
@@ -42,6 +44,9 @@ public class SubtitleCollapsingToolbarLayoutTest {
 
     @Test
     public void title() {
+        assertNull(toolbarLayout.getTitle());
+        assertNull(toolbarLayout.getSubtitle());
+
         toolbarLayout.setTitle("Title");
         toolbarLayout.setSubtitle("Subtitle");
         assertTrue(toolbarLayout.isTitleEnabled());
@@ -59,6 +64,9 @@ public class SubtitleCollapsingToolbarLayoutTest {
         contentScrim.test();
         statusBarScrim.test();
 
+        assertEquals(0, toolbarLayout.getScrimVisibleHeightTrigger());
+        assertEquals(600, toolbarLayout.getScrimAnimationDuration());
+
         toolbarLayout.setScrimVisibleHeightTrigger(10);
         toolbarLayout.setScrimAnimationDuration(20);
         assertEquals(10, toolbarLayout.getScrimVisibleHeightTrigger());
@@ -67,6 +75,9 @@ public class SubtitleCollapsingToolbarLayoutTest {
 
     @Test
     public void gravity() {
+        assertEquals(GravityCompat.START | Gravity.CENTER_VERTICAL, toolbarLayout.getCollapsedTitleGravity());
+        assertEquals(GravityCompat.START | Gravity.BOTTOM, toolbarLayout.getExpandedTitleGravity());
+
         toolbarLayout.setCollapsedTitleGravity(Gravity.TOP);
         toolbarLayout.setExpandedTitleGravity(Gravity.BOTTOM);
         assertEquals(Gravity.TOP, toolbarLayout.getCollapsedTitleGravity());
@@ -75,6 +86,11 @@ public class SubtitleCollapsingToolbarLayoutTest {
 
     @Test
     public void typeface() {
+        assertEquals(Typeface.DEFAULT, toolbarLayout.getCollapsedTitleTypeface());
+        assertEquals(Typeface.DEFAULT, toolbarLayout.getCollapsedSubtitleTypeface());
+        assertEquals(Typeface.DEFAULT, toolbarLayout.getExpandedTitleTypeface());
+        assertEquals(Typeface.DEFAULT, toolbarLayout.getExpandedSubtitleTypeface());
+
         AssetManager assets = activity.getAssets();
         Typeface bold1 = Typeface.createFromAsset(assets, "OpenSans-Bold.ttf");
         Typeface regular1 = Typeface.createFromAsset(assets, "OpenSans-Regular.ttf");
@@ -92,6 +108,13 @@ public class SubtitleCollapsingToolbarLayoutTest {
 
     @Test
     public void margin() {
+        float defaultMargin = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, 32f, activity.getResources().getDisplayMetrics());
+        assertEquals(defaultMargin, toolbarLayout.getExpandedTitleMarginStart(), 0);
+        assertEquals(defaultMargin, toolbarLayout.getExpandedTitleMarginTop(), 0);
+        assertEquals(defaultMargin, toolbarLayout.getExpandedTitleMarginEnd(), 0);
+        assertEquals(defaultMargin, toolbarLayout.getExpandedTitleMarginBottom(), 0);
+
         toolbarLayout.setExpandedTitleMargin(1, 2, 3, 4);
         assertEquals(1, toolbarLayout.getExpandedTitleMarginStart());
         assertEquals(2, toolbarLayout.getExpandedTitleMarginTop());

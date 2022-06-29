@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SubtitleCollapsingToolbarLayout styles -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="subtitleCollapsingToolbarLayoutStyle">@style/ToolbarLayoutTheme</item>
+    </style>
+
+    <style name="ToolbarLayoutTheme" parent="Widget.MaterialComponents.SubtitleCollapsingToolbar">
+        <item name="title">Title</item>
+        <item name="subtitle">Subtitle</item>
+        <item name="contentScrim">#ff0000</item>
+        <item name="statusBarScrim">#00ff00</item>
+        <item name="expandedTitleGravity">start</item>
+        <item name="collapsedTitleGravity">end</item>
+        <item name="expandedTitleMargin">10dp</item>
+        <item name="maxLines">2</item>
+    </style>
+</resources>

@@ -20,7 +20,6 @@ dependencyResolutionManagement {
             plugin("dokka", "org.jetbrains.dokka").version(kotlinVersion)
             plugin("spotless", "com.diffplug.spotless").version("6.7.2")
             plugin("mvn-publish", "com.vanniktech.maven.publish.base").version("0.20.0")
-            plugin("jacoco", "com.vanniktech.android.junit.jacoco").version("0.16.0")
             plugin("git-publish", "org.ajoberstar.git-publish").version("3.0.1")
             library("pages", "com.hendraanggrian:pages-gradle-plugin:0.1")
         }
@@ -45,9 +44,9 @@ dependencyResolutionManagement {
             bundle("color-preference", listOf("color-preference-core", "color-preference-support"))
         }
         register("testLibs") {
-            library("junit", "androidx.test.ext:junit:1.1.3")
             library("androidx-core", "androidx.test:core:$androidxVersion")
             library("androidx-runner", "androidx.test:runner:$androidxVersion")
+            library("androidx-junit", "androidx.test.ext:junit:1.1.3")
             library("robolectric", "org.robolectric:robolectric:4.8.1")
             library("truth", "com.google.truth:truth:1.1.3")
         }

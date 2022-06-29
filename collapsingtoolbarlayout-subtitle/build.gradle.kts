@@ -6,7 +6,6 @@ plugins {
     id("com.android.library")
     alias(plugs.plugins.spotless)
     alias(plugs.plugins.mvn.publish)
-    alias(plugs.plugins.jacoco)
 }
 
 android {
@@ -56,9 +55,9 @@ mavenPublishing {
 
 dependencies {
     implementation(libs.material)
-    testImplementation(testLibs.junit)
     testImplementation(testLibs.androidx.core)
     testImplementation(testLibs.androidx.runner)
+    testImplementation(testLibs.androidx.junit)
     testImplementation(testLibs.robolectric)
     testImplementation(testLibs.truth)
 }
