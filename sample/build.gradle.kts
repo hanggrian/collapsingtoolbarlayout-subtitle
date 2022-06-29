@@ -15,18 +15,8 @@ android {
             buildConfigField("String", "RELEASE_URL", "\"$RELEASE_URL\"")
             buildConfigField("String", "RELEASE_ARTIFACT", "\"$RELEASE_ARTIFACT\"")
         }
-        named("debug") {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-        }
-        named("release") {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-        }
     }
-    lint {
-        abortOnError = false
-    }
+    lint.abortOnError = false
 }
 
 dependencies {

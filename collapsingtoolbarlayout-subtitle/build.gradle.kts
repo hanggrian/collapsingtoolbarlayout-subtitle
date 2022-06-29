@@ -4,16 +4,12 @@ import com.vanniktech.maven.publish.SonatypeHost
 
 plugins {
     id("com.android.library")
+    jacoco
     alias(plugs.plugins.spotless)
     alias(plugs.plugins.mvn.publish)
 }
 
 android {
-    buildTypes {
-        debug {
-            isTestCoverageEnabled = true
-        }
-    }
     buildFeatures.buildConfig = false
     testOptions.unitTests.isIncludeAndroidResources = true
 }
@@ -60,4 +56,34 @@ dependencies {
     testImplementation(testLibs.androidx.junit)
     testImplementation(testLibs.robolectric)
     testImplementation(testLibs.truth)
+}
+
+tasks {
+    withType<Test> {
+        configure<JacocoTaskExtension> {
+            isIncludeNoLocationClasses = true
+            excludes = listOf("jdk.internal.*")
+        }
+    }
+    register<JacocoReport>("jacocoTestReport") {
+        dependsOn("testDebugUnitTest")
+        reports {
+            xml.required.set(true)
+            html.required.set(true)
+        }
+        val fileFilter = listOf(
+            "**/R.class", "**/R\$*.class", "**/BuildConfig.*",
+            "**/Manifest*.*", "**/*Test*.*", "android/**/*.*"
+        )
+        val debugTree = fileTree("dir" to "$buildDir/intermediates/javac/debug", "excludes" to fileFilter)
+        val mainSrc = "$projectDir/src/main/java"
+        sourceDirectories.setFrom(files(listOf(mainSrc)))
+        classDirectories.setFrom(files(listOf(debugTree)))
+        executionData.setFrom(
+            fileTree(
+                "dir" to buildDir,
+                "includes" to listOf("jacoco/testDebugUnitTest.exec")
+            )
+        )
+    }
 }
