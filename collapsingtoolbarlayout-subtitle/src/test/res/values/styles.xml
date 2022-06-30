@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- SubtitleCollapsingToolbarLayout styles -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="subtitleCollapsingToolbarLayoutStyle">@style/ToolbarLayoutTheme</item>
     </style>

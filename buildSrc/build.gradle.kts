@@ -1,6 +1,4 @@
-repositories {
-    mavenCentral()
-}
+repositories.mavenCentral()
 
 plugins {
     `kotlin-dsl`

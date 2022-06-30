@@ -15,7 +15,9 @@ buildscript {
     }
     dependencies {
         classpath(plugs.android)
-        classpath(plugs.pages) { features("pages-minimal") }
+        classpath(plugs.pages) {
+            capability("pages-minimal")
+        }
     }
 }
 
@@ -37,14 +39,18 @@ allprojects {
 }
 
 subprojects {
-    withPlugin<LibraryPlugin> { configure<LibraryExtension>(::androidConfig) }
-    withPlugin<AppPlugin> { configure<BaseAppModuleExtension>(::androidConfig) }
+    withPlugin<LibraryPlugin> {
+        configure<LibraryExtension>(::androidConfig)
+    }
+    withPlugin<AppPlugin> {
+        configure<BaseAppModuleExtension>(::androidConfig)
+    }
     withPluginEagerly<KotlinAndroidPluginWrapper> {
         kotlinExtension.jvmToolchain {
             (this as JavaToolchainSpec).languageVersion.set(JavaLanguageVersion.of(sdk.versions.jdk.get()))
         }
-        (the<BaseExtension>() as ExtensionAware).extensions
-            .getByType<KotlinJvmOptions>().jvmTarget = JavaVersion.toVersion(sdk.versions.androidJdk.get()).toString()
+        (the<BaseExtension>() as ExtensionAware).extensions.getByType<KotlinJvmOptions>()
+            .jvmTarget = JavaVersion.toVersion(sdk.versions.androidJdk.get()).toString()
     }
 }
 

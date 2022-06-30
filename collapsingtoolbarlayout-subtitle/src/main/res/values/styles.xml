@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- SubtitleCollapsingToolbarLayout styles -->
     <style name="Widget.Design.SubtitleCollapsingToolbar" parent="android:Widget">
         <item name="expandedTitleMargin">32dp</item>
         <item name="statusBarScrim">?attr/colorPrimaryDark</item>
@@ -14,5 +13,5 @@
         <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
 
-    <style name="Widget.MaterialComponents.SubtitleCollapsingToolbar" parent="Widget.Design.CollapsingToolbar"/>
+    <style name="Widget.MaterialComponents.SubtitleCollapsingToolbar" parent="Widget.Design.CollapsingToolbar" />
 </resources>

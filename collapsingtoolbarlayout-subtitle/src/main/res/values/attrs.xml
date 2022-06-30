@@ -3,7 +3,7 @@
     <attr name="subtitleCollapsingToolbarLayoutStyle" format="reference" />
 
     <declare-styleable name="SubtitleCollapsingToolbarLayout">
-        <!-- Inherited from material -->
+        <!-- Inherited from 'material-components' -->
         <attr name="expandedTitleMargin" />
         <attr name="expandedTitleMarginStart" />
         <attr name="expandedTitleMarginTop" />
@@ -21,7 +21,7 @@
         <attr name="titleEnabled" />
         <attr name="maxLines" />
 
-        <!-- Inherited from appcompat -->
+        <!-- Inherited from 'androidx.appcompat' -->
         <attr name="title" />
         <attr name="subtitle" />
 

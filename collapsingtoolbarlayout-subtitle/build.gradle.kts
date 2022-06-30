@@ -6,7 +6,7 @@ plugins {
     id("com.android.library")
     jacoco
     alias(plugs.plugins.spotless)
-    alias(plugs.plugins.mvn.publish)
+    alias(plugs.plugins.maven.publish)
 }
 
 android {
@@ -77,8 +77,8 @@ tasks {
         )
         val debugTree = fileTree("dir" to "$buildDir/intermediates/javac/debug", "excludes" to fileFilter)
         val mainSrc = "$projectDir/src/main/java"
-        sourceDirectories.setFrom(files(listOf(mainSrc)))
-        classDirectories.setFrom(files(listOf(debugTree)))
+        sourceDirectories.setFrom(mainSrc)
+        classDirectories.setFrom(debugTree)
         executionData.setFrom(
             fileTree(
                 "dir" to buildDir,

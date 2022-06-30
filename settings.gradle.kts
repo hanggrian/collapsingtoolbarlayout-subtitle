@@ -19,7 +19,7 @@ dependencyResolutionManagement {
             plugin("kotlin-kapt", "org.jetbrains.kotlin.kapt").version(kotlinVersion)
             plugin("dokka", "org.jetbrains.dokka").version(kotlinVersion)
             plugin("spotless", "com.diffplug.spotless").version("6.7.2")
-            plugin("mvn-publish", "com.vanniktech.maven.publish.base").version("0.20.0")
+            plugin("maven-publish", "com.vanniktech.maven.publish.base").version("0.20.0")
             plugin("git-publish", "org.ajoberstar.git-publish").version("3.0.1")
             library("pages", "com.hendraanggrian:pages-gradle-plugin:0.1")
         }
@@ -29,12 +29,10 @@ dependencyResolutionManagement {
             library("androidx-appcompat", "androidx.appcompat:appcompat:$androidxVersion")
             library("androidx-core-ktx", "androidx.core:core-ktx:$androidxVersion")
             library("androidx-multidex", "androidx.multidex:multidex:2.0.1")
-            library("androidx-coordinatorlayout", "androidx.multidex:multidex:1.1.0")
-            library("androidx-preference", "androidx.multidex:multidex:1.1.0")
-            library("auto-prefs-android", "com.hendraanggrian.auto:prefs-android:0.1-SNAPSHOT")
-            library("auto-prefs-compiler", "com.hendraanggrian.auto:prefs-compiler:0.1-SNAPSHOT")
-            library("picasso-ktx", "com.hendraanggrian.appcompat:picasso-ktx:0.1-SNAPSHOT")
             library("process-phoenix", "com.jakewharton:process-phoenix:2.1.2")
+            val autoPrefsVersion = "0.1-SNAPSHOT"
+            library("auto-prefs-android", "com.hendraanggrian.auto:prefs-android:$autoPrefsVersion")
+            library("auto-prefs-compiler", "com.hendraanggrian.auto:prefs-compiler:$autoPrefsVersion")
             val colorPreferenceVersion = "1.1.0"
             library("color-preference-core", "com.github.kizitonwose.colorpreference:core:$colorPreferenceVersion")
             library(

@@ -3,13 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.subtitlecollapsingtoolbarlayout">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:name="androidx.multidex.MultiDexApplication"
-        android:allowBackup="true"
         android:label="SubtitleCollapsingToolbarLayout Example"
-        android:supportsRtl="true"
         android:theme="@style/Theme.Demo">
         <activity
             android:name=".MainActivity"
@@ -27,6 +23,6 @@
             android:name=".MainActivity2"
             android:exported="true"
             android:forceDarkAllowed="true"
-            tools:targetApi="q"/>
+            tools:targetApi="q" />
     </application>
 </manifest>

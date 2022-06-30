@@ -1,9 +1,7 @@
 package com.hendraanggrian.material.subtitlecollapsingtoolbarlayout;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
@@ -11,10 +9,9 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build.VERSION_CODES;
 import android.view.Gravity;
+import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import com.google.android.material.internal.CollapsingTextHelper2;
-import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.test.R;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,9 +31,7 @@ public class CollapsingTextHelper2Test {
     @Before
     public void setUpActivityAndResources() {
         activity = Robolectric.buildActivity(TestActivity.class).setup().get();
-        textHelper2 = new CollapsingTextHelper2(activity.getLayoutInflater()
-            .inflate(com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.test.
-                R.layout.test_subtitlecollapsingtoolbarlayout, null));
+        textHelper2 = new CollapsingTextHelper2(new View(activity));
     }
 
     @Test

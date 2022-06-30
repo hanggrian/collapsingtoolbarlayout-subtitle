@@ -20,7 +20,7 @@ Since it uses a lot of CollapsingToolbarLayout resources and API, there are a fe
 - Only safe to use with the same version of material components.
 - Deceptive package name.
 
-### Also...
+#### Also...
 
 It is detabable if we even need this library.
 If the material guidelines says it's ok to have a multiline text in toolbar layout, then they surely would've already implemented such feature.
@@ -28,7 +28,7 @@ If it doesn't say anything about subtitle (which is odds because Toolbar has it)
 
 ## Download
 
-This library's versioning follows [Material Components's releases](https://github.com/material-components/material-components-android/releases/).
+This library's versioning follows [Material Components' releases](https://github.com/material-components/material-components-android/releases/).
 
 ```gradle
 repositories {
@@ -72,7 +72,7 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                app:layout_collapseMode="pin"/>
+                app:layout_collapseMode="pin" />
         </android.support.design.widget.SubtitleCollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -87,6 +87,6 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
 
 | Attribute                         | Description                                | Default value/behavior                               |
 |-----------------------------------|--------------------------------------------|------------------------------------------------------|
-| `subtitle`                        | subtitle text                              | disabled                                             |
-| `collapsedSubtitleTextAppearance` | text appearance of subtitle when collapsed | `TextAppearance.AppCompat.Widget.ActionBar.Subtitle` |
-| `expandedSubtitleTextAppearance`  | text appearance of subtitle when expanded  | `TextAppearance.AppCompat.Headline`                  |
+| `subtitle`                        | Subtitle text                              | disabled                                             |
+| `collapsedSubtitleTextAppearance` | Text appearance of subtitle when collapsed | `TextAppearance.AppCompat.Widget.ActionBar.Subtitle` |
+| `expandedSubtitleTextAppearance`  | Text appearance of subtitle when expanded  | `TextAppearance.AppCompat.Headline`                  |

@@ -23,12 +23,8 @@ dependencies {
     implementation(project(":$RELEASE_ARTIFACT"))
     implementation(libs.material)
     implementation(libs.androidx.multidex)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.coordinatorlayout)
-    implementation(libs.androidx.preference)
+    implementation(libs.process.phoenix)
     implementation(libs.auto.prefs.android)
     kapt(libs.auto.prefs.compiler)
-    implementation(libs.picasso.ktx)
-    implementation(libs.process.phoenix)
     implementation(libs.bundles.color.preference)
 }

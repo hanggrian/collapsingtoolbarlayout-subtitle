@@ -1,17 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="text_appearances">
-        <item>Small</item>
-        <item>Medium</item>
-        <item>Large</item>
-    </string-array>
-
-    <string-array name="text_appearance_values">
-        <item>small</item>
-        <item>medium</item>
-        <item>large</item>
-    </string-array>
-
     <string-array name="gravities">
         <item>Left</item>
         <item>Top</item>
@@ -30,15 +18,5 @@
         <item>17</item>
         <item>1</item>
         <item>16</item>
-    </string-array>
-
-    <string-array name="typefaces">
-        <item>Roboto</item>
-        <item>Open Sans</item>
-    </string-array>
-
-    <string-array name="typeface_values">
-        <item>Roboto-Regular.ttf</item>
-        <item>OpenSans-Regular.ttf</item>
     </string-array>
 </resources>
