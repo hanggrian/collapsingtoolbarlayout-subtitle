@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.preference.PreferenceCategory android:title="Content">
+        <androidx.preference.EditTextPreference
+            android:icon="@drawable/ic_text"
+            android:key="titleText"
+            android:title="Text" />
+        <androidx.preference.SwitchPreference
+            android:key="titleMultiline"
+            android:title="Multiline" />
+        <androidx.preference.ListPreference
+            android:entries="@array/line_spacings"
+            android:entryValues="@array/line_spacings"
+            android:icon="@drawable/ic_line_spacing"
+            android:key="titleLineSpacingAdd"
+            android:title="Line Spacing Add" />
+        <androidx.preference.ListPreference
+            android:entries="@array/line_spacings"
+            android:entryValues="@array/line_spacings"
+            android:key="titleLineSpacingMultiplier"
+            android:title="Line Spacing Multiplier" />
+        <androidx.preference.ListPreference
+            android:entries="@array/hyphenation_frequencies"
+            android:entryValues="@array/hyphenation_frequency_values"
+            android:key="titleHyphenationFrequencies"
+            android:title="Hyphenation Frequencies" />
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory android:title="Styling">
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:icon="@drawable/ic_color"
+            android:key="titleCollapsedColor"
+            android:title="Collapsed Text Color" />
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
+            android:key="titleExpandedColor"
+            android:title="Expanded Text color" />
+    </androidx.preference.PreferenceCategory>
+</androidx.preference.PreferenceScreen>

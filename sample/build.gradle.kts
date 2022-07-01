@@ -7,14 +7,9 @@ plugins {
 
 android {
     defaultConfig {
+        minSdk = 23
         applicationId = "com.example.subtitlecollapsingtoolbarlayout"
         multiDexEnabled = true
-    }
-    buildTypes {
-        all {
-            buildConfigField("String", "RELEASE_URL", "\"$RELEASE_URL\"")
-            buildConfigField("String", "RELEASE_ARTIFACT", "\"$RELEASE_ARTIFACT\"")
-        }
     }
     lint.abortOnError = false
 }

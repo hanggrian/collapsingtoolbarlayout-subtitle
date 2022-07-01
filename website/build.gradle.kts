@@ -23,7 +23,4 @@ tasks {
     register(LifecycleBasePlugin.CLEAN_TASK_NAME) {
         delete(buildDir)
     }
-    gitPublishCopy {
-        dependsOn(deployPages)
-    }
 }

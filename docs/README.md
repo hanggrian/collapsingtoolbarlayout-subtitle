@@ -1,6 +1,7 @@
 [![Travis CI](https://img.shields.io/travis/com/hendraanggrian/collapsingtoolbarlayout-subtitle)](https://www.travis-ci.com/github/hendraanggrian/collapsingtoolbarlayout-subtitle/)
 [![Codecov](https://img.shields.io/codecov/c/github/hendraanggrian/collapsingtoolbarlayout-subtitle)](https://app.codecov.io/gh/hendraanggrian/collapsingtoolbarlayout-subtitle/)
 [![Maven Central](https://img.shields.io/maven-central/v/com.hendraanggrian.material/collapsingtoolbarlayout-subtitle)](https://search.maven.org/artifact/com.hendraanggrian.material/collapsingtoolbarlayout-subtitle/)
+[![Nexus Snapshot](https://img.shields.io/nexus/s/com.hendraanggrian.material/collapsingtoolbarlayout-subtitle?server=https%3A%2F%2Fs01.oss.sonatype.org)](https://s01.oss.sonatype.org/content/repositories/snapshots/com/hendraanggrian/material/collapsingtoolbarlayout-subtitle/)
 [![Android SDK](https://img.shields.io/badge/sdk-14%2B-informational)](https://developer.android.com/studio/releases/platforms/#4.0)
 
 # SubtitleCollapsingToolbarLayout
@@ -36,12 +37,9 @@ repositories {
     google()
 }
 dependencies {
-    implementation "com.google.android.material:material:$version"
     implementation "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:$version"
 }
 ```
-
-Snapshots of the development version are available in [Sonatype's snapshots repository](https://s01.oss.sonatype.org/content/repositories/snapshots/).
 
 ## Usage
 
@@ -85,8 +83,10 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
 
 `SubtitleCollapsingToolbarLayout` has all the attributes of `CollapsingToolbarLayout`, and a few extras.
 
-| Attribute                         | Description                                | Default value/behavior                               |
-|-----------------------------------|--------------------------------------------|------------------------------------------------------|
-| `subtitle`                        | Subtitle text                              | disabled                                             |
-| `collapsedSubtitleTextAppearance` | Text appearance of subtitle when collapsed | `TextAppearance.AppCompat.Widget.ActionBar.Subtitle` |
-| `expandedSubtitleTextAppearance`  | Text appearance of subtitle when expanded  | `TextAppearance.AppCompat.Headline`                  |
+| Attribute                         | Default value/behavior                               | Note                                          |
+|-----------------------------------|------------------------------------------------------|-----------------------------------------------|
+| `subtitle`                        | Empty                                                |                                               |
+| `collapsedSubtitleTextAppearance` | `TextAppearance.AppCompat.Widget.ActionBar.Subtitle` |                                               |
+| `expandedSubtitleTextAppearance`  | `TextAppearance.AppCompat.Headline`                  |                                               |
+| `titleMaxLines`                   | 1                                                    | Alias of `maxLines`, which has been disabled. |
+| `subtitleMaxLines`                | 1                                                    |                                               |

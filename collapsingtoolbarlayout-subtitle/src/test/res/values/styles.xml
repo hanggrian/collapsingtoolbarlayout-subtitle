@@ -12,6 +12,11 @@
         <item name="expandedTitleGravity">start</item>
         <item name="collapsedTitleGravity">end</item>
         <item name="expandedTitleMargin">10dp</item>
-        <item name="maxLines">2</item>
+        <item name="titleCollapseMode">fade</item>
+        <item name="titleMaxLines">2</item>
+        <item name="subtitleMaxLines">3</item>
+        <item name="forceApplySystemWindowInsetTop">true</item>
+        <item name="titleExtraMultilineHeightEnabled">true</item>
+        <item name="subtitleExtraMultilineHeightEnabled">true</item>
     </style>
 </resources>

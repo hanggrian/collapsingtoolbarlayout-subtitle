@@ -19,15 +19,30 @@
         <attr name="collapsedTitleGravity" />
         <attr name="expandedTitleGravity" />
         <attr name="titleEnabled" />
-        <attr name="maxLines" />
+        <attr name="titleCollapseMode" />
+        <attr name="forceApplySystemWindowInsetTop" />
 
         <!-- Inherited from 'androidx.appcompat' -->
         <attr name="title" />
         <attr name="subtitle" />
 
-        <!-- Subtitle text appearance when fully expanded -->
+        <!-- The text appearance of the CollapsingToolbarLayout's subtitle when it is fully
+             'expanded' -->
         <attr name="expandedSubtitleTextAppearance" format="reference" />
-        <!-- Subtitle text appearance when fully collapsed -->
+        <!-- The text appearance of the CollapsingToolbarLayouts subtitle when it is fully
+             'collapsed' -->
         <attr name="collapsedSubtitleTextAppearance" format="reference" />
+        <!-- The maximum number of title lines to display in the expanded state.
+             Experimental Feature. -->
+        <attr name="titleMaxLines" format="integer" />
+        <!-- The maximum number of subtitle lines to display in the expanded state.
+             Experimental Feature. -->
+        <attr name="subtitleMaxLines" format="integer" />
+        <!-- Whether extra height should be added when the title text spans across
+             multiple lines. Experimental Feature. -->
+        <attr name="titleExtraMultilineHeightEnabled" format="boolean" />
+        <!-- Whether extra height should be added when the subtitle text spans across
+             multiple lines. Experimental Feature. -->
+        <attr name="subtitleExtraMultilineHeightEnabled" format="boolean" />
     </declare-styleable>
 </resources>

@@ -1,7 +1,9 @@
 package com.hendraanggrian.material.subtitlecollapsingtoolbarlayout;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
@@ -125,8 +127,19 @@ public class CollapsingTextHelper2Test {
     @Test
     public void maxLines() {
         assertEquals(1, textHelper2.getMaxLines());
+        assertEquals(1, textHelper2.getMaxLines2());
 
         textHelper2.setMaxLines(2);
+        textHelper2.setMaxLines2(3);
         assertEquals(2, textHelper2.getMaxLines());
+        assertEquals(3, textHelper2.getMaxLines2());
+    }
+
+    @Test
+    public void rtlTextDirectionHeuristicsEnabled() {
+        assertTrue(textHelper2.isRtlTextDirectionHeuristicsEnabled());
+
+        textHelper2.setRtlTextDirectionHeuristicsEnabled(false);
+        assertFalse(textHelper2.isRtlTextDirectionHeuristicsEnabled());
     }
 }

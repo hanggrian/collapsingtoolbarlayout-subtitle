@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout;
 import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.test.R;
 import org.junit.Before;
@@ -43,7 +44,7 @@ public class SubtitleCollapsingToolbarLayoutTest {
     }
 
     @Test
-    public void title() {
+    public void text() {
         assertNull(toolbarLayout.getTitle());
         assertNull(toolbarLayout.getSubtitle());
 
@@ -57,6 +58,14 @@ public class SubtitleCollapsingToolbarLayoutTest {
         assertFalse(toolbarLayout.isTitleEnabled());
         assertNull(toolbarLayout.getTitle());
         assertNull(toolbarLayout.getSubtitle());
+    }
+
+    @Test
+    public void collapseMode() {
+        assertEquals(CollapsingToolbarLayout.TITLE_COLLAPSE_MODE_SCALE, toolbarLayout.getTitleCollapseMode());
+
+        toolbarLayout.setTitleCollapseMode(CollapsingToolbarLayout.TITLE_COLLAPSE_MODE_FADE);
+        assertEquals(CollapsingToolbarLayout.TITLE_COLLAPSE_MODE_FADE, toolbarLayout.getTitleCollapseMode());
     }
 
     @Test
@@ -133,10 +142,40 @@ public class SubtitleCollapsingToolbarLayoutTest {
 
     @Test
     public void maxLines() {
-        assertEquals(1, toolbarLayout.getMaxLines());
+        assertEquals(1, toolbarLayout.getTitleMaxLines());
+        assertEquals(1, toolbarLayout.getSubtitleMaxLines());
 
-        toolbarLayout.setMaxLines(2);
-        assertEquals(2, toolbarLayout.getMaxLines());
+        toolbarLayout.setTitleMaxLines(2);
+        toolbarLayout.setSubtitleMaxLines(3);
+        assertEquals(2, toolbarLayout.getTitleMaxLines());
+        assertEquals(3, toolbarLayout.getSubtitleMaxLines());
+    }
+
+    @Test
+    public void rtlTextDirectionHeuristicsEnabled() {
+        assertFalse(toolbarLayout.isRtlTextDirectionHeuristicsEnabled());
+
+        toolbarLayout.setRtlTextDirectionHeuristicsEnabled(true);
+        assertTrue(toolbarLayout.isRtlTextDirectionHeuristicsEnabled());
+    }
+
+    @Test
+    public void forceApplySystemWindowInsetTop() {
+        assertFalse(toolbarLayout.isForceApplySystemWindowInsetTop());
+
+        toolbarLayout.setForceApplySystemWindowInsetTop(true);
+        assertTrue(toolbarLayout.isForceApplySystemWindowInsetTop());
+    }
+
+    @Test
+    public void extraMultilineHeightEnabled() {
+        assertFalse(toolbarLayout.isTitleExtraMultilineHeightEnabled());
+        assertFalse(toolbarLayout.isSubtitleExtraMultilineHeightEnabled());
+
+        toolbarLayout.setTitleExtraMultilineHeightEnabled(true);
+        toolbarLayout.setSubtitleExtraMultilineHeightEnabled(true);
+        assertTrue(toolbarLayout.isTitleExtraMultilineHeightEnabled());
+        assertTrue(toolbarLayout.isSubtitleExtraMultilineHeightEnabled());
     }
 
     private final ScrimTester contentScrim = new ScrimTester() {

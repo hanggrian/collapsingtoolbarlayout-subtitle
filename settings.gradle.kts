@@ -5,7 +5,7 @@ include("website")
 dependencyResolutionManagement {
     versionCatalogs {
         val kotlinVersion = "1.6.21"
-        val androidxVersion = "1.3.0"
+        val androidxVersion = "1.4.0"
         register("sdk") {
             version("jdk", "11")
             version("androidJdk", "8")
