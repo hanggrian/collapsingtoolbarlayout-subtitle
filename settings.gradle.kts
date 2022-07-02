@@ -5,7 +5,7 @@ include("website")
 dependencyResolutionManagement {
     versionCatalogs {
         val kotlinVersion = "1.6.21"
-        val androidxVersion = "1.4.0"
+        val androidxVersion = "1.5.0"
         register("sdk") {
             version("jdk", "11")
             version("androidJdk", "8")
@@ -42,8 +42,9 @@ dependencyResolutionManagement {
             bundle("color-preference", listOf("color-preference-core", "color-preference-support"))
         }
         register("testLibs") {
-            library("androidx-core", "androidx.test:core:$androidxVersion")
-            library("androidx-runner", "androidx.test:runner:$androidxVersion")
+            val androidxTestVersion = "1.5.0-alpha01"
+            library("androidx-core", "androidx.test:core:$androidxTestVersion")
+            library("androidx-runner", "androidx.test:runner:$androidxTestVersion")
             library("androidx-junit", "androidx.test.ext:junit:1.1.3")
             library("robolectric", "org.robolectric:robolectric:4.8.1")
             library("truth", "com.google.truth:truth:1.1.3")

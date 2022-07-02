@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Style to use for SubtitleCollapsingToolbarLayouts in this theme. -->
     <attr name="subtitleCollapsingToolbarLayoutStyle" format="reference" />
+
+    <!-- Style to use for Medium SubtitleCollapsingToolbarLayouts in this theme. -->
+    <attr name="subtitleCollapsingToolbarLayoutMediumStyle" format="reference" />
+
+    <!-- Style to use for Large SubtitleCollapsingToolbarLayouts in this theme. -->
+    <attr name="subtitleCollapsingToolbarLayoutLargeStyle" format="reference" />
+
+    <!-- Size to use for Medium SubtitleCollapsingToolbarLayouts in this theme. -->
+    <attr name="subtitleCollapsingToolbarLayoutMediumSize" format="reference" />
+
+    <!-- Size to use for Large SubtitleCollapsingToolbarLayouts in this theme. -->
+    <attr name="subtitleCollapsingToolbarLayoutLargeSize" format="reference" />
 
     <declare-styleable name="SubtitleCollapsingToolbarLayout">
         <!-- Inherited from 'material-components' -->
@@ -11,6 +24,8 @@
         <attr name="expandedTitleMarginBottom" />
         <attr name="expandedTitleTextAppearance" />
         <attr name="collapsedTitleTextAppearance" />
+        <attr name="expandedTitleTextColor" />
+        <attr name="collapsedTitleTextColor" />
         <attr name="contentScrim" />
         <attr name="statusBarScrim" />
         <attr name="toolbarId" />
@@ -21,6 +36,7 @@
         <attr name="titleEnabled" />
         <attr name="titleCollapseMode" />
         <attr name="forceApplySystemWindowInsetTop" />
+        <attr name="titlePositionInterpolator" />
 
         <!-- Inherited from 'androidx.appcompat' -->
         <attr name="title" />
@@ -32,6 +48,12 @@
         <!-- The text appearance of the CollapsingToolbarLayouts subtitle when it is fully
              'collapsed' -->
         <attr name="collapsedSubtitleTextAppearance" format="reference" />
+        <!-- The text color of the CollapsingToolbarLayout's subtitle when it is fully
+             'expanded' -->
+        <attr name="expandedSubtitleTextColor" format="color|reference" />
+        <!-- The text color of the CollapsingToolbarLayouts subtitle when it is fully
+             'collapsed' -->
+        <attr name="collapsedSubtitleTextColor" format="color|reference" />
         <!-- The maximum number of title lines to display in the expanded state.
              Experimental Feature. -->
         <attr name="titleMaxLines" format="integer" />

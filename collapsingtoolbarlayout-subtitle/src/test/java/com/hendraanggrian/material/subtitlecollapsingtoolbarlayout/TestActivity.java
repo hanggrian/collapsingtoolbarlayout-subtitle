@@ -3,7 +3,7 @@ package com.hendraanggrian.material.subtitlecollapsingtoolbarlayout;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
-class TestActivity extends AppCompatActivity {
+public class TestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);

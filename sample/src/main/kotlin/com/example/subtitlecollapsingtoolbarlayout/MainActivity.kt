@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener, 
                 AppCompatDelegate.setDefaultNightMode(theme2)
             }
             R.id.resetItem -> {
-                prefs.edit { clear() }
+                runCatching { prefs.edit { clear() } } // idk why this line throws error
                 ProcessPhoenix.triggerRebirth(this)
             }
             R.id.compareToRegularItem -> startActivity(Intent(this, DummyActivity::class.java))

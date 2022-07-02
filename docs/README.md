@@ -24,12 +24,15 @@ Since it uses a lot of CollapsingToolbarLayout resources and API, there are a fe
 #### Also...
 
 It is detabable if we even need this library.
-If the material guidelines says it's ok to have a multiline text in toolbar layout, then they surely would've already implemented such feature.
-If it doesn't say anything about subtitle (which is odds because Toolbar has it), then we probably shouldn't use it out of respect to the guidelines.
+If the material guidelines says it's ok to have a multiline text in toolbar layout,
+then they surely would've already implemented such feature.
+If it doesn't say anything about subtitle (which is odds because Toolbar has it),
+then we probably shouldn't use it out of respect to the guidelines.
 
 ## Download
 
-This library's versioning follows [Material Components' releases](https://github.com/material-components/material-components-android/releases/).
+This library's versioning follows [Material Components releases](https://github.com/material-components/material-components-android/releases/).
+Which in turn, follows [AndroidX releases](https://developer.android.com/jetpack/androidx/versions/).
 
 ```gradle
 repositories {
@@ -81,7 +84,8 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
 
 ### Attributes
 
-`SubtitleCollapsingToolbarLayout` has all the attributes of `CollapsingToolbarLayout`, and a few extras.
+`SubtitleCollapsingToolbarLayout` has all the attributes of `CollapsingToolbarLayout`,
+and a few extras.
 
 | Attribute                         | Default value/behavior                               | Note                                          |
 |-----------------------------------|------------------------------------------------------|-----------------------------------------------|

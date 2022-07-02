@@ -23,7 +23,7 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
+                android:layout_height="100dp"
                 app:layout_collapseMode="pin"
                 app:title="Example" />
         </com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>

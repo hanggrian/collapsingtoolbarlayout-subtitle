@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <public name="subtitleCollapsingToolbarLayoutStyle" type="attr" />
+    <public name="subtitleCollapsingToolbarLayoutMediumStyle" type="attr" />
+    <public name="subtitleCollapsingToolbarLayoutLargeStyle" type="attr" />
+    <public name="subtitleCollapsingToolbarLayoutMediumSize" type="attr" />
+    <public name="subtitleCollapsingToolbarLayoutLargeSize" type="attr" />
     <public name="expandedSubtitleTextAppearance" type="attr" />
     <public name="collapsedSubtitleTextAppearance" type="attr" />
+    <public name="expandedSubtitleTextColor" type="attr" />
+    <public name="collapsedSubtitleTextColor" type="attr" />
     <public name="titleMaxLines" type="attr" />
     <public name="subtitleMaxLines" type="attr" />
     <public name="titleExtraMultilineHeightEnabled" type="attr" />

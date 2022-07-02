@@ -17,20 +17,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
-abstract class ScrimTester {
+public abstract class ScrimTester {
     @NonNull
-    abstract Context getContext();
+    public abstract Context getContext();
 
-    abstract void set(@Nullable Drawable drawable);
+    public abstract void set(@Nullable Drawable drawable);
 
-    abstract void setColor(@ColorInt int color);
+    public abstract void setColor(@ColorInt int color);
 
-    abstract void setResources(@DrawableRes int res);
+    public abstract void setResources(@DrawableRes int res);
 
     @Nullable
-    abstract Drawable get();
+    public abstract Drawable get();
 
-    void test() {
+    public void test() {
         final Drawable drawable1 = new ColorDrawable(Color.RED);
         set(drawable1);
         assertEquals(drawable1, get());

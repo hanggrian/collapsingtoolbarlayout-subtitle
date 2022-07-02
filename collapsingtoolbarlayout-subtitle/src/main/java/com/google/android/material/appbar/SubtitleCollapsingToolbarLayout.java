@@ -2,6 +2,7 @@ package com.google.android.material.appbar;
 
 import static com.google.android.material.theme.overlay.MaterialThemeOverlay.wrap;
 
+import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -41,10 +42,14 @@ import com.google.android.material.elevation.ElevationOverlayProvider;
 import com.google.android.material.internal.CollapsingTextHelper2;
 import com.google.android.material.internal.DescendantOffsetUtils;
 import com.google.android.material.internal.ThemeEnforcement;
+import com.google.android.material.resources.MaterialResources;
 import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.R;
 
 /**
- * A hacked collapsing toolbar layout to display title along with subtitle.
+ * {@code SubtitleCollapsingToolbarLayout} is a copy of {@code CollapsingToolbarLayout} with
+ * subtitle support.
+ *
+ * <p>Fields and methods for subtitle is prefixed with `title` or `subtitle` to dissolve ambiguity.
  *
  * @see CollapsingToolbarLayout
  */
@@ -193,6 +198,27 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
               R.styleable.SubtitleCollapsingToolbarLayout_collapsedSubtitleTextAppearance, 0));
     }
 
+    if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleTextColor)) {
+      collapsingTextHelper.setExpandedTextColor(
+          MaterialResources.getColorStateList(
+              context, a, R.styleable.SubtitleCollapsingToolbarLayout_expandedTitleTextColor));
+    }
+    if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_expandedSubtitleTextColor)) {
+      collapsingTextHelper.setExpandedTextColor2(
+          MaterialResources.getColorStateList(
+              context, a, R.styleable.SubtitleCollapsingToolbarLayout_expandedSubtitleTextColor));
+    }
+    if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleTextColor)) {
+      collapsingTextHelper.setCollapsedTextColor(
+          MaterialResources.getColorStateList(
+              context, a, R.styleable.SubtitleCollapsingToolbarLayout_collapsedTitleTextColor));
+    }
+    if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_collapsedSubtitleTextColor)) {
+      collapsingTextHelper.setCollapsedTextColor2(
+          MaterialResources.getColorStateList(
+              context, a, R.styleable.SubtitleCollapsingToolbarLayout_collapsedSubtitleTextColor));
+    }
+
     scrimVisibleHeightTrigger =
         a.getDimensionPixelSize(
             R.styleable.SubtitleCollapsingToolbarLayout_scrimVisibleHeightTrigger, -1);
@@ -204,6 +230,14 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_subtitleMaxLines)) {
       collapsingTextHelper.setMaxLines2(
           a.getInt(R.styleable.SubtitleCollapsingToolbarLayout_subtitleMaxLines, 1));
+    }
+
+    if (a.hasValue(R.styleable.SubtitleCollapsingToolbarLayout_titlePositionInterpolator)) {
+      collapsingTextHelper.setPositionInterpolator(
+          android.view.animation.AnimationUtils.loadInterpolator(
+              context,
+              a.getResourceId(
+                  R.styleable.SubtitleCollapsingToolbarLayout_titlePositionInterpolator, 0)));
     }
 
     scrimAnimationDuration =
@@ -1539,6 +1573,25 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     // If we reach here then we don't have a min height set. Instead we'll take a
     // guess at 1/3 of our height being visible
     return getHeight() / 3;
+  }
+
+  /**
+   * Sets the interpolator to use when animating the title position from collapsed to expanded and
+   * vice versa.
+   *
+   * @param interpolator the interpolator to use.
+   */
+  public void setTitlePositionInterpolator(@Nullable TimeInterpolator interpolator) {
+    collapsingTextHelper.setPositionInterpolator(interpolator);
+  }
+
+  /**
+   * Returns the interpolator being used to animate the title position from collapsed to expanded
+   * and vice versa.
+   */
+  @Nullable
+  public TimeInterpolator getTitlePositionInterpolator() {
+    return collapsingTextHelper.getPositionInterpolator();
   }
 
   /**
