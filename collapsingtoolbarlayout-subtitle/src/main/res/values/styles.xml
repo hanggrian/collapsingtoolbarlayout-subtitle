@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SubtitleCollapsingToolbarLayout styles. -->
     <style name="Widget.Design.SubtitleCollapsingToolbar" parent="android:Widget">
         <item name="expandedTitleMargin">32dp</item>
         <item name="statusBarScrim">?attr/colorPrimaryDark</item>
@@ -15,4 +16,49 @@
     </style>
 
     <style name="Widget.MaterialComponents.SubtitleCollapsingToolbar" parent="Widget.Design.SubtitleCollapsingToolbar" />
+
+    <!-- M3 SubtitleCollapsingToolbarLayout styles. -->
+    <style name="Base.Widget.Material3.SubtitleCollapsingToolbar" parent="Widget.MaterialComponents.SubtitleCollapsingToolbar">
+        <!-- Inherited from 'Base.Widget.Material3.CollapsingToolbar'. -->
+        <eat-comment />
+
+        <item name="collapsedTitleTextAppearance">?attr/textAppearanceTitleLarge</item>
+        <item name="collapsedTitleTextColor">?android:attr/textColorPrimary</item>
+        <item name="expandedTitleTextColor">?android:attr/textColorPrimary</item>
+        <item name="expandedTitleMarginStart">@dimen/m3_appbar_expanded_title_margin_horizontal</item>
+        <item name="expandedTitleMarginEnd">@dimen/m3_appbar_expanded_title_margin_horizontal</item>
+        <item name="expandedTitleMarginBottom">@dimen/m3_appbar_expanded_title_margin_bottom</item>
+        <item name="forceApplySystemWindowInsetTop">true</item>
+        <item name="titleCollapseMode">fade</item>
+        <item name="statusBarScrim">@empty</item>
+        <item name="scrimAnimationDuration">@integer/app_bar_elevation_anim_duration</item>
+        <item name="android:clipToPadding">false</item>
+
+        <!-- Original styles by this library. -->
+        <eat-comment />
+
+        <item name="collapsedSubtitleTextAppearance">?attr/textAppearanceTitleMedium</item>
+        <item name="collapsedSubtitleTextColor">?android:attr/textColorSecondary</item>
+        <item name="expandedSubtitleTextColor">?android:attr/textColorSecondary</item>
+        <item name="titleExtraMultilineHeightEnabled">true</item>
+        <item name="subtitleExtraMultilineHeightEnabled">true</item>
+    </style>
+
+    <style name="Widget.Material3.SubtitleCollapsingToolbar" parent="Base.Widget.Material3.SubtitleCollapsingToolbar">
+        <item name="scrimVisibleHeightTrigger">@dimen/m3_appbar_scrim_height_trigger</item>
+        <item name="expandedTitleTextAppearance">?attr/textAppearanceHeadlineMedium</item>
+        <item name="expandedSubtitleTextAppearance">?attr/textAppearanceHeadlineSmall</item>
+    </style>
+
+    <style name="Widget.Material3.SubtitleCollapsingToolbar.Medium" parent="Base.Widget.Material3.SubtitleCollapsingToolbar">
+        <item name="scrimVisibleHeightTrigger">@dimen/m3_appbar_scrim_height_trigger_medium</item>
+        <item name="expandedTitleTextAppearance">?attr/textAppearanceHeadlineMedium</item>
+        <item name="expandedSubtitleTextAppearance">?attr/textAppearanceHeadlineSmall</item>
+    </style>
+
+    <style name="Widget.Material3.SubtitleCollapsingToolbar.Large" parent="Base.Widget.Material3.SubtitleCollapsingToolbar">
+        <item name="scrimVisibleHeightTrigger">@dimen/m3_appbar_scrim_height_trigger_large</item>
+        <item name="expandedTitleTextAppearance">?attr/textAppearanceHeadlineLarge</item>
+        <item name="expandedSubtitleTextAppearance">?attr/textAppearanceHeadlineMedium</item>
+    </style>
 </resources>

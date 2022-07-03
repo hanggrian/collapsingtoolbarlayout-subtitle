@@ -5,6 +5,10 @@
         <item name="subtitleCollapsingToolbarLayoutStyle">@style/Widget.ToolbarLayout.Main</item>
     </style>
 
+    <style name="Theme.Margin" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="subtitleCollapsingToolbarLayoutStyle">@style/Widget.ToolbarLayout.Margin</item>
+    </style>
+
     <style name="Widget.ToolbarLayout.Main" parent="Widget.MaterialComponents.SubtitleCollapsingToolbar">
         <item name="expandedTitleMargin">5px</item>
         <item name="contentScrim">#ff0000</item>
@@ -22,10 +26,6 @@
         <item name="titleExtraMultilineHeightEnabled">true</item>
         <item name="subtitleExtraMultilineHeightEnabled">true</item>
         <item name="titlePositionInterpolator">@android:interpolator/bounce</item>
-    </style>
-
-    <style name="Theme.Margin" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
-        <item name="subtitleCollapsingToolbarLayoutStyle">@style/Widget.ToolbarLayout.Margin</item>
     </style>
 
     <style name="Widget.ToolbarLayout.Margin" parent="Widget.MaterialComponents.SubtitleCollapsingToolbar">

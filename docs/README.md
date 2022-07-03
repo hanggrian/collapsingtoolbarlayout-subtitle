@@ -9,22 +9,21 @@
 ![Light example](images/example_light.gif)
 ![Dark example](images/example_dark.gif)
 
-Standard [CollapsingToolbarLayout](https://developer.android.com/reference/com/google/android/material/appbar/CollapsingToolbarLayout/) with subtitle support.
+A carbon copy of [CollapsingToolbarLayout](https://developer.android.com/reference/com/google/android/material/appbar/CollapsingToolbarLayout/)
+with subtitle support. During collapsed state, the subtitle would still appear as Toolbar's.
+There should be no learning curve because it works just like `CollapsingToolbarLayout`.
+Supports Material Design 3 styling.
 
-- When collapsed, a subtitle would still appear as Toolbar's.
-- Separate configuration for title and subtitle (text color, gravity, etc.).
-
-### Caveats
-
-Since it uses a lot of CollapsingToolbarLayout resources and API, there are a few:
+But because this library uses restricted APIs and private resources from [Material Components](https://github.com/material-components/material-components-android/),
+there are a few caveats:
 
 - Only safe to use with the same version of material components.
 - Deceptive package name.
 
-#### Also...
+### Also...
 
 It is detabable if we even need this library.
-If the material guidelines says it's ok to have a multiline text in toolbar layout,
+If the material guidelines says it's ok to have a subtitle in toolbar layout,
 then they surely would've already implemented such feature.
 If it doesn't say anything about subtitle (which is odds because Toolbar has it),
 then we probably shouldn't use it out of respect to the guidelines.
@@ -60,7 +59,6 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
         android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
-            android:id="@+id/subtitlecollapsingtoolbarlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:contentScrim="?colorPrimary"
@@ -82,15 +80,17 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 ```
 
-### Attributes
+### Material Design 3
 
-`SubtitleCollapsingToolbarLayout` has all the attributes of `CollapsingToolbarLayout`,
-and a few extras.
+`SubtitleCollapsingToolbarLayout` will automatically switch to Material Design 3 style
+by using `Theme.Material3.*` in your app, no extra configuration needed.
 
-| Attribute                         | Default value/behavior                               | Note                                          |
-|-----------------------------------|------------------------------------------------------|-----------------------------------------------|
-| `subtitle`                        | Empty                                                |                                               |
-| `collapsedSubtitleTextAppearance` | `TextAppearance.AppCompat.Widget.ActionBar.Subtitle` |                                               |
-| `expandedSubtitleTextAppearance`  | `TextAppearance.AppCompat.Headline`                  |                                               |
-| `titleMaxLines`                   | 1                                                    | Alias of `maxLines`, which has been disabled. |
-| `subtitleMaxLines`                | 1                                                    |                                               |
+In addition, there is also attributes `subtitleCollapsingToolbarLayoutMediumStyle` and
+`subtitleCollapsingToolbarLayoutLargeStyle`.
+
+```xml
+<com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
+    style="?attr/subtitleCollapsingToolbarLayoutLargeStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+```

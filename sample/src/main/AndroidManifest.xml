@@ -6,7 +6,7 @@
     <application
         android:name=".App"
         android:label="SubtitleCollapsingToolbarLayout Example"
-        android:theme="@style/Theme.Demo">
+        android:theme="@style/Theme.Material3.DayNight.NoActionBar">
         <activity
             android:name=".MainActivity"
             android:exported="true"

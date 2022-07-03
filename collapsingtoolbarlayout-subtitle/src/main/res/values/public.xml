@@ -14,6 +14,9 @@
     <public name="titleExtraMultilineHeightEnabled" type="attr" />
     <public name="subtitleExtraMultilineHeightEnabled" type="attr" />
     <public name="Widget.Design.SubtitleCollapsingToolbar" type="style" />
+    <public name="Widget.Material3.SubtitleCollapsingToolbar" type="style" />
+    <public name="Widget.Material3.SubtitleCollapsingToolbar.Large" type="style" />
+    <public name="Widget.Material3.SubtitleCollapsingToolbar.Medium" type="style" />
     <public name="TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedTitle" type="style" />
     <public name="TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedSubtitle" type="style" />
 </resources>

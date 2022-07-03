@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener, 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        barLayout.addOnOffsetChangedListener(this)
+        appbarLayout.addOnOffsetChangedListener(this)
         viewPager.adapter = MainAdapter()
         mainMediator.attach()
         prefs = preferences
@@ -111,8 +111,8 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener, 
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
         when (verticalOffset) {
-            0 -> if (actionButton.isShown) actionButton.hide()
-            else -> if (!actionButton.isShown) actionButton.show()
+            0 -> if (floatingButton.isShown) floatingButton.hide()
+            else -> if (!floatingButton.isShown) floatingButton.show()
         }
     }
 
@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener, 
         if (expandedMarginBottom != 0) toolbarLayout.expandedTitleMarginBottom = expandedMarginBottom * marginScale
     }
 
-    fun expand(view: View) = barLayout.setExpanded(true)
+    fun expand(view: View) = appbarLayout.setExpanded(true)
 
     private val mainMediator
         get() = TabLayoutMediator(tabLayout, viewPager) { tab, position ->

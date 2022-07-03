@@ -46,8 +46,8 @@ import com.google.android.material.resources.MaterialResources;
 import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.R;
 
 /**
- * {@code SubtitleCollapsingToolbarLayout} is a copy of {@code CollapsingToolbarLayout} with
- * subtitle support.
+ * A carbon copy of {@link CollapsingToolbarLayout} with subtitle support. During collapsed state,
+ * the subtitle would still appear as Toolbar's.
  *
  * <p>Fields and methods for subtitle is prefixed with `title` or `subtitle` to dissolve ambiguity.
  *

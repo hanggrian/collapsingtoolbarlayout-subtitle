@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- Style to use for SubtitleCollapsingToolbarLayouts in this theme. -->
     <attr name="subtitleCollapsingToolbarLayoutStyle" format="reference" />
 
@@ -16,31 +17,84 @@
     <attr name="subtitleCollapsingToolbarLayoutLargeSize" format="reference" />
 
     <declare-styleable name="SubtitleCollapsingToolbarLayout">
-        <!-- Inherited from 'material-components' -->
+        <!-- Inherited from 'material' and `appcompat`. -->
+        <eat-comment />
+
+        <!--  Specifies extra space on the start, top, end and bottom
+              sides of the the expanded title text. Margin values should be positive. -->
         <attr name="expandedTitleMargin" />
+        <!--  Specifies extra space on the start side of the the expanded title text.
+              Margin values should be positive. -->
         <attr name="expandedTitleMarginStart" />
+        <!--  Specifies extra space on the top side of the the expanded title text.
+              Margin values should be positive. -->
         <attr name="expandedTitleMarginTop" />
+        <!--  Specifies extra space on the end side of the the expanded title text.
+              Margin values should be positive. -->
         <attr name="expandedTitleMarginEnd" />
+        <!--  Specifies extra space on the bottom side of the the expanded title text.
+              Margin values should be positive. -->
         <attr name="expandedTitleMarginBottom" />
+        <!-- The text appearance of the CollapsingToolbarLayout's title when it is fully
+             'expanded' -->
         <attr name="expandedTitleTextAppearance" />
+        <!-- The text appearance of the CollapsingToolbarLayouts title when it is fully
+             'collapsed' -->
         <attr name="collapsedTitleTextAppearance" />
+        <!-- The text color of the CollapsingToolbarLayout's title when it is fully
+             'expanded' -->
         <attr name="expandedTitleTextColor" />
+        <!-- The text color of the CollapsingToolbarLayouts title when it is fully
+             'collapsed' -->
         <attr name="collapsedTitleTextColor" />
+        <!-- The drawable to use as a scrim on top of the CollapsingToolbarLayouts content when
+             it has been scrolled sufficiently off screen. -->
         <attr name="contentScrim" />
+        <!-- The drawable to use as a scrim for the status bar content when the
+             CollapsingToolbarLayout has been scrolled sufficiently off screen. Only works on
+             Lollipop when used together with android:fitSystemWindows="true". -->
         <attr name="statusBarScrim" />
+        <!-- The id of the primary Toolbar child that you wish to use for the purpose of collapsing.
+             This Toolbar descendant view does not need to be a direct child of the layout.
+             If you do not set this, the first direct Toolbar child found will be used. -->
         <attr name="toolbarId" />
+        <!-- The id of the primary Toolbar child that you wish to use for the purpose of collapsing.
+             This Toolbar descendant view does not need to be a direct child of the layout.
+             If you do not set this, the first direct Toolbar child found will be used. -->
         <attr name="scrimVisibleHeightTrigger" />
+        <!-- Specifies the duration used for scrim visibility animations. -->
         <attr name="scrimAnimationDuration" />
+
+        <!-- Specifies how the title should be positioned when collapsed. -->
         <attr name="collapsedTitleGravity" />
+        <!-- Specifies how the title should be positioned when expanded. -->
         <attr name="expandedTitleGravity" />
+
+        <!-- Whether the CollapsingToolbarLayout should draw its own collapsing title. -->
         <attr name="titleEnabled" />
+        <!-- The title to show when titleEnabled is set to true. -->
+        <attr name="title" />
+        <!-- Mode to specify the effect used to collapse and expand the title text. -->
         <attr name="titleCollapseMode" />
+        <!-- Whether the system window inset top should be applied regardless of
+             what the layout_height is set to. Experimental Feature. -->
         <attr name="forceApplySystemWindowInsetTop" />
+        <!-- The interpolator to use when animating the title position from collapsed to expanded and
+             vice versa. -->
         <attr name="titlePositionInterpolator" />
 
-        <!-- Inherited from 'androidx.appcompat' -->
-        <attr name="title" />
-        <attr name="subtitle" />
+        <!-- Modified attributes to dissolve ambiguity. -->
+        <eat-comment />
+
+        <!-- The maximum number of title lines to display in the expanded state.
+             Experimental Feature. -->
+        <attr name="titleMaxLines" format="integer" />
+        <!-- Whether extra height should be added when the title text spans across
+             multiple lines. Experimental Feature. -->
+        <attr name="titleExtraMultilineHeightEnabled" format="boolean" />
+
+        <!-- Original attributes by this library. -->
+        <eat-comment />
 
         <!-- The text appearance of the CollapsingToolbarLayout's subtitle when it is fully
              'expanded' -->
@@ -54,15 +108,11 @@
         <!-- The text color of the CollapsingToolbarLayouts subtitle when it is fully
              'collapsed' -->
         <attr name="collapsedSubtitleTextColor" format="color|reference" />
-        <!-- The maximum number of title lines to display in the expanded state.
-             Experimental Feature. -->
-        <attr name="titleMaxLines" format="integer" />
+        <!-- The subtitle to show when titleEnabled is set to true. -->
+        <attr name="subtitle" />
         <!-- The maximum number of subtitle lines to display in the expanded state.
              Experimental Feature. -->
         <attr name="subtitleMaxLines" format="integer" />
-        <!-- Whether extra height should be added when the title text spans across
-             multiple lines. Experimental Feature. -->
-        <attr name="titleExtraMultilineHeightEnabled" format="boolean" />
         <!-- Whether extra height should be added when the subtitle text spans across
              multiple lines. Experimental Feature. -->
         <attr name="subtitleExtraMultilineHeightEnabled" format="boolean" />
