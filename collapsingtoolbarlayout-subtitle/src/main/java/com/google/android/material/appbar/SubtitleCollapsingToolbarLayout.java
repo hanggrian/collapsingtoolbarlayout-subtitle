@@ -6,6 +6,7 @@ import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -379,6 +380,13 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   }
 
   @Override
+  protected void onConfigurationChanged(@NonNull Configuration newConfig) {
+    super.onConfigurationChanged(newConfig);
+    collapsingTextHelper.maybeUpdateFontWeightAdjustment(newConfig);
+    collapsingTextHelper.maybeUpdateFontWeightAdjustment2(newConfig);
+  }
+
+  @Override
   protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
     // This is a little weird. Our scrim needs to be behind the Toolbar (if it is present),
     // but in front of any other children which are behind it. To do this we intercept the
@@ -525,7 +533,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
       updateTitleFromToolbarIfNeeded();
       updateTextBounds(0, 0, getMeasuredWidth(), getMeasuredHeight(), /* forceRecalculate= */ true);
 
-      int lineCount = collapsingTextHelper.getLineCount();
+      int lineCount = collapsingTextHelper.getExpandedLineCount();
       if (lineCount > 1) {
         // Add extra height based on the amount of height beyond the first line of title text.
         int expandedTextHeight = Math.round(collapsingTextHelper.getExpandedTextFullHeight());
@@ -535,12 +543,12 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
       }
     }
-    if (subtitleExtraMultilineHeightEnabled && collapsingTextHelper.getMaxLines() > 1) {
+    if (subtitleExtraMultilineHeightEnabled && collapsingTextHelper.getMaxLines2() > 1) {
       // Need to update title and bounds in order to calculate line count and text height.
       updateSubtitleFromToolbarIfNeeded();
       updateTextBounds(0, 0, getMeasuredWidth(), getMeasuredHeight(), /* forceRecalculate= */ true);
 
-      int lineCount = collapsingTextHelper.getLineCount2();
+      int lineCount = collapsingTextHelper.getExpandedLineCount2();
       if (lineCount > 1) {
         // Add extra height based on the amount of height beyond the first line of title text.
         int expandedTextHeight = Math.round(collapsingTextHelper.getExpandedTextFullHeight2());
@@ -855,7 +863,6 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     ensureToolbar();
     if (scrimAnimator == null) {
       scrimAnimator = new ValueAnimator();
-      scrimAnimator.setDuration(scrimAnimationDuration);
       scrimAnimator.setInterpolator(
           targetAlpha > scrimAlpha
               ? AnimationUtils.FAST_OUT_LINEAR_IN_INTERPOLATOR
@@ -871,6 +878,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
       scrimAnimator.cancel();
     }
 
+    scrimAnimator.setDuration(scrimAnimationDuration);
     scrimAnimator.setIntValues(scrimAlpha, targetAlpha);
     scrimAnimator.start();
   }

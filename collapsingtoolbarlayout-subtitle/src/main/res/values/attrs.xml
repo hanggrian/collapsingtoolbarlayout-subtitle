@@ -58,9 +58,8 @@
              This Toolbar descendant view does not need to be a direct child of the layout.
              If you do not set this, the first direct Toolbar child found will be used. -->
         <attr name="toolbarId" />
-        <!-- The id of the primary Toolbar child that you wish to use for the purpose of collapsing.
-             This Toolbar descendant view does not need to be a direct child of the layout.
-             If you do not set this, the first direct Toolbar child found will be used. -->
+        <!-- Specifies the amount of visible height in pixels used to define when to trigger a
+             scrim visibility change. -->
         <attr name="scrimVisibleHeightTrigger" />
         <!-- Specifies the duration used for scrim visibility animations. -->
         <attr name="scrimAnimationDuration" />

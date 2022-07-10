@@ -11,8 +11,9 @@
         <eat-comment />
 
         <item name="isMaterial3Theme">true</item>
+
+        <!-- Color palettes -->
         <item name="colorPrimary">@color/m3_sys_color_light_primary</item>
-        <item name="colorPrimaryDark">?attr/colorPrimary</item>
         <item name="colorOnPrimary">@color/m3_sys_color_light_on_primary</item>
         <item name="colorPrimaryInverse">@color/m3_sys_color_light_inverse_primary</item>
         <item name="colorPrimaryContainer">@color/m3_sys_color_light_primary_container</item>
@@ -38,6 +39,11 @@
         <item name="colorOnError">@color/m3_sys_color_light_on_error</item>
         <item name="colorErrorContainer">@color/m3_sys_color_light_error_container</item>
         <item name="colorOnErrorContainer">@color/m3_sys_color_light_on_error_container</item>
+
+        <!-- Framework Colors. -->
+        <item name="android:windowBackground">?android:attr/colorBackground</item>
+
+        <!-- Default Framework Text Colors. -->
         <item name="android:textColorPrimary">@color/m3_default_color_primary_text</item>
         <item name="android:textColorPrimaryInverse">@color/m3_dark_default_color_primary_text</item>
         <item name="android:textColorSecondary">@color/m3_default_color_secondary_text</item>
@@ -53,15 +59,24 @@
         <item name="android:textColorLink">?attr/colorPrimary</item>
         <item name="android:textColorLinkInverse">?attr/colorPrimaryInverse</item>
         <item name="android:textColorAlertDialogListItem">@color/m3_default_color_primary_text</item>
+
+        <!-- Deprecated Colors. -->
+        <item name="colorPrimaryDark">?attr/colorPrimary</item>
+        <item name="colorPrimaryVariant">?attr/colorPrimary</item>
+        <item name="colorSecondaryVariant">?attr/colorSecondary</item>
+
+        <!-- Dialog themes. -->
         <item name="alertDialogTheme">@style/ThemeOverlay.Material3.Dialog.Alert</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Material3.BottomSheetDialog</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.Material3.MaterialAlertDialog</item>
+
+        <!-- Picker styles and themes. -->
         <item name="materialCalendarStyle">@style/Widget.Material3.MaterialCalendar</item>
         <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.Material3.MaterialCalendar.Fullscreen</item>
         <item name="materialCalendarTheme">@style/ThemeOverlay.Material3.MaterialCalendar</item>
         <item name="materialTimePickerTheme">@style/ThemeOverlay.Material3.MaterialTimePicker</item>
-        <item name="actionBarStyle">@style/Widget.Material3.Light.ActionBar.Solid</item>
-        <item name="actionModeStyle">@style/Widget.Material3.ActionMode</item>
+
+        <!-- Widget styles. -->
         <item name="appBarLayoutStyle">@style/Widget.Material3.AppBarLayout</item>
         <item name="badgeStyle">@style/Widget.Material3.Badge</item>
         <item name="borderlessButtonStyle">@style/Widget.Material3.Button.TextButton</item>
@@ -118,15 +133,28 @@
         <item name="textInputFilledExposedDropdownMenuStyle">@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu</item>
         <item name="toolbarStyle">@style/Widget.Material3.Toolbar</item>
         <item name="toolbarSurfaceStyle">@style/Widget.Material3.Toolbar.Surface</item>
-        <item name="actionBarSize">@dimen/m3_appbar_size_compact</item>
+
+        <!-- Top App Bars. -->
         <item name="collapsingToolbarLayoutMediumSize">@dimen/m3_appbar_size_medium</item>
         <item name="collapsingToolbarLayoutLargeSize">@dimen/m3_appbar_size_large</item>
+
+        <!-- Action Bars. -->
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.Material3.Light</item>
+        <item name="actionBarSize">@dimen/m3_appbar_size_compact</item>
+        <item name="actionBarStyle">@style/Widget.Material3.Light.ActionBar.Solid</item>
+        <item name="actionModeStyle">@style/Widget.Material3.ActionMode</item>
+
+        <!-- Popup Menu styles. -->
         <item name="popupMenuBackground">@drawable/m3_popupmenu_background_overlay</item>
         <item name="listPopupWindowStyle">@style/Widget.Material3.PopupMenu.ListPopupWindow</item>
         <item name="popupMenuStyle">@style/Widget.Material3.PopupMenu</item>
         <item name="actionOverflowMenuStyle">@style/Widget.Material3.PopupMenu.Overflow</item>
+
+        <!-- Divider styles. -->
         <item name="materialDividerStyle">@style/Widget.Material3.MaterialDivider</item>
         <item name="materialDividerHeavyStyle">@style/Widget.Material3.MaterialDivider.Heavy</item>
+
+        <!-- Type styles. -->
         <item name="textAppearanceDisplayLarge">@style/TextAppearance.Material3.DisplayLarge</item>
         <item name="textAppearanceDisplayMedium">@style/TextAppearance.Material3.DisplayMedium</item>
         <item name="textAppearanceDisplaySmall">@style/TextAppearance.Material3.DisplaySmall</item>
@@ -142,36 +170,50 @@
         <item name="textAppearanceLabelLarge">@style/TextAppearance.Material3.LabelLarge</item>
         <item name="textAppearanceLabelMedium">@style/TextAppearance.Material3.LabelMedium</item>
         <item name="textAppearanceLabelSmall">@style/TextAppearance.Material3.LabelSmall</item>
+
+        <!-- Default Framework Text styles. -->
         <item name="android:textAppearanceListItem">?attr/textAppearanceTitleMedium</item>
         <item name="android:textAppearanceListItemSmall">?attr/textAppearanceTitleMedium</item>
         <item name="android:textAppearanceListItemSecondary" tools:targetApi="21">?attr/textAppearanceBodyMedium</item>
         <item name="textAppearanceListItem">?attr/textAppearanceTitleMedium</item>
         <item name="textAppearanceListItemSmall">?attr/textAppearanceTitleMedium</item>
         <item name="textAppearanceListItemSecondary">?attr/textAppearanceBodyMedium</item>
+
+        <!-- Menu type styles. -->
         <item name="textAppearanceLargePopupMenu">?attr/textAppearanceBodyLarge</item>
         <item name="textAppearanceSmallPopupMenu">?attr/textAppearanceBodyLarge</item>
+
+        <!-- Shape styles. -->
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Material3.SmallComponent</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Material3.MediumComponent</item>
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Material3.LargeComponent</item>
+
+        <!-- Motion-->
         <item name="motionEasingStandard">@string/m3_sys_motion_easing_standard</item>
         <item name="motionEasingEmphasized">@string/m3_sys_motion_easing_emphasized</item>
-        <item name="motionEasingDecelerated">@string/m3_sys_motion_easing_decelerated</item>
-        <item name="motionEasingAccelerated">@string/m3_sys_motion_easing_accelerated</item>
+        <item name="motionEasingDecelerated">@string/m3_sys_motion_easing_legacy_decelerate</item>
+        <item name="motionEasingAccelerated">@string/m3_sys_motion_easing_legacy_accelerate</item>
         <item name="motionEasingLinear">@string/m3_sys_motion_easing_linear</item>
-        <item name="motionDurationShort1">@integer/m3_sys_motion_duration_short1</item>
-        <item name="motionDurationShort2">@integer/m3_sys_motion_duration_short2</item>
-        <item name="motionDurationMedium1">@integer/m3_sys_motion_duration_medium1</item>
-        <item name="motionDurationMedium2">@integer/m3_sys_motion_duration_medium2</item>
-        <item name="motionDurationLong1">@integer/m3_sys_motion_duration_long1</item>
-        <item name="motionDurationLong2">@integer/m3_sys_motion_duration_long2</item>
+        <item name="motionDurationShort1">@integer/m3_sys_motion_duration_100</item>
+        <item name="motionDurationShort2">@integer/m3_sys_motion_duration_200</item>
+        <item name="motionDurationMedium1">@integer/m3_sys_motion_duration_300</item>
+        <item name="motionDurationMedium2">@integer/m3_sys_motion_duration_400</item>
+        <item name="motionDurationLong1">@integer/m3_sys_motion_duration_500</item>
+        <item name="motionDurationLong2">@integer/m3_sys_motion_duration_600</item>
         <item name="motionPath">@integer/m3_sys_motion_path</item>
+
+        <!-- Elevation overlays. -->
         <item name="elevationOverlayEnabled">true</item>
         <item name="elevationOverlayColor">?attr/colorPrimary</item>
+
+        <!-- Theme overlays. -->
         <item name="dynamicColorThemeOverlay">@style/ThemeOverlay.Material3.DynamicColors.Light</item>
 
         <!-- Style injection. -->
         <eat-comment />
 
+        <item name="collapsingToolbarLayoutMediumSize">@dimen/m3_appbar_size_medium</item>
+        <item name="collapsingToolbarLayoutLargeSize">@dimen/m3_appbar_size_large</item>
         <item name="subtitleCollapsingToolbarLayoutStyle">@style/Widget.Material3.SubtitleCollapsingToolbar</item>
         <item name="subtitleCollapsingToolbarLayoutMediumStyle">@style/Widget.Material3.SubtitleCollapsingToolbar.Medium</item>
         <item name="subtitleCollapsingToolbarLayoutLargeStyle">@style/Widget.Material3.SubtitleCollapsingToolbar.Large</item>
@@ -182,8 +224,9 @@
         <eat-comment />
 
         <item name="isMaterial3Theme">true</item>
+
+        <!-- Color palettes -->
         <item name="colorPrimary">@color/m3_sys_color_dark_primary</item>
-        <item name="colorPrimaryDark">?attr/colorPrimary</item>
         <item name="colorOnPrimary">@color/m3_sys_color_dark_on_primary</item>
         <item name="colorPrimaryInverse">@color/m3_sys_color_dark_inverse_primary</item>
         <item name="colorPrimaryContainer">@color/m3_sys_color_dark_primary_container</item>
@@ -209,6 +252,11 @@
         <item name="colorOnError">@color/m3_sys_color_dark_on_error</item>
         <item name="colorErrorContainer">@color/m3_sys_color_dark_error_container</item>
         <item name="colorOnErrorContainer">@color/m3_sys_color_dark_on_error_container</item>
+
+        <!-- Framework Colors. -->
+        <item name="android:windowBackground">?android:attr/colorBackground</item>
+
+        <!-- Default Framework Text Colors. -->
         <item name="android:textColorPrimary">@color/m3_dark_default_color_primary_text</item>
         <item name="android:textColorPrimaryInverse">@color/m3_default_color_primary_text</item>
         <item name="android:textColorSecondary">@color/m3_dark_default_color_secondary_text</item>
@@ -224,15 +272,24 @@
         <item name="android:textColorLink">?attr/colorPrimary</item>
         <item name="android:textColorLinkInverse">?attr/colorPrimaryInverse</item>
         <item name="android:textColorAlertDialogListItem">@color/m3_dark_default_color_primary_text</item>
+
+        <!-- Deprecated Colors. -->
+        <item name="colorPrimaryDark">?attr/colorPrimary</item>
+        <item name="colorPrimaryVariant">?attr/colorPrimary</item>
+        <item name="colorSecondaryVariant">?attr/colorSecondary</item>
+
+        <!-- Dialog themes. -->
         <item name="alertDialogTheme">@style/ThemeOverlay.Material3.Dialog.Alert</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Material3.BottomSheetDialog</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.Material3.MaterialAlertDialog</item>
+
+        <!-- Picker styles and themes. -->
         <item name="materialCalendarStyle">@style/Widget.Material3.MaterialCalendar</item>
         <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.Material3.MaterialCalendar.Fullscreen</item>
         <item name="materialCalendarTheme">@style/ThemeOverlay.Material3.MaterialCalendar</item>
         <item name="materialTimePickerTheme">@style/ThemeOverlay.Material3.MaterialTimePicker</item>
-        <item name="actionBarStyle">@style/Widget.Material3.ActionBar.Solid</item>
-        <item name="actionModeStyle">@style/Widget.Material3.ActionMode</item>
+
+        <!-- Widget styles. -->
         <item name="appBarLayoutStyle">@style/Widget.Material3.AppBarLayout</item>
         <item name="badgeStyle">@style/Widget.Material3.Badge</item>
         <item name="borderlessButtonStyle">@style/Widget.Material3.Button.TextButton</item>
@@ -289,15 +346,28 @@
         <item name="textInputFilledExposedDropdownMenuStyle">@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu</item>
         <item name="toolbarStyle">@style/Widget.Material3.Toolbar</item>
         <item name="toolbarSurfaceStyle">@style/Widget.Material3.Toolbar.Surface</item>
-        <item name="actionBarSize">@dimen/m3_appbar_size_compact</item>
+
+        <!-- Top App Bars. -->
         <item name="collapsingToolbarLayoutMediumSize">@dimen/m3_appbar_size_medium</item>
         <item name="collapsingToolbarLayoutLargeSize">@dimen/m3_appbar_size_large</item>
+
+        <!-- Action Bars. -->
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.Material3.Dark</item>
+        <item name="actionBarSize">@dimen/m3_appbar_size_compact</item>
+        <item name="actionBarStyle">@style/Widget.Material3.ActionBar.Solid</item>
+        <item name="actionModeStyle">@style/Widget.Material3.ActionMode</item>
+
+        <!-- Popup Menu styles. -->
         <item name="popupMenuBackground">@drawable/m3_popupmenu_background_overlay</item>
         <item name="listPopupWindowStyle">@style/Widget.Material3.PopupMenu.ListPopupWindow</item>
         <item name="popupMenuStyle">@style/Widget.Material3.PopupMenu</item>
         <item name="actionOverflowMenuStyle">@style/Widget.Material3.PopupMenu.Overflow</item>
+
+        <!-- Divider styles. -->
         <item name="materialDividerStyle">@style/Widget.Material3.MaterialDivider</item>
         <item name="materialDividerHeavyStyle">@style/Widget.Material3.MaterialDivider.Heavy</item>
+
+        <!-- Type styles. -->
         <item name="textAppearanceDisplayLarge">@style/TextAppearance.Material3.DisplayLarge</item>
         <item name="textAppearanceDisplayMedium">@style/TextAppearance.Material3.DisplayMedium</item>
         <item name="textAppearanceDisplaySmall">@style/TextAppearance.Material3.DisplaySmall</item>
@@ -313,36 +383,50 @@
         <item name="textAppearanceLabelLarge">@style/TextAppearance.Material3.LabelLarge</item>
         <item name="textAppearanceLabelMedium">@style/TextAppearance.Material3.LabelMedium</item>
         <item name="textAppearanceLabelSmall">@style/TextAppearance.Material3.LabelSmall</item>
+
+        <!-- Default Framework Text styles. -->
         <item name="android:textAppearanceListItem">?attr/textAppearanceTitleMedium</item>
         <item name="android:textAppearanceListItemSmall">?attr/textAppearanceTitleMedium</item>
         <item name="android:textAppearanceListItemSecondary" tools:targetApi="21">?attr/textAppearanceBodyMedium</item>
         <item name="textAppearanceListItem">?attr/textAppearanceTitleMedium</item>
         <item name="textAppearanceListItemSmall">?attr/textAppearanceTitleMedium</item>
         <item name="textAppearanceListItemSecondary">?attr/textAppearanceBodyMedium</item>
+
+        <!-- Menu type styles. -->
         <item name="textAppearanceLargePopupMenu">?attr/textAppearanceBodyLarge</item>
         <item name="textAppearanceSmallPopupMenu">?attr/textAppearanceBodyLarge</item>
+
+        <!-- Shape styles. -->
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Material3.SmallComponent</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Material3.MediumComponent</item>
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Material3.LargeComponent</item>
+
+        <!-- Motion-->
         <item name="motionEasingStandard">@string/m3_sys_motion_easing_standard</item>
         <item name="motionEasingEmphasized">@string/m3_sys_motion_easing_emphasized</item>
-        <item name="motionEasingDecelerated">@string/m3_sys_motion_easing_decelerated</item>
-        <item name="motionEasingAccelerated">@string/m3_sys_motion_easing_accelerated</item>
+        <item name="motionEasingDecelerated">@string/m3_sys_motion_easing_legacy_decelerate</item>
+        <item name="motionEasingAccelerated">@string/m3_sys_motion_easing_legacy_accelerate</item>
         <item name="motionEasingLinear">@string/m3_sys_motion_easing_linear</item>
-        <item name="motionDurationShort1">@integer/m3_sys_motion_duration_short1</item>
-        <item name="motionDurationShort2">@integer/m3_sys_motion_duration_short2</item>
-        <item name="motionDurationMedium1">@integer/m3_sys_motion_duration_medium1</item>
-        <item name="motionDurationMedium2">@integer/m3_sys_motion_duration_medium2</item>
-        <item name="motionDurationLong1">@integer/m3_sys_motion_duration_long1</item>
-        <item name="motionDurationLong2">@integer/m3_sys_motion_duration_long2</item>
+        <item name="motionDurationShort1">@integer/m3_sys_motion_duration_100</item>
+        <item name="motionDurationShort2">@integer/m3_sys_motion_duration_200</item>
+        <item name="motionDurationMedium1">@integer/m3_sys_motion_duration_300</item>
+        <item name="motionDurationMedium2">@integer/m3_sys_motion_duration_400</item>
+        <item name="motionDurationLong1">@integer/m3_sys_motion_duration_500</item>
+        <item name="motionDurationLong2">@integer/m3_sys_motion_duration_600</item>
         <item name="motionPath">@integer/m3_sys_motion_path</item>
+
+        <!-- Elevation overlays. -->
         <item name="elevationOverlayEnabled">true</item>
         <item name="elevationOverlayColor">?attr/colorPrimary</item>
+
+        <!-- Theme overlays. -->
         <item name="dynamicColorThemeOverlay">@style/ThemeOverlay.Material3.DynamicColors.Dark</item>
 
         <!-- Style injection. -->
         <eat-comment />
 
+        <item name="collapsingToolbarLayoutMediumSize">@dimen/m3_appbar_size_medium</item>
+        <item name="collapsingToolbarLayoutLargeSize">@dimen/m3_appbar_size_large</item>
         <item name="subtitleCollapsingToolbarLayoutStyle">@style/Widget.Material3.SubtitleCollapsingToolbar</item>
         <item name="subtitleCollapsingToolbarLayoutMediumStyle">@style/Widget.Material3.SubtitleCollapsingToolbar.Medium</item>
         <item name="subtitleCollapsingToolbarLayoutLargeStyle">@style/Widget.Material3.SubtitleCollapsingToolbar.Large</item>
