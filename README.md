@@ -1,13 +1,13 @@
-[![Travis CI](https://img.shields.io/travis/com/hendraanggrian/collapsingtoolbarlayout-subtitle)](https://www.travis-ci.com/github/hendraanggrian/collapsingtoolbarlayout-subtitle/)
-[![Codecov](https://img.shields.io/codecov/c/github/hendraanggrian/collapsingtoolbarlayout-subtitle)](https://app.codecov.io/gh/hendraanggrian/collapsingtoolbarlayout-subtitle/)
+[![Travis CI](https://img.shields.io/travis/com/hendraanggrian/collapsingtoolbarlayout-subtitle)](https://travis-ci.com/github/hendraanggrian/collapsingtoolbarlayout-subtitle/)
+[![Codecov](https://img.shields.io/codecov/c/github/hendraanggrian/collapsingtoolbarlayout-subtitle)](https://codecov.io/gh/hendraanggrian/collapsingtoolbarlayout-subtitle/)
 [![Maven Central](https://img.shields.io/maven-central/v/com.hendraanggrian.material/collapsingtoolbarlayout-subtitle)](https://search.maven.org/artifact/com.hendraanggrian.material/collapsingtoolbarlayout-subtitle/)
 [![Nexus Snapshot](https://img.shields.io/nexus/s/com.hendraanggrian.material/collapsingtoolbarlayout-subtitle?server=https%3A%2F%2Fs01.oss.sonatype.org)](https://s01.oss.sonatype.org/content/repositories/snapshots/com/hendraanggrian/material/collapsingtoolbarlayout-subtitle/)
 [![Android SDK](https://img.shields.io/badge/sdk-14%2B-informational)](https://developer.android.com/studio/releases/platforms/#4.0)
 
 # SubtitleCollapsingToolbarLayout
 
-![Light Preview](https://raw.githubusercontent.com/hendraanggrian/collapsingtoolbarlayout-subtitle/assets/preview_light.gif)
-![Dark Preview](https://raw.githubusercontent.com/hendraanggrian/collapsingtoolbarlayout-subtitle/assets/preview_dark.gif)
+![Material preview.](https://github.com/hendraanggrian/collapsingtoolbarlayout-subtitle/raw/assets/preview_material.gif)
+![Material You preview.](https://github.com/hendraanggrian/collapsingtoolbarlayout-subtitle/raw/assets/preview_material3.gif)
 
 A carbon copy of [CollapsingToolbarLayout](https://developer.android.com/reference/com/google/android/material/appbar/CollapsingToolbarLayout/)
 with subtitle support. During collapsed state, the subtitle would still appear as Toolbar's.
@@ -82,8 +82,8 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
 
 ### Material Design 3
 
-![Material3 Medium Style](https://raw.githubusercontent.com/hendraanggrian/collapsingtoolbarlayout-subtitle/assets/material3_style_medium.png)
-![Material3 Large Style](https://raw.githubusercontent.com/hendraanggrian/collapsingtoolbarlayout-subtitle/assets/material3_style_large.png)
+![Material3 medium style.](https://github.com/hendraanggrian/collapsingtoolbarlayout-subtitle/raw/assets/material3_style_medium.png)
+![Material3 large style.](https://github.com/hendraanggrian/collapsingtoolbarlayout-subtitle/raw/assets/material3_style_large.png)
 
 `SubtitleCollapsingToolbarLayout` will automatically switch to Material Design 3 style
 by using `Theme.Material3.*` in your app, no configuration needed.

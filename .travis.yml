@@ -14,10 +14,10 @@ android:
     - platform-tools
 
 before_install:
-  - wget "https://dl.google.com/android/repository/commandlinetools-linux-7302050_latest.zip" -O commandlinetools.zip
-  - unzip commandlinetools.zip -d $ANDROID_HOME/
-  - yes | $ANDROID_HOME/cmdline-tools/bin/sdkmanager "platforms;android-$TARGET_SDK" --sdk_root=$ANDROID_HOME
-  - yes | $ANDROID_HOME/cmdline-tools/bin/sdkmanager "build-tools;$BUILD_TOOLS" --sdk_root=$ANDROID_HOME
+  - wget "https://dl.google.com/android/repository/commandlinetools-linux-7302050_latest.zip" -O "commandlinetools.zip"
+  - unzip "commandlinetools.zip" -d "$ANDROID_HOME"/
+  - yes | "$ANDROID_HOME"/cmdline-tools/bin/sdkmanager "platforms;android-$TARGET_SDK" --sdk_root="$ANDROID_HOME"
+  - yes | "$ANDROID_HOME"/cmdline-tools/bin/sdkmanager "build-tools;$BUILD_TOOLS" --sdk_root="$ANDROID_HOME"
 
 script:
   - ./gradlew check --info

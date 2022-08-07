@@ -12,6 +12,8 @@ pages {
     )
     cayman {
         darkTheme()
+        primaryColor = "#d0bcff"
+        secondaryColor = "#6750a4"
         authorName = DEVELOPER_NAME
         authorUrl = DEVELOPER_URL
         projectName = RELEASE_ARTIFACT
