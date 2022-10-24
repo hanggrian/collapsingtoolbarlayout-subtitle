@@ -23,7 +23,11 @@ abstract class AbstractMainTextFragment : PreferenceFragmentCompat() {
         bindSummary<ListPreference, String>(lineSpacingAdd, { value })
         bindSummary<ListPreference, String>(lineSpacingMultiplier, { value })
         bindSummary<ListPreference, String>(hyphenationFrequencies, { value }) {
-            getActualString(it, R.array.hyphenation_frequency_values, R.array.hyphenation_frequencies)
+            getActualString(
+                it,
+                R.array.hyphenation_frequency_values,
+                R.array.hyphenation_frequencies
+            )
         }
     }
 }
@@ -51,10 +55,14 @@ class MainOthersFragment : PreferenceFragmentCompat() {
             getActualString(it, R.array.collapse_mode_values, R.array.collapse_modes)
         }
         bindSummary<MultiSelectListPreference, Set<String>>("collapsedGravity", { values }) { set ->
-            set.joinToString(" | ") { getActualString(it, R.array.gravity_values, R.array.gravities) }
+            set.joinToString(" | ") {
+                getActualString(it, R.array.gravity_values, R.array.gravities)
+            }
         }
         bindSummary<MultiSelectListPreference, Set<String>>("expandedGravity", { values }) { set ->
-            set.joinToString(" | ") { getActualString(it, R.array.gravity_values, R.array.gravities) }
+            set.joinToString(" | ") {
+                getActualString(it, R.array.gravity_values, R.array.gravities)
+            }
         }
     }
 }
@@ -78,7 +86,11 @@ fun <P : Preference, T> PreferenceFragmentCompat.bindSummary(
 }
 
 /** Obtain string value from list preference entries. */
-fun Fragment.getActualString(s: CharSequence, @ArrayRes arrayValuesRes: Int, @ArrayRes arraysRes: Int): CharSequence {
+fun Fragment.getActualString(
+    s: CharSequence,
+    @ArrayRes arrayValuesRes: Int,
+    @ArrayRes arraysRes: Int
+): CharSequence {
     val arrayValues = resources.getStringArray(arrayValuesRes)
     val arrays = resources.getStringArray(arraysRes)
     return arrays[arrayValues.indexOf(s)]

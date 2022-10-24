@@ -1,6 +1,6 @@
 plugins {
-    alias(plugs.plugins.pages)
-    alias(plugs.plugins.git.publish)
+    alias(libs.plugins.pages)
+    alias(libs.plugins.git.publish)
 }
 
 pages {

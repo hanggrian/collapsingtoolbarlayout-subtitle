@@ -26,7 +26,8 @@ import com.hendraanggrian.auto.prefs.android.preferences
 import com.jakewharton.processphoenix.ProcessPhoenix
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener, OnSharedPreferenceChangeListener {
+class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener,
+    OnSharedPreferenceChangeListener {
     @JvmField @BindPreference("theme") var theme2 = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
     @JvmField @BindPreference var titleText = "Title"
     @JvmField @BindPreference var subtitleText = "Subtitle"
@@ -133,15 +134,22 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener, 
         subtitleCollapsedColor.ifConfigured { toolbarLayout.setCollapsedSubtitleTextColor(it) }
         titleExpandedColor.ifConfigured { toolbarLayout.setExpandedTitleTextColor(it) }
         subtitleExpandedColor.ifConfigured { toolbarLayout.setExpandedSubtitleTextColor(it) }
-        toolbarLayout.statusBarScrim = if (statusBarScrim.isConfigured()) ColorDrawable(statusBarScrim) else null
-        toolbarLayout.contentScrim = if (contentScrim.isConfigured()) ColorDrawable(contentScrim) else null
+        toolbarLayout.statusBarScrim =
+            if (statusBarScrim.isConfigured()) ColorDrawable(statusBarScrim) else null
+        toolbarLayout.contentScrim =
+            if (contentScrim.isConfigured()) ColorDrawable(contentScrim) else null
         toolbarLayout.collapsedTitleGravity =
             prefs.getGravity("collapsedGravity", GravityCompat.START or Gravity.CENTER_VERTICAL)
-        toolbarLayout.expandedTitleGravity = prefs.getGravity("expandedGravity", GravityCompat.START or Gravity.BOTTOM)
-        if (expandedMarginLeft != 0) toolbarLayout.expandedTitleMarginStart = expandedMarginLeft * marginScale
-        if (expandedMarginTop != 0) toolbarLayout.expandedTitleMarginTop = expandedMarginTop * marginScale
-        if (expandedMarginRight != 0) toolbarLayout.expandedTitleMarginEnd = expandedMarginRight * marginScale
-        if (expandedMarginBottom != 0) toolbarLayout.expandedTitleMarginBottom = expandedMarginBottom * marginScale
+        toolbarLayout.expandedTitleGravity =
+            prefs.getGravity("expandedGravity", GravityCompat.START or Gravity.BOTTOM)
+        if (expandedMarginLeft != 0) toolbarLayout.expandedTitleMarginStart =
+            expandedMarginLeft * marginScale
+        if (expandedMarginTop != 0) toolbarLayout.expandedTitleMarginTop =
+            expandedMarginTop * marginScale
+        if (expandedMarginRight != 0) toolbarLayout.expandedTitleMarginEnd =
+            expandedMarginRight * marginScale
+        if (expandedMarginBottom != 0) toolbarLayout.expandedTitleMarginBottom =
+            expandedMarginBottom * marginScale
     }
 
     fun expand(view: View) = appbarLayout.setExpanded(true)

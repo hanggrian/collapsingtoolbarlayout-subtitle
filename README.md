@@ -10,9 +10,9 @@
 ![Material You preview.](https://github.com/hendraanggrian/collapsingtoolbarlayout-subtitle/raw/assets/preview_material3.gif)
 
 A carbon copy of [CollapsingToolbarLayout](https://developer.android.com/reference/com/google/android/material/appbar/CollapsingToolbarLayout/)
-with subtitle support. During collapsed state, the subtitle would still appear as Toolbar's.
-There should be no learning curve because it works just like `CollapsingToolbarLayout`.
-Supports Material Design 3 styling.
+with subtitle support. During collapsed state, the subtitle would still appear as Toolbar's.  There
+should be no learning curve because it works just like `CollapsingToolbarLayout`. Supports Material
+Design 3 styling.
 
 But because this library uses restricted APIs and private resources from [Material Components](https://github.com/material-components/material-components-android/),
 there are a few caveats:
@@ -22,11 +22,10 @@ there are a few caveats:
 
 ### Also...
 
-It is detabable if we even need this library.
-If the material guidelines says it's ok to have a subtitle in toolbar layout,
-then they surely would've already implemented such feature.
-If it doesn't say anything about subtitle (which is odds because Toolbar has it),
-then we probably shouldn't use it out of respect to the guidelines.
+It is detabable if we even need this library. If the material guidelines says it's ok to have a
+subtitle in toolbar layout, then they surely would've already implemented such feature.  If it
+doesn't say anything about subtitle (which is odds because Toolbar has it), then we probably
+shouldn't use it out of respect to the guidelines.
 
 ## Download
 
@@ -85,11 +84,11 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
 ![Material3 medium style.](https://github.com/hendraanggrian/collapsingtoolbarlayout-subtitle/raw/assets/material3_style_medium.png)
 ![Material3 large style.](https://github.com/hendraanggrian/collapsingtoolbarlayout-subtitle/raw/assets/material3_style_large.png)
 
-`SubtitleCollapsingToolbarLayout` will automatically switch to Material Design 3 style
-by using `Theme.Material3.*` in your app, no configuration needed.
+`SubtitleCollapsingToolbarLayout` will automatically switch to Material Design 3 style by
+using `Theme.Material3.*` in your app, no configuration needed.
 
-By default, medium style is applied. To use large style, reference an attribute
-`subtitleCollapsingToolbarLayoutLargeStyle` in your XML.
+By default, medium style is applied. To use large style, reference an
+attribute `subtitleCollapsingToolbarLayoutLargeStyle` in your XML.
 
 ```xml
 <com.google.android.material.appbar.SubtitleCollapsingToolbarLayout

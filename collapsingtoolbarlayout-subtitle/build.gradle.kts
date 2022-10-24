@@ -1,12 +1,11 @@
-import com.vanniktech.maven.publish.AndroidLibrary
-import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
 import com.vanniktech.maven.publish.SonatypeHost
 
 plugins {
     id("com.android.library")
     jacoco
-    alias(plugs.plugins.spotless)
-    alias(plugs.plugins.maven.publish)
+    alias(libs.plugins.spotless)
+    alias(libs.plugins.maven.publish)
 }
 
 android {
@@ -46,16 +45,12 @@ mavenPublishing {
             }
         }
     }
-    configure(AndroidLibrary(javadocJar = JavadocJar.Javadoc()))
+    configure(AndroidSingleVariantLibrary())
 }
 
 dependencies {
     implementation(libs.material)
-    testImplementation(testLibs.androidx.core)
-    testImplementation(testLibs.androidx.runner)
-    testImplementation(testLibs.androidx.junit)
-    testImplementation(testLibs.robolectric)
-    testImplementation(testLibs.truth)
+    testImplementation(libs.bundles.androidx.test)
 }
 
 tasks {
