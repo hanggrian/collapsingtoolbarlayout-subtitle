@@ -831,7 +831,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
    * vertical scroll may overwrite this value. Any visibility change will be animated if this view
    * has already been laid out.
    *
-   * @param shown whether the scrims should be shown
+   * @param shown whether the scrims should be shown.
    * @see #getStatusBarScrim()
    * @see #getContentScrim()
    */
@@ -843,8 +843,8 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
    * Set whether the content scrim and/or status bar scrim should be shown or not. Any change in the
    * vertical scroll may overwrite this value.
    *
-   * @param shown whether the scrims should be shown
-   * @param animate whether to animate the visibility change
+   * @param shown whether the scrims should be shown.
+   * @param animate whether to animate the visibility change.
    * @see #getStatusBarScrim()
    * @see #getContentScrim()
    */
@@ -902,7 +902,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
    * Set the drawable to use for the content scrim from resources. Providing null will disable the
    * scrim functionality.
    *
-   * @param drawable the drawable to display
+   * @param drawable the drawable to display.
    * @see #getContentScrim()
    */
   public void setContentScrim(@Nullable Drawable drawable) {
@@ -923,7 +923,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   /**
    * Set the color to use for the content scrim.
    *
-   * @param color the color to display
+   * @param color the color to display.
    * @see #getContentScrim()
    */
   public void setContentScrimColor(@ColorInt int color) {
@@ -933,7 +933,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   /**
    * Set the drawable to use for the content scrim from resources.
    *
-   * @param resId drawable resource id
+   * @param resId drawable resource id.
    * @see #getContentScrim()
    */
   public void setContentScrimResource(@DrawableRes int resId) {
@@ -956,7 +956,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
    *
    * <p>This scrim is only shown when we have been given a top system inset.
    *
-   * @param drawable the drawable to display
+   * @param drawable the drawable to display.
    * @see #getStatusBarScrim()
    */
   public void setStatusBarScrim(@Nullable Drawable drawable) {
@@ -1025,7 +1025,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
    *
    * <p>This scrim is only shown when we have been given a top system inset.
    *
-   * @param color the color to display
+   * @param color the color to display.
    * @see #getStatusBarScrim()
    */
   public void setStatusBarScrimColor(@ColorInt int color) {
@@ -1035,7 +1035,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   /**
    * Set the drawable to use for the status bar scrim from resources.
    *
-   * @param resId drawable resource id
+   * @param resId drawable resource id.
    * @see #getStatusBarScrim()
    */
   public void setStatusBarScrimResource(@DrawableRes int resId) {
@@ -1071,7 +1071,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   /**
    * Sets the text color of the collapsed title.
    *
-   * @param color The new text color in ARGB format
+   * @param color The new text color in ARGB format.
    */
   public void setCollapsedTitleTextColor(@ColorInt int color) {
     setCollapsedTitleTextColor(ColorStateList.valueOf(color));
@@ -1080,7 +1080,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   /**
    * Sets the text color of the collapsed subtitle.
    *
-   * @param color The new text color in ARGB format
+   * @param color The new text color in ARGB format.
    */
   public void setCollapsedSubtitleTextColor(@ColorInt int color) {
     setCollapsedSubtitleTextColor(ColorStateList.valueOf(color));
@@ -1089,7 +1089,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   /**
    * Sets the text colors of the collapsed title.
    *
-   * @param colors ColorStateList containing the new text colors
+   * @param colors ColorStateList containing the new text colors.
    */
   public void setCollapsedTitleTextColor(@NonNull ColorStateList colors) {
     collapsingTextHelper.setCollapsedTextColor(colors);
@@ -1098,7 +1098,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   /**
    * Sets the text colors of the collapsed subtitle.
    *
-   * @param colors ColorStateList containing the new text colors
+   * @param colors ColorStateList containing the new text colors.
    */
   public void setCollapsedSubtitleTextColor(@NonNull ColorStateList colors) {
     collapsingTextHelper.setCollapsedTextColor2(colors);
@@ -1135,7 +1135,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   /**
    * Sets the text color of the expanded title.
    *
-   * @param color The new text color in ARGB format
+   * @param color The new text color in ARGB format.
    */
   public void setExpandedTitleTextColor(@ColorInt int color) {
     setExpandedTitleTextColor(ColorStateList.valueOf(color));
@@ -1144,7 +1144,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   /**
    * Sets the text color of the expanded subtitle.
    *
-   * @param color The new text color in ARGB format
+   * @param color The new text color in ARGB format.
    */
   public void setExpandedSubtitleTextColor(@ColorInt int color) {
     setExpandedSubtitleTextColor(ColorStateList.valueOf(color));
@@ -1153,7 +1153,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   /**
    * Sets the text colors of the expanded title.
    *
-   * @param colors ColorStateList containing the new text colors
+   * @param colors ColorStateList containing the new text colors.
    */
   public void setExpandedTitleTextColor(@NonNull ColorStateList colors) {
     collapsingTextHelper.setExpandedTextColor(colors);
@@ -1162,7 +1162,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   /**
    * Sets the text colors of the expanded subtitle.
    *
-   * @param colors ColorStateList containing the new text colors
+   * @param colors ColorStateList containing the new text colors.
    */
   public void setExpandedSubtitleTextColor(@NonNull ColorStateList colors) {
     collapsingTextHelper.setExpandedTextColor2(colors);
@@ -1244,10 +1244,10 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   /**
    * Sets the expanded title margins.
    *
-   * @param start the starting title margin in pixels
-   * @param top the top title margin in pixels
-   * @param end the ending title margin in pixels
-   * @param bottom the bottom title margin in pixels
+   * @param start the starting title margin in pixels.
+   * @param top the top title margin in pixels.
+   * @param end the ending title margin in pixels.
+   * @param bottom the bottom title margin in pixels.
    * @see #getExpandedTitleMarginStart()
    * @see #getExpandedTitleMarginTop()
    * @see #getExpandedTitleMarginEnd()
@@ -1262,7 +1262,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   }
 
   /**
-   * @return the starting expanded title margin in pixels
+   * @return the starting expanded title margin in pixels.
    * @see #setExpandedTitleMarginStart(int)
    */
   public int getExpandedTitleMarginStart() {
@@ -1272,7 +1272,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   /**
    * Sets the starting expanded title margin in pixels.
    *
-   * @param margin the starting title margin in pixels
+   * @param margin the starting title margin in pixels.
    * @see #getExpandedTitleMarginStart()
    */
   public void setExpandedTitleMarginStart(int margin) {
@@ -1281,7 +1281,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   }
 
   /**
-   * @return the top expanded title margin in pixels
+   * @return the top expanded title margin in pixels.
    * @see #setExpandedTitleMarginTop(int)
    */
   public int getExpandedTitleMarginTop() {
@@ -1291,7 +1291,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   /**
    * Sets the top expanded title margin in pixels.
    *
-   * @param margin the top title margin in pixels
+   * @param margin the top title margin in pixels.
    * @see #getExpandedTitleMarginTop()
    */
   public void setExpandedTitleMarginTop(int margin) {
@@ -1300,7 +1300,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   }
 
   /**
-   * @return the ending expanded title margin in pixels
+   * @return the ending expanded title margin in pixels.
    * @see #setExpandedTitleMarginEnd(int)
    */
   public int getExpandedTitleMarginEnd() {
@@ -1310,7 +1310,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   /**
    * Sets the ending expanded title margin in pixels.
    *
-   * @param margin the ending title margin in pixels
+   * @param margin the ending title margin in pixels.
    * @see #getExpandedTitleMarginEnd()
    */
   public void setExpandedTitleMarginEnd(int margin) {
@@ -1319,7 +1319,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   }
 
   /**
-   * @return the bottom expanded title margin in pixels
+   * @return the bottom expanded title margin in pixels.
    * @see #setExpandedTitleMarginBottom(int)
    */
   public int getExpandedTitleMarginBottom() {
@@ -1329,7 +1329,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   /**
    * Sets the bottom expanded title margin in pixels.
    *
-   * @param margin the bottom title margin in pixels
+   * @param margin the bottom title margin in pixels.
    * @see #getExpandedTitleMarginBottom()
    */
   public void setExpandedTitleMarginBottom(int margin) {
@@ -1544,7 +1544,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
    * <p>If the visible height of this view is less than the given value, the scrims will be made
    * visible, otherwise they are hidden.
    *
-   * @param height value in pixels used to define when to trigger a scrim visibility change
+   * @param height value in pixels used to define when to trigger a scrim visibility change.
    */
   public void setScrimVisibleHeightTrigger(@IntRange(from = 0) final int height) {
     if (scrimVisibleHeightTrigger != height) {
@@ -1605,7 +1605,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
   /**
    * Set the duration used for scrim visibility animations.
    *
-   * @param duration the duration to use in milliseconds
+   * @param duration the duration to use in milliseconds.
    */
   public void setScrimAnimationDuration(@IntRange(from = 0) final long duration) {
     scrimAnimationDuration = duration;

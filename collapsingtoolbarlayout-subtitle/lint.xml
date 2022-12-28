@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <lint>
     <issue id="PrivateResource">
-        <ignore path="src/main/java/com/google/android/material/appbar/SubtitleCollapsingToolbarLayout.java" />
-        <ignore path="src/main/res/values/styles.xml" />
-        <ignore path="src/main/res/values/themes_base.xml" />
+        <ignore path="src/main/java/com/google/android/material/appbar/SubtitleCollapsingToolbarLayout.java"/>
+        <ignore path="src/main/res/values/styles.xml"/>
+        <ignore path="src/main/res/values/themes_base.xml"/>
     </issue>
     <issue id="RestrictedApi">
-        <ignore path="src/main/java/com/google/android/material/appbar/SubtitleCollapsingToolbarLayout.java" />
-        <ignore path="src/main/java/com/google/android/material/internal/CollapsingTextHelper2.java" />
+        <ignore path="src/main/java/com/google/android/material/appbar/SubtitleCollapsingToolbarLayout.java"/>
+        <ignore path="src/main/java/com/google/android/material/internal/CollapsingTextHelper2.java"/>
     </issue>
     <issue id="UnusedResources">
-        <ignore path="src/main/res/values/themes_base.xml" />
+        <ignore path="src/main/res/values/themes_base.xml"/>
     </issue>
 </lint>

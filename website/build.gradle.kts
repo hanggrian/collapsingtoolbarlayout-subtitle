@@ -5,10 +5,10 @@ plugins {
 
 pages {
     contents.index(rootDir.resolve("README.md"))
-    styles.add("https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css")
+    styles.add("https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css")
     scripts.addAll(
-        "https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js",
-        "https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-groovy.min.js"
+        "https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-groovy.min.js"
     )
     cayman {
         darkTheme()

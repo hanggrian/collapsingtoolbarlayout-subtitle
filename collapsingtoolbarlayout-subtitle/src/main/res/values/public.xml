@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <public name="subtitleCollapsingToolbarLayoutStyle" type="attr" />
-    <public name="subtitleCollapsingToolbarLayoutMediumStyle" type="attr" />
-    <public name="subtitleCollapsingToolbarLayoutLargeStyle" type="attr" />
-    <public name="subtitleCollapsingToolbarLayoutMediumSize" type="attr" />
-    <public name="subtitleCollapsingToolbarLayoutLargeSize" type="attr" />
-    <public name="expandedSubtitleTextAppearance" type="attr" />
-    <public name="collapsedSubtitleTextAppearance" type="attr" />
-    <public name="expandedSubtitleTextColor" type="attr" />
-    <public name="collapsedSubtitleTextColor" type="attr" />
-    <public name="titleMaxLines" type="attr" />
-    <public name="subtitleMaxLines" type="attr" />
-    <public name="titleExtraMultilineHeightEnabled" type="attr" />
-    <public name="subtitleExtraMultilineHeightEnabled" type="attr" />
-    <public name="Widget.Design.SubtitleCollapsingToolbar" type="style" />
-    <public name="Widget.Material3.SubtitleCollapsingToolbar" type="style" />
-    <public name="Widget.Material3.SubtitleCollapsingToolbar.Large" type="style" />
-    <public name="Widget.Material3.SubtitleCollapsingToolbar.Medium" type="style" />
-    <public name="TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedTitle" type="style" />
-    <public name="TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedSubtitle" type="style" />
+    <public name="subtitleCollapsingToolbarLayoutStyle" type="attr"/>
+    <public name="subtitleCollapsingToolbarLayoutMediumStyle" type="attr"/>
+    <public name="subtitleCollapsingToolbarLayoutLargeStyle" type="attr"/>
+    <public name="subtitleCollapsingToolbarLayoutMediumSize" type="attr"/>
+    <public name="subtitleCollapsingToolbarLayoutLargeSize" type="attr"/>
+    <public name="expandedSubtitleTextAppearance" type="attr"/>
+    <public name="collapsedSubtitleTextAppearance" type="attr"/>
+    <public name="expandedSubtitleTextColor" type="attr"/>
+    <public name="collapsedSubtitleTextColor" type="attr"/>
+    <public name="titleMaxLines" type="attr"/>
+    <public name="subtitleMaxLines" type="attr"/>
+    <public name="titleExtraMultilineHeightEnabled" type="attr"/>
+    <public name="subtitleExtraMultilineHeightEnabled" type="attr"/>
+    <public name="Widget.Design.SubtitleCollapsingToolbar" type="style"/>
+    <public name="Widget.Material3.SubtitleCollapsingToolbar" type="style"/>
+    <public name="Widget.Material3.SubtitleCollapsingToolbar.Large" type="style"/>
+    <public name="Widget.Material3.SubtitleCollapsingToolbar.Medium" type="style"/>
+    <public name="TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedTitle" type="style"/>
+    <public name="TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedSubtitle" type="style"/>
 </resources>

@@ -70,7 +70,7 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular `CollapsingToolbarLa
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                app:layout_collapseMode="pin" />
+                app:layout_collapseMode="pin"/>
         </android.support.design.widget.SubtitleCollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -94,5 +94,5 @@ attribute `subtitleCollapsingToolbarLayoutLargeStyle` in your XML.
 <com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
     style="?attr/subtitleCollapsingToolbarLayoutLargeStyle"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
+    android:layout_height="wrap_content"/>
 ```

@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
     <!-- SubtitleCollapsingToolbarLayout styles. -->
-    <style name="Widget.Design.SubtitleCollapsingToolbar" parent="Widget.Design.CollapsingToolbar" />
+    <style name="Widget.Design.SubtitleCollapsingToolbar" parent="Widget.Design.CollapsingToolbar"/>
 
     <style name="TextAppearance.Design.SubtitleCollapsingToolbar.ExpandedTitle" parent="TextAppearance.AppCompat.Display1">
         <item name="android:textColor">?android:attr/textColorPrimary</item>
@@ -12,7 +12,7 @@
         <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
 
-    <style name="Widget.MaterialComponents.SubtitleCollapsingToolbar" parent="Widget.Design.SubtitleCollapsingToolbar" />
+    <style name="Widget.MaterialComponents.SubtitleCollapsingToolbar" parent="Widget.Design.SubtitleCollapsingToolbar"/>
 
     <!-- M3 SubtitleCollapsingToolbarLayout styles. -->
     <style name="Base.Widget.Material3.SubtitleCollapsingToolbar" parent="Base.Widget.Material3.CollapsingToolbar">

@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- The purpose of this xml is to inject 'subtitleCollapsingToolbarLayoutStyle',
          'subtitleCollapsingToolbarLayoutLargeStyle', and 'subtitleCollapsingToolbarLayoutMediumStyle'
          into Material 3 base themes by rewriting the whole styles. -->
-    <eat-comment />
+    <eat-comment/>
 
     <style name="Base.V14.Theme.Material3.Light" parent="Theme.MaterialComponents.Light">
         <!-- Inherited from 'material'. -->
-        <eat-comment />
+        <eat-comment/>
 
         <item name="isMaterial3Theme">true</item>
 
@@ -210,7 +210,7 @@
         <item name="dynamicColorThemeOverlay">@style/ThemeOverlay.Material3.DynamicColors.Light</item>
 
         <!-- Style injection. -->
-        <eat-comment />
+        <eat-comment/>
 
         <item name="collapsingToolbarLayoutMediumSize">@dimen/m3_appbar_size_medium</item>
         <item name="collapsingToolbarLayoutLargeSize">@dimen/m3_appbar_size_large</item>
@@ -221,7 +221,7 @@
 
     <style name="Base.V14.Theme.Material3.Dark" parent="Theme.MaterialComponents">
         <!-- Inherited from 'material'. -->
-        <eat-comment />
+        <eat-comment/>
 
         <item name="isMaterial3Theme">true</item>
 
@@ -423,7 +423,7 @@
         <item name="dynamicColorThemeOverlay">@style/ThemeOverlay.Material3.DynamicColors.Dark</item>
 
         <!-- Style injection. -->
-        <eat-comment />
+        <eat-comment/>
 
         <item name="collapsingToolbarLayoutMediumSize">@dimen/m3_appbar_size_medium</item>
         <item name="collapsingToolbarLayoutLargeSize">@dimen/m3_appbar_size_large</item>

@@ -1,10 +1,11 @@
+import com.android.build.gradle.internal.tasks.factory.dependsOn
 import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
 import com.vanniktech.maven.publish.SonatypeHost
 
 plugins {
-    id("com.android.library")
+    alias(libs.plugins.android.library)
+    checkstyle
     jacoco
-    alias(libs.plugins.spotless)
     alias(libs.plugins.maven.publish)
 }
 
@@ -13,42 +14,19 @@ android {
     testOptions.unitTests.isIncludeAndroidResources = true
 }
 
-spotless.java {
-    target("src/main/java/**/*.java")
-    googleJavaFormat()
+checkstyle {
+    configFile = projectDir.resolve("rulebook_checks.xml")
 }
 
 mavenPublishing {
     publishToMavenCentral(SonatypeHost.S01)
     signAllPublications()
-    pom {
-        name.set(project.name)
-        description.set(RELEASE_DESCRIPTION)
-        url.set(RELEASE_URL)
-        licenses {
-            license {
-                name.set("The Apache License, Version 2.0")
-                url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-                distribution.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-            }
-        }
-        scm {
-            connection.set("scm:git:https://github.com/$DEVELOPER_ID/$RELEASE_ARTIFACT.git")
-            developerConnection.set("scm:git:ssh://git@github.com/$DEVELOPER_ID/$RELEASE_ARTIFACT.git")
-            url.set(RELEASE_URL)
-        }
-        developers {
-            developer {
-                id.set(DEVELOPER_ID)
-                name.set(DEVELOPER_NAME)
-                url.set(DEVELOPER_URL)
-            }
-        }
-    }
+    pom(::pom)
     configure(AndroidSingleVariantLibrary())
 }
 
 dependencies {
+    checkstyle(libs.rulebook.checkstyle)
     implementation(libs.material)
     testImplementation(libs.bundles.androidx.test)
 }
@@ -70,7 +48,8 @@ tasks {
             "**/R.class", "**/R\$*.class", "**/BuildConfig.*",
             "**/Manifest*.*", "**/*Test*.*", "android/**/*.*"
         )
-        val debugTree = fileTree("dir" to "$buildDir/intermediates/javac/debug", "excludes" to fileFilter)
+        val debugTree =
+            fileTree("dir" to "$buildDir/intermediates/javac/debug", "excludes" to fileFilter)
         val mainSrc = "$projectDir/src/main/java"
         sourceDirectories.setFrom(mainSrc)
         classDirectories.setFrom(debugTree)
@@ -81,4 +60,11 @@ tasks {
             )
         )
     }
+
+    val checkstyle by registering(Checkstyle::class) {
+        source("src/main/java", "src/test/java")
+        include("**/*.java")
+        classpath = files()
+    }
+    check.dependsOn(checkstyle)
 }

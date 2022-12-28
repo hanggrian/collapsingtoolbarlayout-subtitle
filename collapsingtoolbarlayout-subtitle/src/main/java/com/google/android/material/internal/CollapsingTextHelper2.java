@@ -904,7 +904,7 @@ public final class CollapsingTextHelper2 {
       // If the collapsed and expanded text colors are different, blend them based on the
       // fraction
       textPaint.setColor(
-          blendARGB(
+          blendArgb(
               getCurrentExpandedTextColor(), getCurrentCollapsedTextColor(), textBlendFraction));
     } else {
       textPaint.setColor(getCurrentCollapsedTextColor());
@@ -913,7 +913,7 @@ public final class CollapsingTextHelper2 {
       // If the collapsed and expanded text colors are different, blend them based on the
       // fraction
       textPaint2.setColor(
-          blendARGB(
+          blendArgb(
               getCurrentExpandedTextColor2(), getCurrentCollapsedTextColor2(), textBlendFraction));
     } else {
       textPaint2.setColor(getCurrentCollapsedTextColor2());
@@ -952,10 +952,10 @@ public final class CollapsingTextHelper2 {
     currentShadowDy = lerp(expandedShadowDy, collapsedShadowDy, fraction, null);
     currentShadowDy2 = lerp(expandedShadowDy2, collapsedShadowDy2, fraction, null);
     currentShadowColor =
-        blendARGB(
+        blendArgb(
             getCurrentColor(expandedShadowColor), getCurrentColor(collapsedShadowColor), fraction);
     currentShadowColor2 =
-        blendARGB(
+        blendArgb(
             getCurrentColor(expandedShadowColor2),
             getCurrentColor(collapsedShadowColor2),
             fraction);
@@ -1999,12 +1999,12 @@ public final class CollapsingTextHelper2 {
    * <p>This is different from the AndroidX implementation by rounding the blended channel values
    * with {@link Math#round(float)}.
    *
-   * @param color1 the first ARGB color
-   * @param color2 the second ARGB color
-   * @param ratio the blend ratio of {@code color1} to {@code color2}
+   * @param color1 the first ARGB color.
+   * @param color2 the second ARGB color.
+   * @param ratio the blend ratio of {@code color1} to {@code color2}.
    */
   @ColorInt
-  private static int blendARGB(
+  private static int blendArgb(
       @ColorInt int color1, @ColorInt int color2, @FloatRange(from = 0.0, to = 1.0) float ratio) {
     final float inverseRatio = 1 - ratio;
     float a = Color.alpha(color1) * inverseRatio + Color.alpha(color2) * ratio;

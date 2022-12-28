@@ -15,35 +15,39 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.annotation.internal.DoNotInstrument;
 
-/** Tests for {@link SubtitleCollapsingToolbarLayout} with custom styling, sorted by original class. */
+/**
+ * Tests for {@link SubtitleCollapsingToolbarLayout} with custom styling, sorted by original class.
+ */
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = VERSION_CODES.LOLLIPOP)
 @DoNotInstrument
 public class MarginStyleTest {
 
-    private AppCompatActivity activity;
-    private SubtitleCollapsingToolbarLayout toolbarLayout;
+  private AppCompatActivity activity;
+  private SubtitleCollapsingToolbarLayout toolbarLayout;
 
-    @Before
-    public void setup() {
-        activity = Robolectric.buildActivity(StyleTestActivity.class).setup().get();
-        toolbarLayout = (SubtitleCollapsingToolbarLayout) activity.getLayoutInflater()
-            .inflate(R.layout.test_subtitlecollapsingtoolbarlayout, null);
-    }
+  @Before
+  public void setup() {
+    activity = Robolectric.buildActivity(StyleTestActivity.class).setup().get();
+    toolbarLayout = (SubtitleCollapsingToolbarLayout) activity.getLayoutInflater()
+        .inflate(R.layout.test_subtitlecollapsingtoolbarlayout, null);
+  }
 
-    @Test
-    public void margin() {
-        assertEquals(1, toolbarLayout.getExpandedTitleMarginStart(), 0);
-        assertEquals(2, toolbarLayout.getExpandedTitleMarginEnd(), 0);
-        assertEquals(3, toolbarLayout.getExpandedTitleMarginTop(), 0);
-        assertEquals(4, toolbarLayout.getExpandedTitleMarginBottom(), 0);
-    }
+  @Test
+  public void margin() {
+    assertEquals(1, toolbarLayout.getExpandedTitleMarginStart(), 0);
+    assertEquals(2, toolbarLayout.getExpandedTitleMarginEnd(), 0);
+    assertEquals(3, toolbarLayout.getExpandedTitleMarginTop(), 0);
+    assertEquals(4, toolbarLayout.getExpandedTitleMarginBottom(), 0);
+  }
 
-    private static class StyleTestActivity extends AppCompatActivity {
-        @Override
-        protected void onCreate(Bundle bundle) {
-            super.onCreate(bundle);
-            setTheme(com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.test.R.style.Theme_Margin);
-        }
+  private static class StyleTestActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle bundle) {
+      super.onCreate(bundle);
+      setTheme(
+          com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.test.R.style.Theme_Margin);
     }
+  }
 }

@@ -1,28 +1,27 @@
 [versions]
 jdk = "11"
-jdkAndroid = "8"
-sdkMin = "14"
-sdkTarget = "32"
 kotlin = "1.7.20"
+android-plugin = "7.3.1"
+android-jdk = "8"
+android-min = "14"
+android-target = "32"
 androidx = "1.6.0"
 androidx-test = "1.4.0"
 auto-prefs = "0.1-SNAPSHOT"
 color-preference = "1.1.0"
 
 [plugins]
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-android-extensions = { id = "org.jetbrains.kotlin.android.extensions", version.ref = "kotlin" }
-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
-kotlinx-kover = "org.jetbrains.kotlinx.kover:0.6.1"
+android-application = { id = "com.android.application", version.ref = "android-plugin" }
+android-library = { id = "com.android.library", version.ref = "android-plugin" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "kotlin" }
-spotless = "com.diffplug.spotless:6.11.0"
+kotlinx-kover = "org.jetbrains.kotlinx.kover:0.6.1"
 maven-publish = "com.vanniktech.maven.publish.base:0.21.0"
 git-publish = "org.ajoberstar.git-publish:3.0.1"
 pages = "com.hendraanggrian.pages:0.1"
 
 [libraries]
-# plugin
-android = "com.android.tools.build:gradle:7.3.1"
+# lint
+rulebook-checkstyle = "com.hendraanggrian.rulebook:rulebook-checkstyle:0.1-SNAPSHOT"
 # main
 kotlinx-coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
 material = { module = "com.google.android.material:material", version.ref = "androidx" }
@@ -35,7 +34,6 @@ auto-prefs-compiler = { module = "com.hendraanggrian.auto:prefs-compiler", versi
 color-preference-core = { module = "com.github.kizitonwose.colorpreference:core", version.ref = "color-preference" }
 color-preference-support = { module = "com.github.kizitonwose.colorpreference:support", version.ref = "color-preference" }
 # test
-kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 androidx-test-core = { module = "androidx.test:core", version.ref = "androidx-test" }
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test" }
 androidx-test-junit = "androidx.test.ext:junit:1.1.3"

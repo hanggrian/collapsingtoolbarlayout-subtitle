@@ -1,38 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <androidx.preference.PreferenceCategory android:title="Content">
         <androidx.preference.EditTextPreference
             android:icon="@drawable/ic_text"
             android:key="subtitleText"
-            android:title="Text" />
+            android:title="Text"/>
         <androidx.preference.SwitchPreference
             android:key="subtitleMultiline"
-            android:title="Multiline" />
+            android:title="Multiline"/>
         <androidx.preference.ListPreference
             android:entries="@array/line_spacings"
             android:entryValues="@array/line_spacings"
             android:icon="@drawable/ic_line_spacing"
             android:key="subtitleLineSpacingAdd"
-            android:title="Line Spacing Add" />
+            android:title="Line Spacing Add"/>
         <androidx.preference.ListPreference
             android:entries="@array/line_spacings"
             android:entryValues="@array/line_spacings"
             android:key="subtitleLineSpacingMultiplier"
-            android:title="Line Spacing Multiplier" />
+            android:title="Line Spacing Multiplier"/>
         <androidx.preference.ListPreference
             android:entries="@array/hyphenation_frequencies"
             android:entryValues="@array/hyphenation_frequency_values"
             android:key="subtitleHyphenationFrequencies"
-            android:title="Hyphenation Frequencies" />
+            android:title="Hyphenation Frequencies"/>
     </androidx.preference.PreferenceCategory>
 
     <androidx.preference.PreferenceCategory android:title="Styling">
         <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
             android:icon="@drawable/ic_color"
             android:key="subtitleCollapsedColor"
-            android:title="Collapsed Text Color" />
+            android:title="Collapsed Text Color"/>
         <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
             android:key="subtitleExpandedColor"
-            android:title="Expanded Text color" />
+            android:title="Expanded Text color"/>
     </androidx.preference.PreferenceCategory>
 </androidx.preference.PreferenceScreen>

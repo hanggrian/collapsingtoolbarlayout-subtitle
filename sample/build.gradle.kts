@@ -1,8 +1,8 @@
 plugins {
-    id("com.android.application")
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.android.extensions)
-    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.android.application)
+    kotlin("android") version libs.versions.kotlin
+    kotlin("android.extensions") version libs.versions.kotlin
+    kotlin("kapt") version libs.versions.kotlin
 }
 
 android {

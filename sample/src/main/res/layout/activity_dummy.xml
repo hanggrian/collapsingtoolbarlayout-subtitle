@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:layout_collapseMode="pin"
-                app:title="Nothing to see here, just toolbars" />
+                app:title="Nothing to see here, just toolbars"/>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -43,14 +43,14 @@
                 android:layout_height="?actionBarSize"
                 android:background="@android:color/holo_red_dark"
                 app:subtitle="Example"
-                app:title="Example" />
+                app:title="Example"/>
 
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="@android:color/holo_blue_dark"
                 app:subtitle="Example"
-                app:title="Example" />
+                app:title="Example"/>
 
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
@@ -59,7 +59,7 @@
                 app:subtitle="Example"
                 app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Title"
                 app:title="Example"
-                app:titleTextAppearance="@style/TextAppearance.AppCompat.Title" />
+                app:titleTextAppearance="@style/TextAppearance.AppCompat.Title"/>
 
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
@@ -68,7 +68,7 @@
                 app:subtitle="Example"
                 app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Title"
                 app:title="Example"
-                app:titleTextAppearance="@style/TextAppearance.AppCompat.Title" />
+                app:titleTextAppearance="@style/TextAppearance.AppCompat.Title"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

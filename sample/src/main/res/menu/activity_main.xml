@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -8,15 +8,15 @@
                 <item
                     android:id="@+id/defaultThemeItem"
                     android:title="Default"
-                    app:showAsAction="never" />
+                    app:showAsAction="never"/>
                 <item
                     android:id="@+id/lightThemeItem"
                     android:title="Light"
-                    app:showAsAction="never" />
+                    app:showAsAction="never"/>
                 <item
                     android:id="@+id/darkThemeItem"
                     android:title="Dark"
-                    app:showAsAction="never" />
+                    app:showAsAction="never"/>
             </group>
         </menu>
     </item>
@@ -24,10 +24,10 @@
     <item
         android:id="@+id/resetItem"
         android:title="Reset"
-        app:showAsAction="never" />
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/compareToRegularItem"
         android:title="Compare to Regular"
-        app:showAsAction="never" />
+        app:showAsAction="never"/>
 </menu>
