@@ -1,4 +1,4 @@
-package com.example.subtitlecollapsingtoolbarlayout
+package com.example.collapsingtoolbarlayoutsubtitle
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -14,20 +14,21 @@ import androidx.annotation.ColorInt
 import androidx.annotation.Px
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.edit
 import androidx.core.view.GravityCompat
+import androidx.preference.PreferenceManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.hendraanggrian.auto.prefs.BindPreference
 import com.hendraanggrian.auto.prefs.PreferencesSaver
-import com.hendraanggrian.auto.prefs.Prefs
-import com.hendraanggrian.auto.prefs.android.AndroidPreferences
-import com.hendraanggrian.auto.prefs.android.preferences
+import com.hendraanggrian.auto.prefs.android.bindPreferences
 import com.jakewharton.processphoenix.ProcessPhoenix
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener,
     OnSharedPreferenceChangeListener {
+
     @JvmField @BindPreference("theme") var theme2 = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
     @JvmField @BindPreference var titleText = "Title"
     @JvmField @BindPreference var subtitleText = "Subtitle"
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener,
     @JvmField @BindPreference var expandedMarginRight = 0
     @JvmField @BindPreference var expandedMarginBottom = 0
 
-    private lateinit var prefs: AndroidPreferences
+    private lateinit var preferences: SharedPreferences
     private lateinit var saver: PreferencesSaver
 
     @Px private var marginScale = 0
@@ -63,19 +64,19 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener,
         appbarLayout.addOnOffsetChangedListener(this)
         viewPager.adapter = MainAdapter()
         mainMediator.attach()
-        prefs = preferences
+        preferences = PreferenceManager.getDefaultSharedPreferences(this)
         marginScale = resources.getDimensionPixelSize(R.dimen.margin_scale)
-        onSharedPreferenceChanged(prefs, "")
+        onSharedPreferenceChanged(preferences, "")
     }
 
     override fun onResume() {
         super.onResume()
-        prefs.registerOnSharedPreferenceChangeListener(this)
+        preferences.registerOnSharedPreferenceChangeListener(this)
     }
 
     override fun onPause() {
         super.onPause()
-        prefs.unregisterOnSharedPreferenceChangeListener(this)
+        preferences.unregisterOnSharedPreferenceChangeListener(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -102,7 +103,7 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener,
                 AppCompatDelegate.setDefaultNightMode(theme2)
             }
             R.id.resetItem -> {
-                runCatching { prefs.edit { clear() } } // idk why this line throws error
+                runCatching { preferences.edit { clear() } } // idk why this line throws error
                 ProcessPhoenix.triggerRebirth(this)
             }
             R.id.compareToRegularItem -> startActivity(Intent(this, DummyActivity::class.java))
@@ -118,7 +119,7 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener,
     }
 
     override fun onSharedPreferenceChanged(p: SharedPreferences, key: String) {
-        saver = Prefs.bind(prefs, this)
+        saver = bindPreferences(preferences)
         toolbarLayout.title = titleText
         toolbarLayout.subtitle = subtitleText
         toolbarLayout.titleMaxLines = if (titleMultiline) 2 else 1
@@ -139,9 +140,12 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener,
         toolbarLayout.contentScrim =
             if (contentScrim.isConfigured()) ColorDrawable(contentScrim) else null
         toolbarLayout.collapsedTitleGravity =
-            prefs.getGravity("collapsedGravity", GravityCompat.START or Gravity.CENTER_VERTICAL)
+            preferences.getGravity(
+                "collapsedGravity",
+                GravityCompat.START or Gravity.CENTER_VERTICAL
+            )
         toolbarLayout.expandedTitleGravity =
-            prefs.getGravity("expandedGravity", GravityCompat.START or Gravity.BOTTOM)
+            preferences.getGravity("expandedGravity", GravityCompat.START or Gravity.BOTTOM)
         if (expandedMarginLeft != 0) toolbarLayout.expandedTitleMarginStart =
             expandedMarginLeft * marginScale
         if (expandedMarginTop != 0) toolbarLayout.expandedTitleMarginTop =

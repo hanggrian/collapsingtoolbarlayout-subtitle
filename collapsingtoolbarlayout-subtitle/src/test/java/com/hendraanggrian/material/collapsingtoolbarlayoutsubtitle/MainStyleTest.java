@@ -1,4 +1,4 @@
-package com.hendraanggrian.material.subtitlecollapsingtoolbarlayout;
+package com.hendraanggrian.material.collapsingtoolbarlayoutsubtitle;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout;
-import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.test.R;
+import com.hendraanggrian.material.collapsingtoolbarlayoutsubtitle.test.R;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +28,6 @@ import org.robolectric.annotation.internal.DoNotInstrument;
 @Config(sdk = VERSION_CODES.LOLLIPOP)
 @DoNotInstrument
 public class MainStyleTest {
-
   private AppCompatActivity activity;
   private SubtitleCollapsingToolbarLayout toolbarLayout;
 
@@ -107,7 +106,7 @@ public class MainStyleTest {
     @Override
     protected void onCreate(Bundle bundle) {
       super.onCreate(bundle);
-      setTheme(com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.test.R.style.Theme_Main);
+      setTheme(com.hendraanggrian.material.collapsingtoolbarlayoutsubtitle.test.R.style.Theme_Main);
     }
   }
 }

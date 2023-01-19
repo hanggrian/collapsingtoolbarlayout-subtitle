@@ -1,4 +1,4 @@
-package com.hendraanggrian.material.subtitlecollapsingtoolbarlayout;
+package com.hendraanggrian.material.collapsingtoolbarlayoutsubtitle;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -17,7 +17,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 public abstract class ScrimTester {
-
   @NonNull
   public abstract Context getContext();
 

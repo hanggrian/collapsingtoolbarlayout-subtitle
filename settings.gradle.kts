@@ -13,5 +13,5 @@ dependencyResolutionManagement.repositories {
 rootProject.name = "collapsingtoolbarlayout-subtitle"
 
 include("collapsingtoolbarlayout-subtitle")
-// include("sample")
+include("sample")
 include("website")

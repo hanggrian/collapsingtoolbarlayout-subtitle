@@ -1,10 +1,9 @@
-package com.hendraanggrian.material.subtitlecollapsingtoolbarlayout;
+package com.hendraanggrian.material.collapsingtoolbarlayoutsubtitle;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class TestActivity extends AppCompatActivity {
-
   @Override
   protected void onCreate(Bundle bundle) {
     super.onCreate(bundle);

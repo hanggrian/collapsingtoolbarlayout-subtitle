@@ -1,4 +1,4 @@
-package com.example.subtitlecollapsingtoolbarlayout
+package com.example.collapsingtoolbarlayoutsubtitle
 
 import android.os.Bundle
 import androidx.annotation.ArrayRes

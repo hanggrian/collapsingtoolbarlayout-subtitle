@@ -44,7 +44,7 @@ import com.google.android.material.internal.CollapsingTextHelper2;
 import com.google.android.material.internal.DescendantOffsetUtils;
 import com.google.android.material.internal.ThemeEnforcement;
 import com.google.android.material.resources.MaterialResources;
-import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.R;
+import com.hendraanggrian.material.collapsingtoolbarlayoutsubtitle.R;
 
 /**
  * A carbon copy of {@link CollapsingToolbarLayout} with subtitle support. During collapsed state,

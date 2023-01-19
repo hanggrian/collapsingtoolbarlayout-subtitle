@@ -1,4 +1,4 @@
-package com.hendraanggrian.material.subtitlecollapsingtoolbarlayout;
+package com.hendraanggrian.material.collapsingtoolbarlayoutsubtitle;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,7 +6,7 @@ import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout;
-import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.test.R;
+import com.hendraanggrian.material.collapsingtoolbarlayoutsubtitle.test.R;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +22,6 @@ import org.robolectric.annotation.internal.DoNotInstrument;
 @Config(sdk = VERSION_CODES.LOLLIPOP)
 @DoNotInstrument
 public class MarginStyleTest {
-
   private AppCompatActivity activity;
   private SubtitleCollapsingToolbarLayout toolbarLayout;
 
@@ -47,7 +46,7 @@ public class MarginStyleTest {
     protected void onCreate(Bundle bundle) {
       super.onCreate(bundle);
       setTheme(
-          com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.test.R.style.Theme_Margin);
+          com.hendraanggrian.material.collapsingtoolbarlayoutsubtitle.test.R.style.Theme_Margin);
     }
   }
 }

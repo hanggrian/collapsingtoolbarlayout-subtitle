@@ -20,8 +20,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.WindowInsetsCompat;
-import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.ScrimTester;
-import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.TestActivity;
+import com.hendraanggrian.material.collapsingtoolbarlayoutsubtitle.ScrimTester;
+import com.hendraanggrian.material.collapsingtoolbarlayoutsubtitle.TestActivity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,7 +37,6 @@ import org.robolectric.annotation.internal.DoNotInstrument;
 @Config(sdk = VERSION_CODES.LOLLIPOP)
 @DoNotInstrument
 public class SubtitleCollapsingToolbarLayoutTest {
-
   private AppCompatActivity activity;
   private SubtitleCollapsingToolbarLayout layout;
 

@@ -14,8 +14,8 @@ import android.os.Build.VERSION_CODES;
 import android.view.Gravity;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
-import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.TestActivity;
-import com.hendraanggrian.material.subtitlecollapsingtoolbarlayout.test.R;
+import com.hendraanggrian.material.collapsingtoolbarlayoutsubtitle.TestActivity;
+import com.hendraanggrian.material.collapsingtoolbarlayoutsubtitle.test.R;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +31,6 @@ import org.robolectric.annotation.internal.DoNotInstrument;
 @Config(sdk = VERSION_CODES.LOLLIPOP)
 @DoNotInstrument
 public class CollapsingTextHelper2Test {
-
   private AppCompatActivity activity;
   private CollapsingTextHelper2 helper;
 
