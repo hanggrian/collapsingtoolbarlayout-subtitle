@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-
     <!-- The purpose of this xml is to inject 'subtitleCollapsingToolbarLayoutStyle',
          'subtitleCollapsingToolbarLayoutLargeStyle', and 'subtitleCollapsingToolbarLayoutMediumStyle'
          into Material 3 base themes by rewriting the whole styles. -->

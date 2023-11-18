@@ -1,4 +1,4 @@
-package com.example.collapsingtoolbarlayoutsubtitle
+package com.example
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -14,17 +14,21 @@ import androidx.annotation.ColorInt
 import androidx.annotation.Px
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.edit
 import androidx.core.view.GravityCompat
 import androidx.preference.PreferenceManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.hendraanggrian.auto.prefs.BindPreference
 import com.hendraanggrian.auto.prefs.PreferencesSaver
 import com.hendraanggrian.auto.prefs.android.bindPreferences
 import com.jakewharton.processphoenix.ProcessPhoenix
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener,
     OnSharedPreferenceChangeListener {
@@ -52,6 +56,12 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener,
     @JvmField @BindPreference var expandedMarginRight = 0
     @JvmField @BindPreference var expandedMarginBottom = 0
 
+    private lateinit var toolbar: Toolbar
+    private lateinit var tabLayout: TabLayout
+    private lateinit var toolbarLayout: SubtitleCollapsingToolbarLayout
+    private lateinit var appbarLayout: AppBarLayout
+    private lateinit var viewPager: ViewPager2
+    private lateinit var floatingButton: FloatingActionButton
     private lateinit var preferences: SharedPreferences
     private lateinit var saver: PreferencesSaver
 
@@ -60,7 +70,14 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        toolbar = findViewById(R.id.toolbar)
+        tabLayout = findViewById(R.id.tabLayout)
+        toolbarLayout = findViewById(R.id.toolbarLayout)
+        appbarLayout = findViewById(R.id.appbarLayout)
+        viewPager = findViewById(R.id.viewPager)
         setSupportActionBar(toolbar)
+
         appbarLayout.addOnOffsetChangedListener(this)
         viewPager.adapter = MainAdapter()
         mainMediator.attach()
@@ -118,7 +135,7 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener,
         }
     }
 
-    override fun onSharedPreferenceChanged(p: SharedPreferences, key: String) {
+    override fun onSharedPreferenceChanged(p: SharedPreferences?, key: String?) {
         saver = bindPreferences(preferences)
         toolbarLayout.title = titleText
         toolbarLayout.subtitle = subtitleText

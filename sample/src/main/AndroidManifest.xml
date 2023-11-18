@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.collapsingtoolbarlayoutsubtitle">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:name="com.example.collapsingtoolbarlayoutsubtitle.App"
+        android:name=".App"
         android:label="collapsingtoolbarlayout-subtitle"
         android:theme="@style/Theme.Material3.DayNight.NoActionBar">
+
         <activity
-            android:name="com.example.collapsingtoolbarlayoutsubtitle.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:forceDarkAllowed="true"
             tools:targetApi="q">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -19,8 +20,9 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+
         <activity
-            android:name="com.example.collapsingtoolbarlayoutsubtitle.DummyActivity"
+            android:name=".DummyActivity"
             android:exported="true"
             android:forceDarkAllowed="true"
             tools:targetApi="q"/>

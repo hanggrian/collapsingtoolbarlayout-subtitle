@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-
     <!-- Style to use for SubtitleCollapsingToolbarLayouts in this theme. -->
     <attr name="subtitleCollapsingToolbarLayoutStyle" format="reference"/>
 

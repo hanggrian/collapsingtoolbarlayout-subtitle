@@ -1,17 +1,22 @@
+val releaseArtifact: String by project
+
 plugins {
     alias(libs.plugins.android.application)
     kotlin("android") version libs.versions.kotlin
-    kotlin("android.extensions") version libs.versions.kotlin
     kotlin("kapt") version libs.versions.kotlin
 }
 
+kotlin.jvmToolchain(libs.versions.jdk.get().toInt())
+
 android {
+    namespace = "com.example"
     defaultConfig {
         minSdk = 23
-        applicationId = "com.example.collapsingtoolbarlayoutsubtitle"
+        applicationId = "com.example"
         multiDexEnabled = true
     }
     lint.abortOnError = false
+    kotlinOptions.jvmTarget = JavaVersion.toVersion(libs.versions.jdk.get()).toString()
 }
 
 // hotfix: duplicate class androidx.lifecycle.viewmodel
@@ -21,11 +26,13 @@ configurations.all {
 }
 
 dependencies {
-    implementation(project(":$RELEASE_ARTIFACT"))
+    implementation(project(":$releaseArtifact"))
     implementation(libs.material)
     implementation(libs.androidx.multidex)
     implementation(libs.process.phoenix)
+
     implementation(libs.auto.prefs.android)
     kapt(libs.auto.prefs.compiler)
+
     implementation(libs.bundles.color.preference)
 }

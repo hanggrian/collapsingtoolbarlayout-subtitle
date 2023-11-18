@@ -1,4 +1,4 @@
-package com.example.collapsingtoolbarlayoutsubtitle
+package com.example
 
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
