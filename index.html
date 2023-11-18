@@ -10,8 +10,8 @@
         <link href="styles/dark.css" rel="stylesheet">
         <link href="styles/normalize.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css" rel="stylesheet">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-groovy.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-groovy.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
         <!--Primary meta tags-->
         <meta content="collapsingtoolbarlayout-subtitle" name="title">
         <meta content="Standard CollapsingToolbarLayout with subtitle support" name="description">
@@ -23,56 +23,56 @@
         </section>
         <section class="main-content">
             <p>
-                <a href="https://www.travis-ci.com/github/hendraanggrian/collapsingtoolbarlayout-subtitle/"><img alt="Travis CI" src="https://img.shields.io/travis/com/hendraanggrian/collapsingtoolbarlayout-subtitle"></a>
-<a href="https://app.codecov.io/gh/hendraanggrian/collapsingtoolbarlayout-subtitle/"><img alt="Codecov" src="https://img.shields.io/codecov/c/github/hendraanggrian/collapsingtoolbarlayout-subtitle"></a>
-<a href="https://search.maven.org/artifact/com.hendraanggrian.material/collapsingtoolbarlayout-subtitle/"><img alt="Maven Central" src="https://img.shields.io/maven-central/v/com.hendraanggrian.material/collapsingtoolbarlayout-subtitle"></a>
+                <a href="https://travis-ci.com/github/hendraanggrian/collapsingtoolbarlayout-subtitle/"><img alt="Travis CI" src="https://img.shields.io/travis/com/hendraanggrian/collapsingtoolbarlayout-subtitle"></a>
+<a href="https://codecov.io/gh/hendraanggrian/collapsingtoolbarlayout-subtitle/"><img alt="Codecov" src="https://img.shields.io/codecov/c/github/hendraanggrian/collapsingtoolbarlayout-subtitle"></a>
+<a href="https://repo1.maven.org/maven2/com/hendraanggrian/material/collapsingtoolbarlayout-subtitle/"><img alt="Maven Central" src="https://img.shields.io/maven-central/v/com.hendraanggrian.material/collapsingtoolbarlayout-subtitle"></a>
 <a href="https://s01.oss.sonatype.org/content/repositories/snapshots/com/hendraanggrian/material/collapsingtoolbarlayout-subtitle/"><img alt="Nexus Snapshot" src="https://img.shields.io/nexus/s/com.hendraanggrian.material/collapsingtoolbarlayout-subtitle?server=https%3A%2F%2Fs01.oss.sonatype.org"></a>
 <a href="https://developer.android.com/studio/releases/platforms/#4.0"><img alt="Android SDK" src="https://img.shields.io/badge/sdk-14%2B-informational"></a>
             </p>
-            
+
             <h1>SubtitleCollapsingToolbarLayout</h1>
-            
+
             <p>
-                <img alt="Material Preview" src="https://raw.githubusercontent.com/hendraanggrian/collapsingtoolbarlayout-subtitle/assets/preview_material.gif">
-<img alt="Material You Preview" src="https://raw.githubusercontent.com/hendraanggrian/collapsingtoolbarlayout-subtitle/assets/preview_material3.gif">
+                <img alt="Material preview." src="https://github.com/hendraanggrian/collapsingtoolbarlayout-subtitle/raw/assets/preview_material.gif">
+<img alt="Material You preview." src="https://github.com/hendraanggrian/collapsingtoolbarlayout-subtitle/raw/assets/preview_material3.gif">
             </p>
-            
+
             <p>
                 A carbon copy of <a href="https://developer.android.com/reference/com/google/android/material/appbar/CollapsingToolbarLayout/">CollapsingToolbarLayout</a>
-with subtitle support. During collapsed state, the subtitle would still appear as Toolbar's.
-There should be no learning curve because it works just like <code>CollapsingToolbarLayout</code>.
-Supports Material Design 3 styling.
+with subtitle support. During collapsed state, the subtitle would still appear
+as Toolbar's. There should be no learning curve because it works just like
+<code>CollapsingToolbarLayout</code>. Supports Material Design 3 styling.
             </p>
-            
+
             <p>
                 But because this library uses restricted APIs and private resources from <a href="https://github.com/material-components/material-components-android/">Material Components</a>,
 there are a few caveats:
             </p>
-            
+
             <ul>
-                
+
                 <li>Only safe to use with the same version of material components.</li>
-                
+
                 <li>Deceptive package name.</li>
-                
+
             </ul>
-            
+
             <h3>Also...</h3>
-            
-            <p>It is detabable if we even need this library.
-If the material guidelines says it's ok to have a subtitle in toolbar layout,
-then they surely would've already implemented such feature.
-If it doesn't say anything about subtitle (which is odds because Toolbar has it),
-then we probably shouldn't use it out of respect to the guidelines.</p>
-            
+
+            <p>It is detabable if we even need this library. If the material guidelines says
+it's ok to have a subtitle in toolbar layout, then they surely would've already
+implemented such feature. If it doesn't say anything about subtitle (which is
+odds because Toolbar has it), then we probably shouldn't use it out of respect
+to the guidelines.</p>
+
             <h2>Download</h2>
-            
+
             <p>
                 This library's versioning follows <a href="https://github.com/material-components/material-components-android/releases/">Material Components releases</a>.
 Which in turn, follows <a href="https://developer.android.com/jetpack/androidx/versions/">AndroidX releases</a>.
             </p>
-            
-            <pre><code class="language-gradle">repositories {
+
+            <pre><code class="language-groovy">repositories {
     mavenCentral()
     google()
 }
@@ -80,13 +80,14 @@ dependencies {
     implementation "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:$version"
 }
 </code></pre>
-            
+
             <h2>Usage</h2>
-            
+
             <p>
-                Treat <code>SubtitleCollapsingToolbarLayout</code> just like a regular <code>CollapsingToolbarLayout</code>.
+                Treat <code>SubtitleCollapsingToolbarLayout</code> just like a regular
+<code>CollapsingToolbarLayout</code>.
             </p>
-            
+
             <pre><code class="language-xml">&lt;androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -110,7 +111,7 @@ dependencies {
             &lt;androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                app:layout_collapseMode="pin" /&gt;
+                app:layout_collapseMode="pin"/&gt;
         &lt;/android.support.design.widget.SubtitleCollapsingToolbarLayout&gt;
     &lt;/com.google.android.material.appbar.AppBarLayout&gt;
 
@@ -118,30 +119,30 @@ dependencies {
 
 &lt;/androidx.coordinatorlayout.widget.CoordinatorLayout&gt;
 </code></pre>
-            
+
             <h3>Material Design 3</h3>
-            
+
             <p>
-                <img alt="Material3 Medium Style" src="https://raw.githubusercontent.com/hendraanggrian/collapsingtoolbarlayout-subtitle/assets/material3_style_medium.png">
-<img alt="Material3 Large Style" src="https://raw.githubusercontent.com/hendraanggrian/collapsingtoolbarlayout-subtitle/assets/material3_style_large.png">
+                <img alt="Material3 medium style." src="https://github.com/hendraanggrian/collapsingtoolbarlayout-subtitle/raw/assets/material3_style_medium.png">
+<img alt="Material3 large style." src="https://github.com/hendraanggrian/collapsingtoolbarlayout-subtitle/raw/assets/material3_style_large.png">
             </p>
-            
+
             <p>
-                <code>SubtitleCollapsingToolbarLayout</code> will automatically switch to Material Design 3 style
-by using <code>Theme.Material3.*</code> in your app, no configuration needed.
+                <code>SubtitleCollapsingToolbarLayout</code> will automatically switch to Material Design 3
+style by using <code>Theme.Material3.*</code> in your app, no configuration needed.
             </p>
-            
+
             <p>
                 By default, medium style is applied. To use large style, reference an attribute
 <code>subtitleCollapsingToolbarLayoutLargeStyle</code> in your XML.
             </p>
-            
+
             <pre><code class="language-xml">&lt;com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
     style="?attr/subtitleCollapsingToolbarLayoutLargeStyle"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" /&gt;
+    android:layout_height="wrap_content"/&gt;
 </code></pre>
-            
+
             <footer class="site-footer">
                 <span class="site-footer-owner"><a href="https://github.com/hendraanggrian/collapsingtoolbarlayout-subtitle/">collapsingtoolbarlayout-subtitle</a> is maintained by <a href="https://github.com/hendraanggrian/">Hendra Anggrian</a></span><span class="site-footer-credits">Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/jasonlong/cayman-theme/">jasonlong</a></span>
             </footer>
