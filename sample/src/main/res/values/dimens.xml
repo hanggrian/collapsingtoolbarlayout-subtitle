@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <dimen name="expanded_height">256dp</dimen>
-    <dimen name="margin_scale">10dp</dimen>
+  <dimen name="expanded_height">256dp</dimen>
+  <dimen name="margin_scale">10dp</dimen>
 </resources>

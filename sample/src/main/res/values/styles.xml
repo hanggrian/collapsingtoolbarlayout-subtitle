@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+  <style name="Theme.Static" parent="Theme.Material3.Dark.NoActionBar">
+    <item name="colorPrimary">#a8dab5</item>
+    <item name="colorSecondary">#3ddc84</item>
+  </style>
+
+  <style name="Widget.Calendar.InactiveContainer" parent="android:Widget">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_weight">1</item>
+    <item name="android:gravity">center</item>
+    <item name="android:orientation">vertical</item>
+    <item name="android:padding">16dp</item>
+  </style>
+
+  <style name="Widget.Calendar.ActiveContainer1" parent="android:Widget">
+    <item name="android:theme">@style/ThemeOverlay.Material3.Light</item>
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_weight">1</item>
+    <item name="android:layout_margin">8dp</item>
+    <item name="cardElevation">0dp</item>
+    <item name="cardCornerRadius">8dp</item>
+  </style>
+
+  <style name="Widget.Calendar.ActiveContainer2" parent="android:Widget">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:background">?colorSecondary</item>
+    <item name="android:gravity">center</item>
+    <item name="android:orientation">vertical</item>
+    <item name="android:padding">8dp</item>
+  </style>
+
+  <style name="Widget.Calendar.Text1" parent="android:Widget.TextView">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textAppearance">@style/TextAppearance.Material3.LabelSmall</item>
+    <item name="android:textColor">?colorOnSurface</item>
+  </style>
+
+  <style name="Widget.Calendar.Text2" parent="android:Widget.TextView">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginTop">8dp</item>
+    <item name="android:textAppearance">@style/TextAppearance.Material3.BodyLarge</item>
+    <item name="android:textColor">?colorOnSurface</item>
+  </style>
+
+  <style name="Widget.Navigation" parent="android:Widget">
+    <item name="android:layout_width">28dp</item>
+    <item name="android:layout_height">28dp</item>
+    <item name="android:layout_gravity">center</item>
+    <item name="tint">@android:color/white</item>
+  </style>
+
+  <style name="Widget.MilestoneContainer" parent="android:Widget">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">56dp</item>
+    <item name="android:layout_marginTop">16dp</item>
+    <item name="cardCornerRadius">16dp</item>
+  </style>
+
+  <style name="Widget.AttachmentContainer" parent="android:Widget">
+    <item name="android:layout_width">96dp</item>
+    <item name="android:layout_height">96dp</item>
+    <item name="cardCornerRadius">8dp</item>
+  </style>
+
+  <style name="Widget.Profile" parent="android:Widget">
+    <item name="android:layout_width">48dp</item>
+    <item name="android:layout_height">48dp</item>
+    <item name="android:scaleType">centerCrop</item>
+    <item name="riv_border_color">@android:color/white</item>
+    <item name="riv_border_width">2dp</item>
+    <item name="riv_corner_radius">24dp</item>
+  </style>
+
+  <style name="Widget.Member" parent="android:Widget">
+    <item name="android:layout_width">32dp</item>
+    <item name="android:layout_height">32dp</item>
+    <item name="android:scaleType">centerCrop</item>
+    <item name="riv_border_color">@android:color/white</item>
+    <item name="riv_border_width">1dp</item>
+    <item name="riv_corner_radius">16dp</item>
+  </style>
+</resources>

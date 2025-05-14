@@ -1,7 +1,5 @@
 package com.google.android.material.appbar;
 
-import static com.google.android.material.theme.overlay.MaterialThemeOverlay.wrap;
-
 import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -44,7 +42,9 @@ import com.google.android.material.internal.CollapsingTextHelper2;
 import com.google.android.material.internal.DescendantOffsetUtils;
 import com.google.android.material.internal.ThemeEnforcement;
 import com.google.android.material.resources.MaterialResources;
-import com.hendraanggrian.material.collapsingtoolbarlayoutsubtitle.R;
+import com.hanggrian.collapsingtoolbarlayoutsubtitle.R;
+
+import static com.google.android.material.theme.overlay.MaterialThemeOverlay.wrap;
 
 /**
  * A carbon copy of {@link CollapsingToolbarLayout} with subtitle support. During collapsed state,
@@ -55,7 +55,6 @@ import com.hendraanggrian.material.collapsingtoolbarlayoutsubtitle.R;
  * @see CollapsingToolbarLayout
  */
 public class SubtitleCollapsingToolbarLayout extends FrameLayout {
-
   private static final int DEF_STYLE_RES = R.style.Widget_Design_SubtitleCollapsingToolbar;
   private static final int DEFAULT_SCRIM_ANIMATION_DURATION = 600;
 
@@ -1664,7 +1663,7 @@ public class SubtitleCollapsingToolbarLayout extends FrameLayout {
     }
   }
 
-  /** Show or hide the scrims if needed */
+  /** Show or hide the scrims if needed. */
   final void updateScrimVisibility() {
     if (contentScrim != null || statusBarScrim != null) {
       setScrimsShown(getHeight() + currentOffset < getScrimVisibleHeightTrigger());

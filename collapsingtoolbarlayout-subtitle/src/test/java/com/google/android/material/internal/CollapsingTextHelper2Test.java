@@ -1,10 +1,5 @@
 package com.google.android.material.internal;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import android.animation.TimeInterpolator;
 import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
@@ -14,8 +9,8 @@ import android.os.Build.VERSION_CODES;
 import android.view.Gravity;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
-import com.hendraanggrian.material.collapsingtoolbarlayoutsubtitle.TestActivity;
-import com.hendraanggrian.material.collapsingtoolbarlayoutsubtitle.test.R;
+import com.hanggrian.collapsingtoolbarlayoutsubtitle.TestActivity;
+import com.hanggrian.collapsingtoolbarlayoutsubtitle.test.R;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +18,11 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.annotation.internal.DoNotInstrument;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for {@link CollapsingTextHelper2}, sorted by original class.
@@ -192,7 +192,7 @@ public class CollapsingTextHelper2Test {
     helper.setCollapsedTextColor(new ColorStateList(
         new int[][]{
             new int[]{android.R.attr.state_enabled},
-            new int[]{-android.R.attr.state_enabled}
+            new int[]{-android.R.attr.state_enabled},
         },
         new int[]{Color.RED, Color.GREEN}));
     assertTrue(helper.isStateful());

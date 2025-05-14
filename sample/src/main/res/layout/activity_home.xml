@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:fitsSystemWindows="true"
+  tools:context=".static.HomeActivity"
+  tools:ignore="ContentDescription,HardcodedText,UseCompoundDrawables,TooManyViews,DisableBaselineAlignment">
+
+  <com.google.android.material.appbar.AppBarLayout
+    android:id="@+id/appbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
+      android:layout_width="match_parent"
+      android:layout_height="224dp"
+      app:collapsedTitleTextColor="@android:color/white"
+      app:expandedTitleMargin="16dp"
+      app:expandedTitleTextAppearance="@style/TextAppearance.Material3.DisplayMedium"
+      app:expandedTitleTextColor="@android:color/white"
+      app:layout_scrollFlags="scroll|exitUntilCollapsed"
+      app:subtitle="Assignment &#128203;"
+      app:title="Planet Express"
+      app:titleCollapseMode="scale"
+      app:titleExtraMultilineHeightEnabled="true"
+      app:titleMaxLines="2">
+
+      <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_collapseMode="pin"
+        app:navigationIcon="@drawable/outline_menu">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+          style="@style/Widget.Profile"
+          android:layout_gravity="end"
+          android:layout_marginEnd="16dp"
+          android:src="@drawable/img_planetexpress"/>
+      </com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:paddingStart="16dp"
+      android:paddingTop="8dp"
+      android:paddingEnd="16dp"
+      android:paddingBottom="8dp">
+
+      <LinearLayout style="@style/Widget.Calendar.InactiveContainer">
+
+        <TextView
+          style="@style/Widget.Calendar.Text1"
+          android:text="Sun"/>
+
+        <TextView
+          style="@style/Widget.Calendar.Text2"
+          android:text="12"/>
+      </LinearLayout>
+
+      <LinearLayout style="@style/Widget.Calendar.InactiveContainer">
+
+        <TextView
+          style="@style/Widget.Calendar.Text1"
+          android:text="Mon"/>
+
+        <TextView
+          style="@style/Widget.Calendar.Text2"
+          android:text="13"/>
+      </LinearLayout>
+
+      <LinearLayout style="@style/Widget.Calendar.InactiveContainer">
+
+        <TextView
+          style="@style/Widget.Calendar.Text1"
+          android:text="Tue"/>
+
+        <TextView
+          style="@style/Widget.Calendar.Text2"
+          android:text="14"/>
+      </LinearLayout>
+
+      <LinearLayout style="@style/Widget.Calendar.InactiveContainer">
+
+        <TextView
+          style="@style/Widget.Calendar.Text1"
+          android:text="Wed"/>
+
+        <TextView
+          style="@style/Widget.Calendar.Text2"
+          android:text="15"/>
+      </LinearLayout>
+
+      <androidx.cardview.widget.CardView style="@style/Widget.Calendar.ActiveContainer1">
+
+        <LinearLayout style="@style/Widget.Calendar.ActiveContainer2">
+
+          <TextView
+            style="@style/Widget.Calendar.Text1"
+            android:text="Thu"
+            android:textColor="@android:color/black"/>
+
+          <TextView
+            style="@style/Widget.Calendar.Text2"
+            android:text="16"
+            android:textColor="@android:color/black"/>
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+
+      <LinearLayout style="@style/Widget.Calendar.InactiveContainer">
+
+        <TextView
+          style="@style/Widget.Calendar.Text1"
+          android:text="Fri"/>
+
+        <TextView
+          style="@style/Widget.Calendar.Text2"
+          android:text="17"/>
+      </LinearLayout>
+
+      <LinearLayout style="@style/Widget.Calendar.InactiveContainer">
+
+        <TextView
+          style="@style/Widget.Calendar.Text1"
+          android:text="Sat"/>
+
+        <TextView
+          style="@style/Widget.Calendar.Text2"
+          android:text="18"/>
+      </LinearLayout>
+    </LinearLayout>
+  </com.google.android.material.appbar.AppBarLayout>
+
+  <androidx.core.widget.NestedScrollView
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      android:paddingTop="8dp"
+      android:paddingBottom="8dp">
+
+      <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:theme="@style/ThemeOverlay.Material3.Light"
+        app:cardBackgroundColor="#a8dab5"
+        app:cardCornerRadius="16dp">
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_margin="16dp"
+              app:cardBackgroundColor="@android:color/white"
+              app:cardCornerRadius="16dp"
+              app:cardElevation="0dp">
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="High"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"/>
+            </androidx.cardview.widget.CardView>
+
+            <Space
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="1"/>
+
+            <androidx.cardview.widget.CardView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_margin="16dp"
+              app:cardBackgroundColor="@android:color/white"
+              app:cardCornerRadius="32dp"
+              app:cardElevation="0dp">
+
+              <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/outline_share"
+                app:tint="@android:color/black"/>
+            </androidx.cardview.widget.CardView>
+          </LinearLayout>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="Deliver a package to Omicron Persei 8"
+            android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"/>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+              android:layout_width="16dp"
+              android:layout_height="16dp"
+              android:src="@drawable/outline_event"
+              app:tint="@android:color/black"/>
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="8dp"
+              android:text="24 Dec"
+              android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+              style="@style/Widget.Member"
+              android:src="@drawable/img_fry"/>
+
+            <Space
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="1"/>
+
+            <ImageView
+              android:layout_width="16dp"
+              android:layout_height="16dp"
+              android:src="@drawable/outline_comments"
+              app:tint="@android:color/black"/>
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="4dp"
+              android:text="21"
+              android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+
+            <ImageView
+              android:layout_width="16dp"
+              android:layout_height="16dp"
+              android:layout_marginStart="16dp"
+              android:src="@drawable/outline_attachment"
+              app:tint="@android:color/black"/>
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="4dp"
+              android:text="3"
+              android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+          </LinearLayout>
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+
+      <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="16dp">
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_margin="16dp"
+              app:cardBackgroundColor="@android:color/white"
+              app:cardCornerRadius="16dp"
+              app:cardElevation="0dp">
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="Medium"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:textColor="@android:color/black"/>
+            </androidx.cardview.widget.CardView>
+
+            <Space
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="1"/>
+
+            <androidx.cardview.widget.CardView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_margin="16dp"
+              app:cardBackgroundColor="@android:color/white"
+              app:cardCornerRadius="32dp"
+              app:cardElevation="0dp">
+
+              <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/outline_share"
+                app:tint="@android:color/black"/>
+            </androidx.cardview.widget.CardView>
+          </LinearLayout>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="Complete a mandatory Workplace Ethics Training"
+            android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"/>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+              android:layout_width="16dp"
+              android:layout_height="16dp"
+              android:src="@drawable/outline_event"
+              app:tint="@android:color/white"/>
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="8dp"
+              android:text="16 Feb&#x2013;20 Feb"
+              android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+              style="@style/Widget.Member"
+              android:src="@drawable/img_bender"/>
+
+            <Space
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="1"/>
+
+            <ImageView
+              android:layout_width="16dp"
+              android:layout_height="16dp"
+              android:src="@drawable/outline_comments"
+              app:tint="@android:color/white"/>
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="4dp"
+              android:text="2"
+              android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+
+            <ImageView
+              android:layout_width="16dp"
+              android:layout_height="16dp"
+              android:layout_marginStart="16dp"
+              android:src="@drawable/outline_attachment"
+              app:tint="@android:color/white"/>
+          </LinearLayout>
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+
+      <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="16dp">
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_margin="16dp"
+              app:cardCornerRadius="16dp"
+              app:cardElevation="0dp">
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="Low"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:textColor="@android:color/white"/>
+            </androidx.cardview.widget.CardView>
+
+            <Space
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="1"/>
+
+            <androidx.cardview.widget.CardView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_margin="16dp"
+              app:cardCornerRadius="32dp"
+              app:cardElevation="0dp">
+
+              <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/outline_share"
+                app:tint="@android:color/white"/>
+            </androidx.cardview.widget.CardView>
+          </LinearLayout>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="Conduct annual employee physical exams"
+            android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"/>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+              android:layout_width="16dp"
+              android:layout_height="16dp"
+              android:src="@drawable/outline_event"
+              app:tint="@android:color/white"/>
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="8dp"
+              android:text="9 Oct"
+              android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+              style="@style/Widget.Member"
+              android:src="@drawable/img_zoidberg"/>
+
+            <Space
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="1"/>
+
+            <ImageView
+              android:layout_width="16dp"
+              android:layout_height="16dp"
+              android:src="@drawable/outline_comments"
+              app:tint="@android:color/white"/>
+
+            <ImageView
+              android:layout_width="16dp"
+              android:layout_height="16dp"
+              android:layout_marginStart="16dp"
+              android:src="@drawable/outline_attachment"
+              app:tint="@android:color/white"/>
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="4dp"
+              android:text="8"
+              android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+          </LinearLayout>
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+    </LinearLayout>
+  </androidx.core.widget.NestedScrollView>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?colorSurface"
+    android:orientation="horizontal"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
+    android:paddingBottom="12dp"
+    app:layout_anchor="@id/scrollView"
+    app:layout_anchorGravity="bottom">
+
+    <FrameLayout
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="3">
+
+      <ImageView
+        style="@style/Widget.Navigation"
+        android:src="@drawable/fill_home"
+        app:tint="?colorPrimary"/>
+    </FrameLayout>
+
+    <FrameLayout
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="3">
+
+      <ImageView
+        style="@style/Widget.Navigation"
+        android:src="@drawable/outline_folder"/>
+    </FrameLayout>
+
+    <FrameLayout
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="4">
+
+      <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:src="@drawable/outline_add"
+        app:backgroundTint="@android:color/white"
+        app:tint="@android:color/black"/>
+    </FrameLayout>
+
+    <FrameLayout
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="3">
+
+      <ImageView
+        style="@style/Widget.Navigation"
+        android:src="@drawable/outline_chat"/>
+    </FrameLayout>
+
+    <FrameLayout
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="3">
+
+      <ImageView
+        style="@style/Widget.Navigation"
+        android:src="@drawable/outline_profile"/>
+    </FrameLayout>
+  </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

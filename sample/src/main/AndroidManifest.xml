@@ -1,30 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:ignore="MissingApplicationIcon">
 
-    <application
-        android:name=".App"
-        android:label="collapsingtoolbarlayout-subtitle"
-        android:theme="@style/Theme.Material3.DayNight.NoActionBar">
+  <application
+    android:name=".App"
+    android:allowBackup="true"
+    android:supportsRtl="true"
+    android:title="SubtitleCollapsingToolbarLayout Sample">
 
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:forceDarkAllowed="true"
-            tools:targetApi="q">
+    <activity
+      android:name=".dynamic.DynamicActivity"
+      android:exported="true"
+      android:forceDarkAllowed="true"
+      android:theme="@style/Theme.Material3.DayNight.NoActionBar"
+      tools:targetApi="q">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+    </activity>
+    <activity
+      android:name=".dynamic.DummyActivity"
+      android:exported="true"
+      android:forceDarkAllowed="true"
+      android:theme="@style/Theme.Material3.DayNight.NoActionBar"
+      tools:targetApi="q"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".DummyActivity"
-            android:exported="true"
-            android:forceDarkAllowed="true"
-            tools:targetApi="q"/>
-    </application>
+    <!-- https://dribbble.com/shots/20767519-Task-Management-App-iOS-Android-UI/ -->
+    <activity
+      android:name=".static.HomeActivity"
+      android:exported="true"
+      android:theme="@style/Theme.Static"/>
+    <activity
+      android:name=".static.TaskActivity"
+      android:exported="true"
+      android:theme="@style/Theme.Static"/>
+  </application>
 </manifest>

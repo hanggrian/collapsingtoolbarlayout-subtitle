@@ -1,13 +1,15 @@
-[![Travis CI](https://img.shields.io/travis/com/hendraanggrian/collapsingtoolbarlayout-subtitle)](https://travis-ci.com/github/hendraanggrian/collapsingtoolbarlayout-subtitle/)
-[![Codecov](https://img.shields.io/codecov/c/github/hendraanggrian/collapsingtoolbarlayout-subtitle)](https://codecov.io/gh/hendraanggrian/collapsingtoolbarlayout-subtitle/)
-[![Maven Central](https://img.shields.io/maven-central/v/com.hendraanggrian.material/collapsingtoolbarlayout-subtitle)](https://repo1.maven.org/maven2/com/hendraanggrian/material/collapsingtoolbarlayout-subtitle/)
-[![Nexus Snapshot](https://img.shields.io/nexus/s/com.hendraanggrian.material/collapsingtoolbarlayout-subtitle?server=https%3A%2F%2Fs01.oss.sonatype.org)](https://s01.oss.sonatype.org/content/repositories/snapshots/com/hendraanggrian/material/collapsingtoolbarlayout-subtitle/)
-[![Android SDK](https://img.shields.io/badge/sdk-14%2B-informational)](https://developer.android.com/studio/releases/platforms/#4.0)
+[![CircleCI](https://img.shields.io/circleci/build/gh/hanggrian/collapsingtoolbarlayout-subtitle)](https://app.circleci.com/pipelines/github/hanggrian/collapsingtoolbarlayout-subtitle/)
+[![Codecov](https://img.shields.io/codecov/c/gh/hanggrian/collapsingtoolbarlayout-subtitle)](https://app.codecov.io/gh/hanggrian/collapsingtoolbarlayout-subtitle/)
+[![Maven Central](https://img.shields.io/maven-central/v/com.hendraanggrian.material/collapsingtoolbarlayout-subtitle)](https://central.sonatype.com/artifact/com.hendraanggrian.material/collapsingtoolbarlayout-subtitle/)
+[![Android SDK](https://img.shields.io/badge/sdk-14%2B-informational)](https://developer.android.com/studio/releases/platforms/#4.0) \
+[![Figma](https://img.shields.io/badge/design-figma-f24e1e)](https://www.figma.com/community/file/1504588079447609935/)
+[![Layers](https://img.shields.io/badge/showcase-layers-000)](https://layers.to/layers/cmap7zppt0008ii0cdrujw1wl/)
+[![Pinterest](https://img.shields.io/badge/pin-pinterest-bd081c)](https://www.pinterest.com/pin/1107322627133947562/)
 
 # SubtitleCollapsingToolbarLayout
 
-![Material preview.](https://github.com/hendraanggrian/collapsingtoolbarlayout-subtitle/raw/assets/preview_material.gif)
-![Material You preview.](https://github.com/hendraanggrian/collapsingtoolbarlayout-subtitle/raw/assets/preview_material3.gif)
+![](https://github.com/hendraanggrian/collapsingtoolbarlayout-subtitle/raw/assets/preview_material.gif "Material preview")
+![](https://github.com/hendraanggrian/collapsingtoolbarlayout-subtitle/raw/assets/preview_material3.gif "Material You preview")
 
 A carbon copy of [CollapsingToolbarLayout](https://developer.android.com/reference/com/google/android/material/appbar/CollapsingToolbarLayout/)
 with subtitle support. During collapsed state, the subtitle would still appear
@@ -50,33 +52,33 @@ Treat `SubtitleCollapsingToolbarLayout` just like a regular
 
 ```xml
 <androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <com.google.android.material.appbar.AppBarLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:contentScrim="?colorPrimary"
+      app:layout_scrollFlags="scroll|exitUntilCollapsed"
+      app:subtitle="Papua, Indonesia"
+      app:title="Raja Ampat">
+
+      <!-- collapsing toolbar content goes here -->
+
+      <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="?actionBarSize"
+        app:layout_collapseMode="pin"/>
+    </android.support.design.widget.SubtitleCollapsingToolbarLayout>
+  </com.google.android.material.appbar.AppBarLayout>
 
-        <com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:contentScrim="?colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:subtitle="Papua, Indonesia"
-            app:title="Raja Ampat">
-
-            <!-- collapsing toolbar content goes here -->
-
-            <androidx.appcompat.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                app:layout_collapseMode="pin"/>
-        </android.support.design.widget.SubtitleCollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <!-- content goes here -->
+  <!-- content goes here -->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 ```
@@ -94,7 +96,7 @@ By default, medium style is applied. To use large style, reference an attribute
 
 ```xml
 <com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
-    style="?attr/subtitleCollapsingToolbarLayoutLargeStyle"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+  style="?attr/subtitleCollapsingToolbarLayoutLargeStyle"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"/>
 ```

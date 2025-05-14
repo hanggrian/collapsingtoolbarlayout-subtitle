@@ -1,44 +1,45 @@
 [versions]
-jdk = "17" # min for android
-checkstyle = "8.45.1"
-kotlin = "1.9.10"
-sdk-min = "14"
-sdk-target = "34"
-android-plugin = "8.1.4"
-androidx = "1.6.0"
-androidx-test = "1.5.0"
-auto-prefs = "0.1-SNAPSHOT"
+jdk = "21"
+jre = "8"
+checkstyle = "10.18.1"
+kotlin = "2.1.0"
+sdk-min = "21"
+sdk-target = "36"
+android-plugin = "8.10.0"
+ktlint = "1.5.0"
 color-preference = "1.1.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-plugin" }
 android-library = { id = "com.android.library", version.ref = "android-plugin" }
-dokka = { id = "org.jetbrains.dokka", version.ref = "kotlin" }
-maven-publish = "com.vanniktech.maven.publish.base:0.25.3"
-git-publish = "org.ajoberstar.git-publish:4.2.0"
-pages = "com.hendraanggrian.pages:0.1"
+ktlint = "org.jlleitschuh.gradle.ktlint:12.2.0"
+maven-publish = "com.vanniktech.maven.publish.base:0.31.0"
+git-publish = "org.ajoberstar.git-publish:5.1.1"
+pages = "com.hanggrian.pages:0.2"
 
 [libraries]
 # lint
-rulebook-checkstyle = "com.hendraanggrian.rulebook:rulebook-checkstyle:0.4"
+rulebook-checkstyle = "com.hanggrian.rulebook:rulebook-checkstyle:0.1"
+rulebook-ktlint = "com.hanggrian.rulebook:rulebook-ktlint:0.1"
 # main
-kotlinx-coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
-material = { module = "com.google.android.material:material", version.ref = "androidx" }
-androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx" }
-androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx" }
+material = "com.google.android.material:material:1.6.0"
+androidx-preference-ktx = "androidx.preference:preference-ktx:1.2.1"
+androidx-core-ktx = "androidx.core:core-ktx:1.16.0"
 androidx-multidex = "androidx.multidex:multidex:2.0.1"
-process-phoenix = "com.jakewharton:process-phoenix:2.1.2"
-auto-prefs-android = { module = "com.hendraanggrian.auto:prefs-android", version.ref = "auto-prefs" }
-auto-prefs-compiler = { module = "com.hendraanggrian.auto:prefs-compiler", version.ref = "auto-prefs" }
-color-preference-core = { module = "com.github.kizitonwose.colorpreference:core", version.ref = "color-preference" }
-color-preference-support = { module = "com.github.kizitonwose.colorpreference:support", version.ref = "color-preference" }
+process-phoenix = "com.jakewharton:process-phoenix:3.0.0"
+roundedimageview = "com.makeramen:roundedimageview:2.3.0"
 # test
-androidx-test-core = { module = "androidx.test:core", version.ref = "androidx-test" }
-androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test" }
-androidx-test-junit = "androidx.test.ext:junit:1.1.3"
-robolectric = "org.robolectric:robolectric:4.9.2"
-truth = "com.google.truth:truth:1.1.3"
+androidx-test-core = "androidx.test:core:1.6.1"
+androidx-test-runner = "androidx.test:runner:1.6.2"
+androidx-test-junit = "androidx.test.ext:junit:1.2.1"
+robolectric = "org.robolectric:robolectric:4.14.1"
+truth = "com.google.truth:truth:1.4.4"
 
 [bundles]
-androidx-test = ["androidx-test-core", "androidx-test-runner", "androidx-test-junit", "robolectric", "truth"]
-color-preference = ["color-preference-core", "color-preference-support"]
+androidx-test = [
+  "androidx-test-core",
+  "androidx-test-runner",
+  "androidx-test-junit",
+  "robolectric",
+  "truth",
+]

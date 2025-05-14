@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <string-array name="collapse_modes">
-        <item>Scale</item>
-        <item>Fade</item>
-    </string-array>
+  <string-array name="collapse_modes">
+    <item>Scale</item>
+    <item>Fade</item>
+  </string-array>
 
-    <string-array name="collapse_mode_values">
-        <item>0</item>
-        <item>1</item>
-    </string-array>
+  <string-array name="collapse_mode_values">
+    <item>0</item>
+    <item>1</item>
+  </string-array>
 
-    <string-array name="gravities">
-        <item>Left</item>
-        <item>Top</item>
-        <item>Right</item>
-        <item>Bottom</item>
-        <item>Center</item>
-        <item>Center horizontal</item>
-        <item>Center vertical</item>
-    </string-array>
+  <string-array name="gravities">
+    <item>Left</item>
+    <item>Top</item>
+    <item>Right</item>
+    <item>Bottom</item>
+    <item>Center</item>
+    <item>Center horizontal</item>
+    <item>Center vertical</item>
+  </string-array>
 
-    <string-array name="gravity_values">
-        <item>3</item>
-        <item>48</item>
-        <item>5</item>
-        <item>80</item>
-        <item>17</item>
-        <item>1</item>
-        <item>16</item>
-    </string-array>
+  <string-array name="gravity_values">
+    <item>3</item>
+    <item>48</item>
+    <item>5</item>
+    <item>80</item>
+    <item>17</item>
+    <item>1</item>
+    <item>16</item>
+  </string-array>
 
-    <string-array name="line_spacings">
-        <item>0.0</item>
-        <item>0.5</item>
-        <item>1.0</item>
-        <item>1.5</item>
-        <item>2.0</item>
-    </string-array>
+  <string-array name="line_spacings">
+    <item>0.0</item>
+    <item>0.5</item>
+    <item>1.0</item>
+    <item>1.5</item>
+    <item>2.0</item>
+  </string-array>
 
-    <string-array name="hyphenation_frequencies">
-        <item>None</item>
-        <item>Normal</item>
-        <item>Full</item>
-    </string-array>
+  <string-array name="hyphenation_frequencies">
+    <item>None</item>
+    <item>Normal</item>
+    <item>Full</item>
+  </string-array>
 
-    <string-array name="hyphenation_frequency_values">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
+  <string-array name="hyphenation_frequency_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+  </string-array>
 </resources>

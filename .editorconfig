@@ -14,7 +14,18 @@ max_line_length = 80
 [*.{kt,kts}]
 indent_size = 4
 max_line_length = 100
+ij_kotlin_packages_to_use_import_on_demand = unset
+ij_kotlin_name_count_to_use_star_import = 99
+ij_kotlin_name_count_to_use_star_import_for_members = 99
+ktlint_code_style = ktlint_official
+ktlint_standard = enabled
+ktlint_class_signature_rule_force_multiline_when_parameter_count_greater_or_equal_than = unset
+ktlint_function_signature_rule_force_multiline_when_parameter_count_greater_or_equal_than = unset
+ktlint_chain_method_rule_force_multiline_when_chain_operator_count_greater_or_equal_than = unset
 
+# follows Google Java Style Guide because this project is closely related to Material Components
 [*.java]
-continuation_indent_size = 4
 max_line_length = 100
+ij_java_use_single_class_imports = true
+ij_java_class_count_to_use_import_on_demand = 99
+ij_java_names_count_to_use_import_on_demand = 99

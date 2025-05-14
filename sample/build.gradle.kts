@@ -1,12 +1,20 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 val releaseArtifact: String by project
 
+val jdkVersion = JavaLanguageVersion.of(libs.versions.jdk.get())
+val jreVersion = JavaLanguageVersion.of(libs.versions.jre.get())
+
 plugins {
-    alias(libs.plugins.android.application)
     kotlin("android") version libs.versions.kotlin
-    kotlin("kapt") version libs.versions.kotlin
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.ktlint)
 }
 
-kotlin.jvmToolchain(libs.versions.jdk.get().toInt())
+kotlin.jvmToolchain(jdkVersion.asInt())
+
+ktlint.version.set(libs.versions.ktlint.get())
 
 android {
     namespace = "com.example"
@@ -15,8 +23,6 @@ android {
         applicationId = "com.example"
         multiDexEnabled = true
     }
-    lint.abortOnError = false
-    kotlinOptions.jvmTarget = JavaVersion.toVersion(libs.versions.jdk.get()).toString()
 }
 
 // hotfix: duplicate class androidx.lifecycle.viewmodel
@@ -29,10 +35,14 @@ dependencies {
     implementation(project(":$releaseArtifact"))
     implementation(libs.material)
     implementation(libs.androidx.multidex)
+    implementation(libs.androidx.preference.ktx)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.roundedimageview)
     implementation(libs.process.phoenix)
+}
 
-    implementation(libs.auto.prefs.android)
-    kapt(libs.auto.prefs.compiler)
-
-    implementation(libs.bundles.color.preference)
+tasks.withType<KotlinCompile>().configureEach {
+    compilerOptions
+        .jvmTarget
+        .set(JvmTarget.fromTarget(JavaVersion.toVersion(jreVersion).toString()))
 }

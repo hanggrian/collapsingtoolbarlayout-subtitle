@@ -1,10 +1,5 @@
 package com.google.android.material.appbar;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import android.animation.TimeInterpolator;
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -20,8 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.WindowInsetsCompat;
-import com.hendraanggrian.material.collapsingtoolbarlayoutsubtitle.ScrimTester;
-import com.hendraanggrian.material.collapsingtoolbarlayoutsubtitle.TestActivity;
+import com.hanggrian.collapsingtoolbarlayoutsubtitle.ScrimTester;
+import com.hanggrian.collapsingtoolbarlayoutsubtitle.TestActivity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,6 +24,11 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.annotation.internal.DoNotInstrument;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for {@link SubtitleCollapsingToolbarLayout}, sorted by original class.
@@ -39,6 +39,65 @@ import org.robolectric.annotation.internal.DoNotInstrument;
 public class SubtitleCollapsingToolbarLayoutTest {
   private AppCompatActivity activity;
   private SubtitleCollapsingToolbarLayout layout;
+
+  private final ScrimTester contentScrim =
+    new ScrimTester() {
+      @NonNull
+      @Override
+      public Context getContext() {
+        return activity;
+      }
+
+      @Override
+      public void set(@Nullable Drawable drawable) {
+        layout.setContentScrim(drawable);
+      }
+
+      @Override
+      public void setColor(int color) {
+        layout.setContentScrimColor(color);
+      }
+
+      @Override
+      public void setResources(int res) {
+        layout.setContentScrimResource(res);
+      }
+
+      @Nullable
+      @Override
+      public Drawable get() {
+        return layout.getContentScrim();
+      }
+    };
+  private final ScrimTester statusBarScrim =
+    new ScrimTester() {
+      @NonNull
+      @Override
+      public Context getContext() {
+        return activity;
+      }
+
+      @Override
+      public void set(@Nullable Drawable drawable) {
+        layout.setStatusBarScrim(drawable);
+      }
+
+      @Override
+      public void setColor(int color) {
+        layout.setStatusBarScrimColor(color);
+      }
+
+      @Override
+      public void setResources(int res) {
+        layout.setStatusBarScrimResource(res);
+      }
+
+      @Nullable
+      @Override
+      public Drawable get() {
+        return layout.getStatusBarScrim();
+      }
+    };
 
   @Before
   public void setup() {
@@ -147,8 +206,12 @@ public class SubtitleCollapsingToolbarLayoutTest {
 
   @Test
   public void margin() {
-    float defaultMargin = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP, 32f, activity.getResources().getDisplayMetrics());
+    float defaultMargin =
+      TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        32f,
+        activity.getResources().getDisplayMetrics()
+      );
     assertEquals(defaultMargin, layout.getExpandedTitleMarginStart(), 0);
     assertEquals(defaultMargin, layout.getExpandedTitleMarginTop(), 0);
     assertEquals(defaultMargin, layout.getExpandedTitleMarginEnd(), 0);
@@ -213,61 +276,4 @@ public class SubtitleCollapsingToolbarLayoutTest {
     layout.setTitlePositionInterpolator(interpolator);
     assertEquals(interpolator, layout.getTitlePositionInterpolator());
   }
-
-  private final ScrimTester contentScrim = new ScrimTester() {
-    @NonNull
-    @Override
-    public Context getContext() {
-      return activity;
-    }
-
-    @Override
-    public void set(@Nullable Drawable drawable) {
-      layout.setContentScrim(drawable);
-    }
-
-    @Override
-    public void setColor(int color) {
-      layout.setContentScrimColor(color);
-    }
-
-    @Override
-    public void setResources(int res) {
-      layout.setContentScrimResource(res);
-    }
-
-    @Nullable
-    @Override
-    public Drawable get() {
-      return layout.getContentScrim();
-    }
-  };
-  private final ScrimTester statusBarScrim = new ScrimTester() {
-    @NonNull
-    @Override
-    public Context getContext() {
-      return activity;
-    }
-
-    @Override
-    public void set(@Nullable Drawable drawable) {
-      layout.setStatusBarScrim(drawable);
-    }
-
-    @Override
-    public void setColor(int color) {
-      layout.setStatusBarScrimColor(color);
-    }
-
-    @Override
-    public void setResources(int res) {
-      layout.setStatusBarScrimResource(res);
-    }
-
-    @Nullable
-    @Override
-    public Drawable get() {
-      return layout.getStatusBarScrim();
-    }
-  };
 }

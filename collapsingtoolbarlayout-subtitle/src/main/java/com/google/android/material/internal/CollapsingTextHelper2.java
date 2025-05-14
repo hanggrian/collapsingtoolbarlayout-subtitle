@@ -1,12 +1,5 @@
 package com.google.android.material.internal;
 
-import static android.text.Layout.Alignment.ALIGN_CENTER;
-import static android.text.Layout.Alignment.ALIGN_NORMAL;
-import static android.text.Layout.Alignment.ALIGN_OPPOSITE;
-import static androidx.core.util.Preconditions.checkNotNull;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-
 import android.animation.TimeInterpolator;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
@@ -44,6 +37,13 @@ import com.google.android.material.resources.CancelableFontCallback.ApplyFont;
 import com.google.android.material.resources.TextAppearance;
 import com.google.android.material.resources.TypefaceUtils;
 
+import static android.text.Layout.Alignment.ALIGN_CENTER;
+import static android.text.Layout.Alignment.ALIGN_NORMAL;
+import static android.text.Layout.Alignment.ALIGN_OPPOSITE;
+import static androidx.core.util.Preconditions.checkNotNull;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
 /**
  * Helper class for rendering and animating collapsed title and subtitle.
  *
@@ -52,7 +52,6 @@ import com.google.android.material.resources.TypefaceUtils;
  * @see CollapsingTextHelper
  */
 public final class CollapsingTextHelper2 {
-
   // Pre-JB-MR2 doesn't support HW accelerated canvas scaled text so we will workaround it
   // by using our own texture
   private static final boolean USE_SCALING_TEXTURE = VERSION.SDK_INT < 18;
@@ -805,7 +804,7 @@ public final class CollapsingTextHelper2 {
     }
   }
 
-  public final boolean setState(final int[] state) {
+  public boolean setState(final int[] state) {
     this.state = state;
 
     if (isStateful()) {
@@ -816,7 +815,7 @@ public final class CollapsingTextHelper2 {
     return false;
   }
 
-  public final boolean isStateful() {
+  public boolean isStateful() {
     return (collapsedTextColor != null && collapsedTextColor.isStateful())
         || (collapsedTextColor2 != null && collapsedTextColor2.isStateful())
         || (expandedTextColor != null && expandedTextColor.isStateful())
@@ -1798,7 +1797,7 @@ public final class CollapsingTextHelper2 {
   }
 
   /**
-   * Set the title to display
+   * Set the title to display.
    *
    * @param text
    */
@@ -1812,7 +1811,7 @@ public final class CollapsingTextHelper2 {
   }
 
   /**
-   * Set the subtitle to display
+   * Set the subtitle to display.
    *
    * @param text
    */

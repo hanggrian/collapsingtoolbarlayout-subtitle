@@ -1,15 +1,18 @@
 package com.example
 
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
 import androidx.multidex.MultiDexApplication
 import androidx.preference.PreferenceManager
+import com.example.dynamic.PREFERENCE_THEME
 
 class App : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
-        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
         AppCompatDelegate.setDefaultNightMode(
-            preferences.getInt("theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            PreferenceManager
+                .getDefaultSharedPreferences(this)
+                .getInt(PREFERENCE_THEME, MODE_NIGHT_FOLLOW_SYSTEM),
         )
     }
 }

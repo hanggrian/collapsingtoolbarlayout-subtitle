@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:ignore="HardcodedText">
+
+  <item android:title="Theme">
+    <menu>
+      <group android:checkableBehavior="single">
+        <item
+          android:id="@+id/defaultThemeItem"
+          android:title="Default"
+          app:showAsAction="never"/>
+        <item
+          android:id="@+id/lightThemeItem"
+          android:title="Light"
+          app:showAsAction="never"/>
+        <item
+          android:id="@+id/darkThemeItem"
+          android:title="Dark"
+          app:showAsAction="never"/>
+      </group>
+    </menu>
+  </item>
+
+  <item
+    android:id="@+id/resetItem"
+    android:title="Reset"
+    app:showAsAction="never"/>
+
+  <item
+    android:id="@+id/compareToRegularItem"
+    android:title="Compare to Regular"
+    app:showAsAction="never"/>
+</menu>

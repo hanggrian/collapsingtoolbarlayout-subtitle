@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <androidx.preference.ListPreference
-        android:entries="@array/collapse_modes"
-        android:entryValues="@array/collapse_mode_values"
-        android:icon="@drawable/ic_collapse_mode"
-        android:key="collapseMode"
-        android:title="Collapsed Mode"/>
-    <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
-        android:defaultValue="@android:color/transparent"
-        android:icon="@drawable/ic_color"
-        android:key="statusBarScrim"
-        android:title="Status Bar Scrim"/>
-    <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
-        android:defaultValue="@android:color/transparent"
-        android:key="contentScrim"
-        android:title="Content Scrim"/>
-    <androidx.preference.MultiSelectListPreference
-        android:entries="@array/gravities"
-        android:entryValues="@array/gravity_values"
-        android:icon="@drawable/ic_gravity"
-        android:key="collapsedGravity"
-        android:title="Collapsed Gravity"/>
-    <androidx.preference.MultiSelectListPreference
-        android:entries="@array/gravities"
-        android:entryValues="@array/gravity_values"
-        android:key="expandedGravity"
-        android:title="Expanded Gravity"/>
+  <androidx.preference.ListPreference
+    android:entries="@array/collapse_modes"
+    android:entryValues="@array/collapse_mode_values"
+    android:icon="@drawable/outline_collapse_mode"
+    android:key="collapse_mode"
+    android:title="Collapsed Mode"/>
+  <androidx.preference.EditTextPreference
+    android:defaultValue="#00000000"
+    android:icon="@drawable/outline_color"
+    android:key="status_bar_scrim"
+    android:title="Status Bar Scrim"/>
+  <androidx.preference.EditTextPreference
+    android:defaultValue="#00000000"
+    android:key="content_scrim"
+    android:title="Content Scrim"/>
+  <androidx.preference.MultiSelectListPreference
+    android:entries="@array/gravities"
+    android:entryValues="@array/gravity_values"
+    android:icon="@drawable/outline_gravity"
+    android:key="collapsed_gravity"
+    android:title="Collapsed Gravity"/>
+  <androidx.preference.MultiSelectListPreference
+    android:entries="@array/gravities"
+    android:entryValues="@array/gravity_values"
+    android:key="expanded_gravity"
+    android:title="Expanded Gravity"/>
 
-    <androidx.preference.PreferenceCategory android:title="Expanded Margin">
-        <androidx.preference.SeekBarPreference
-            android:defaultValue="0"
-            android:icon="@drawable/ic_margin_left"
-            android:key="expandedMarginLeft"
-            android:max="10"
-            android:title="Left Margin"/>
-        <androidx.preference.SeekBarPreference
-            android:defaultValue="0"
-            android:icon="@drawable/ic_margin_top"
-            android:key="expandedMarginTop"
-            android:max="10"
-            android:title="Top Margin"/>
-        <androidx.preference.SeekBarPreference
-            android:defaultValue="0"
-            android:icon="@drawable/ic_margin_right"
-            android:key="expandedMarginRight"
-            android:max="10"
-            android:title="Right Margin"/>
-        <androidx.preference.SeekBarPreference
-            android:defaultValue="0"
-            android:icon="@drawable/ic_margin_bottom"
-            android:key="expandedMarginBottom"
-            android:max="10"
-            android:title="Bottom Margin"/>
-    </androidx.preference.PreferenceCategory>
+  <androidx.preference.PreferenceCategory android:title="Expanded Margin">
+    <androidx.preference.SeekBarPreference
+      android:defaultValue="0"
+      android:icon="@drawable/outline_margin_left"
+      android:key="expanded_margin_left"
+      android:max="10"
+      android:title="Left Margin"/>
+    <androidx.preference.SeekBarPreference
+      android:defaultValue="0"
+      android:icon="@drawable/outline_margin_top"
+      android:key="expanded_margin_top"
+      android:max="10"
+      android:title="Top Margin"/>
+    <androidx.preference.SeekBarPreference
+      android:defaultValue="0"
+      android:icon="@drawable/outline_margin_right"
+      android:key="expanded_margin_right"
+      android:max="10"
+      android:title="Right Margin"/>
+    <androidx.preference.SeekBarPreference
+      android:defaultValue="0"
+      android:icon="@drawable/outline_margin_bottom"
+      android:key="expanded_margin_bottom"
+      android:max="10"
+      android:title="Bottom Margin"/>
+  </androidx.preference.PreferenceCategory>
 </androidx.preference.PreferenceScreen>
